@@ -1,5 +1,7 @@
 @import "../../mixins/bem.scss";
+@import "../../mixins/button.scss";
 @import "variables.scss";
+
 
 @include b(button) {
     -webkit-appearance: none;

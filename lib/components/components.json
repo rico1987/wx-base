@@ -1,4 +1,10 @@
 {
+    "alert": "./alert/index.js",
+    "aside": "./aside/index.js",
+    "button": "./button/index.js",
+    "container": "./container/index.js",
+    "dialog": "./dialog/index.js",
+    "main": "./main/index.js",
     "card": "./card/index.js",
     "footer": "./footer/index.js"
 }

@@ -85,7 +85,7 @@ export default {
                 style.marginTop = this.top;
             }
             return style;
-        }
+        },
     },
 
     methods: {
@@ -99,14 +99,13 @@ export default {
 
         hide() {
 
-        }
+        },
     },
 
     destroyed() {
         if (this.appendToBody && this.$el && this.$el.parentNode) {
             this.$el.parentNode.removeChild(this.$el);
         }
-    }
-
-}
+    },
+};
 </script>

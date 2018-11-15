@@ -1,12 +1,5 @@
 <template>
-    <div
-        :class="[
-            type === "textarea" ? "wx-textarea" : "wx-input",
-            inputSize ? 'wx-input--' + inputSize : '',
-
-        ]"
-
-    >
+    <div>
     </div>
 </template>
 
@@ -21,11 +14,6 @@ export default {
     },
 
     props() {
-        value: [String, Number],
-        type: {
-            type: String,
-            default: 'text',
-        },
     },
-}
+};
 </script>

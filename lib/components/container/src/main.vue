@@ -27,8 +27,7 @@ export default {
                     return tag === 'wx-header' || tag === 'wx-footer';
                 })
                 : false;
-        }
-    }
-
-}
+        },
+    },
+};
 </script>

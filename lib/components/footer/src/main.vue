@@ -6,15 +6,15 @@
 
 <script>
 export default {
-  name: 'WxFooter',
-  
-  componentName: 'WxFooter',
+    name: 'WxFooter',
 
-  props: {
-    height: {
-      type: String,
-      default: '60px'
-    }
-  }
-}
+    componentName: 'WxFooter',
+
+    props: {
+        height: {
+            type: String,
+            default: '60px',
+        },
+    },
+};
 </script>

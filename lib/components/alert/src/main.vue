@@ -78,13 +78,13 @@ export default {
     data() {
         return {
             visible: true,
-        }
+        };
     },
 
     methods: {
         handleClick(evt) {
             this.$emit('click', evt);
-        }
-    }
-}
+        },
+    },
+};
 </script>

@@ -9,5 +9,5 @@ export default {
     name: 'WxMain',
 
     componentName: 'WxMain',
-}
+};
 </script>

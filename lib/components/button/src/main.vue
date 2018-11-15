@@ -30,25 +30,25 @@ export default {
 
     inject: {
         wxForm: {
-            default: ''
+            default: '',
         },
         wxFormItem: {
-            default: ''
-        }
+            default: '',
+        },
     },
 
     props: {
         type: {
             type: String,
-            default: 'default'
+            default: 'default',
         },
         size: {
             type: String,
-            default: 'default'
+            default: 'default',
         },
         icon: {
             type: String,
-            default: ''
+            default: '',
         },
         loading: Boolean,
         disabled: Boolean,
@@ -67,13 +67,13 @@ export default {
         },
         buttonDisabled() {
             return this.disabled || (this.wxForm || {}).disabled;
-        }
+        },
     },
 
     methods: {
         handleClick(evt) {
             this.$emit('click', evt);
-        }
-    }
-}
+        },
+    },
+};
 </script>

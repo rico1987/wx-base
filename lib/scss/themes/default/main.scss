@@ -1,0 +1,10 @@
+@import "../../mixins/bem.scss";
+@import "variables.scss";
+
+@include b(main) {
+    flex: 1;
+    flex-basis: auto;
+    overflow: auto;
+    box-sizing: border-box;
+    padding: $main-padding;
+}

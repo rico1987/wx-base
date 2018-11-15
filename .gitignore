@@ -1,0 +1,6 @@
+*.iml
+.idea
+.tscache
+.DS_Store
+dist/
+node_modules/

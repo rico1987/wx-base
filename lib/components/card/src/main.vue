@@ -11,12 +11,12 @@
 
 <script>
 export default {
-  name: 'WxCard',
-  props: {
-    header: {},
-    shadow: {
-      type: String
+    name: 'WxCard',
+    props: {
+        header: {},
+        shadow: {
+        type: String
+        }
     }
-  }
 }
 </script>

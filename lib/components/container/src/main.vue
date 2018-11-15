@@ -11,7 +11,7 @@ export default {
     componentName: 'WxContainer',
 
     props: {
-        direction: String
+        direction: String,
     },
 
     computed: {

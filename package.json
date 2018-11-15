@@ -11,8 +11,8 @@
     "build-components": "cross-env NODE_ENV=production webpack --config build/webpack.component.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "main": "node ./dist/bundle.js",
-    "lint": "eslint lib/**/*.js",
-    "fix": "eslint --fix lib/**/*.js",
+    "lint": "eslint lib/**/**.js lib/**/**.vue",
+    "fix": "eslint --fix lib/**/*",
     "sass:watch": "sass --watch lib/scss/",
     "sass:components": "node-sass ./lib/scss/themes/default/index.scss ./dist/components.css --output-style compressed",
     "clean:node_modules": "rd /s /q node_modules"
@@ -25,6 +25,7 @@
     "@babel/plugin-transform-modules-amd": "^7.1.0",
     "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.1.5",
+    "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.4",
     "babel-preset-env": "^1.7.0",
     "cross-env": "^5.2.0",
@@ -40,11 +41,10 @@
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-react": "^7.11.1",
     "eslint-plugin-standard": "^4.0.0",
+    "eslint-plugin-vue": "^4.7.1",
     "html-loader": "^0.5.5",
-    "json-templater": "^1.2.0",
     "progress-bar-webpack-plugin": "^1.11.0",
     "sass-loader": "^7.1.0",
-    "uppercamelcase": "^3.0.0",
     "vue-loader": "^15.4.2",
     "vue-template-compiler": "^2.5.17",
     "webpack": "^4.25.1",
@@ -52,7 +52,9 @@
     "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.0.0"
+    "json-templater": "^1.2.0",
+    "uppercamelcase": "^3.0.0",
+    "vue": "^2.5.17"
   },
   "browserslist": "> 0.25%, not dead"
 }

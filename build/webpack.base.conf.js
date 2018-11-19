@@ -3,25 +3,14 @@ const path = require('path');
 const webpack = require('webpack');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
-const config = require('./config');
 
 module.exports = {
     resolve: {
         extensions: ['.js', '.vue', '.json'],
-        alias: config.alias,
         modules: ['node_modules']
     },
-    externals: config.externals,
     module: {
         rules: [
-            {
-                test: /\.js$/,
-                loader: 'babel-loader'
-            },
-            {
-                test: /\.vue$/,
-                loader: 'vue-loader'
-            },
             {
                 test: /\.json$/,
                 loader: 'json-loader'

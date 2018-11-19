@@ -20,10 +20,10 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     entry: config.myAccountMobile.entry,
     output: {
         path: config.myAccountMobile.assetsRoot,
-        filename: '[name].js',
-        publicPath: process.env.NODE_ENV === 'production'
-            ? path.join(config.myAccountMobile.baseRoot, config.build.assetsPublicPath)
-            : path.join(config.myAccountMobile.baseRoot, config.dev.assetsPublicPath)
+        filename: 'index_bundle.js',
+        // publicPath: process.env.NODE_ENV === 'production'
+        //     ? path.join(config.myAccountMobile.baseRoot, config.build.assetsPublicPath)
+        //     : path.join(config.myAccountMobile.baseRoot, config.dev.assetsPublicPath)
     },
     resolve: {
         alias: {
@@ -70,7 +70,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
                     name: utils.assetsPath(config.myAccountMobile.baseRoot, 'fonts/[name].[hash:7].[ext]')
                 }
             }
-        ],
+        ].concat(utils.styleLoaders({ sourceMap: config.dev.cssSourceMap, usePostCSS: true })),
     },
     // cheap-module-eval-source-map is faster for development
     devtool: config.dev.devtool,
@@ -101,24 +101,20 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     },
 
     plugins: [
-        new webpack.SourceMapDevToolPlugin({}),
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.NamedModulesPlugin(), // HMR shows correct file names in console on update.
-        new webpack.NoEmitOnErrorsPlugin(),
+        // new webpack.SourceMapDevToolPlugin({}),
+        // new webpack.HotModuleReplacementPlugin(),
+        // new webpack.NamedModulesPlugin(), // HMR shows correct file names in console on update.
+        // new webpack.NoEmitOnErrorsPlugin(),
         // https://github.com/ampedandwired/html-webpack-plugin
-        new HtmlWebpackPlugin({
-            filename: 'index.html',
-            template: 'index.html',
-            inject: true
-        }),
+        new HtmlWebpackPlugin(),
         // copy custom static assets
-        new CopyWebpackPlugin([
-            {
-                from: path.join(config.myAccountMobile.baseRoot, '/static'),
-                to: path.join(config.myAccountMobile.baseRoot, config.dev.assetsSubDirectory),
-                ignore: ['.*']
-            }
-        ])
+        // new CopyWebpackPlugin([
+        //     {
+        //         from: path.join(config.myAccountMobile.baseRoot, '/static'),
+        //         to: path.join(config.myAccountMobile.baseRoot, config.dev.assetsSubDirectory),
+        //         ignore: ['.*']
+        //     }
+        // ])
     ]
 })
 module.exports = new Promise((resolve, reject) => {
@@ -133,14 +129,14 @@ module.exports = new Promise((resolve, reject) => {
             devWebpackConfig.devServer.port = port
 
             // Add FriendlyErrorsPlugin
-            devWebpackConfig.plugins.push(new FriendlyErrorsPlugin({
-                compilationSuccessInfo: {
-                messages: [`Your application is running here: http://${devWebpackConfig.devServer.host}:${port}`],
-                },
-                onErrors: config.dev.notifyOnErrors
-                ? utils.createNotifierCallback()
-                : undefined
-            }))
+            // devWebpackConfig.plugins.push(new FriendlyErrorsPlugin({
+            //     compilationSuccessInfo: {
+            //     messages: [`Your application is running here: http://${devWebpackConfig.devServer.host}:${port}`],
+            //     },
+            //     onErrors: config.dev.notifyOnErrors
+            //     ? utils.createNotifierCallback()
+            //     : undefined
+            // }))
 
             resolve(devWebpackConfig)
         }

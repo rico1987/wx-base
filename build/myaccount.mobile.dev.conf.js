@@ -14,16 +14,15 @@ const vueLoaderConfig = require('./vue-loader.conf')
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
 
-
 const devWebpackConfig = merge(baseWebpackConfig, {
     mode: "development",
     entry: config.myAccountMobile.entry,
     output: {
         path: config.myAccountMobile.assetsRoot,
-        filename: 'index_bundle.js',
-        // publicPath: process.env.NODE_ENV === 'production'
-        //     ? path.join(config.myAccountMobile.baseRoot, config.build.assetsPublicPath)
-        //     : path.join(config.myAccountMobile.baseRoot, config.dev.assetsPublicPath)
+        filename: '[name].js',
+        publicPath: process.env.NODE_ENV === 'production'
+            ? config.build.assetsPublicPath
+            : config.dev.assetsPublicPath
     },
     resolve: {
         alias: {
@@ -78,11 +77,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     // these devServer options should be customized in /config/index.js
     devServer: {
         clientLogLevel: 'warning',
-        historyApiFallback: {
-            rewrites: [
-                { from: /.*/, to: path.posix.join(config.myAccountMobile.baseRoot, config.dev.assetsPublicPath, 'index.html') },
-            ],
-        },
+        historyApiFallback: true,
         hot: true,
         contentBase: false, // since we use CopyWebpackPlugin.
         compress: true,
@@ -92,29 +87,35 @@ const devWebpackConfig = merge(baseWebpackConfig, {
         overlay: config.dev.errorOverlay
             ? { warnings: false, errors: true }
             : false,
-        publicPath: path.posix.join(config.myAccountMobile.baseRoot, config.dev.assetsPublicPath),
+        publicPath: path.join(config.myAccountMobile.baseRoot, config.dev.assetsPublicPath),
         proxy: config.dev.proxyTable,
         quiet: true, // necessary for FriendlyErrorsPlugin
         watchOptions: {
-        poll: config.dev.poll,
+            poll: config.dev.poll,
         }
     },
 
     plugins: [
-        // new webpack.SourceMapDevToolPlugin({}),
-        // new webpack.HotModuleReplacementPlugin(),
-        // new webpack.NamedModulesPlugin(), // HMR shows correct file names in console on update.
-        // new webpack.NoEmitOnErrorsPlugin(),
+        new webpack.SourceMapDevToolPlugin({}),
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NamedModulesPlugin(), // HMR shows correct file names in console on update.
+        new webpack.NoEmitOnErrorsPlugin(),
         // https://github.com/ampedandwired/html-webpack-plugin
-        new HtmlWebpackPlugin(),
+        new HtmlWebpackPlugin({
+            filename: 'index.html',
+            template: 'index.html',
+            inject: true,
+            title: 'my Account',
+            path: path.join(config.myAccountMobile.baseRoot, config.dev.assetsPublicPath + config.dev.assetsSubDirectory)
+        }),
         // copy custom static assets
-        // new CopyWebpackPlugin([
-        //     {
-        //         from: path.join(config.myAccountMobile.baseRoot, '/static'),
-        //         to: path.join(config.myAccountMobile.baseRoot, config.dev.assetsSubDirectory),
-        //         ignore: ['.*']
-        //     }
-        // ])
+        new CopyWebpackPlugin([
+            {
+                from: path.join(config.myAccountMobile.baseRoot, '/static'),
+                to: path.join(config.myAccountMobile.baseRoot, config.dev.assetsSubDirectory),
+                ignore: ['.*']
+            }
+        ])
     ]
 })
 module.exports = new Promise((resolve, reject) => {
@@ -129,14 +130,14 @@ module.exports = new Promise((resolve, reject) => {
             devWebpackConfig.devServer.port = port
 
             // Add FriendlyErrorsPlugin
-            // devWebpackConfig.plugins.push(new FriendlyErrorsPlugin({
-            //     compilationSuccessInfo: {
-            //     messages: [`Your application is running here: http://${devWebpackConfig.devServer.host}:${port}`],
-            //     },
-            //     onErrors: config.dev.notifyOnErrors
-            //     ? utils.createNotifierCallback()
-            //     : undefined
-            // }))
+            devWebpackConfig.plugins.push(new FriendlyErrorsPlugin({
+                compilationSuccessInfo: {
+                messages: [`Your application is running here: http://${devWebpackConfig.devServer.host}:${port}`],
+                },
+                onErrors: config.dev.notifyOnErrors
+                ? utils.createNotifierCallback()
+                : undefined
+            }))
 
             resolve(devWebpackConfig)
         }

@@ -14,7 +14,7 @@
     "lint": "eslint lib/**/**.js lib/**/**.vue",
     "myaccountMobile-lint": "eslint projects/myaccountMobile/src**/**.js projects/src/myaccountMobile/**/**.vue",
     "myaccountMobile-build": "cross-env NODE_ENV=production webpack --config build/myaccount.mobile.dev.conf.js",
-    "myaccountMobile-dev": "webpack-dev-server --inline --progress --config build/myaccount.mobile.dev.conf.js",
+    "myaccountMobile-dev": "cross-env webpack-dev-server --inline --progress --config build-test/webpack.dev.conf.js",
     "fix": "eslint --fix lib/**/*",
     "sass:watch": "sass --watch lib/scss/",
     "sass:components": "node-sass ./lib/scss/themes/default/index.scss ./dist/components.css --output-style compressed",

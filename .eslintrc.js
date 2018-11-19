@@ -1,15 +1,26 @@
-{
-    "extends": [
-        "airbnb",
-        "plugin:vue/essential"
-    ],
-    "parserOptions": {
-      "parser": "babel-eslint",
-      "ecmaFeatures": {
-        "classes": true
-      }
+module.exports = {
+    root: true,
+    parserOptions: {
+        parser: 'babel-eslint',
     },
-    "rules": {
+    env: {
+        browser: true,
+    },
+    // https://github.com/vuejs/eslint-plugin-vue#priority-a-essential-error-prevention
+    // consider switching to `plugin:vue/strongly-recommended` or `plugin:vue/recommended` for stricter rules.
+    extends: ['plugin:vue/essential', 'airbnb-base'],
+    plugins: [
+        'vue'
+    ],
+    // check if imports actually resolve
+    settings: {
+        'import/resolver': {
+            webpack: {
+                config: 'build/webpack.base.conf.js'
+            }
+        }
+    },
+    rules: {
         "accessor-pairs": 2,
         "array-bracket-spacing": 0,
         "block-scoped-var": 0,
@@ -53,7 +64,7 @@
         "no-constant-condition": 0,
         "no-continue": 0,
         "no-control-regex": 2,
-        "no-debugger": 2,
+        "no-debugger": process.env.NODE_ENV === 'production' ? 'error' : 'off',
         "no-delete-var": 2,
         "no-div-regex": 0,
         "no-dupe-args": 2,

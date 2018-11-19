@@ -15,9 +15,7 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.(jsx?|babel|es6)$/,
-                include: process.cwd(),
-                exclude: config.jsexclude,
+                test: /\.js$/,
                 loader: 'babel-loader'
             },
             {
@@ -69,7 +67,7 @@ module.exports = {
     plugins: [
         new ProgressBarPlugin(),
         new webpack.DefinePlugin({
-            'process.env.NODE_ENV': JSON.stringify('production')
+            'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
         }),
         new webpack.LoaderOptionsPlugin({
             minimize: true

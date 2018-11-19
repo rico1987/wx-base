@@ -1,8 +1,12 @@
+import Vue from 'vue';
+import Router from 'vue-router';
 import Layout from '../layout/layout.vue';
 
 let home = require('../pages/Home.vue');
 let login = require('../pages/Login.vue');
 let register = require('../pages/Register.vue');
+
+Vue.use(Router);
 
 export default [{
     path: '/',

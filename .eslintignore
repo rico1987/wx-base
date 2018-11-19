@@ -6,4 +6,3 @@
 /test/unit/coverage/
 {{/unit}}
 /.cache/
-/lib/components/index.js

@@ -13,7 +13,7 @@
     "main": "node ./dist/bundle.js",
     "lint": "eslint lib/**/**.js lib/**/**.vue",
     "lint-myaccountMobile": "eslint projects/myaccountMobile/src**/**.js projects/src/myaccountMobile/**/**.vue",
-    "build-myaccountMobile": "cross-env NODE_ENV=production webpack --config build/webpack.myaccount.mobile.js",
+    "build-myaccountMobile": "cross-env NODE_ENV=production webpack --config build/myaccount.mobile.dev.conf.js",
     "fix": "eslint --fix lib/**/*",
     "sass:watch": "sass --watch lib/scss/",
     "sass:components": "node-sass ./lib/scss/themes/default/index.scss ./dist/components.css --output-style compressed",
@@ -37,6 +37,7 @@
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-config-standard": "^12.0.0",
+    "eslint-import-resolver-webpack": "^0.10.1",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-node": "^8.0.0",
@@ -52,6 +53,7 @@
     "vue-template-compiler": "^2.5.17",
     "webpack": "^4.25.1",
     "webpack-cli": "^3.1.2",
+    "webpack-merge": "^4.1.4",
     "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
@@ -61,5 +63,9 @@
     "vue": "^2.5.17",
     "vue-router": "^3.0.1"
   },
-  "browserslist": "> 0.25%, not dead"
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 9"
+  ]
 }

@@ -1,19 +1,47 @@
-// 公共webpack配置
 const path = require('path');
 const webpack = require('webpack');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
+// const config = require('./config');
 
 module.exports = {
+    mode: "production",
+    entry: "./projects/myaccountMobile/src/main.js",
+    output: {
+        path: path.resolve(process.cwd(), './dist'),
+        filename: "wx-components.js",
+        // library: "WxComponents",
+        // libraryTarget: 'commonjs2',
+    },
     resolve: {
         extensions: ['.js', '.vue', '.json'],
+        // alias: config.alias,
         modules: ['node_modules']
     },
+    // externals: config.externals,
     module: {
         rules: [
             {
+                test: /\.(jsx?|babel|es6)$/,
+                include: process.cwd(),
+                // exclude: config.jsexclude,
+                loader: 'babel-loader'
+            },
+            {
+                test: /\.vue$/,
+                loader: 'vue-loader'
+            },
+            {
                 test: /\.json$/,
                 loader: 'json-loader'
+            },
+            {
+                test: /\.css$/,
+                loaders: ['style-loader', 'css-loader', 'postcss-loader']
+            },
+            {
+                test: /\.scss$/,
+                loaders: ['style-loader', 'css-loader', 'sass-loader']
             },
             {
                 test: /\.html$/,
@@ -48,7 +76,7 @@ module.exports = {
     plugins: [
         new ProgressBarPlugin(),
         new webpack.DefinePlugin({
-            'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+            'process.env.NODE_ENV': JSON.stringify('production')
         }),
         new webpack.LoaderOptionsPlugin({
             minimize: true

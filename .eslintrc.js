@@ -8,7 +8,10 @@ module.exports = {
     },
     // https://github.com/vuejs/eslint-plugin-vue#priority-a-essential-error-prevention
     // consider switching to `plugin:vue/strongly-recommended` or `plugin:vue/recommended` for stricter rules.
-    extends: ['plugin:vue/essential', 'airbnb-base'],
+    extends: [
+        'plugin:vue/essential',
+        '@vue/airbnb',
+    ],
     plugins: [
         'vue'
     ],
@@ -60,7 +63,7 @@ module.exports = {
         "no-caller": 2,
         "no-catch-shadow": 0,
         "no-cond-assign": 2,
-        "no-console": 0,
+        "no-console": process.env.NODE_ENV === 'production' ? 'error' : 'off',
         "no-constant-condition": 0,
         "no-continue": 0,
         "no-control-regex": 2,

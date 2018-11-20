@@ -1,0 +1,1 @@
+mklink /j %~dp0\projects\myaccountMobile\node_modules %~dp0\node_modules

@@ -1,11 +1,18 @@
 <template>
     <div class="myaccount-password-login">
+        <p>aaa</p>
+        <Icon type="magic"></Icon>
     </div>
 </template>
 
 <script>
+import Icon from '@/components/Icon.vue';
+
 export default {
     name: 'passwordLogin',
+    components: {
+        Icon,
+    },
     data() {
         return {
         };

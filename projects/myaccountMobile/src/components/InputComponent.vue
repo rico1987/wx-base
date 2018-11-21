@@ -3,6 +3,7 @@
         class="mobile-input"
         :class="{
             'is-diabled': disabled,
+            'is-error': showError && firstError
         }"
     >
         <label
@@ -27,7 +28,6 @@
                 :autocorrect="autocorrect"
                 :spellcheck="spellcheck"
                 :name="name"
-                :pattern="pattern"
                 :placeholder="placeholder"
                 :readonly="readonly"
                 :disabled="disabled"
@@ -47,7 +47,6 @@
                 :autocorrect="autocorrect"
                 :spellcheck="spellcheck"
                 :name="name"
-                :pattern="pattern"
                 :placeholder="placeholder"
                 :readonly="readonly"
                 :disabled="disabled"
@@ -67,7 +66,6 @@
                 :autocorrect="autocorrect"
                 :spellcheck="spellcheck"
                 :name="name"
-                :pattern="pattern"
                 :placeholder="placeholder"
                 :readonly="readonly"
                 :disabled="disabled"
@@ -117,6 +115,12 @@
                 @keyup="keyupHandler"
                 ref="input"
             />
+            <span
+                class="mobile-input__error"
+                v-if="showError && firstError"
+            >
+                {{firstError}}
+            </span>
         </div>
         <div class="mobile-input__right">
             <Icon
@@ -125,9 +129,7 @@
                 @click.native="clear"
             >
             </Icon>
-        </div>
-        <div>
-
+            <slot name="right"></slot>
         </div>
     </div>
 </template>
@@ -187,6 +189,10 @@ export default {
             type: Array,
             default: []
         },
+        showError: {
+            type: Boolean,
+            default: true
+        },
         // rules demo
         //
         // [
@@ -223,21 +229,42 @@ export default {
     },
 
     computed: {
-        pattern () {
-            if (this.keyboard === 'number' || this.isType === 'china-mobile') {
-                return '[0-9]*'
-            }
+        hasErrors () {
+            return Object.keys(this.errors).length > 0;
         }
     },
     methods: {
-        focusHandler ($event) {},
+        scrollIntoView(timeout = 100) {
+            setTimeout(() => {
+                this.$refs.input.scrollIntoViewIfNeeded(true);
+            }, timeout);
+        },
+        focusHandler ($event) {
+            this.$emit('on-focus', this.currentValue, $event);
+            this.isFocus = true;
+        },
         blurHandler ($event) {
             this.validate();
             this.isFocus = false;
-            this.$emit('on-blur', this.currentValue, $event)
+            this.$emit('on-blur', this.currentValue, $event);
         },
-        keyupHandler ($event) {},
-        clear () {},
+        keyupHandler ($event) {
+            if ($event.key === 'Enter') {
+                $event.target.blur();
+                this.$emit('on-enter', this.currentValue, $event);
+            }
+        },
+        clear () {
+            this.currentValue = '';
+            this.focus();
+            this.$emit('on-clear');
+        },
+        focus () {
+            this.$refs.input.focus();
+        },
+        blur () {
+            this.$refs.input.blur();
+        },
         getFirstError () {
             let key = Object.keys(this.errors)[0];
             this.firstError = this.errors[key];
@@ -250,23 +277,57 @@ export default {
             }
 
             if (!this.currentValue && this.required) {
-                this.valid = false
+                this.valid = false;
                 this.errors.required = this.requiredMessage;
                 this.getFirstError();
                 return;
             }
 
+            if (this.currentValue && this.required) {
+                delete this.errors.required;
+            }
+
             for (let i = 0; i < this.rules.length; i++) {
                 if (this.rules[i].type === 'required') {
-
+                    if (!this.currentValue) {
+                        this.valid = false;
+                        this.errors.required = this.rules[i].message;
+                        this.getFirstError();
+                        return;
+                    } else {
+                        delete this.errors.required
+                    }
                 } else if (this.rules[i].type === 'regex') {
-
+                    if (!this.currentValue || !this.rules[i].value.test(this.currentValue)) {
+                        this.valid = false;
+                        this.errors.regex = this.rules[i].message;
+                        this.getFirstError();
+                        return;
+                    } else {
+                        delete this.errors.regex
+                    }
                 } else if (this.rules[i].type === 'min-length') {
-
+                    if (this.currentValue.length < this.rules[i].value) {
+                        this.valid = false;
+                        this.errors.minLength = this.rules[i].message;
+                        this.getFirstError();
+                        return;
+                    } else {
+                        delete this.errors.minLength;
+                    }
                 } else if (this.rules[i].type === 'max-length') {
-
+                    if (this.currentValue.length > this.rules[i].value) {
+                        this.valid = false;
+                        this.errors.maxLength = this.rules[i].message;
+                        this.getFirstError();
+                        return;
+                    } else {
+                        delete this.errors.maxLength;
+                    }
                 }
             }
+
+            this.valid = true;
         },
 
     },

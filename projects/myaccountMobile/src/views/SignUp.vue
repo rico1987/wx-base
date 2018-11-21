@@ -8,7 +8,6 @@
 export default {
     name: 'signUp',
     components: {
-        MobileHeader
     },
     data() {
         return {

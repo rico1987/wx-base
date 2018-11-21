@@ -1,5 +1,8 @@
 <template>
-    <i :class="className"></i>
+    <i
+        :class="className"
+        :data-fa-transform="transform"
+    ></i>
 </template>
 
 <script>
@@ -11,12 +14,18 @@ export default {
     props: {
         type: String,
         size: String,
+        transform: {
+            type: String,
+            default: '',
+        },
     },
 
     computed: {
-        className () {
-            return `mobile-icon mobile-icon--${this.type.replace(/_/g, '-')} mobile-icon--${this.size ? this.size : 'normal'}`;
-        }
-    }
+        className() {
+            return `fas fa-${this.type}`;
+        },
+    },
 };
 </script>
+<style lang="scss">
+</style>

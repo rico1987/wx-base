@@ -22,7 +22,7 @@ export default {
 
     computed: {
         className() {
-            return `fas fa-${this.type}`;
+            return `fas ${this.type.split(' ').map(ele => `fa-${ele}`).join(' ')}`;
         },
     },
 };

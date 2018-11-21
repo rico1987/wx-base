@@ -5,6 +5,7 @@
             'is-diabled': disabled,
             'is-error': showError && firstError
         }"
+        :style="{height}"
     >
         <label
             class="mobile-input__label"
@@ -35,6 +36,7 @@
                 @focus="focusHandler"
                 @blur="blurHandler"
                 @keyup="keyupHandler"
+                @change="$emit('on-change', currentValue)"
                 ref="input"
             />
             <input
@@ -54,6 +56,7 @@
                 @focus="focusHandler"
                 @blur="blurHandler"
                 @keyup="keyupHandler"
+                @change="$emit('on-change', currentValue)"
                 ref="input"
             />
             <input
@@ -73,6 +76,7 @@
                 @focus="focusHandler"
                 @blur="blurHandler"
                 @keyup="keyupHandler"
+                @change="$emit('on-change', currentValue)"
                 ref="input"
             />
             <input
@@ -85,7 +89,6 @@
                 :autocorrect="autocorrect"
                 :spellcheck="spellcheck"
                 :name="name"
-                :pattern="pattern"
                 :placeholder="placeholder"
                 :readonly="readonly"
                 :disabled="disabled"
@@ -93,6 +96,7 @@
                 @focus="focusHandler"
                 @blur="blurHandler"
                 @keyup="keyupHandler"
+                @change="$emit('on-change', currentValue)"
                 ref="input"
             />
             <input
@@ -105,7 +109,6 @@
                 :autocorrect="autocorrect"
                 :spellcheck="spellcheck"
                 :name="name"
-                :pattern="pattern"
                 :placeholder="placeholder"
                 :readonly="readonly"
                 :disabled="disabled"
@@ -113,6 +116,7 @@
                 @focus="focusHandler"
                 @blur="blurHandler"
                 @keyup="keyupHandler"
+                @change="$emit('on-change', currentValue)"
                 ref="input"
             />
             <span
@@ -129,7 +133,7 @@
                 style="cursor: pointer;"
                 @click="clear()"
             >
-                <Icon type="plus" />
+                <Icon type="times-circle" />
             </span>
             <slot name="right"></slot>
         </div>
@@ -147,10 +151,15 @@ export default {
         Icon,
     },
 
+    model: {
+        prop: 'currentValue',
+        event: 'on-change',
+    },
+
     props: {
         height: {
             type: String,
-            default: '60px',
+            default: '42pt',
         },
         disabled: {
             type: Boolean,
@@ -162,7 +171,7 @@ export default {
         },
         labelWidth: String,
         type: String,
-        max: Number,
+        max: String,
         showClearBtn: {
             type: Boolean,
             default: true,

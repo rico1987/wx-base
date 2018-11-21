@@ -1,0 +1,60 @@
+@import "../../mixins/bem.scss";
+@import "variables.scss";
+
+@include b(input) {
+    width: 100%;
+    position: relative;
+
+    @include e(label) {
+
+    }
+
+    @include e(cell) {
+        width: auto;
+        height: 100%;
+    }
+
+    @include e(input) {
+        width: 100%;
+        height: 100%;
+        border: none;
+        outline: none;
+        font-size: 14pt;
+        border-bottom: 1pt solid #E5E5E5;
+        caret-color: #4786FF;
+        &::-webkit-input-placeholder {
+            color: #CCCCCC;
+            font-size: 14pt;
+            position: relative;
+            top: 0pt;
+        }
+        &:-moz-placeholder {
+            color: #CCCCCC;
+            font-size: 14pt;
+            position: relative;
+            top: 0pt;
+        }
+        &::-moz-placeholder {
+            color: #CCCCCC;
+            font-size: 14pt;
+            position: relative;
+            top: 0pt;
+        }
+    }
+
+
+
+    @include e(right) {
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    @include e(clear) {
+        display: flex;
+        align-items: center;
+    }
+}

@@ -1,0 +1,56 @@
+@import "../../mixins/bem.scss";
+@import "variables.scss";
+
+.myaccount-form-page{
+    margin: 0;
+    padding: 0 32pt;
+    >h1{
+        font-size: 22pt;
+        margin-top: 31pt;
+        text-align: center;
+        color: #333333;
+        margin-bottom: 32pt;
+    }
+    >.row{
+        width: 100%;
+        clear: both;
+        &.link-wrapper{
+            height: 52pt;
+        }
+        .link{
+            cursor: pointer;
+            display: inline-block;
+            color: #4786FF;
+            font-size: 13pt;
+            line-height: 15pt;
+            margin-top: 5pt;
+            &.left-link{
+                float: left;
+            }
+            &.right-link{
+                float: right;
+            }
+        }
+        >.btn{
+            display: block;
+            height: 42pt;
+            width: 100%;
+            margin-bottom: 32pt;
+            border-radius: 6pt;
+            font-size: 17pt;
+            line-height: 42pt;
+            &.btn-primary{
+                color: white;
+                background-color: #4786FF;
+            }
+            &.btn-white{
+                color: #4786FF;
+                background-color: white;
+                box-shadow: 0 0 20pt 0 rgba(0, 0, 0, 0.1) ;
+            }
+        }
+    }
+    .mobile-input{
+        margin-bottom: 25pt;
+    }
+}

@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import SignUp from '@/views/SignUp.vue';
+import Registration from '@/views/Registration.vue';
 import PasswordLogin from '@/views/PasswordLogin.vue';
 
 Vue.use(Router);
@@ -13,9 +13,9 @@ export default new Router({
             component: PasswordLogin,
         },
         {
-            path: '/signup',
-            name: 'signUp',
-            component: SignUp,
+            path: '/register',
+            name: 'register',
+            component: Registration,
         },
     ],
 });

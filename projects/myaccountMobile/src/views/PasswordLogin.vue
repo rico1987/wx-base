@@ -1,6 +1,6 @@
 <template>
     <div class="myaccount-password-login myaccount-form-page">
-        <h1>Login</h1>
+        <h1>{{ $t("hello") }}</h1>
         <div class="row">
             <form>
                 <MobileInput

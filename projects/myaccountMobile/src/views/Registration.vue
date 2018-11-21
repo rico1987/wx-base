@@ -1,12 +1,11 @@
 <template>
-    <div class="mobile-sign-up">
+    <div class="myaccount-registration">
     </div>
 </template>
 
 <script>
-
 export default {
-    name: 'signUp',
+    name: 'registration',
     components: {
     },
     data() {

@@ -123,12 +123,14 @@
             </span>
         </div>
         <div class="mobile-input__right">
-            <Icon
-                type="clear"
-                v-show="showClear && currentValue !== '' && !readonly && !diabled && isFocus"
-                @click.native="clear"
+            <span
+                class="mobile-input__clear"
+                v-if="showClear"
+                style="cursor: pointer;"
+                @click="clear()"
             >
-            </Icon>
+                <Icon type="plus" />
+            </span>
             <slot name="right"></slot>
         </div>
     </div>
@@ -154,44 +156,56 @@ export default {
             type: Boolean,
             default: false,
         },
+        title: {
+            type: String,
+            default: '',
+        },
         labelWidth: String,
         type: String,
         max: Number,
+        showClearBtn: {
+            type: Boolean,
+            default: true,
+        },
         autocomplete: {
             type: String,
-            default: 'off'
+            default: 'off',
         },
         autocapitalize: {
             type: String,
-            default: 'off'
+            default: 'off',
         },
         autocorrect: {
             type: String,
-            default: 'off'
+            default: 'off',
         },
         spellcheck: {
             type: String,
-            default: 'off'
+            default: 'off',
         },
         name: String,
         placeholder: {
             type: String,
-            default: ''
+            default: '',
         },
-        readonly: Boolean,
-        disabled: Boolean,
+        readonly: {
+            type: Boolean,
+            default: false,
+        },
         required: {
             type: Boolean,
-            default: false
+            default: false,
         },
         requiredMessage: String,
         rules: {
             type: Array,
-            default: []
+            default() {
+                return [];
+            },
         },
         showError: {
             type: Boolean,
-            default: true
+            default: true,
         },
         // rules demo
         //
@@ -218,20 +232,24 @@ export default {
         // ]
     },
 
-    data () {
+    data() {
         return {
             isFocus: false,
             currentValue: '',
             valid: true,
             errors: {},
             firstError: null,
-        }
+        };
     },
 
     computed: {
-        hasErrors () {
+        hasErrors() {
             return Object.keys(this.errors).length > 0;
-        }
+        },
+
+        showClear() {
+            return this.showClearBtn && this.currentValue !== '' && !this.readonly && !this.disabled;
+        },
     },
     methods: {
         scrollIntoView(timeout = 100) {
@@ -239,37 +257,37 @@ export default {
                 this.$refs.input.scrollIntoViewIfNeeded(true);
             }, timeout);
         },
-        focusHandler ($event) {
+        focusHandler($event) {
             this.$emit('on-focus', this.currentValue, $event);
             this.isFocus = true;
         },
-        blurHandler ($event) {
+        blurHandler($event) {
             this.validate();
             this.isFocus = false;
             this.$emit('on-blur', this.currentValue, $event);
         },
-        keyupHandler ($event) {
+        keyupHandler($event) {
             if ($event.key === 'Enter') {
                 $event.target.blur();
                 this.$emit('on-enter', this.currentValue, $event);
             }
         },
-        clear () {
+        clear() {
             this.currentValue = '';
-            this.focus();
+            this.$refs.input.focus();
             this.$emit('on-clear');
         },
-        focus () {
+        focus() {
             this.$refs.input.focus();
         },
-        blur () {
+        blur() {
             this.$refs.input.blur();
         },
-        getFirstError () {
+        getFirstError() {
             let key = Object.keys(this.errors)[0];
             this.firstError = this.errors[key];
         },
-        validate () {
+        validate() {
             this.errors = {};
             if (!this.currentValue && !this.required) {
                 this.valid = true;
@@ -287,7 +305,7 @@ export default {
                 delete this.errors.required;
             }
 
-            for (let i = 0; i < this.rules.length; i++) {
+            for (let i = 0; i < this.rules.length; i += 1) {
                 if (this.rules[i].type === 'required') {
                     if (!this.currentValue) {
                         this.valid = false;
@@ -295,7 +313,7 @@ export default {
                         this.getFirstError();
                         return;
                     } else {
-                        delete this.errors.required
+                        delete this.errors.required;
                     }
                 } else if (this.rules[i].type === 'regex') {
                     if (!this.currentValue || !this.rules[i].value.test(this.currentValue)) {
@@ -304,7 +322,7 @@ export default {
                         this.getFirstError();
                         return;
                     } else {
-                        delete this.errors.regex
+                        delete this.errors.regex;
                     }
                 } else if (this.rules[i].type === 'min-length') {
                     if (this.currentValue.length < this.rules[i].value) {

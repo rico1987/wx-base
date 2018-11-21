@@ -1,17 +1,20 @@
 <template>
     <div class="myaccount-password-login">
-        <p>aaa</p>
-        <Icon type="magic"></Icon>
+        <MobileInput
+            placeholder='请输入账号'
+        ></MobileInput>
     </div>
 </template>
 
 <script>
 import Icon from '@/components/Icon.vue';
+import MobileInput from '@/components/MobileInput.vue';
 
 export default {
     name: 'passwordLogin',
     components: {
         Icon,
+        MobileInput,
     },
     data() {
         return {

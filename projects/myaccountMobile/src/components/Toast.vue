@@ -27,23 +27,23 @@ export default {
     props: {
         isShowMask: {
             type: Boolean,
-            default: false
+            default: false,
         },
         text: String,
         position: String,
         width: {
             type: String,
-            default: '8em'
+            default: '8em',
         },
         showTime: {
-            type:Number,
-            default: 2000
+            type: Number,
+            default: 2000,
         },
     },
 
     computed: {
-        toastClass () {
-
+        toastClass() {
+            return '';
         },
     },
 

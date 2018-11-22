@@ -62,11 +62,6 @@ export default {
                     type: 'required',
                     message: '请输入密码',
                 },
-                {
-                    type: 'regex',
-                    value: /^[\w-]+(?:\.[\w-]+)*@[\w-]+(?:\.[\w-]+)+$/,
-                    message: '请输入正确的邮箱格式',
-                },
             ],
         };
     },
@@ -87,6 +82,7 @@ export default {
                     account: this.account,
                     password: this.password,
                 }).then((res) => {
+                    console.log(res);
                     this.$router.push({ path: '/info', });
                     this.loading = false;
                 }).catch((error) => {

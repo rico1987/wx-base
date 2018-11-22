@@ -35,3 +35,9 @@ export function changePassword() {
 export function updateUserInfo() {
 
 }
+
+export function sendVcode(data) {
+    return accountFetch.post('/captchas', qs.stringify(Object.assign(data, {
+        brand: 'Apowersoft',
+    })));
+}

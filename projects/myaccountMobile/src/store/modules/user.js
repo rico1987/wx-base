@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie';
-import { login, changeAvatar, updateUserInfo, } from '@/api/account';
+import { login, } from '@/api/account';
 
 const user = {
     state: {

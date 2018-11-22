@@ -311,6 +311,7 @@ export default {
         },
         validate() {
             this.errors = {};
+            this.firstError = null;
 
             if (!this.currentValue && this.required) {
                 this.isValid = false;

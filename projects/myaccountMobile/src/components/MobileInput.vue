@@ -268,6 +268,7 @@ export default {
         },
         focusHandler($event) {
             this.$emit('on-focus', this.currentValue, $event);
+            this.errors = {};
             this.isFocus = true;
         },
         blurHandler($event) {

@@ -69,9 +69,12 @@ export default {
 
     methods: {
         login() {
-            this.$toast.show({
-                text: 'Loading',
-            });
+            if (this.loading) {
+                this.$toast.show({
+                    text: '请稍等',
+                });
+                return false;
+            }
             this.loading = true;
             this.$refs.accountInput.validate();
             this.$refs.passwordInput.validate();
@@ -79,22 +82,33 @@ export default {
                 debugger;
                 login(this.account, this.password)
                     .then((res) => {
-                        debugger;
-                        console.log(res);
+                        if (res.data && res.data.status === '1') {
+                            // save data to cookie
+
+                        } else {
+                            this.$toast.show({
+                                text: '登陆出现错误',
+                            });
+                        }
+                        this.loading = false;
+
                     })
                     .catch((error) => {
-                        debugger;
                         console.log(error);
+                        this.$toast.show({
+                            text: '账号或密码错误',
+                        });
+                        this.loading = false;
                     });
             } else {
                 this.loading = false;
             }
         },
         gotoPasswordLessLogin() {
-
+            this.$router.push('/password-less');
         },
         gotoResetPassword() {
-
+            this.$router.push('/reset-password');
         },
     },
 };

@@ -31,7 +31,7 @@
                 </span>
                 Login
             </span>
-            <span class="btn btn-white">Registration</span>
+            <span class="btn btn-white" @click="gotoRegistration()">Registration</span>
         </div>
     </div>
 </template>
@@ -39,7 +39,6 @@
 <script>
 import Icon from '@/components/Icon.vue';
 import MobileInput from '@/components/MobileInput.vue';
-import { login, } from '@/api/account';
 
 export default {
     name: 'passwordLogin',
@@ -63,6 +62,11 @@ export default {
                     type: 'required',
                     message: '请输入密码',
                 },
+                {
+                    type: 'regex',
+                    value: /^[\w-]+(?:\.[\w-]+)*@[\w-]+(?:\.[\w-]+)+$/,
+                    message: '请输入正确的邮箱格式',
+                },
             ],
         };
     },
@@ -79,27 +83,19 @@ export default {
             this.$refs.accountInput.validate();
             this.$refs.passwordInput.validate();
             if (this.$refs.accountInput.isValid && this.$refs.passwordInput.isValid) {
-                debugger;
-                login(this.account, this.password)
-                    .then((res) => {
-                        if (res.data && res.data.status === '1') {
-                            // save data to cookie
-
-                        } else {
-                            this.$toast.show({
-                                text: '登陆出现错误',
-                            });
-                        }
-                        this.loading = false;
-
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                        this.$toast.show({
-                            text: '账号或密码错误',
-                        });
-                        this.loading = false;
+                this.$store.dispatch('LoginByUsername', {
+                    account: this.account,
+                    password: this.password,
+                }).then((res) => {
+                    this.$router.push({ path: '/info', });
+                    this.loading = false;
+                }).catch((error) => {
+                    console.log(error);
+                    this.$toast.show({
+                        text: '账号或密码错误',
                     });
+                    this.loading = false;
+                });
             } else {
                 this.loading = false;
             }
@@ -109,6 +105,9 @@ export default {
         },
         gotoResetPassword() {
             this.$router.push('/reset-password');
+        },
+        gotoRegistration() {
+            this.$router.push('/register');
         },
     },
 };

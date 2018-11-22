@@ -5,6 +5,8 @@ import VueI18n from 'vue-i18n';
 import './styles/themes/default/index.scss';
 import App from './App.vue';
 import router from './router';
+import store from './store';
+
 import ToastPlugin from './plugins/toast';
 
 Vue.use(ToastPlugin, { position: 'center', });
@@ -28,6 +30,7 @@ const i18n = new VueI18n({
 new Vue({
     el: '#app',
     router,
+    store,
     i18n,
     components: { App, },
     template: '<App/>',

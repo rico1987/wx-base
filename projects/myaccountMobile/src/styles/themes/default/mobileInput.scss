@@ -57,6 +57,8 @@
     @include e(clear) {
         display: flex;
         align-items: center;
+        position: relative;
+        top: -12.5pt;
     }
 
     @include e(error) {
@@ -66,5 +68,13 @@
         color: #f85656;
         font-size: 12pt;
         line-height: 16pt
+    }
+
+    @include e(right-content){
+        display: flex;
+        align-items: center;
+        position: relative;
+        top: -12.5pt;
+        color: #CCCCCC;
     }
 }

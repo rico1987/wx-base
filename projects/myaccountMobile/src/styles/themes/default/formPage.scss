@@ -10,10 +10,36 @@
         text-align: center;
         color: #333333;
         margin-bottom: 32pt;
+        font-weight: normal;
     }
     >.row{
         width: 100%;
         clear: both;
+        &.switch{
+            margin-bottom: 42pt;
+            span{
+                color: #666666;
+                position: relative;
+                padding: 5pt 16pt;
+                &.active{
+                    color: #4786FF;
+                    span{
+                        background-color: #4786FF;
+                    }
+                }
+                span{
+                    position: absolute;
+                    width: 6pt;
+                    height: 6pt;
+                    border-radius: 3pt;
+                    padding: 0!important;
+                    background-color: #666666;
+                    top: 24pt;
+                    left: 50%;
+                    margin-left: -3pt;
+                }
+            }
+        }
         &.link-wrapper{
             height: 52pt;
         }

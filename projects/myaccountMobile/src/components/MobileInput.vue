@@ -245,7 +245,7 @@ export default {
         return {
             isFocus: false,
             currentValue: '',
-            valid: true,
+            isValid: true,
             errors: {},
             firstError: null,
         };
@@ -271,9 +271,8 @@ export default {
             this.isFocus = true;
         },
         blurHandler($event) {
-            this.validate();
-            this.isFocus = false;
             this.$emit('on-blur', this.currentValue, $event);
+            this.isFocus = false;
         },
         keyupHandler($event) {
             if ($event.key === 'Enter') {
@@ -298,13 +297,9 @@ export default {
         },
         validate() {
             this.errors = {};
-            if (!this.currentValue && !this.required) {
-                this.valid = true;
-                return;
-            }
 
             if (!this.currentValue && this.required) {
-                this.valid = false;
+                this.isValid = false;
                 this.errors.required = this.requiredMessage;
                 this.getFirstError();
                 return;
@@ -317,7 +312,7 @@ export default {
             for (let i = 0; i < this.rules.length; i += 1) {
                 if (this.rules[i].type === 'required') {
                     if (!this.currentValue) {
-                        this.valid = false;
+                        this.isValid = false;
                         this.errors.required = this.rules[i].message;
                         this.getFirstError();
                         return;
@@ -326,7 +321,7 @@ export default {
                     }
                 } else if (this.rules[i].type === 'regex') {
                     if (!this.currentValue || !this.rules[i].value.test(this.currentValue)) {
-                        this.valid = false;
+                        this.isValid = false;
                         this.errors.regex = this.rules[i].message;
                         this.getFirstError();
                         return;
@@ -335,7 +330,7 @@ export default {
                     }
                 } else if (this.rules[i].type === 'min-length') {
                     if (this.currentValue.length < this.rules[i].value) {
-                        this.valid = false;
+                        this.isValid = false;
                         this.errors.minLength = this.rules[i].message;
                         this.getFirstError();
                         return;
@@ -344,7 +339,7 @@ export default {
                     }
                 } else if (this.rules[i].type === 'max-length') {
                     if (this.currentValue.length > this.rules[i].value) {
-                        this.valid = false;
+                        this.isValid = false;
                         this.errors.maxLength = this.rules[i].message;
                         this.getFirstError();
                         return;
@@ -354,7 +349,7 @@ export default {
                 }
             }
 
-            this.valid = true;
+            this.isValid = true;
         },
 
     },

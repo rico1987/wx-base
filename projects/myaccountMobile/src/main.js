@@ -5,6 +5,9 @@ import VueI18n from 'vue-i18n';
 import './styles/themes/default/index.scss';
 import App from './App.vue';
 import router from './router';
+import ToastPlugin from './plugins/toast';
+
+Vue.use(ToastPlugin, { position: 'center', });
 
 Vue.config.productionTip = false;
 Vue.use(VueI18n);

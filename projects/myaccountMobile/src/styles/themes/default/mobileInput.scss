@@ -4,6 +4,7 @@
 @include b(input) {
     width: 100%;
     position: relative;
+    padding-bottom: 25pt;
 
     @include e(label) {
 
@@ -56,5 +57,14 @@
     @include e(clear) {
         display: flex;
         align-items: center;
+    }
+
+    @include e(error) {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        color: #f85656;
+        font-size: 12pt;
+        line-height: 16pt
     }
 }

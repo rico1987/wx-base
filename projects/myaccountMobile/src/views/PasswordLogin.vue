@@ -1,12 +1,14 @@
 <template>
     <div class="myaccount-password-login myaccount-form-page">
-        <h1>{{ $t("hello") }}</h1>
+        <h1>Login</h1>
         <div class="row">
             <form>
                 <MobileInput
                     ref="accountInput"
                     v-model="account"
                     placeholder='Email/Phone number'
+                    max="50"
+                    :rules="accountRules"
                 ></MobileInput>
                 <MobileInput
                     ref="passwordInput"
@@ -14,12 +16,13 @@
                     v-model="password"
                     placeholder='Password'
                     max="20"
+                    :rules="passwordRules"
                 ></MobileInput>
             </form>
         </div>
         <div class="row link-wrapper">
-            <span class="link left-link">Password-less login</span>
-            <span class="link right-link">Forgot Password?</span>
+            <span class="link left-link" @click="gotoPasswordLessLogin()">Password-less login</span>
+            <span class="link right-link" @click="gotoResetPassword()">Forgot Password?</span>
         </div>
         <div class="row">
             <span class="btn btn-primary" @click="login()">
@@ -36,6 +39,7 @@
 <script>
 import Icon from '@/components/Icon.vue';
 import MobileInput from '@/components/MobileInput.vue';
+import { login, } from '@/api/account';
 
 export default {
     name: 'passwordLogin',
@@ -48,12 +52,48 @@ export default {
             loading: false,
             account: null,
             password: null,
+            accountRules: [
+                {
+                    type: 'required',
+                    message: '请输入手机或邮箱',
+                },
+            ],
+            passwordRules: [
+                {
+                    type: 'required',
+                    message: '请输入密码',
+                },
+            ],
         };
     },
 
     methods: {
         login() {
+            this.$toast.show({
+                text: 'Loading',
+            });
             this.loading = true;
+            this.$refs.accountInput.validate();
+            this.$refs.passwordInput.validate();
+            if (this.$refs.accountInput.isValid && this.$refs.passwordInput.isValid) {
+                debugger;
+                login(this.account, this.password)
+                    .then((res) => {
+                        debugger;
+                        console.log(res);
+                    })
+                    .catch((error) => {
+                        debugger;
+                        console.log(error);
+                    });
+            } else {
+                this.loading = false;
+            }
+        },
+        gotoPasswordLessLogin() {
+
+        },
+        gotoResetPassword() {
 
         },
     },

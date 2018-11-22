@@ -39,6 +39,7 @@
             border-radius: 6pt;
             font-size: 17pt;
             line-height: 42pt;
+            cursor: pointer;
             &.btn-primary{
                 color: white;
                 background-color: #4786FF;
@@ -51,6 +52,5 @@
         }
     }
     .mobile-input{
-        margin-bottom: 25pt;
     }
 }

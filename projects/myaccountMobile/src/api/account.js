@@ -1,5 +1,6 @@
+import qs from 'qs';
 import accountFetch from '../utils/accountFetch';
-import * as is from '../../../../lib/utils/index';
+import * as is from '../../../../lib/utils/is';
 
 export function login(account, password) {
     const data = {
@@ -12,7 +13,7 @@ export function login(account, password) {
     } else {
         data.telephone = account;
     }
-    return accountFetch.post('/sessions', data);
+    return accountFetch.post('/sessions', qs.stringify(data));
 }
 
 export function register() {

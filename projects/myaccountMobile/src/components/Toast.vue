@@ -103,14 +103,14 @@ export default {
 
     watch: {
         visible(val) {
-            if(val) {
+            if (val) {
                 clearTimeout(this.timeout);
                 this.timeout = setTimeout(() => {
                     this.visible = false;
                     this.$emit('on-hide');
                 }, this.showTime);
             }
-        }
+        },
     },
 };
 </script>

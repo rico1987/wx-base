@@ -1,11 +1,11 @@
 <template>
-    <div class="myaccount-binding">
+    <div class="myaccount-bind-phone">
     </div>
 </template>
 
 <script>
 export default {
-    name: 'binding',
+    name: 'bindPhone',
     components: {
     },
     data() {

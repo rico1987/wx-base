@@ -16,11 +16,21 @@
                 <MobileInput
                     v-if="activeTab === 'email'"
                     ref="emailInput"
+                    type="text"
                     v-model="email"
                     placeholder='Email'
                     max="50"
                     :rules="emailRules"
                     @on-blur="emailOnBlur"
+                ></MobileInput>
+                <MobileInput
+                    v-if="activeTab === 'phone'"
+                    type="tel"
+                    ref="phoneInput"
+                    v-model="phone"
+                    placeholder='Phone Number'
+                    max="50"
+                    :areaCodes="areaCodes"
                 ></MobileInput>
             </div>
             <div class="row">
@@ -37,7 +47,7 @@
                             {{countDown}}
                         </span>
                         <span v-else>
-                            Send
+                            Get
                         </span>
                     </span>
                 </MobileInput>
@@ -66,7 +76,7 @@
 
 <script>
 import MobileInput from '@/components/MobileInput.vue';
-import { sendVcode, } from '@/api/account';
+import { sendVcode, getAreaCodes, } from '@/api/account';
 
 export default {
     name: 'registration',
@@ -76,9 +86,10 @@ export default {
     data() {
         return {
             email: null,
+            phone: null,
             vcode: null,
             password: null,
-            activeTab: 'email',
+            activeTab: 'phone',
             countDown: 0,
             interval: null,
             loading: false,
@@ -105,9 +116,36 @@ export default {
                     message: '请输入密码',
                 },
             ],
+            areaCodes: [],
         };
     },
+
+    created: function() {
+        this.getAreaCodesList();
+    },
+
     methods: {
+
+        getAreaCodesList() {
+            getAreaCodes('zh')
+                .then((res) => {
+                    if (res.data && res.data.status === '1') {
+                        let arr = [];
+                        for (let i = 0; i < res.data.data.length; i += 1) {
+                            arr.push({
+                                code: res.data.data[i].split(':')[0],
+                                country: res.data.data[i].split(':')[1],
+                            });
+                        }
+                        this.areaCodes = arr.concat([]);
+                        this.$refs.phoneInput.setActiveAreaCode(this.areaCodes[0].code);
+                    } else {
+
+                    }
+                    console.log(res);
+                });
+        },
+
         setActiveTab(tab) {
             this.activeTab = tab;
         },

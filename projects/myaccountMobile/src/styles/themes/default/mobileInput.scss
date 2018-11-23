@@ -22,6 +22,7 @@
         outline: none;
         font-size: 14pt;
         border-bottom: 1pt solid #E5E5E5;
+        padding: 0;
         caret-color: #4786FF;
         &::-webkit-input-placeholder {
             color: #CCCCCC;
@@ -43,6 +44,71 @@
         }
     }
 
+    @include e(tel-input-wrapper) {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    @include e(input) {
+        flex: 0.8;
+    }
+
+    @include e(tel-area-code-selector) {
+        flex: 0.2;
+        font-size: 14pt;
+        border: none;
+        border-bottom: 1pt solid #E5E5E5;
+        height: 100%;
+        align-items: center;
+        display: flex;
+        position: relative;
+        background: url('../../../icons/chevron-down.svg') right center no-repeat;
+    }
+
+    @include e(selected-area-code) {
+
+    }
+
+    @include e(area-code-list) {
+        position: absolute;
+        background-color: white;
+        width: 150pt;
+        border: 1px solid #eee;
+        z-index: 9999;
+        top: 42pt;
+        left: 0;
+        box-shadow: 0 0 5px #ccc;
+        border-radius: 2pt;
+    }
+
+    @include e(area-code-search) {
+        width: 100%;
+        padding: 5pt;
+        box-sizing: border-box;
+        position: relative;
+        input{
+            border: 1pt solid #ddd;
+            border-radius: 2pt;
+            font-size: 14pt;
+            width: 100%;
+        }
+    }
+
+    @include e(area-code-search-icon) {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        font-size: 14pt;
+        margin-top: -7pt;
+        right: 5pt;
+    }
+
+    @include e(area-code-list-items) {
+        max-height: 300pt;
+        overflow: auto;
+    }
 
 
     @include e(right) {
@@ -52,13 +118,16 @@
         height: 100%;
         display: flex;
         justify-content: center;
+        align-items: center;
     }
 
     @include e(clear) {
-        display: flex;
-        align-items: center;
         position: relative;
         top: -12.5pt;
+        width: 14pt;
+        height: 14pt;
+        background: url(../../../icons/clear.svg) center no-repeat;
+        cursor: pointer;
     }
 
     @include e(error) {

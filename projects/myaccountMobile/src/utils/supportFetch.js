@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import Cookies from 'js-cookie';
 import config from '../config';
 
 const service = axios.create({
@@ -9,7 +9,10 @@ const service = axios.create({
 
 // 添加请求拦截器
 service.interceptors.request.use((config) => {
-    console.log(config);
+    let identity_token = Cookies.get('identity_token');
+    if (identity_token) {
+        config.headers['identity_token'] = identity_token;
+    }
     return config;
 }, (error) => {
     console.log(error);

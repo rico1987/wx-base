@@ -1,6 +1,7 @@
 import qs from 'qs';
 import accountFetch from '../utils/accountFetch';
 import * as is from '../../../../lib/utils/is';
+import { objToQuery, } from '../../../../lib/utils';
 
 export function login(account, password) {
     const data = {
@@ -34,6 +35,13 @@ export function changePassword() {
 
 export function updateUserInfo() {
 
+}
+
+export function getAreaCodes(language) {
+    return accountFetch.get(`countrycodes${objToQuery({
+        brand: 'Apowersoft',
+        language,
+    })}`);
 }
 
 export function sendVcode(data) {

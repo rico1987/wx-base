@@ -2,7 +2,8 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Registration from '@/views/Registration.vue';
 import PasswordLogin from '@/views/PasswordLogin.vue';
-import Binding from '@/views/Binding.vue';
+import BindEmail from '@/views/BindEmail.vue';
+import BindPhone from '@/views/BindPhone.vue';
 import Info from '@/views/Info.vue';
 import ResetPassword from '@/views/ResetPassword.vue';
 import PasswordLessLogin from '@/views/PasswordLessLogin.vue';
@@ -22,9 +23,14 @@ export default new Router({
             component: Registration,
         },
         {
-            path: '/binding',
-            name: 'binding',
-            component: Binding,
+            path: '/bind-email',
+            name: 'bindEmail',
+            component: BindEmail,
+        },
+        {
+            path: '/bind-phone',
+            name: 'bindPhone',
+            component: BindPhone,
         },
         {
             path: '/info',

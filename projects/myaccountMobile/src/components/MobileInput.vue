@@ -99,26 +99,49 @@
                 @change="$emit('on-change', currentValue)"
                 ref="input"
             />
-            <input
-                class="mobile-input__input"
-                v-if="type === 'tel'"
-                type="tel"
-                :maxlength="max"
-                :autocomplete="autocomplete"
-                :autocapitalize="autocapitalize"
-                :autocorrect="autocorrect"
-                :spellcheck="spellcheck"
-                :name="name"
-                :placeholder="placeholder"
-                :readonly="readonly"
-                :disabled="disabled"
-                v-model="currentValue"
-                @focus="focusHandler"
-                @blur="blurHandler"
-                @keyup="keyupHandler"
-                @change="$emit('on-change', currentValue)"
-                ref="input"
-            />
+            <div class="mobile-input__tel-input-wrapper" v-if="type === 'tel'">
+                <div
+                    class="mobile-input__tel-area-code-selector"
+                >
+                    <span class="mobile-input__selected-area-code" @click="showAreaCodes = true">
+                        {{selectedAreaCode}}
+                    </span>
+                    <div class="mobile-input__area-code-list" v-show="showAreaCodes">
+                        <div class="mobile-input__area-code-search">
+                            <input v-model="areaCodeSearch" type="text" />
+                            <Icon class="mobile-input__area-code-search-icon" type="search" />
+                        </div>
+                        <div class="mobile-input__area-code-list-items">
+                            <p
+                                v-for="areaCode in areaCodes"
+                                v-bind:key="areaCode.code + areaCode.country"
+                                :class="{active: selectedAreaCode === areaCode.code}"
+                            >
+                                {{areaCode.country}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <input
+                    class="mobile-input__input"
+                    type="tel"
+                    :maxlength="max"
+                    :autocomplete="autocomplete"
+                    :autocapitalize="autocapitalize"
+                    :autocorrect="autocorrect"
+                    :spellcheck="spellcheck"
+                    :name="name"
+                    :placeholder="placeholder"
+                    :readonly="readonly"
+                    :disabled="disabled"
+                    v-model="currentValue"
+                    @focus="focusHandler"
+                    @blur="blurHandler"
+                    @keyup="keyupHandler"
+                    @change="$emit('on-change', currentValue)"
+                    ref="input"
+                />
+            </div>
             <span
                 class="mobile-input__error"
                 v-if="showError && firstError"
@@ -133,18 +156,6 @@
                 style="cursor: pointer;"
                 @click="clear()"
             >
-                <svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <!-- Generator: Sketch 51 (57462) - http://www.bohemiancoding.com/sketch -->
-                    <title>clear copy</title>
-                    <desc>Created with Sketch.</desc>
-                    <defs></defs>
-                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                        <g id="密码登录清除按钮" transform="translate(-326.000000, -170.000000)">
-                            <rect fill="#FFFFFF" x="0" y="0" width="375" height="727"></rect>
-                            <path d="M333.181981,176.474874 L330.707107,174 L330,174.707107 L332.474874,177.181981 L330,179.656854 L330.707107,180.363961 L333.181981,177.889087 L335.656854,180.363961 L336.363961,179.656854 L333.889087,177.181981 L336.363961,174.707107 L335.656854,174 L333.181981,176.474874 Z M333,184 C329.134007,184 326,180.865993 326,177 C326,173.134007 329.134007,170 333,170 C336.865993,170 340,173.134007 340,177 C340,180.865993 336.865993,184 333,184 Z" id="clear-copy" fill="#CCCCCC"></path>
-                        </g>
-                    </g>
-                </svg>
             </span>
             <span class="mobile-input__right-content" v-if="$slots.right">
                 <slot name="right"></slot>
@@ -229,6 +240,12 @@ export default {
             type: Boolean,
             default: true,
         },
+        areaCodes: {
+            type: Array,
+            default() {
+                return [];
+            },
+        },
         // rules demo
         //
         // [
@@ -261,6 +278,9 @@ export default {
             isValid: true,
             errors: {},
             firstError: null,
+            selectedAreaCode: null,
+            areaCodeSearch: null,
+            showAreaCodes: false,
         };
     },
 
@@ -274,6 +294,10 @@ export default {
         },
     },
     methods: {
+
+        setActiveAreaCode(areaCode) {
+            this.selectedAreaCode = areaCode;
+        },
         scrollIntoView(timeout = 100) {
             setTimeout(() => {
                 this.$refs.input.scrollIntoViewIfNeeded(true);
@@ -366,7 +390,8 @@ export default {
 
             this.isValid = true;
         },
-
+        getAreaCode() {
+        },
     },
 };
 </script>

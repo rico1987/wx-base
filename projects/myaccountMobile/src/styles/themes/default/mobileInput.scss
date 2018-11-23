@@ -108,6 +108,15 @@
     @include e(area-code-list-items) {
         max-height: 300pt;
         overflow: auto;
+        p{
+            font-size: 12pt;
+            margin: 0;
+            line-height: 16pt;
+            color: #aaa;
+            text-align: left;
+            padding-left: 15pt;
+            font-weight: normal;
+        }
     }
 
 

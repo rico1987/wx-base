@@ -117,7 +117,7 @@
                                 v-bind:key="areaCode.code + areaCode.country"
                                 :class="{active: selectedAreaCode === areaCode.code}"
                             >
-                                {{areaCode.country}}
+                                {{areaCode.country + ' ' + areaCode.code}}
                             </p>
                         </div>
                     </div>

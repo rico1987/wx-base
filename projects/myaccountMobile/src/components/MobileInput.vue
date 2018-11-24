@@ -82,7 +82,7 @@
             <input
                 class="mobile-input__input"
                 v-if="type === 'password'"
-                type="password"
+                :type="showPassword ? 'password' : 'text'"
                 :maxlength="max"
                 :autocomplete="autocomplete"
                 :autocapitalize="autocapitalize"
@@ -108,18 +108,23 @@
                     </span>
                     <div class="mobile-input__area-code-list" v-show="showAreaCodes">
                         <div class="mobile-input__area-code-search">
-                            <input v-model="areaCodeSearch" type="text" />
+                            <input
+                                v-model="areaCodeSearch"
+                                type="text"
+                                @keyup="filterAreaCodes"
+                                maxlength="10"
+                            />
                             <Icon class="mobile-input__area-code-search-icon" type="search" />
                         </div>
-                        <div class="mobile-input__area-code-list-items">
-                            <p
+                        <ul class="mobile-input__area-code-list-items">
+                            <li
                                 v-for="areaCode in areaCodes"
                                 v-bind:key="areaCode.code + areaCode.country"
                                 :class="{active: selectedAreaCode === areaCode.code}"
                             >
                                 {{areaCode.country + ' ' + areaCode.code}}
-                            </p>
-                        </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
                 <input
@@ -155,6 +160,13 @@
                 v-if="showClear"
                 style="cursor: pointer;"
                 @click="clear()"
+            >
+            </span>
+            <span
+                @click="showPassword = !showPassword"
+                class="mobile-input__password-switch"
+                :class="{ 'is-show': showPassword }"
+                v-if="type === 'password' && showSwitchPassword"
             >
             </span>
             <span class="mobile-input__right-content" v-if="$slots.right">
@@ -246,6 +258,10 @@ export default {
                 return [];
             },
         },
+        showSwitchPassword: {
+            type: Boolean,
+            default: false,
+        },
         // rules demo
         //
         // [
@@ -281,6 +297,7 @@ export default {
             selectedAreaCode: null,
             areaCodeSearch: null,
             showAreaCodes: false,
+            showPassword: false,
         };
     },
 
@@ -295,6 +312,9 @@ export default {
     },
     methods: {
 
+        filterAreaCodes() {
+            console.log(this.areaCodeSearch);
+        },
         setActiveAreaCode(areaCode) {
             this.selectedAreaCode = areaCode;
         },

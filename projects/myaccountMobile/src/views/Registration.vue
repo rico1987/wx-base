@@ -59,6 +59,8 @@
                     v-model="password"
                     placeholder='Password'
                     max="20"
+                    :showClearBtn=false
+                    :showSwitchPassword=true
                     :rules="passwordRules"
                 ></MobileInput>
             </div>

@@ -13,6 +13,7 @@
     @include e(cell) {
         width: auto;
         height: 100%;
+        position: relative;
     }
 
     @include e(input) {
@@ -88,6 +89,7 @@
         padding: 5pt;
         box-sizing: border-box;
         position: relative;
+        color: #999;
         input{
             border: 1pt solid #ddd;
             border-radius: 2pt;
@@ -108,7 +110,10 @@
     @include e(area-code-list-items) {
         max-height: 300pt;
         overflow: auto;
-        p{
+        list-style: none;
+        padding-left: 0;
+        margin: 5pt 0;
+        li{
             font-size: 12pt;
             margin: 0;
             line-height: 16pt;
@@ -116,6 +121,7 @@
             text-align: left;
             padding-left: 15pt;
             font-weight: normal;
+            padding: 0 10pt;
         }
     }
 
@@ -137,6 +143,18 @@
         height: 14pt;
         background: url(../../../icons/clear.svg) center no-repeat;
         cursor: pointer;
+    }
+
+    @include e(password-switch) {
+        position: relative;
+        top: -12.5pt;
+        width: 18pt;
+        height: 18pt;
+        background: url(../../../icons/password-hide.svg) center no-repeat;
+        cursor: pointer;
+        @include when(show) {
+            background: url(../../../icons/password-show.svg) center no-repeat;
+        }
     }
 
     @include e(error) {

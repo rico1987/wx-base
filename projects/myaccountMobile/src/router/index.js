@@ -7,6 +7,7 @@ import BindPhone from '@/views/BindPhone.vue';
 import Info from '@/views/Info.vue';
 import ResetPassword from '@/views/ResetPassword.vue';
 import PasswordLessLogin from '@/views/PasswordLessLogin.vue';
+import Setting from '@/views/Setting.vue';
 
 Vue.use(Router);
 
@@ -46,6 +47,11 @@ export default new Router({
             path: '/password-less',
             name: 'passwordLessLogin',
             component: PasswordLessLogin,
+        },
+        {
+            path: '/setting',
+            name: 'setting',
+            component: Setting,
         },
     ],
 });

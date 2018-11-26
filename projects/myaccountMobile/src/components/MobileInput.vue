@@ -305,7 +305,10 @@ export default {
         };
     },
 
-    created: {
+    created: function() {
+        if (this.defaultValue) {
+            this.currentValue = this.defaultValue;
+        }
     },
 
     computed: {

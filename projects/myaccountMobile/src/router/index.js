@@ -11,6 +11,7 @@ import Setting from '@/views/Setting.vue';
 import Orders from '@/views/Orders.vue';
 import AccountMenu from '@/views/AccountMenu.vue';
 import WorkList from '@/views/WorkList.vue';
+import UnlimitedVip from '@/views/UnlimitedVip.vue';
 
 Vue.use(Router);
 
@@ -70,6 +71,11 @@ export default new Router({
             path: '/work-list',
             name: 'workList',
             component: WorkList,
+        },
+        {
+            path: '/unlimited-vip',
+            name: 'unlimitedVip',
+            component: UnlimitedVip,
         },
     ],
 });

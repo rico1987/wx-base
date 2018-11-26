@@ -46,6 +46,7 @@
 </template>
 
 <script>
+import Icon from '@/components/Icon.vue';
 import MobileInput from '@/components/MobileInput.vue';
 import MobileHeader from '@/components/MobileHeader.vue';
 import { sendVcode, } from '@/api/account';
@@ -55,6 +56,7 @@ export default {
     components: {
         MobileHeader,
         MobileInput,
+        Icon,
     },
     data() {
         return {

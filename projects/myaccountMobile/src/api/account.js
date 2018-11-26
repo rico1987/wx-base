@@ -29,8 +29,13 @@ export function bindContact() {
 
 }
 
-export function changePassword() {
-
+export function changePassword(userId, password, repassword) {
+    return accountFetch.put(`/users/${userId}/passwords`, qs.stringify({
+        brand: 'Apowersoft',
+        language: 'en',
+        password,
+        password2: repassword,
+    }));
 }
 
 export function updateUserInfo() {

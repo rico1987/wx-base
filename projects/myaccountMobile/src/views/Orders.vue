@@ -11,6 +11,8 @@
 <script>
 import MobileHeader from '@/components/MobileHeader.vue';
 
+import { getOrders, } from '@/api/support';
+
 export default {
     name: 'orders',
     components: {
@@ -18,7 +20,26 @@ export default {
     },
     data() {
         return {
+            orders: [],
         };
+    },
+
+    created: function() {
+        this.getAccountOrders();
+    },
+
+    methods: {
+        getAccountOrders() {
+            getOrders()
+                .then(res => {
+                    console.log(res);
+                    debugger;
+                })
+                .catch((error) => {
+                    console.log(error);
+                    debugger;
+                });
+        },
     },
 };
 </script>

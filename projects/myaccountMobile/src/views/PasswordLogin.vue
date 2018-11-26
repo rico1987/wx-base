@@ -83,7 +83,7 @@ export default {
                     password: this.password,
                 }).then((res) => {
                     console.log(res);
-                    this.$router.push({ path: '/info', });
+                    this.$router.push({ path: '/account-menu', });
                     this.loading = false;
                 }).catch((error) => {
                     console.log(error);

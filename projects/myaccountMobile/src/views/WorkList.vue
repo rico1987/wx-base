@@ -1,8 +1,8 @@
 <template>
-    <div class="myaccount-orders">
+    <div class="myaccount-work-list">
         <MobileHeader
             defaultLeft
-            title="My Order"
+            title="My work list"
         >
         </MobileHeader>
     </div>
@@ -12,7 +12,7 @@
 import MobileHeader from '@/components/MobileHeader.vue';
 
 export default {
-    name: 'orders',
+    name: 'myWorkList',
     components: {
         MobileHeader,
     },

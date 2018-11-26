@@ -82,7 +82,7 @@
             <input
                 class="mobile-input__input"
                 v-if="type === 'password'"
-                :type="showPassword ? 'password' : 'text'"
+                :type="showPassword ? 'text' : 'password'"
                 :maxlength="max"
                 :autocomplete="autocomplete"
                 :autocapitalize="autocapitalize"
@@ -262,6 +262,10 @@ export default {
             type: Boolean,
             default: false,
         },
+        defaultValue: {
+            type: String,
+            default: '',
+        },
         // rules demo
         //
         // [
@@ -299,6 +303,9 @@ export default {
             showAreaCodes: false,
             showPassword: false,
         };
+    },
+
+    created: {
     },
 
     computed: {
@@ -411,6 +418,9 @@ export default {
             this.isValid = true;
         },
         getAreaCode() {
+        },
+        showErrorMessage(message) {
+            this.firstError = message;
         },
     },
 };

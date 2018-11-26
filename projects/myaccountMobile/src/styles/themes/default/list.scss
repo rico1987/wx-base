@@ -1,0 +1,23 @@
+@import "../../mixins/bem.scss";
+@import "variables.scss";
+
+@include b(list-items) {
+    background: white;
+    border-radius: 6px;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1) ;
+    padding: 0;
+
+    @include e(item) {
+        height: 64px;
+        line-height: 64px;
+        font-size: 17px;
+        color: #666666;
+        text-align: left;
+        padding-left: 20px;
+        list-style: none;
+        border-bottom: 1px solid #ddd;
+        &:last-of-type{
+            border-bottom: none;
+        }
+    }
+}

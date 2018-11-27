@@ -10,9 +10,12 @@ const service = axios.create({
 // 添加请求拦截器
 service.interceptors.request.use((config) => {
     let identity_token = Cookies.get('identity_token');
-    debugger;
     if (identity_token) {
-        config.headers['identity_token'] = identity_token;
+        if (config.data.length > 0) {
+            config.data += `&identity_token=${identity_token}`;
+        } else {
+            config.data += `identity_token=${identity_token}`;
+        }
     }
     return config;
 }, (error) => {
@@ -23,11 +26,10 @@ service.interceptors.request.use((config) => {
 // 添加响应拦截器
 service.interceptors.response.use((response) => {
     console.log(response);
-    debugger;
     return response;
 }, (error) => {
     console.log(error);
-    return Promise.reject(error.response && error.response.data);
+    return Promise.reject(error.message);
 });
 
 export default service;

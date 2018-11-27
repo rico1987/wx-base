@@ -7,6 +7,9 @@
 //variables
 @import "variables.scss";
 
+//common
+@import "common.scss";
+
 // components
 @import "./mobileInput.scss";
 @import "./toast.scss";
@@ -21,3 +24,4 @@
 @import "./bindEmail.scss";
 @import "./bindPhone.scss";
 @import "./info.scss";
+@import "./orders.scss";

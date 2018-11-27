@@ -135,10 +135,10 @@ export default {
                         this.loading = false;
                     })
                     .catch((error) => {
-                         this.$toast.show({
+                        this.$toast.show({
                             text: '密码修改失败!',
                         });
-                         this.loading = false;
+                        this.loading = false;
                     });
 
             } else {

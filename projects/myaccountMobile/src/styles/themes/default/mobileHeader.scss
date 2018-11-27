@@ -5,6 +5,11 @@
     background: #f5f5f5;
     display: flex;
     justify-content: flex-start;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
 
     @include e(left) {
         flex: 0.1;

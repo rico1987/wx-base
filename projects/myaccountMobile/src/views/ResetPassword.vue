@@ -1,5 +1,5 @@
 <template>
-    <div class="myaccount-reset-password">
+    <div class="myaccount-reset-password has-header">
          <MobileHeader
             defaultLeft
             title="Change Password"

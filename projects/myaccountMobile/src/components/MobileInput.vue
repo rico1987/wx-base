@@ -195,7 +195,7 @@ export default {
     props: {
         height: {
             type: String,
-            default: '42pt',
+            default: '42px',
         },
         disabled: {
             type: Boolean,

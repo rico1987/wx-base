@@ -10,6 +10,7 @@
     left: 0;
     width: 100%;
     z-index: 9999;
+    border-bottom: 1px solid #ddd;
 
     @include e(left) {
         flex: 0.1;

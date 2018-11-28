@@ -1,5 +1,5 @@
 <template>
-    <div class="myaccount-bind-phone">
+    <div class="myaccount-bind-phone has-header">
         <MobileHeader
             defaultLeft
             title="Binding"

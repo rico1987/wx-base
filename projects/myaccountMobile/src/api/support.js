@@ -14,7 +14,7 @@ export function getOrders(page = 1, size = 10) {
 
 export function getTickets(page = 1, size = 10) {
     return supportFetch.post('/account', qs.stringify({
-        action: 'get-orders',
+        action: 'get-tickets',
         language: 'en',
         page: page,
         per_page: size,

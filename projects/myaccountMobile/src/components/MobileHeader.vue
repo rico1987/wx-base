@@ -31,7 +31,7 @@ export default {
     props: {
         height: {
             type: String,
-            default: '51pt',
+            default: '51px',
         },
         defaultLeft: {
             type: Boolean,

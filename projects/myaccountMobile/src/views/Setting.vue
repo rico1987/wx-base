@@ -1,5 +1,5 @@
 <template>
-    <div class="myaccount-setting">
+    <div class="myaccount-setting has-header">
 <MobileHeader
             defaultLeft
             title="Setting"

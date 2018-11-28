@@ -1,5 +1,5 @@
 <template>
-    <div class="myaccount-orders has-header">
+    <div class="myaccount-orders has-header has-loading">
         <MobileHeader
             defaultLeft
             title="My Order"
@@ -23,8 +23,11 @@
                 </div>
             </div>
         </div>
-        <div class="loading" v-if="loading">
-            <Icon type="spinner spin"  v-if="loading" />
+        <div class="myaccount-orders__no-data" v-if="!loading && orders.length === 0">
+            <p>No orders, <a href="#">Order now</a></p>
+        </div>
+        <div class="loading" v-show="loading">
+            <Icon type="spinner spin" />
         </div>
     </div>
 </template>
@@ -71,7 +74,6 @@ export default {
                             text: '获取订单失败!',
                         });
                     }
-                    debugger;
                     this.loading = false;
                 })
                 .catch((error) => {

@@ -13,7 +13,7 @@ export default {
     props: {
         itemHeight: {
             type: String,
-            default: '42pt',
+            default: '42px',
         },
     },
 

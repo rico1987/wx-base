@@ -1,5 +1,5 @@
 <template>
-    <div class="myaccount-unlimited-vip">
+    <div class="myaccount-unlimited-vip has-header">
         <MobileHeader
             defaultLeft
             title="Unlimited Vip"

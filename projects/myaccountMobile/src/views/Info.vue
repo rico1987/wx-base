@@ -1,5 +1,5 @@
 <template>
-    <div class="myaccount-info">
+    <div class="myaccount-info has-header">
         <MobileHeader
             defaultLeft
             title="Personal information"

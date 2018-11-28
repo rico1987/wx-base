@@ -101,4 +101,17 @@
             }
         }
     }
+    .myaccount-orders__no-data{
+        margin-top: 64px;
+        padding-top: 116px;
+        background: url(../../../icons/no-order.svg) top center no-repeat;
+        p{
+            font-size: 15px;
+            color: #666666;
+            a{
+                color: #4786FF;
+                text-decoration: none;
+            }
+        }
+    }
 }

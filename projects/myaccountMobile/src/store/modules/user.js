@@ -25,7 +25,7 @@ const user = {
         LoginByUsername({ commit, }, loginInfo) {
             const account = loginInfo.account.trim();
             return new Promise((resolve, reject) => {
-                login(account, loginInfo.password).then((response) => {
+                login(account, loginInfo.password, loginInfo.language).then((response) => {
                     const data = response.data;
                     if (data && data.status === '1') {
                         commit('SET_API_TOKEN', data.data.api_token);

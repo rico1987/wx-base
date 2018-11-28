@@ -41,7 +41,7 @@ export default {
         position: String,
         width: {
             type: String,
-            default: '8em',
+            default: 'auto',
         },
         showTime: {
             type: Number,

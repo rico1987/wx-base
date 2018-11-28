@@ -11,14 +11,15 @@
                 type="tel"
                 ref="phoneInput"
                 v-model="phone"
-                placeholder='Phone Number'
+                :placeholder='$t("001204")'
                 max="50"
+                :rules="phoneRules"
                 :areaCodes="areaCodes"
             ></MobileInput>
             <MobileInput
                 ref="vcodeInput"
                 v-model="vcode"
-                placeholder='Verification Code'
+                :placeholder='$t("001205")'
                 max="10"
                 :showClearBtn=false
                 :rules="vcodeRules"
@@ -28,10 +29,18 @@
                         {{countDown}}
                     </span>
                     <span v-else>
-                        Get
+                        {{ $t("001172") }}
                     </span>
                 </span>
             </MobileInput>
+            <div class="row">
+                <span class="btn btn-primary" @click="bindPhone()">
+                    <span class="loading" v-if="loading">
+                        <Icon type="spinner spin" />
+                    </span>
+                    {{ $t("001410") }}
+                </span>
+            </div>
         </div>
     </div>
 </template>
@@ -55,6 +64,23 @@ export default {
             interval: null,
             loading: false,
             areaCodes: [],
+            phoneRules: [
+                {
+                    type: 'required',
+                    message: this.$t("001221"),
+                },
+                {
+                    type: 'regex',
+                    value: /^\d{7,14}$/,
+                    message: '请输入有效手机号码！',
+                },
+            ],
+            vcodeRules: [
+                {
+                    type: 'required',
+                    message: this.$t("001222"),
+                },
+            ],
         };
     },
     created: function() {
@@ -84,57 +110,55 @@ export default {
 
         sendCode() {
             if (!this.countDown) {
-                if (this.activeTab === 'email') {
-                    this.$refs.emailInput.validate();
-                    if (this.$refs.emailInput.isValid) {
-                        sendVcode({
-                            email: this.email,
-                            scene: 'register',
-                            // todo
-                            language: 'zh',
+                this.$refs.emailInput.validate();
+                if (this.$refs.emailInput.isValid) {
+                    sendVcode({
+                        email: this.email,
+                        scene: 'register',
+                        language: this.$i18n.locale,
+                    })
+                        .then((res) => {
+                            if (res.data.status === '1') {
+                                this.$toast.show({
+                                    text: '验证码发送成功!',
+                                });
+                                this.countDown = 60;
+                                this.interval = setInterval(() => {
+                                    if (this.countDown > 0) {
+                                        this.countDown -= 1;
+                                    }
+                                    if (this.countDown === 0) {
+                                        if (this.interval) {
+                                            clearInterval(this.interval);
+                                        }
+                                    }
+                                    console.log(this.countDown);
+                                }, 1000);
+                            } else {
+                                this.$toast.show({
+                                    text: '验证码发送失败!',
+                                });
+                            }
                         })
-                            .then((res) => {
-                                if (res.data.status === '1') {
-                                    this.$toast.show({
-                                        text: '邮件发送成功!',
-                                    });
-                                    this.countDown = 60;
-                                    this.interval = setInterval(() => {
-                                        if (this.countDown > 0) {
-                                            this.countDown -= 1;
-                                        }
-                                        if (this.countDown === 0) {
-                                            if (this.interval) {
-                                                clearInterval(this.interval);
-                                            }
-                                        }
-                                        console.log(this.countDown);
-                                    }, 1000);
-                                } else {
-                                    this.$toast.show({
-                                        text: '邮件发送失败!',
-                                    });
-                                }
-                            })
-                            .catch((error) => {
-                                if (error.status === -208) {
-                                    this.$toast.show({
-                                        text: '该邮箱已注册!',
-                                    });
-                                } else if (error.status === -210) {
-                                    this.$toast.show({
-                                        text: '超过每日发送限制!',
-                                    });
-                                } else {
-                                    this.$toast.show({
-                                        text: '邮件发送失败!',
-                                    });
-                                }
-                            });
-                    }
-                } else {
+                        .catch((error) => {
+                            if (error.status === -208) {
+                                this.$toast.show({
+                                    text: this.$t("001227"),
+                                });
+                            } else if (error.status === -210) {
+                                this.$toast.show({
+                                    text: this.$t("001379"),
+                                });
+                            } else {
+                                this.$toast.show({
+                                    text: '验证码发送失败!',
+                                });
+                            }
+                        });
                 }
             }
+        },
+        bindPhone() {
 
         },
     },

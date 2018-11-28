@@ -118,7 +118,7 @@ export default {
                     this.$refs.confirmPasswordInput.showErrorMessage('两次输入密码不一致');
                     return false;
                 }
-                changePassword(this.userInfo.user_id, this.password, this.confirmPassword)
+                changePassword(this.userInfo.user_id, this.password, this.confirmPassword, this.$i18n.locale)
                     .then(res => {
                         if (res.data.status === '1') {
                             this.$toast.show({

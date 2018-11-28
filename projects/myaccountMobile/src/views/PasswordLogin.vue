@@ -85,6 +85,7 @@ export default {
                 this.$store.dispatch('LoginByUsername', {
                     account: this.account,
                     password: this.password,
+                    language: this.$i18n.locale,
                 }).then((res) => {
                     console.log(res);
                     this.$router.push({ path: '/account-menu', });

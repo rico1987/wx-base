@@ -4,13 +4,14 @@
 @include b(toast) {
     position: fixed;
     z-index: 9999;
-    width: 7.6em;
+    width: 10em;
     left: 50%;
-    margin-left: -3.8em;
+    margin-left: -5em;
     background: rgba(17,17,17,0.7);
     text-align: center;
     border-radius: 5px;
     color: #ffffff;
+    padding: 0 10px;
 
     @include e(wrapper) {
         margin: 0 0 15px;

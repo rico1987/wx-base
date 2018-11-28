@@ -51,17 +51,16 @@ export default {
             loading: false,
             account: null,
             password: null,
-            accountRules: null,
             accountRules: [
                 {
                     type: 'required',
-                    message: this.$t("001217"),
+                    message: this.$t('001217'),
                 },
             ],
             passwordRules: [
                 {
                     type: 'required',
-                    message: this.$t("001213"),
+                    message: this.$t('001213'),
                 },
             ],
         };
@@ -93,7 +92,7 @@ export default {
                 }).catch((error) => {
                     console.log(error);
                     this.$toast.show({
-                        text: this.$t("001220"),
+                        text: this.$t('001220'),
                     });
                     this.loading = false;
                 });

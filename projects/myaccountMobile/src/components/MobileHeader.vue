@@ -4,7 +4,6 @@
             <slot name="left"></slot>
         </div>
         <div class="mobile-header__left is-default" v-if="defaultLeft" @click="back()">
-            <Icon type="angle-left" />
         </div>
         <div class="mobile-header__center">
             <slot v-if="$slots.center"></slot>

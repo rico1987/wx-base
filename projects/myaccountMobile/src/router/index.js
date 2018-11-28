@@ -52,7 +52,7 @@ export default new Router({
             name: 'passwordLessLogin',
             component: PasswordLessLogin,
         },
-		{
+        {
             path: '/setting',
             name: 'setting',
             component: Setting,
@@ -76,5 +76,6 @@ export default new Router({
             path: '/unlimited-vip',
             name: 'unlimitedVip',
             component: UnlimitedVip,
-        },    ],
+        },
+    ],
 });

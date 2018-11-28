@@ -2,15 +2,28 @@
     <div class="myaccount-account-menu">
         <div class="header">
             <img v-if="userInfo.avatar" :src="userInfo.avatar" />
-            <p>{{userInfo.nickname}}</p>
+            <p class="nickname">{{userInfo.nickname}}</p>
+            <p class="privileges" @click="goto('unlimited-vip')">
+                Unlimited VIP Privileges
+            </p>
         </div>
         <div class="container">
             <ul class="mobile-list-items">
-                <li class="mobile-list-items__item" @click="goto('info')">{{ $t("001263") }}</li>
-                <li class="mobile-list-items__item" @click="goto('orders')">{{ $t("001264") }}</li>
-                <li class="mobile-list-items__item" @click="goto('work-list')">{{ $t("001265") }}</li>
-                <li class="mobile-list-items__item" @click="goto('reset-password')">{{ $t("001266") }}</li>
-                <li class="mobile-list-items__item" @click="goto('setting')">{{ $t("001401") }}</li>
+                <li class="mobile-list-items__item item-1" @click="goto('info')">{{ $t("001263") }}
+                    <span></span>
+                </li>
+                <li class="mobile-list-items__item item-2" @click="goto('orders')">{{ $t("001264") }}
+                    <span></span>
+                </li>
+                <li class="mobile-list-items__item item-3" @click="goto('work-list')">{{ $t("001265") }}
+                    <span></span>
+                </li>
+                <li class="mobile-list-items__item item-4" @click="goto('reset-password')">{{ $t("001266") }}
+                    <span></span>
+                </li>
+                <li class="mobile-list-items__item item-5" @click="goto('setting')">{{ $t("001401") }}
+                    <span></span>
+                </li>
             </ul>
         </div>
     </div>

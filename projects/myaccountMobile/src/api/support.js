@@ -1,7 +1,5 @@
 import qs from 'qs';
 import supportFetch from '../utils/supportFetch';
-import * as is from '../../../../lib/utils/is';
-import { objToQuery, } from '../../../../lib/utils';
 
 export function getOrders(page = 1, size = 10) {
     return supportFetch.post('/account', qs.stringify({

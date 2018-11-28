@@ -19,6 +19,7 @@
         @include when(default) {
             display: flex;
             justify-content: center;
+            background: url('../../../icons/topBlackArrow.svg') center no-repeat;
         }
     }
 

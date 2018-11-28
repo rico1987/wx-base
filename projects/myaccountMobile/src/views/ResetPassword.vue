@@ -52,7 +52,7 @@ import Icon from '@/components/Icon.vue';
 import MobileHeader from '@/components/MobileHeader.vue';
 import MobileInput from '@/components/MobileInput.vue';
 
-import { changePassword } from '@/api/account';
+import { changePassword, } from '@/api/account';
 
 export default {
     name: 'resetPassword',
@@ -119,13 +119,13 @@ export default {
                     return false;
                 }
                 changePassword(this.userInfo.user_id, this.password, this.confirmPassword, this.$i18n.locale)
-                    .then(res => {
+                    .then((res) => {
                         if (res.data.status === '1') {
                             this.$toast.show({
                                 text: '密码修改成功!',
                             });
                             setTimeout(() => {
-                                this.$router.push({ path: '/account-menu' });
+                                this.$router.push({ path: '/account-menu', });
                             }, 1000);
                         } else {
                             this.$toast.show({
@@ -135,6 +135,7 @@ export default {
                         this.loading = false;
                     })
                     .catch((error) => {
+                        console.log(error);
                         this.$toast.show({
                             text: '密码修改失败!',
                         });

@@ -46,9 +46,10 @@
 </template>
 
 <script>
+import Cookies from 'js-cookie';
 import MobileInput from '@/components/MobileInput.vue';
 import MobileHeader from '@/components/MobileHeader.vue';
-import { sendVcode, getAreaCodes, } from '@/api/account';
+import { sendVcode, getAreaCodes, bindPhone, } from '@/api/account';
 
 export default {
     name: 'bindPhone',
@@ -67,7 +68,7 @@ export default {
             phoneRules: [
                 {
                     type: 'required',
-                    message: this.$t("001221"),
+                    message: this.$t('001221'),
                 },
                 {
                     type: 'regex',
@@ -78,7 +79,7 @@ export default {
             vcodeRules: [
                 {
                     type: 'required',
-                    message: this.$t("001222"),
+                    message: this.$t('001222'),
                 },
             ],
         };
@@ -100,7 +101,7 @@ export default {
                             });
                         }
                         this.areaCodes = arr.concat([]);
-                        this.$refs.phoneInput.setActiveAreaCode(this.areaCodes[0].code);
+                        this.$refs.phoneInput.setActiveAreaCode(this.areaCodes[0]);
                     } else {
 
                     }
@@ -110,11 +111,18 @@ export default {
 
         sendCode() {
             if (!this.countDown) {
-                this.$refs.emailInput.validate();
-                if (this.$refs.emailInput.isValid) {
+                this.$refs.phoneInput.validate();
+                if (this.$refs.phoneInput.isValid) {
+                    let areaCode = this.$refs.phoneInput.getAreaCode();
+                    if (!areaCode || !areaCode.code) {
+                        this.$toast.show({
+                            text: '请选择国家或地区!',
+                        });
+                    }
                     sendVcode({
-                        email: this.email,
-                        scene: 'register',
+                        country_code: areaCode.code,
+                        telephone: this.phone,
+                        scene: 'bind',
                         language: this.$i18n.locale,
                     })
                         .then((res) => {
@@ -143,11 +151,11 @@ export default {
                         .catch((error) => {
                             if (error.status === -208) {
                                 this.$toast.show({
-                                    text: this.$t("001227"),
+                                    text: this.$t('001227'),
                                 });
                             } else if (error.status === -210) {
                                 this.$toast.show({
-                                    text: this.$t("001379"),
+                                    text: this.$t('001379'),
                                 });
                             } else {
                                 this.$toast.show({
@@ -159,6 +167,71 @@ export default {
             }
         },
         bindPhone() {
+            if (this.loading) {
+                this.$toast.show({
+                    text: '请稍等',
+                });
+                return false;
+            }
+            this.$refs.phoneInput.validate();
+            this.$refs.vcodeInput.validate();
+            let areaCode = this.$refs.phoneInput.getAreaCode();
+            if (!areaCode || !areaCode.code) {
+                this.$toast.show({
+                    text: '请选择国家或地区!',
+                });
+            }
+            let saveData = Cookies.get('userInfo');
+            let userInfo;
+            let userId;
+            try {
+                userInfo = JSON.parse(saveData);
+                userId = userInfo.user_id;
+            } catch (error) {
+                console.log(error);
+            }
+
+            if (this.$refs.phoneInput.isValid && this.$refs.vcodeInput.isValid) {
+                bindPhone(userId, this.phone, this.vcode, areaCode.code, this.$i18n.locale)
+                    .then((res) => {
+                        if (res.data.status === '1') {
+                            this.$toast.show({
+                                text: this.$t('001232'),
+                            });
+                            setTimeout(() => {
+                                this.$router.push({ path: '/account-menu', });
+                            }, 1000);
+                        } else {
+                            this.$toast.show({
+                                text: '绑定失败!',
+                            });
+                        }
+                        this.loading = false;
+                    })
+                    .catch((error) => {
+                        if (error.status === -204) {
+                            this.$toast.show({
+                                text: '您已经绑定到该手机!',
+                            });
+                        } else if (error.status === -205) {
+                            this.$toast.show({
+                                text: '该手机已绑定到其他账户，请更换手机再试！',
+                            });
+                        } else if (error.status === -206) {
+                            this.$toast.show({
+                                text: this.$t('001223'),
+                            });
+                        } else if (error.status === -208) {
+                            this.$toast.show({
+                                text: '该手机已注册，请更换手机再试或直接登陆！',
+                            });
+                        } else {
+                            this.$toast.show({
+                                text: '绑定手机失败！',
+                            });
+                        }
+                    });
+            }
 
         },
     },

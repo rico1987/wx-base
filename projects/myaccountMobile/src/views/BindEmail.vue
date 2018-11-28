@@ -2,7 +2,7 @@
     <div class="myaccount-bind-email has-header">
         <MobileHeader
             defaultLeft
-            :title='$t("001176")'
+            :title="$t('001176')"
         >
         </MobileHeader>
         <p class="bind-warning">If you don't bind your mailbox, you risk losing your account.</p>
@@ -11,7 +11,7 @@
                 type="text"
                 ref="emailInput"
                 v-model="email"
-                :placeholder='$t("001206")'
+                :placeholder="$t('001206')"
                 max="50"
                 :rules="emailRules"
                 @on-blur="emailOnBlur"
@@ -19,7 +19,7 @@
             <MobileInput
                 ref="vcodeInput"
                 v-model="vcode"
-                :placeholder='$t("001205")'
+                :placeholder="$t('001205')"
                 max="10"
                 :showClearBtn=false
                 :rules="vcodeRules"
@@ -30,7 +30,7 @@
                         {{countDown}}
                     </span>
                     <span v-else>
-                        {{ $t("001172") }}
+                        {{ $t('001172') }}
                     </span>
                 </span>
             </MobileInput>
@@ -39,7 +39,7 @@
                     <span class="loading" v-if="loading">
                         <Icon type="spinner spin" />
                     </span>
-                    {{ $t("001410") }}
+                    {{ $t('001410') }}
                 </span>
             </div>
         </div>
@@ -51,7 +51,7 @@ import Cookies from 'js-cookie';
 import Icon from '@/components/Icon.vue';
 import MobileInput from '@/components/MobileInput.vue';
 import MobileHeader from '@/components/MobileHeader.vue';
-import { sendVcode, bindEmail } from '@/api/account';
+import { sendVcode, bindEmail, } from '@/api/account';
 
 export default {
     name: 'bindEmail',
@@ -65,7 +65,7 @@ export default {
             emailRules: [
                 {
                     type: 'required',
-                    message: this.$t("001212"),
+                    message: this.$t('001212'),
                 },
                 {
                     type: 'regex',
@@ -76,7 +76,7 @@ export default {
             vcodeRules: [
                 {
                     type: 'required',
-                    message: this.$t("001222"),
+                    message: this.$t('001222'),
                 },
             ],
             email: null,
@@ -122,11 +122,11 @@ export default {
                         .catch((error) => {
                             if (error.status === -208) {
                                 this.$toast.show({
-                                    text: this.$t("001227"),
+                                    text: this.$t('001227'),
                                 });
                             } else if (error.status === -210) {
                                 this.$toast.show({
-                                    text: this.$t("001379"),
+                                    text: this.$t('001379'),
                                 });
                             } else {
                                 this.$toast.show({
@@ -153,8 +153,8 @@ export default {
             this.$refs.emailInput.validate();
             this.$refs.vcodeInput.validate();
             let saveData = Cookies.get('userInfo');
-            let userInfo, userId;
-            // let userId =
+            let userInfo;
+            let userId;
             try {
                 userInfo = JSON.parse(saveData);
                 userId = userInfo.user_id;
@@ -167,10 +167,10 @@ export default {
                     .then((res) => {
                         if (res.data.status === '1') {
                             this.$toast.show({
-                                text: this.$t("001233"),
+                                text: this.$t('001233'),
                             });
                             setTimeout(() => {
-                                this.$router.push({ path: '/account-menu' });
+                                this.$router.push({ path: '/account-menu', });
                             }, 1000);
                         } else {
                             this.$toast.show({
@@ -182,11 +182,11 @@ export default {
                     .catch((error) => {
                         if (error.status === -204) {
                             this.$toast.show({
-                                text: "您已经绑定到该邮箱!",
+                                text: '您已经绑定到该邮箱!',
                             });
                         } else if (error.status === -205) {
                             this.$toast.show({
-                                text: "该邮箱已绑定到其他账户，请更换邮箱再试!",
+                                text: '该邮箱已绑定到其他账户，请更换邮箱再试!',
                             });
                         } else if (error.status === -208) {
                             this.$toast.show({

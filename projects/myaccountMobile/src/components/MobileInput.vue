@@ -102,25 +102,32 @@
             <div class="mobile-input__tel-input-wrapper" v-if="type === 'tel'">
                 <div
                     class="mobile-input__tel-area-code-selector"
+                    id="telAreaCodeSelector"
                 >
-                    <span class="mobile-input__selected-area-code" @click="showAreaCodes = true">
-                        {{selectedAreaCode}}
+                    <span class="mobile-input__selected-area-code" v-if="selectedAreaCode">
+                        {{selectedAreaCode.code}}
                     </span>
                     <div class="mobile-input__area-code-list" v-show="showAreaCodes">
-                        <div class="mobile-input__area-code-search">
+                        <div class="mobile-input__area-code-search" id="areaCodeSearch">
                             <input
                                 v-model="areaCodeSearch"
                                 type="text"
                                 @keyup="filterAreaCodes"
                                 maxlength="10"
+                                id="areaCodeSearchInput"
+                                ref="areaCodeSearchInput"
                             />
                             <Icon class="mobile-input__area-code-search-icon" type="search" />
                         </div>
                         <ul class="mobile-input__area-code-list-items">
                             <li
-                                v-for="areaCode in areaCodes"
+                                v-for="areaCode in areaCodesCopy"
                                 v-bind:key="areaCode.code + areaCode.country"
-                                :class="{active: selectedAreaCode === areaCode.code}"
+                                :class="{
+                                    active: selectedAreaCode && selectedAreaCode.code === areaCode.code &&
+                                    selectedAreaCode.country === areaCode.country
+                                }"
+                                @click="setActiveAreaCode(areaCode)"
                             >
                                 {{areaCode.country + ' ' + areaCode.code}}
                             </li>
@@ -177,6 +184,7 @@
 </template>
 <script>
 import Icon from './Icon.vue';
+import { trim, } from '../../../../lib/utils/index';
 
 export default {
     name: 'MobileInput',
@@ -302,12 +310,25 @@ export default {
             areaCodeSearch: null,
             showAreaCodes: false,
             showPassword: false,
+            areaCodesCopy: null,
         };
     },
 
     created: function() {
         if (this.defaultValue) {
             this.currentValue = this.defaultValue;
+        }
+    },
+
+    mounted: function() {
+        if (this.type === 'tel') {
+            document.getElementsByTagName('body')[0].addEventListener('click', this.toggleShowAreaCodes);
+        }
+    },
+
+    beforeDestroy: function() {
+        if (this.type === 'tel') {
+            document.getElementsByTagName('body')[0].removeEventListener('click', this.toggleShowAreaCodes);
         }
     },
 
@@ -323,7 +344,14 @@ export default {
     methods: {
 
         filterAreaCodes() {
-            console.log(this.areaCodeSearch);
+            if (this.areaCodeSearch) {
+                let areaCodeSearch = this.areaCodeSearch;
+                this.areaCodesCopy = this.areaCodes.filter(ele =>
+                    ele.code.indexOf(trim(areaCodeSearch)) > -1 || ele.country.indexOf(trim(areaCodeSearch)) > -1
+                );
+            } else {
+                this.areaCodesCopy = this.areaCodes.concat([]);
+            }
         },
         setActiveAreaCode(areaCode) {
             this.selectedAreaCode = areaCode;
@@ -421,9 +449,25 @@ export default {
             this.isValid = true;
         },
         getAreaCode() {
+            return this.selectedAreaCode;
         },
         showErrorMessage(message) {
             this.firstError = message;
+        },
+
+        toggleShowAreaCodes() {
+            if (!this.areaCodesCopy) {
+                this.areaCodesCopy = this.areaCodes.concat([]);
+            }
+            if (event.target.id === 'telAreaCodeSelector' || event.target.parentNode.id === 'telAreaCodeSelector') {
+                this.showAreaCodes = !this.showAreaCodes;
+            } else if (event.target.id === 'areaCodeSearchInput') {
+                this.$refs.areaCodeSearchInput.focus();
+            } else {
+                if (this.showAreaCodes) {
+                    this.showAreaCodes = false;
+                }
+            }
         },
     },
 };

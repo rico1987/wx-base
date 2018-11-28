@@ -59,8 +59,7 @@ export default {
 
     methods: {
 
-        isApp(order) {
-
+        isApp() {
         },
 
         getAccountOrders() {

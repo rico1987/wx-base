@@ -66,9 +66,9 @@ export default {
             size: 10,
             loading: false,
             TICKET_STATES: {
-                '0'  : 'Pending',
-                '1'  : 'Replied',
-                '-1' : 'Resolved',
+                '0': 'Pending',
+                '1': 'Replied',
+                '-1': 'Resolved',
             },
             TICKET_TYPES: {
                 1: 'Purchase and security',

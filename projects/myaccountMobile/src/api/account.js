@@ -34,8 +34,13 @@ export function bindEmail(userId, email, vcode, language) {
     }));
 }
 
-export function bindPhone(userId, phone, country_code, vcode ) {
-    return accountFetch.put(`/users/${userId}/passwords`, qs.stringify({
+export function bindPhone(userId, phone, vcode, areaCode, language) {
+    return accountFetch.put(`/users/${userId}/bindings/contactinfo`, qs.stringify({
+        brand: 'Apowersoft',
+        language,
+        telephone: phone,
+        captcha: vcode,
+        country_code: areaCode,
     }));
 }
 

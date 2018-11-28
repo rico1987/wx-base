@@ -4,6 +4,7 @@
 @include b(input) {
     width: 100%;
     position: relative;
+    padding-bottom: 25pt;
     padding-bottom: 25px;
 
     @include e(label) {
@@ -21,26 +22,34 @@
         height: 100%;
         border: none;
         outline: none;
+        font-size: 14pt;
+        border-bottom: 1pt solid #E5E5E5;
         font-size: 14px;
         border-bottom: 1px solid #E5E5E5;
         padding: 0;
         caret-color: #4786FF;
         &::-webkit-input-placeholder {
             color: #CCCCCC;
+            font-size: 14pt;
             font-size: 14px;
             position: relative;
+            top: 0pt;
             top: 0px;
         }
         &:-moz-placeholder {
             color: #CCCCCC;
+            font-size: 14pt;
             font-size: 14px;
             position: relative;
+            top: 0pt;
             top: 0px;
         }
         &::-moz-placeholder {
             color: #CCCCCC;
+            font-size: 14pt;
             font-size: 14px;
             position: relative;
+            top: 0pt;
             top: 0px;
         }
         &:disabled{
@@ -61,8 +70,10 @@
 
     @include e(tel-area-code-selector) {
         flex: 0.2;
+        font-size: 14pt;
         font-size: 14px;
         border: none;
+        border-bottom: 1pt solid #E5E5E5;
         border-bottom: 1px solid #E5E5E5;
         height: 100%;
         align-items: center;
@@ -78,22 +89,29 @@
     @include e(area-code-list) {
         position: absolute;
         background-color: white;
+        width: 150pt;
         width: 150px;
         border: 1px solid #eee;
         z-index: 9999;
+        top: 42pt;
         top: 42px;
         left: 0;
         box-shadow: 0 0 5px #ccc;
+        border-radius: 2pt;
         border-radius: 2px;
     }
 
     @include e(area-code-search) {
         width: 100%;
+        padding: 5pt;
         padding: 5px;
         box-sizing: border-box;
         position: relative;
         color: #999;
         input{
+            border: 1pt solid #ddd;
+            border-radius: 2pt;
+            font-size: 14pt;
             border: 1px solid #ddd;
             border-radius: 2px;
             font-size: 14px;
@@ -105,25 +123,34 @@
         position: absolute;
         right: 0;
         top: 50%;
+        font-size: 14pt;
+        margin-top: -7pt;
+        right: 5pt;
         font-size: 14px;
         margin-top: -7px;
         right: 5px;
     }
 
     @include e(area-code-list-items) {
+        max-height: 300pt;
         max-height: 300px;
         overflow: auto;
         list-style: none;
         padding-left: 0;
+        margin: 5pt 0;
         margin: 5px 0;
         li{
+            font-size: 12pt;
             font-size: 12px;
             margin: 0;
+            line-height: 16pt;
             line-height: 16px;
             color: #aaa;
             text-align: left;
+            padding-left: 15pt;
             padding-left: 15px;
             font-weight: normal;
+            padding: 0 10pt;
             padding: 0 10px;
         }
     }
@@ -141,6 +168,9 @@
 
     @include e(clear) {
         position: relative;
+        top: -12.5pt;
+        width: 14pt;
+        height: 14pt;
         top: -12.5px;
         width: 14px;
         height: 14px;
@@ -150,6 +180,9 @@
 
     @include e(password-switch) {
         position: relative;
+        top: -12.5pt;
+        width: 18pt;
+        height: 18pt;
         top: -12.5px;
         width: 18px;
         height: 18px;
@@ -165,6 +198,8 @@
         left: 0;
         bottom: 0;
         color: #f85656;
+        font-size: 12pt;
+        line-height: 16pt
         font-size: 12px;
         line-height: 16px
     }
@@ -173,6 +208,7 @@
         display: flex;
         align-items: center;
         position: relative;
+        top: -12.5pt;
         top: -12.5px;
         color: #CCCCCC;
     }

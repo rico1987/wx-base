@@ -1,6 +1,6 @@
 <template>
     <div class="myaccount-setting">
-        <MobileHeader
+<MobileHeader
             defaultLeft
             title="Setting"
         >
@@ -24,8 +24,7 @@
             <div>
                 <span class="btn btn-primary" @click="gotoRegistration()">Exit</span>
             </div>
-        </div>
-    </div>
+        </div>    </div>
 </template>
 
 <script>

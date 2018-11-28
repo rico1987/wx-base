@@ -1,12 +1,12 @@
 <template>
     <div class="myaccount-password-login myaccount-form-page">
-        <h1>Login</h1>
+        <h1>{{ $t("001166") }}</h1>
         <div class="row">
             <form>
                 <MobileInput
                     ref="accountInput"
                     v-model="account"
-                    placeholder='Email/Phone number'
+                    :placeholder='$t("001200")'
                     max="50"
                     :rules="accountRules"
                 ></MobileInput>
@@ -14,24 +14,24 @@
                     ref="passwordInput"
                     type="password"
                     v-model="password"
-                    placeholder='Password'
+                    :placeholder='$t("001201")'
                     max="20"
                     :rules="passwordRules"
                 ></MobileInput>
             </form>
         </div>
         <div class="row link-wrapper">
-            <span class="link left-link" @click="gotoPasswordLessLogin()">Password-less login</span>
-            <span class="link right-link" @click="gotoResetPassword()">Forgot Password?</span>
+            <span class="link left-link" @click="gotoPasswordLessLogin()">{{ $t("001170") }}</span>
+            <span class="link right-link" @click="gotoResetPassword()">{{ $t("001169") }}</span>
         </div>
         <div class="row">
             <span class="btn btn-primary" @click="login()">
                 <span class="loading" v-if="loading">
                     <Icon type="spinner spin" />
                 </span>
-                Login
+                {{ $t("001166") }}
             </span>
-            <span class="btn btn-white" @click="gotoRegistration()">Registration</span>
+            <span class="btn btn-white" @click="gotoRegistration()">{{ $t("001171") }}</span>
         </div>
     </div>
 </template>
@@ -51,19 +51,23 @@ export default {
             loading: false,
             account: null,
             password: null,
+            accountRules: null,
             accountRules: [
                 {
                     type: 'required',
-                    message: '请输入手机或邮箱',
+                    message: this.$t("001217"),
                 },
             ],
             passwordRules: [
                 {
                     type: 'required',
-                    message: '请输入密码',
+                    message: this.$t("001213"),
                 },
             ],
         };
+    },
+
+    created: function() {
     },
 
     methods: {
@@ -88,7 +92,7 @@ export default {
                 }).catch((error) => {
                     console.log(error);
                     this.$toast.show({
-                        text: '账号或密码错误',
+                        text: this.$t("001220"),
                     });
                     this.loading = false;
                 });

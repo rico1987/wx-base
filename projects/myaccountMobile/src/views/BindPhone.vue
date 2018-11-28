@@ -2,7 +2,7 @@
     <div class="myaccount-bind-phone has-header">
         <MobileHeader
             defaultLeft
-            title="Binding"
+            :title='$t("001176")'
         >
         </MobileHeader>
         <p class="bind-warning">If you don't bind your phone number, you risk losing your account.</p>

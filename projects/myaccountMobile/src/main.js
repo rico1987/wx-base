@@ -7,6 +7,10 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 
+// import languages
+import LangEn from './lang/en.json';
+import LangZh from './lang/zh.json';
+
 import ToastPlugin from './plugins/toast';
 
 Vue.use(ToastPlugin, { position: 'center', });
@@ -17,12 +21,8 @@ Vue.use(VueI18n);
 const i18n = new VueI18n({
     locale: 'zh',
     messages: {
-        'zh': {
-            hello: '你好',
-        },
-        'en': {
-            hello: 'hello',
-        },
+        'zh': LangZh,
+        'en': LangEn,
     },
 });
 

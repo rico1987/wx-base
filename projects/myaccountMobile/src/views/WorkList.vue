@@ -6,7 +6,15 @@
         >
         </MobileHeader>
         <div class="myaccount-worklist__header">
-            <span class="switch" @click="showFilter()">All tickets</span>
+            <span class="switch">
+                <span @click="showFilter()">{{ getCurrentFilter() }}</span>
+                <ul class="filter" v-show="filterVisible">
+                    <li @click="filterByType()">{{ $t("001290") }}</li>
+                    <li @click="filterByType(1)">{{ $t("001332") }}</li>
+                    <li @click="filterByType(0)">{{ $t("001333") }}</li>
+                    <li @click="filterByType(-1)">{{ $t("001337") }}</li>
+                </ul>
+            </span>
             <span class="submit" @click="showSubmit()">Submit work</span>
         </div>
         <div class="myacccount-work-list__worklist-list" v-if="!loading">
@@ -40,6 +48,7 @@
             </div>
         </div>
         <div class="no-data" v-if="!loading && workListArr.length === 0">
+            <p>没有找到数据！</p>
         </div>
         <div class="loading" v-show="loading">
             <Icon type="spinner spin" />
@@ -62,13 +71,15 @@ export default {
     data() {
         return {
             workListArr: [],
+            workListArrCopy: [],
             page: 1,
             size: 10,
             loading: false,
+            activeType: null,
             TICKET_STATES: {
-                '0': 'Pending',
-                '1': 'Replied',
-                '-1': 'Resolved',
+                '0': this.$t('001333'),
+                '1': this.$t('001332'),
+                '-1': this.$t('001337'),
             },
             TICKET_TYPES: {
                 1: 'Purchase and security',
@@ -80,6 +91,7 @@ export default {
                 7: 'Business cooperation',
                 8: 'Others',
             },
+            filterVisible: false,
         };
     },
 
@@ -88,12 +100,36 @@ export default {
     },
 
     methods: {
+
+        filterByType(type) {
+            this.activeType = type;
+            if (type === 0) {
+                this.workListArr = this.workListArrCopy.filter(ele => ele.type === 0);
+            } else if (type === 1) {
+                this.workListArr = this.workListArrCopy.filter(ele => ele.type === 1);
+            } else if (type === -1) {
+                this.workListArr = this.workListArrCopy.filter(ele => ele.type === -1);
+            } else {
+                this.workListArr = this.workListArrCopy.concat([]);
+            }
+            this.filterVisible = false;
+        },
+
+        getCurrentFilter() {
+            if (this.activeType === undefined || this.activeType === null) {
+                return this.$t('001290');
+            } else {
+                return this.TICKET_STATES[this.activeType];
+            }
+        },
+
         getWorkListArr() {
             this.loading = true;
             getTickets(this.page, this.size)
                 .then((res) => {
                     if (res.data.status === 1) {
                         this.workListArr = res.data.data.ticket_list;
+                        this.workListArrCopy = this.workListArr.concat([]);
                     } else {
                         this.$toast.show({
                             text: '获取工单失败!',
@@ -116,7 +152,7 @@ export default {
         },
 
         showFilter() {
-
+            this.filterVisible = !this.filterVisible;
         },
 
         showSubmit() {

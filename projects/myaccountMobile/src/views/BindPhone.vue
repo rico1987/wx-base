@@ -90,7 +90,7 @@ export default {
     methods: {
 
         getAreaCodesList() {
-            getAreaCodes('zh')
+            getAreaCodes(this.$i18n.locale)
                 .then((res) => {
                     if (res.data && res.data.status === '1') {
                         let arr = [];

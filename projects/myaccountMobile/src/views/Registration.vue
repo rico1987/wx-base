@@ -28,8 +28,9 @@
                     type="tel"
                     ref="phoneInput"
                     v-model="phone"
-                    placeholder='Phone Number'
+                    :placeholder='$t("001204")'
                     max="50"
+                    :rules="phoneRules"
                     :areaCodes="areaCodes"
                 ></MobileInput>
             </div>
@@ -118,6 +119,17 @@ export default {
                     message: '请输入密码',
                 },
             ],
+            phoneRules: [
+                {
+                    type: 'required',
+                    message: this.$t('001221'),
+                },
+                {
+                    type: 'regex',
+                    value: /^\d{7,14}$/,
+                    message: '请输入有效手机号码！',
+                },
+            ],
             areaCodes: [],
         };
     },
@@ -129,7 +141,7 @@ export default {
     methods: {
 
         getAreaCodesList() {
-            getAreaCodes('zh')
+            getAreaCodes(this.$i18n.locale)
                 .then((res) => {
                     if (res.data && res.data.status === '1') {
                         let arr = [];
@@ -140,7 +152,7 @@ export default {
                             });
                         }
                         this.areaCodes = arr.concat([]);
-                        this.$refs.phoneInput.setActiveAreaCode(this.areaCodes[0].code);
+                        this.$refs.phoneInput.setActiveAreaCode(this.areaCodes[0]);
                     } else {
 
                     }
@@ -160,8 +172,7 @@ export default {
                         sendVcode({
                             email: this.email,
                             scene: 'register',
-                            // todo
-                            language: 'zh',
+                            language: this.$i18n.locale,
                         })
                             .then((res) => {
                                 if (res.data.status === '1') {
@@ -213,7 +224,90 @@ export default {
         },
 
         register() {
-
+            if (this.loading) {
+                this.$toast.show({
+                    text: '请稍等',
+                });
+                return false;
+            }
+            if (this.activeTab === 'phone') {
+                this.$refs.phoneInput.validate();
+                this.$refs.vcodeInput.validate();
+                this.$refs.passwordInput.validate();
+                let areaCode = this.$refs.phoneInput.getAreaCode();
+                if (!areaCode || !areaCode.code) {
+                    this.$toast.show({
+                        text: '请选择国家或地区!',
+                    });
+                }
+                if (this.$refs.phoneInput.isValid && this.$refs.vcodeInput.isValid && this.$refs.passwordInput.isValid) {
+                    this.$store.dispatch('PhoneRegister', {
+                        captcha: this.vcode,
+                        areaCode: areaCode.code,
+                        language: this.$i18n.locale,
+                        password: this.password,
+                        phone: this.phone,
+                    }).then((res) => {
+                        console.log(res);
+                        this.$toast.show({
+                            text: '注册成功！',
+                        });
+                        setTimeout(() => {
+                            this.$router.push({ path: '/account-menu', });
+                        }, 1000);
+                        this.loading = false;
+                    }).catch((status) => {
+                        if (status === -208) {
+                            this.$toast.show({
+                                text: '手机号已注册，请直接登陆！',
+                            });
+                        } else if (status === -206) {
+                            this.$toast.show({
+                                text: this.$t('001223'),
+                            });
+                        } else {
+                            this.$toast.show({
+                                text: '注册失败，请重试！',
+                            });
+                        }
+                    });
+                }
+            } else {
+                this.$refs.emailInput.validate();
+                this.$refs.vcodeInput.validate();
+                this.$refs.passwordInput.validate();
+                if (this.$refs.emailInput.isValid && this.$refs.vcodeInput.isValid && this.$refs.passwordInput.isValid) {
+                    this.$store.dispatch('EmailRegister', {
+                        captcha: this.vcode,
+                        language: this.$i18n.locale,
+                        password: this.password,
+                        email: this.email,
+                    }).then((res) => {
+                        console.log(res);
+                        this.$toast.show({
+                            text: '注册成功！',
+                        });
+                        setTimeout(() => {
+                            this.$router.push({ path: '/account-menu', });
+                        }, 1000);
+                        this.loading = false;
+                    }).catch((status) => {
+                        if (status === -208) {
+                            this.$toast.show({
+                                text: '邮箱已注册，请直接登陆！',
+                            });
+                        } else if (status === -206) {
+                            this.$toast.show({
+                                text: this.$t('001223'),
+                            });
+                        } else {
+                            this.$toast.show({
+                                text: '注册失败，请重试！',
+                            });
+                        }
+                    });
+                }
+            }
         },
     },
 };

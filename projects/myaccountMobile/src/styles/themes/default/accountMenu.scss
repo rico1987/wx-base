@@ -11,6 +11,15 @@
             border: 3px solid rgba(255, 255, 255, 0.5);
             margin-top: 32px;
         }
+        .default-avatar{
+            width: 64px;
+            height: 64px;
+            border-radius: 32px;
+            margin: 0 auto;
+            padding-top: 32px;
+            background: url('../../../icons/default-portrait.svg') center no-repeat;
+            background-size: contain;
+        }
         .nickname{
             color: white;
             font-size: 17px;

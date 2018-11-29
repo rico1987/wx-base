@@ -52,8 +52,6 @@ import Icon from '@/components/Icon.vue';
 import MobileHeader from '@/components/MobileHeader.vue';
 import MobileInput from '@/components/MobileInput.vue';
 
-import { changePassword, } from '@/api/account';
-
 export default {
     name: 'resetPassword',
     components: {
@@ -71,6 +69,11 @@ export default {
                     type: 'required',
                     message: '请输入密码',
                 },
+                {
+                    type: 'min-length',
+                    value: 6,
+                    message: '密码长度至少为6位',
+                },
             ],
             confirmPasswordRules: [
                 {
@@ -87,7 +90,6 @@ export default {
         try {
             this.userInfo = JSON.parse(saveData);
             this.showName = this.userInfo.email || this.userInfo.nickname;
-            // this.$refs.showNameInput.setValue(this.showName);
         } catch (error) {
         }
     },
@@ -115,33 +117,26 @@ export default {
             this.$refs.confirmPasswordInput.validate();
             if (this.$refs.passwordInput.isValid && this.$refs.confirmPasswordInput.isValid) {
                 if (this.password !== this.confirmPassword) {
-                    this.$refs.confirmPasswordInput.showErrorMessage('两次输入密码不一致');
+                    this.$refs.confirmPasswordInput.showErrorMessage(this.$t('001353'));
+                    this.loading = false;
                     return false;
                 }
-                changePassword(this.userInfo.user_id, this.password, this.confirmPassword, this.$i18n.locale)
-                    .then((res) => {
-                        if (res.data.status === '1') {
-                            this.$toast.show({
-                                text: '密码修改成功!',
-                            });
-                            setTimeout(() => {
-                                this.$router.push({ path: '/account-menu', });
-                            }, 1000);
-                        } else {
-                            this.$toast.show({
-                                text: '密码修改失败!',
-                            });
-                        }
-                        this.loading = false;
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                        this.$toast.show({
-                            text: '密码修改失败!',
-                        });
-                        this.loading = false;
+                this.$store.dispatch('ResetPassword', {
+                    account: this.userInfo.user_id,
+                    password: this.password,
+                    confirmPassword: this.confirmPassword,
+                    language: this.$i18n.locale,
+                }).then((res) => {
+                    console.log(res);
+                    this.$router.push({ path: '/account-menu', });
+                    this.loading = false;
+                }).catch((error) => {
+                    console.log(error);
+                    this.$toast.show({
+                        text: '修改密码失败！',
                     });
-
+                    this.loading = false;
+                });
             } else {
                 this.loading = false;
                 return false;

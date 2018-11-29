@@ -12,6 +12,7 @@ import Orders from '@/views/Orders.vue';
 import AccountMenu from '@/views/AccountMenu.vue';
 import WorkList from '@/views/WorkList.vue';
 import UnlimitedVip from '@/views/UnlimitedVip.vue';
+import SubmitTicket from '@/views/SubmitTicket.vue';
 
 Vue.use(Router);
 
@@ -76,6 +77,11 @@ export default new Router({
             path: '/unlimited-vip',
             name: 'unlimitedVip',
             component: UnlimitedVip,
+        },
+        {
+            path: '/submit-ticket',
+            name: 'submitTicket',
+            component: SubmitTicket,
         },
     ],
 });

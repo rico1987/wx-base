@@ -23,7 +23,7 @@
                 </div>
             </div>
         </div>
-        <div class="myaccount-orders__no-data" v-if="!loading && orders.length === 0">
+        <div class="myaccount-orders__no-data" v-if="!loading && (!orders || orders.length === 0)">
             <p>No orders, <a href="#">Order now</a></p>
         </div>
         <div class="loading" v-show="loading">

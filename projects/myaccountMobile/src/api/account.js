@@ -17,8 +17,27 @@ export function login(account, password, language) {
     return accountFetch.post('/sessions', qs.stringify(data));
 }
 
-export function register() {
+export function registerByEmail(data) {
+    return accountFetch.post('/users', qs.stringify({
+        brand: 'Apowersoft',
+        captcha: data.captcha,
+        email: data.email,
+        language: data.language,
+        password: data.password,
+        registed_app: 'myaccountm.apowersoft.com',
+    }));
+}
 
+export function registerByPhone(data) {
+    return accountFetch.post('/users', qs.stringify({
+        brand: 'Apowersoft',
+        captcha: data.captcha,
+        country_code: data.areaCode,
+        language: data.language,
+        password: data.password,
+        telephone: data.phone,
+        registed_app: 'myaccountm.apowersoft.com',
+    }));
 }
 
 export function changeAvatar() {
@@ -44,12 +63,12 @@ export function bindPhone(userId, phone, vcode, areaCode, language) {
     }));
 }
 
-export function changePassword(userId, password, repassword, language) {
-    return accountFetch.put(`/users/${userId}/passwords`, qs.stringify({
+export function changePassword(data) {
+    return accountFetch.put(`/users/${data.account}/passwords`, qs.stringify({
         brand: 'Apowersoft',
-        password,
-        password2: repassword,
-        language,
+        password: data.password,
+        password2: data.confirmPassword,
+        language: data.language,
     }));
 }
 

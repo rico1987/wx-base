@@ -1,7 +1,8 @@
 <template>
     <div class="myaccount-account-menu">
         <div class="header">
-            <img v-if="userInfo.avatar" :src="userInfo.avatar" />
+            <img v-if="userInfo && userInfo.avatar" :src="userInfo.avatar" />
+            <div v-if="!userInfo || !userInfo.avatar" class="default-avatar"></div>
             <p class="nickname">{{userInfo.nickname}}</p>
             <p class="privileges" @click="goto('unlimited-vip')">
                 Unlimited VIP Privileges

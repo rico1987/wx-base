@@ -17,7 +17,7 @@ export default {
         },
     },
 
-    inject: ['mobileList'],
+    inject: ['mobileList', ],
 
     provide() {
         return {
@@ -34,5 +34,5 @@ export default {
     methods: {
 
     },
-}
+};
 </script>

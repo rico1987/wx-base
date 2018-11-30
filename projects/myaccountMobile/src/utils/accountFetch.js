@@ -14,15 +14,9 @@ service.interceptors.request.use((config) => {
         config.headers['Authorization'] = `Bearer ${api_token}`;
     }
     return config;
-}, (error) => {
-    return Promise.reject(error);
-});
+}, error => Promise.reject(error));
 
 // 添加响应拦截器
-service.interceptors.response.use((response) => {
-    return response;
-}, (error) => {
-    return Promise.reject(error.response.data);
-});
+service.interceptors.response.use(response => response, error => Promise.reject(error.response.data));
 
 export default service;

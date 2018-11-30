@@ -296,7 +296,7 @@ export default {
                         language: this.$i18n.locale,
                         password: this.password,
                         phone: this.phone,
-                    }).then((res) => {
+                    }).then(() => {
                         this.$toast.show({
                             text: '注册成功！',
                         });
@@ -330,7 +330,7 @@ export default {
                         language: this.$i18n.locale,
                         password: this.password,
                         email: this.email,
-                    }).then((res) => {
+                    }).then(() => {
                         this.$toast.show({
                             text: '注册成功！',
                         });

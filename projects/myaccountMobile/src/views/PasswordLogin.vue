@@ -85,10 +85,10 @@ export default {
                     account: this.account,
                     password: this.password,
                     language: this.$i18n.locale,
-                }).then((res) => {
+                }).then(() => {
                     this.$router.push({ path: '/account-menu', });
                     this.loading = false;
-                }).catch((error) => {
+                }).catch(() => {
                     this.$toast.show({
                         text: this.$t('001220'),
                     });

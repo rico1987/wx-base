@@ -59,7 +59,6 @@
 </template>
 
 <script>
-import Cookies from 'js-cookie';
 import MobileInput from '@/components/MobileInput.vue';
 import { getAreaCodes, sendVcode, resetPassword, } from '@/api/account';
 
@@ -273,7 +272,7 @@ export default {
                     email: this.email,
                     language: this.$i18n.locale,
                     password: this.password,
-                }
+                };
             } else {
                 let areaCode = this.$refs.phoneInput.getAreaCode();
                 postData = {
@@ -282,13 +281,13 @@ export default {
                     telephone: this.phone,
                     language: this.$i18n.locale,
                     password: this.password,
-                }
+                };
             }
             resetPassword(postData)
-                .then((res) => {
+                .then(() => {
                     this.$router.push({ path: '/login', });
                     this.loading = false;
-                }).catch((error) => {
+                }).catch(() => {
                     this.$toast.show({
                         text: '修改密码失败！',
                     });

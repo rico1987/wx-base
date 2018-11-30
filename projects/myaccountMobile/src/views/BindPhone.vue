@@ -84,42 +84,20 @@ export default {
             ],
         };
     },
-    created: function() {
-        this.getAreaCodesList();
-    },
+
     methods: {
-
-        getAreaCodesList() {
-            getAreaCodes(this.$i18n.locale)
-                .then((res) => {
-                    if (res.data && res.data.status === '1') {
-                        let arr = [];
-                        for (let i = 0; i < res.data.data.length; i += 1) {
-                            arr.push({
-                                code: res.data.data[i].split(':')[0],
-                                country: res.data.data[i].split(':')[1],
-                            });
-                        }
-                        this.areaCodes = arr.concat([]);
-                        this.$refs.phoneInput.setActiveAreaCode(this.areaCodes[0]);
-                    } else {
-
-                    }
-                });
-        },
-
         sendCode() {
             if (!this.countDown) {
                 this.$refs.phoneInput.validate();
                 if (this.$refs.phoneInput.isValid) {
                     let areaCode = this.$refs.phoneInput.getAreaCode();
-                    if (!areaCode || !areaCode.code) {
+                    if (!areaCode) {
                         this.$toast.show({
                             text: '请选择国家或地区!',
                         });
                     }
                     sendVcode({
-                        country_code: areaCode.code,
+                        country_code: areaCode,
                         telephone: this.phone,
                         scene: 'bind',
                         language: this.$i18n.locale,
@@ -174,7 +152,7 @@ export default {
             this.$refs.phoneInput.validate();
             this.$refs.vcodeInput.validate();
             let areaCode = this.$refs.phoneInput.getAreaCode();
-            if (!areaCode || !areaCode.code) {
+            if (!areaCode) {
                 this.$toast.show({
                     text: '请选择国家或地区!',
                 });
@@ -189,7 +167,7 @@ export default {
             }
 
             if (this.$refs.phoneInput.isValid && this.$refs.vcodeInput.isValid) {
-                bindPhone(userId, this.phone, this.vcode, areaCode.code, this.$i18n.locale)
+                bindPhone(userId, this.phone, this.vcode, areaCode, this.$i18n.locale)
                     .then((res) => {
                         if (res.data.status === '1') {
                             this.$toast.show({
@@ -200,7 +178,7 @@ export default {
                             }, 1000);
                         } else {
                             this.$toast.show({
-                                text: '绑定失败!',
+                                text: '绑定手机失败！',
                             });
                         }
                         this.loading = false;
@@ -208,7 +186,7 @@ export default {
                     .catch((error) => {
                         if (error.status === -204) {
                             this.$toast.show({
-                                text: '您已经绑定到该手机!',
+                                text: '您已经绑定到该手机！',
                             });
                         } else if (error.status === -205) {
                             this.$toast.show({

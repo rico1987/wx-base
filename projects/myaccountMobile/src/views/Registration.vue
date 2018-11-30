@@ -1,6 +1,6 @@
 <template>
     <div class="myaccount-registration myaccount-form-page">
-        <h1>Register</h1>
+        <h1>{{ $t('001171') }}</h1>
         <div class="row switch">
             <span
                 :class="{active: activeTab === 'phone'}"
@@ -9,7 +9,7 @@
             <span
                 :class="{active: activeTab === 'email'}"
                 @click="setActiveTab('email')"
-            >Email<span></span></span>
+            >{{ $t('001206') }}<span></span></span>
         </div>
         <form>
             <div class="row">
@@ -48,7 +48,7 @@
                             {{countDown}}
                         </span>
                         <span v-else>
-                            Get
+                             {{ $t('001172') }}
                         </span>
                     </span>
                 </MobileInput>
@@ -71,7 +71,7 @@
                 <span class="loading" v-if="loading">
                     <Icon type="spinner spin" />
                 </span>
-                Register
+                {{ $t('001171') }}
             </span>
         </div>
     </div>
@@ -110,13 +110,13 @@ export default {
             vcodeRules: [
                 {
                     type: 'required',
-                    message: '请输入验证码',
+                    message: this.$t('001222'),
                 },
             ],
             passwordRules: [
                 {
                     type: 'required',
-                    message: '请输入密码',
+                    message: this.$t('001213'),
                 },
             ],
             phoneRules: [
@@ -134,30 +134,7 @@ export default {
         };
     },
 
-    created: function() {
-        this.getAreaCodesList();
-    },
-
     methods: {
-
-        getAreaCodesList() {
-            getAreaCodes(this.$i18n.locale)
-                .then((res) => {
-                    if (res.data && res.data.status === '1') {
-                        let arr = [];
-                        for (let i = 0; i < res.data.data.length; i += 1) {
-                            arr.push({
-                                code: res.data.data[i].split(':')[0],
-                                country: res.data.data[i].split(':')[1],
-                            });
-                        }
-                        this.areaCodes = arr.concat([]);
-                        this.$refs.phoneInput.setActiveAreaCode(this.areaCodes[0]);
-                    } else {
-
-                    }
-                });
-        },
 
         setActiveTab(tab) {
             this.activeTab = tab;
@@ -176,7 +153,7 @@ export default {
                             .then((res) => {
                                 if (res.data.status === '1') {
                                     this.$toast.show({
-                                        text: '邮件发送成功!',
+                                        text: '验证码发送成功！',
                                     });
                                     this.countDown = 60;
                                     this.interval = setInterval(() => {
@@ -191,22 +168,22 @@ export default {
                                     }, 1000);
                                 } else {
                                     this.$toast.show({
-                                        text: '邮件发送失败!',
+                                        text: '验证码发送失败！',
                                     });
                                 }
                             })
                             .catch((error) => {
                                 if (error.status === -208) {
                                     this.$toast.show({
-                                        text: '该邮箱已注册!',
+                                        text: '该邮箱已注册，请更换邮箱再试！',
                                     });
                                 } else if (error.status === -210) {
                                     this.$toast.show({
-                                        text: '超过每日发送限制!',
+                                        text: this.$t('001379'),
                                     });
                                 } else {
                                     this.$toast.show({
-                                        text: '邮件发送失败!',
+                                        text: '验证码发送失败！',
                                     });
                                 }
                             });
@@ -214,21 +191,21 @@ export default {
                 } else {
                     if (this.$refs.phoneInput.isValid) {
                         let areaCode = this.$refs.phoneInput.getAreaCode();
-                        if (!areaCode || !areaCode.code) {
+                        if (!areaCode) {
                             this.$toast.show({
                                 text: '请选择国家或地区!',
                             });
                         }
                         sendVcode({
                             telephone: this.phone,
-                            country_code: areaCode.code,
+                            country_code: areaCode,
                             scene: 'register',
                             language: this.$i18n.locale,
                         })
                             .then((res) => {
                                 if (res.data.status === '1') {
                                     this.$toast.show({
-                                        text: '短信发送成功!',
+                                        text: '验证码发送成功！',
                                     });
                                     this.countDown = 60;
                                     this.interval = setInterval(() => {
@@ -243,22 +220,22 @@ export default {
                                     }, 1000);
                                 } else {
                                     this.$toast.show({
-                                        text: '短信发送失败!',
+                                        text: '验证码发送失败！',
                                     });
                                 }
                             })
                             .catch((error) => {
                                 if (error.status === -208) {
                                     this.$toast.show({
-                                        text: '该手机已注册!',
+                                        text: '该手机已注册，请更换手机再试或直接登陆！',
                                     });
                                 } else if (error.status === -210) {
                                     this.$toast.show({
-                                        text: '超过每日发送限制!',
+                                        text: this.$t('001380'),
                                     });
                                 } else {
                                     this.$toast.show({
-                                        text: '短信发送失败!',
+                                        text: '验证码发送失败！',
                                     });
                                 }
                             });
@@ -284,7 +261,7 @@ export default {
                 this.$refs.vcodeInput.validate();
                 this.$refs.passwordInput.validate();
                 let areaCode = this.$refs.phoneInput.getAreaCode();
-                if (!areaCode || !areaCode.code) {
+                if (!areaCode) {
                     this.$toast.show({
                         text: '请选择国家或地区!',
                     });
@@ -292,7 +269,7 @@ export default {
                 if (this.$refs.phoneInput.isValid && this.$refs.vcodeInput.isValid && this.$refs.passwordInput.isValid) {
                     this.$store.dispatch('PhoneRegister', {
                         captcha: this.vcode,
-                        areaCode: areaCode.code,
+                        areaCode: areaCode,
                         language: this.$i18n.locale,
                         password: this.password,
                         phone: this.phone,

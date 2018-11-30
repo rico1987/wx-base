@@ -104,35 +104,15 @@
                     class="mobile-input__tel-area-code-selector"
                     id="telAreaCodeSelector"
                 >
-                    <span class="mobile-input__selected-area-code" v-if="selectedAreaCode">
-                        {{selectedAreaCode.code}}
-                    </span>
-                    <div class="mobile-input__area-code-list" v-show="showAreaCodes">
-                        <div class="mobile-input__area-code-search" id="areaCodeSearch">
-                            <input
-                                v-model="areaCodeSearch"
-                                type="text"
-                                @keyup="filterAreaCodes"
-                                maxlength="10"
-                                id="areaCodeSearchInput"
-                                ref="areaCodeSearchInput"
-                            />
-                            <Icon class="mobile-input__area-code-search-icon" type="search" />
-                        </div>
-                        <ul class="mobile-input__area-code-list-items">
-                            <li
-                                v-for="areaCode in areaCodesCopy"
-                                v-bind:key="areaCode.code + areaCode.country"
-                                :class="{
-                                    active: selectedAreaCode && selectedAreaCode.code === areaCode.code &&
-                                    selectedAreaCode.country === areaCode.country
-                                }"
-                                @click="setActiveAreaCode(areaCode)"
-                            >
-                                {{areaCode.country + ' ' + areaCode.code}}
-                            </li>
-                        </ul>
-                    </div>
+                    <select
+                        v-model="selectedAreaCode"
+                    >
+                        <option
+                            v-for="areaCode in areaCodes"
+                            v-bind:key="areaCode.code + areaCode.country"
+                            :value="areaCode.code"
+                        >{{areaCode.country + ' ' + areaCode.code}}</option>
+                    </select>
                 </div>
                 <input
                     class="mobile-input__input is-tel"
@@ -184,7 +164,7 @@
 </template>
 <script>
 import Icon from './Icon.vue';
-import { trim, } from '../../../../lib/utils/index';
+import { getAreaCodes, } from '@/api/account';
 
 export default {
     name: 'MobileInput',
@@ -260,12 +240,6 @@ export default {
             type: Boolean,
             default: true,
         },
-        areaCodes: {
-            type: Array,
-            default() {
-                return [];
-            },
-        },
         showSwitchPassword: {
             type: Boolean,
             default: false,
@@ -306,11 +280,13 @@ export default {
             isValid: true,
             errors: {},
             firstError: null,
-            selectedAreaCode: null,
+            areaCode: null,
             areaCodeSearch: null,
             showAreaCodes: false,
             showPassword: false,
+            areaCodes: [],
             areaCodesCopy: null,
+            selectedAreaCode: null,
         };
     },
 
@@ -318,18 +294,7 @@ export default {
         if (this.defaultValue) {
             this.currentValue = this.defaultValue;
         }
-    },
-
-    mounted: function() {
-        if (this.type === 'tel') {
-            document.getElementsByTagName('body')[0].addEventListener('click', this.toggleShowAreaCodes);
-        }
-    },
-
-    beforeDestroy: function() {
-        if (this.type === 'tel') {
-            document.getElementsByTagName('body')[0].removeEventListener('click', this.toggleShowAreaCodes);
-        }
+        this.getAreaCodesList();
     },
 
     computed: {
@@ -343,19 +308,27 @@ export default {
     },
     methods: {
 
-        filterAreaCodes() {
-            if (this.areaCodeSearch) {
-                let areaCodeSearch = this.areaCodeSearch;
-                this.areaCodesCopy = this.areaCodes.filter(ele =>
-                    ele.code.indexOf(trim(areaCodeSearch)) > -1 || ele.country.indexOf(trim(areaCodeSearch)) > -1
-                );
-            } else {
-                this.areaCodesCopy = this.areaCodes.concat([]);
-            }
+        getAreaCodesList() {
+            getAreaCodes(this.$i18n.locale)
+                .then((res) => {
+                    if (res.data && res.data.status === '1') {
+                        let arr = [];
+                        for (let i = 0; i < res.data.data.length; i += 1) {
+                            arr.push({
+                                code: res.data.data[i].split(':')[0],
+                                country: res.data.data[i].split(':')[1],
+                            });
+                        }
+                        this.areaCodes = arr.concat([]);
+                        this.$nextTick(function(){
+                            this.selectedAreaCode = this.areaCodes[0].code;
+                        });
+                    } else {
+
+                    }
+                });
         },
-        setActiveAreaCode(areaCode) {
-            this.selectedAreaCode = areaCode;
-        },
+
         scrollIntoView(timeout = 100) {
             setTimeout(() => {
                 this.$refs.input.scrollIntoViewIfNeeded(true);
@@ -453,21 +426,6 @@ export default {
         },
         showErrorMessage(message) {
             this.firstError = message;
-        },
-
-        toggleShowAreaCodes() {
-            if (!this.areaCodesCopy) {
-                this.areaCodesCopy = this.areaCodes.concat([]);
-            }
-            if (event.target.id === 'telAreaCodeSelector' || event.target.parentNode.id === 'telAreaCodeSelector') {
-                this.showAreaCodes = !this.showAreaCodes;
-            } else if (event.target.id === 'areaCodeSearchInput') {
-                this.$refs.areaCodeSearchInput.focus();
-            } else {
-                if (this.showAreaCodes) {
-                    this.showAreaCodes = false;
-                }
-            }
         },
     },
 };

@@ -9,7 +9,7 @@
             <span
                 :class="{active: activeTab === 'email'}"
                 @click="setActiveTab('email')"
-            >Email<span></span></span>
+            >{{ $t('001206') }}<span></span></span>
         </div>
         <form>
             <div class="row">
@@ -31,7 +31,6 @@
                     :placeholder='$t("001204")'
                     max="50"
                     :rules="phoneRules"
-                    :areaCodes="areaCodes"
                 ></MobileInput>
             </div>
             <div class="row">
@@ -48,7 +47,7 @@
                             {{countDown}}
                         </span>
                         <span v-else>
-                            Get
+                            {{ $t('001172') }}
                         </span>
                     </span>
                 </MobileInput>
@@ -58,7 +57,7 @@
                 <span class="loading" v-if="loading">
                     <Icon type="spinner spin" />
                 </span>
-                Login
+                {{ $t('001166') }}
             </span>
         </div>
         </form>
@@ -86,18 +85,18 @@ export default {
             emailRules: [
                 {
                     type: 'required',
-                    message: '请输入邮箱',
+                    message: this.$t('001212'),
                 },
                 {
                     type: 'regex',
                     value: /^[\w-]+(?:\.[\w-]+)*@[\w-]+(?:\.[\w-]+)+$/,
-                    message: '请输入正确的邮箱地址',
+                    message: '请输入有效邮箱！',
                 },
             ],
             vcodeRules: [
                 {
                     type: 'required',
-                    message: '请输入验证码',
+                    message: this.$t('001222'),
                 },
             ],
             phoneRules: [
@@ -115,29 +114,7 @@ export default {
         };
     },
 
-    created: function() {
-        this.getAreaCodesList();
-    },
-
     methods: {
-        getAreaCodesList() {
-            getAreaCodes(this.$i18n.locale)
-                .then((res) => {
-                    if (res.data && res.data.status === '1') {
-                        let arr = [];
-                        for (let i = 0; i < res.data.data.length; i += 1) {
-                            arr.push({
-                                code: res.data.data[i].split(':')[0],
-                                country: res.data.data[i].split(':')[1],
-                            });
-                        }
-                        this.areaCodes = arr.concat([]);
-                        this.$refs.phoneInput.setActiveAreaCode(this.areaCodes[0]);
-                    } else {
-
-                    }
-                });
-        },
 
         setActiveTab(tab) {
             this.activeTab = tab;
@@ -156,7 +133,7 @@ export default {
                             .then((res) => {
                                 if (res.data.status === '1') {
                                     this.$toast.show({
-                                        text: '邮件发送成功!',
+                                        text: '验证码发送成功！',
                                     });
                                     this.countDown = 60;
                                     this.interval = setInterval(() => {
@@ -171,22 +148,18 @@ export default {
                                     }, 1000);
                                 } else {
                                     this.$toast.show({
-                                        text: '邮件发送失败!',
+                                        text: '验证码发送失败！',
                                     });
                                 }
                             })
                             .catch((error) => {
-                                if (error.status === -208) {
+                               if (error.status === -210) {
                                     this.$toast.show({
-                                        text: '该邮箱已注册!',
-                                    });
-                                } else if (error.status === -210) {
-                                    this.$toast.show({
-                                        text: '超过每日发送限制!',
+                                        text: this.$t('001379'),
                                     });
                                 } else {
                                     this.$toast.show({
-                                        text: '邮件发送失败!',
+                                        text: '验证码发送失败！',
                                     });
                                 }
                             });
@@ -194,21 +167,21 @@ export default {
                 } else {
                     if (this.$refs.phoneInput.isValid) {
                         let areaCode = this.$refs.phoneInput.getAreaCode();
-                        if (!areaCode || !areaCode.code) {
+                        if (!areaCode) {
                             this.$toast.show({
                                 text: '请选择国家或地区!',
                             });
                         }
                         sendVcode({
                             telephone: this.phone,
-                            country_code: areaCode.code,
+                            country_code: areaCode,
                             scene: 'login',
                             language: this.$i18n.locale,
                         })
                             .then((res) => {
                                 if (res.data.status === '1') {
                                     this.$toast.show({
-                                        text: '短信发送成功!',
+                                        text: '验证码发送成功！',
                                     });
                                     this.countDown = 60;
                                     this.interval = setInterval(() => {
@@ -223,22 +196,18 @@ export default {
                                     }, 1000);
                                 } else {
                                     this.$toast.show({
-                                        text: '短信发送失败!',
+                                        text: '验证码发送失败！',
                                     });
                                 }
                             })
                             .catch((error) => {
-                                if (error.status === -208) {
+                                if (error.status === -210) {
                                     this.$toast.show({
-                                        text: '该手机已注册!',
-                                    });
-                                } else if (error.status === -210) {
-                                    this.$toast.show({
-                                        text: '超过每日发送限制!',
+                                        text: this.$t('001380'),
                                     });
                                 } else {
                                     this.$toast.show({
-                                        text: '短信发送失败!',
+                                        text: '验证码发送失败！',
                                     });
                                 }
                             });
@@ -279,7 +248,7 @@ export default {
                 this.$refs.phoneInput.validate();
                 this.$refs.vcodeInput.validate();
                 let areaCode = this.$refs.phoneInput.getAreaCode();
-                if (!areaCode || !areaCode.code) {
+                if (!areaCode) {
                     this.$toast.show({
                         text: '请选择国家或地区!',
                     });
@@ -288,7 +257,7 @@ export default {
                 if (this.$refs.phoneInput.isValid && this.$refs.vcodeInput.isValid) {
                     this.$store.dispatch('PasswordLessLogin', {
                         captcha: this.vcode,
-                        country_code: areaCode.code,
+                        country_code: areaCode,
                         telephone: this.phone,
                         language: this.$i18n.locale,
                     }).then(() => {
@@ -304,6 +273,9 @@ export default {
                     this.loading = false;
                 }
             }
+        },
+        emailOnBlur() {
+            this.$refs.emailInput.validate();
         },
     },
 };

@@ -77,7 +77,7 @@ export default {
         exit() {
             this.$store.dispatch('Logout');
             this.$toast.show({
-                text: '退出成功',
+                text: '您已退出当前账号',
             });
             setTimeout(() => {
                 this.$router.push({ path: '/login', });

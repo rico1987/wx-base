@@ -2,7 +2,7 @@
     <div class="myaccount-reset-password has-header">
          <MobileHeader
             defaultLeft
-            title="Change Password"
+            :title='$t("001181")'
         >
         </MobileHeader>
         <div class="container">
@@ -39,7 +39,7 @@
                     <span class="loading" v-if="loading">
                         <Icon type="spinner spin" />
                     </span>
-                    OK
+                    {{ $t('001410') }}
                 </span>
             </div>
         </div>
@@ -67,12 +67,12 @@ export default {
             passwordRules: [
                 {
                     type: 'required',
-                    message: '请输入密码',
+                    message: this.$t('001213'),
                 },
                 {
                     type: 'min-length',
                     value: 6,
-                    message: '密码长度至少为6位',
+                    message: '密码长度至少为6位！',
                 },
             ],
             confirmPasswordRules: [

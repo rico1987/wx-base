@@ -60,11 +60,11 @@
     }
 
     @include e(input) {
-        flex: 0.8;
+        flex: 0.5;
     }
 
     @include e(tel-area-code-selector) {
-        flex: 0.2;
+        flex: 0.5;
         font-size: 14px;
         border: none;
         border-bottom: 1px solid #E5E5E5;
@@ -73,6 +73,13 @@
         display: flex;
         position: relative;
         background: url('../../../icons/chevron-down.svg') right center no-repeat;
+        select{
+            border: none;
+            outline: none;
+            background-color: white;
+            width: 100%;
+            height: 100%;
+        }
     }
 
     @include e(selected-area-code) {

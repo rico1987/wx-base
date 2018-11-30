@@ -44,10 +44,10 @@ export default {
     },
 
     created: function() {
-        this.getAvatarUrl();
+        this.getUserInfo();
     },
     methods: {
-        getAvatarUrl() {
+        getUserInfo() {
             let saveData = Cookies.get('userInfo');
             try {
                 this.userInfo = JSON.parse(saveData);

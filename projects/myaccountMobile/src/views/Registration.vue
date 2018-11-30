@@ -156,7 +156,6 @@ export default {
                     } else {
 
                     }
-                    console.log(res);
                 });
         },
 
@@ -189,7 +188,6 @@ export default {
                                                 clearInterval(this.interval);
                                             }
                                         }
-                                        console.log(this.countDown);
                                     }, 1000);
                                 } else {
                                     this.$toast.show({
@@ -214,6 +212,57 @@ export default {
                             });
                     }
                 } else {
+                    if (this.$refs.phoneInput.isValid) {
+                        let areaCode = this.$refs.phoneInput.getAreaCode();
+                        if (!areaCode || !areaCode.code) {
+                            this.$toast.show({
+                                text: '请选择国家或地区!',
+                            });
+                        }
+                        sendVcode({
+                            telephone: this.phone,
+                            country_code: areaCode.code,
+                            scene: 'register',
+                            language: this.$i18n.locale,
+                        })
+                            .then((res) => {
+                                if (res.data.status === '1') {
+                                    this.$toast.show({
+                                        text: '短信发送成功!',
+                                    });
+                                    this.countDown = 60;
+                                    this.interval = setInterval(() => {
+                                        if (this.countDown > 0) {
+                                            this.countDown -= 1;
+                                        }
+                                        if (this.countDown === 0) {
+                                            if (this.interval) {
+                                                clearInterval(this.interval);
+                                            }
+                                        }
+                                    }, 1000);
+                                } else {
+                                    this.$toast.show({
+                                        text: '短信发送失败!',
+                                    });
+                                }
+                            })
+                            .catch((error) => {
+                                if (error.status === -208) {
+                                    this.$toast.show({
+                                        text: '该手机已注册!',
+                                    });
+                                } else if (error.status === -210) {
+                                    this.$toast.show({
+                                        text: '超过每日发送限制!',
+                                    });
+                                } else {
+                                    this.$toast.show({
+                                        text: '短信发送失败!',
+                                    });
+                                }
+                            });
+                    }
                 }
             }
 
@@ -248,7 +297,6 @@ export default {
                         password: this.password,
                         phone: this.phone,
                     }).then((res) => {
-                        console.log(res);
                         this.$toast.show({
                             text: '注册成功！',
                         });
@@ -283,7 +331,6 @@ export default {
                         password: this.password,
                         email: this.email,
                     }).then((res) => {
-                        console.log(res);
                         this.$toast.show({
                             text: '注册成功！',
                         });

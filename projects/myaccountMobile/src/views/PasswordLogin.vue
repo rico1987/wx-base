@@ -21,8 +21,8 @@
             </form>
         </div>
         <div class="row link-wrapper">
-            <span class="link left-link" @click="gotoPasswordLessLogin()">{{ $t("001170") }}</span>
-            <span class="link right-link" @click="gotoResetPassword()">{{ $t("001169") }}</span>
+            <span class="link left-link" @click="goto('password-less')">{{ $t("001170") }}</span>
+            <span class="link right-link" @click="goto('find-password')">{{ $t("001169") }}</span>
         </div>
         <div class="row">
             <span class="btn btn-primary" @click="login()">
@@ -31,7 +31,7 @@
                 </span>
                 {{ $t("001166") }}
             </span>
-            <span class="btn btn-white" @click="gotoRegistration()">{{ $t("001171") }}</span>
+            <span class="btn btn-white" @click="goto('register')">{{ $t("001171") }}</span>
         </div>
     </div>
 </template>
@@ -86,11 +86,9 @@ export default {
                     password: this.password,
                     language: this.$i18n.locale,
                 }).then((res) => {
-                    console.log(res);
                     this.$router.push({ path: '/account-menu', });
                     this.loading = false;
                 }).catch((error) => {
-                    console.log(error);
                     this.$toast.show({
                         text: this.$t('001220'),
                     });
@@ -100,14 +98,8 @@ export default {
                 this.loading = false;
             }
         },
-        gotoPasswordLessLogin() {
-            this.$router.push('/password-less');
-        },
-        gotoResetPassword() {
-            this.$router.push('/reset-password');
-        },
-        gotoRegistration() {
-            this.$router.push('/register');
+        goto(path) {
+            this.$router.push({ path, });
         },
     },
 };

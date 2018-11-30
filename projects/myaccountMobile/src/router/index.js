@@ -13,11 +13,16 @@ import AccountMenu from '@/views/AccountMenu.vue';
 import WorkList from '@/views/WorkList.vue';
 import UnlimitedVip from '@/views/UnlimitedVip.vue';
 import SubmitTicket from '@/views/SubmitTicket.vue';
+import FindPassword from '@/views/FindPassword.vue';
 
 Vue.use(Router);
 
 export default new Router({
     routes: [
+        {
+            path: '/',
+            redirect: 'login',
+        },
         {
             path: '/login',
             name: 'PasswordLogin',
@@ -82,6 +87,11 @@ export default new Router({
             path: '/submit-ticket',
             name: 'submitTicket',
             component: SubmitTicket,
+        },
+        {
+            path: '/find-password',
+            name: 'findPassword',
+            component: FindPassword,
         },
     ],
 });

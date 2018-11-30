@@ -105,7 +105,6 @@ export default {
                     } else {
 
                     }
-                    console.log(res);
                 });
         },
 
@@ -140,7 +139,6 @@ export default {
                                             clearInterval(this.interval);
                                         }
                                     }
-                                    console.log(this.countDown);
                                 }, 1000);
                             } else {
                                 this.$toast.show({
@@ -188,7 +186,6 @@ export default {
                 userInfo = JSON.parse(saveData);
                 userId = userInfo.user_id;
             } catch (error) {
-                console.log(error);
             }
 
             if (this.$refs.phoneInput.isValid && this.$refs.vcodeInput.isValid) {

@@ -17,6 +17,13 @@ export function login(account, password, language) {
     return accountFetch.post('/sessions', qs.stringify(data));
 }
 
+export function passwordLessLogin(data) {
+    return accountFetch.post('/sessions', qs.stringify(Object.assign(data, {
+        brand: 'Apowersoft',
+        registed_app: 'myaccountm.apowersoft.com',
+    })));
+}
+
 export function registerByEmail(data) {
     return accountFetch.post('/users', qs.stringify({
         brand: 'Apowersoft',
@@ -85,6 +92,12 @@ export function getAreaCodes(language) {
 
 export function sendVcode(data) {
     return accountFetch.post('/captchas', qs.stringify(Object.assign(data, {
+        brand: 'Apowersoft',
+    })));
+}
+
+export function resetPassword(data) {
+    return accountFetch.put('/passwords', qs.stringify(Object.assign(data, {
         brand: 'Apowersoft',
     })));
 }

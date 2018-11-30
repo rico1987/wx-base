@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie';
-import { login, registerByEmail, registerByPhone, changePassword, } from '@/api/account';
+import { login, registerByEmail, registerByPhone, changePassword, passwordLessLogin, } from '@/api/account';
 
 const user = {
     state: {
@@ -26,6 +26,27 @@ const user = {
             const account = loginInfo.account.trim();
             return new Promise((resolve, reject) => {
                 login(account, loginInfo.password, loginInfo.language).then((response) => {
+                    const data = response.data;
+                    if (data && data.status === '1') {
+                        commit('SET_API_TOKEN', data.data.api_token);
+                        commit('SET_IDENTITY_TOKEN', data.data.identity_token);
+                        commit('SET_USER_INFO', data.data.userInfo);
+                        Cookies.set('api_token', data.data.api_token);
+                        Cookies.set('identity_token', data.data.identity_token);
+                        Cookies.set('userInfo', JSON.stringify(data.data.user));
+                        resolve();
+                    } else {
+                        reject(data.status);
+                    }
+                }).catch((error) => {
+                    reject(error);
+                });
+            });
+        },
+        // 免密登陆
+        PasswordLessLogin({ commit, }, loginInfo) {
+            return new Promise((resolve, reject) => {
+                passwordLessLogin(loginInfo).then((response) => {
                     const data = response.data;
                     if (data && data.status === '1') {
                         commit('SET_API_TOKEN', data.data.api_token);

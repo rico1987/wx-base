@@ -135,7 +135,7 @@
                     </div>
                 </div>
                 <input
-                    class="mobile-input__input"
+                    class="mobile-input__input is-tel"
                     type="tel"
                     :maxlength="max"
                     :autocomplete="autocomplete"

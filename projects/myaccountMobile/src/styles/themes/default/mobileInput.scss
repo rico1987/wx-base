@@ -46,6 +46,10 @@
         &:disabled{
             background: white;
         }
+
+        @include when(tel) {
+            padding-left: 10px;
+        }
     }
 
     @include e(tel-input-wrapper) {

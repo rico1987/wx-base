@@ -68,12 +68,10 @@ export default {
             this.userInfo = JSON.parse(saveData);
         } catch (error) {
         }
-        console.log(this.userInfo);
     },
 
     methods: {
         changeSubscription() {
-            console.log(this.subscription);
         },
 
         exit() {

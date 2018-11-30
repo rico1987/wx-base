@@ -127,11 +127,9 @@ export default {
                     confirmPassword: this.confirmPassword,
                     language: this.$i18n.locale,
                 }).then((res) => {
-                    console.log(res);
                     this.$router.push({ path: '/account-menu', });
                     this.loading = false;
                 }).catch((error) => {
-                    console.log(error);
                     this.$toast.show({
                         text: '修改密码失败！',
                     });

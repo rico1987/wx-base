@@ -50,7 +50,6 @@ export default {
             let saveData = Cookies.get('userInfo');
             try {
                 this.userInfo = JSON.parse(saveData);
-                console.log(this.userInfo);
             } catch (error) {
             }
         },

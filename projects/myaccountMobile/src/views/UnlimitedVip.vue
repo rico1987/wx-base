@@ -82,7 +82,6 @@ export default {
             try {
                 this.licenseInfo = JSON.parse(licenseInfo);
                 this.isVip = this.licenseInfo.is_activated === '1';
-                console.log(this.licenseInfo);
             } catch (error) {
             }
         },

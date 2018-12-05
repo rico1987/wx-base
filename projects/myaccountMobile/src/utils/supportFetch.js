@@ -26,7 +26,6 @@ service.interceptors.request.use((config) => {
 
 // 添加响应拦截器
 service.interceptors.response.use(response => response, (error) => {
-    console.log(error);
     Promise.reject(error.message);
 });
 

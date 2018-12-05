@@ -5,7 +5,7 @@
             :title='$t("001176")'
         >
         </MobileHeader>
-        <p class="bind-warning">If you don't bind your phone number, you risk losing your account.</p>
+        <p class="bind-warning">{{ $t('001755') }}</p>
         <div class="container">
             <MobileInput
                 type="tel"
@@ -49,7 +49,7 @@
 import Cookies from 'js-cookie';
 import MobileInput from '@/components/MobileInput.vue';
 import MobileHeader from '@/components/MobileHeader.vue';
-import { sendVcode, getAreaCodes, bindPhone, } from '@/api/account';
+import { sendVcode, bindPhone, } from '@/api/account';
 
 export default {
     name: 'bindPhone',
@@ -73,7 +73,7 @@ export default {
                 {
                     type: 'regex',
                     value: /^\d{7,14}$/,
-                    message: '请输入有效手机号码！',
+                    message: this.$t('001765'),
                 },
             ],
             vcodeRules: [
@@ -93,7 +93,7 @@ export default {
                     let areaCode = this.$refs.phoneInput.getAreaCode();
                     if (!areaCode) {
                         this.$toast.show({
-                            text: '请选择国家或地区!',
+                            text: this.$t('001766'),
                         });
                     }
                     sendVcode({
@@ -105,7 +105,7 @@ export default {
                         .then((res) => {
                             if (res.data.status === '1') {
                                 this.$toast.show({
-                                    text: '验证码发送成功!',
+                                    text: this.$t('001757'),
                                 });
                                 this.countDown = 60;
                                 this.interval = setInterval(() => {
@@ -120,7 +120,7 @@ export default {
                                 }, 1000);
                             } else {
                                 this.$toast.show({
-                                    text: '验证码发送失败!',
+                                    text: this.$t('001758'),
                                 });
                             }
                         })
@@ -135,7 +135,7 @@ export default {
                                 });
                             } else {
                                 this.$toast.show({
-                                    text: '验证码发送失败!',
+                                    text: this.$t('001758'),
                                 });
                             }
                         });
@@ -145,7 +145,7 @@ export default {
         bindPhone() {
             if (this.loading) {
                 this.$toast.show({
-                    text: '请稍等',
+                    text: this.$t('001782'),
                 });
                 return false;
             }
@@ -154,7 +154,7 @@ export default {
             let areaCode = this.$refs.phoneInput.getAreaCode();
             if (!areaCode) {
                 this.$toast.show({
-                    text: '请选择国家或地区!',
+                    text: this.$t('001766'),
                 });
             }
             let saveData = Cookies.get('userInfo');
@@ -173,12 +173,14 @@ export default {
                             this.$toast.show({
                                 text: this.$t('001232'),
                             });
+                            userInfo.telephone = this.phone;
+                            this.$store.dispatch('UpdateUserInfo', userInfo);
                             setTimeout(() => {
                                 this.$router.push({ path: '/account-menu', });
                             }, 1000);
                         } else {
                             this.$toast.show({
-                                text: '绑定手机失败！',
+                                text: this.$t('001770'),
                             });
                         }
                         this.loading = false;
@@ -186,11 +188,11 @@ export default {
                     .catch((error) => {
                         if (error.status === -204) {
                             this.$toast.show({
-                                text: '您已经绑定到该手机！',
+                                text: this.$t('001767'),
                             });
                         } else if (error.status === -205) {
                             this.$toast.show({
-                                text: '该手机已绑定到其他账户，请更换手机再试！',
+                                text: this.$t('001768'),
                             });
                         } else if (error.status === -206) {
                             this.$toast.show({
@@ -198,11 +200,11 @@ export default {
                             });
                         } else if (error.status === -208) {
                             this.$toast.show({
-                                text: '该手机已注册，请更换手机再试或直接登陆！',
+                                text: this.$t('001769'),
                             });
                         } else {
                             this.$toast.show({
-                                text: '绑定手机失败！',
+                                text: this.$t('001770'),
                             });
                         }
                     });

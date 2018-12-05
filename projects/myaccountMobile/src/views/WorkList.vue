@@ -82,14 +82,14 @@ export default {
                 '-1': this.$t('001337'),
             },
             TICKET_TYPES: {
-                1: 'Purchase and security',
-                2: 'Registration and key code',
-                3: 'Using the product',
-                4: 'Technical issue',
-                5: 'Refund',
-                6: 'Suggestion or complaints',
-                7: 'Business cooperation',
-                8: 'Others',
+                1: this.$t('001338'),
+                2: this.$t('001339'),
+                3: this.$t('001340'),
+                4: this.$t('001341'),
+                5: this.$t('001342'),
+                6: this.$t('001343'),
+                7: this.$t('001344'),
+                8: this.$t('001345'),
             },
             filterVisible: false,
         };
@@ -125,14 +125,14 @@ export default {
 
         getWorkListArr() {
             this.loading = true;
-            getTickets(this.page, this.size)
+            getTickets(this.page, this.size, this.$i18n.locale)
                 .then((res) => {
                     if (res.data.status === 1) {
                         this.workListArr = res.data.data.ticket_list;
                         this.workListArrCopy = this.workListArr.concat([]);
                     } else {
                         this.$toast.show({
-                            text: '获取工单失败!',
+                            text: '获取工单失败！',
                         });
                     }
                     this.loading = false;
@@ -140,11 +140,11 @@ export default {
                 .catch((error) => {
                     if (error === 'timeout of 5000ms exceeded') {
                         this.$toast.show({
-                            text: '获取工单超时，请刷新再试!',
+                            text: '获取工单超时，请刷新再试！',
                         });
                     } else {
                         this.$toast.show({
-                            text: '获取工单失败!',
+                            text: '获取工单失败！',
                         });
                     }
                     this.loading = false;
@@ -156,7 +156,7 @@ export default {
         },
 
         showSubmit() {
-
+            this.$router.push({ path: '/submit-ticket', });
         },
     },
 };

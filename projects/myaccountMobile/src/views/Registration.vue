@@ -14,7 +14,7 @@
         <form>
             <div class="row">
                 <MobileInput
-                    v-if="activeTab === 'email'"
+                    v-show="activeTab === 'email'"
                     ref="emailInput"
                     type="text"
                     v-model="email"
@@ -24,7 +24,7 @@
                     @on-blur="emailOnBlur"
                 ></MobileInput>
                 <MobileInput
-                    v-if="activeTab === 'phone'"
+                    v-show="activeTab === 'phone'"
                     type="tel"
                     ref="phoneInput"
                     v-model="phone"
@@ -79,7 +79,7 @@
 
 <script>
 import MobileInput from '@/components/MobileInput.vue';
-import { sendVcode, getAreaCodes, } from '@/api/account';
+import { sendVcode, } from '@/api/account';
 
 export default {
     name: 'registration',
@@ -138,6 +138,14 @@ export default {
 
         setActiveTab(tab) {
             this.activeTab = tab;
+            this.$refs.emailInput.clear();
+            this.$refs.phoneInput.clear();
+            this.$refs.vcodeInput.clear();
+            this.$refs.passwordInput.clear();
+            this.email = null;
+            this.phone = null;
+            this.vcode = null;
+            this.password = null;
         },
 
         sendCode() {
@@ -281,12 +289,12 @@ export default {
                             this.$router.push({ path: '/account-menu', });
                         }, 1000);
                         this.loading = false;
-                    }).catch((status) => {
-                        if (status === -208) {
+                    }).catch((error) => {
+                        if (error.status === -208) {
                             this.$toast.show({
                                 text: '手机号已注册，请直接登陆！',
                             });
-                        } else if (status === -206) {
+                        } else if (error.status === -206) {
                             this.$toast.show({
                                 text: this.$t('001223'),
                             });
@@ -315,12 +323,12 @@ export default {
                             this.$router.push({ path: '/account-menu', });
                         }, 1000);
                         this.loading = false;
-                    }).catch((status) => {
-                        if (status === -208) {
+                    }).catch((error) => {
+                        if (error.status === -208) {
                             this.$toast.show({
                                 text: '邮箱已注册，请直接登陆！',
                             });
-                        } else if (status === -206) {
+                        } else if (error.status === -206) {
                             this.$toast.show({
                                 text: this.$t('001223'),
                             });

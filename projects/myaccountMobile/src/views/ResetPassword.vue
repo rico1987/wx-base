@@ -6,7 +6,7 @@
         >
         </MobileHeader>
         <div class="container">
-            <form>
+            <form style="padding-top: 25px;">
                 <MobileInput
                     ref="showNameInput"
                     type="text"

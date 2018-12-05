@@ -101,3 +101,11 @@ export function resetPassword(data) {
         brand: 'Apowersoft',
     })));
 }
+
+export function validateEmail(data) {
+    return accountFetch.get(`validation${objToQuery({
+        brand: 'Apowersoft',
+        email: data.email,
+        language: data.language,
+    })}`);
+}

@@ -46,7 +46,7 @@
                         <span v-if="countDown">
                             {{countDown}}
                         </span>
-                        <span v-else>
+                        <span v-else v-bind:class="{ active: highlight }">
                             {{ $t('001172') }}
                         </span>
                     </span>
@@ -66,7 +66,7 @@
 
 <script>
 import MobileInput from '@/components/MobileInput.vue';
-import { sendVcode, getAreaCodes, } from '@/api/account';
+import { sendVcode, } from '@/api/account';
 
 export default {
     name: 'passwordLessLogin',
@@ -114,6 +114,12 @@ export default {
         };
     },
 
+    computed: {
+        highlight() {
+            return (this.activeTab === 'phone' && this.phone) || (this.activeTab === 'email' && this.email);
+        },
+    },
+
     methods: {
 
         setActiveTab(tab) {
@@ -153,7 +159,7 @@ export default {
                                 }
                             })
                             .catch((error) => {
-                               if (error.status === -210) {
+                                if (error.status === -210) {
                                     this.$toast.show({
                                         text: this.$t('001379'),
                                     });

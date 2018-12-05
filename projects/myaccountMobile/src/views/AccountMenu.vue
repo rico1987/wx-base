@@ -3,9 +3,10 @@
         <div class="header">
             <img v-if="userInfo && userInfo.avatar" :src="userInfo.avatar" />
             <div v-if="!userInfo || !userInfo.avatar" class="default-avatar"></div>
+            <div class="crown"></div>
             <p class="nickname">{{userInfo.nickname}}</p>
             <p class="privileges" @click="goto('unlimited-vip')">
-                Unlimited VIP Privileges
+                {{ $t('001781') }}
             </p>
         </div>
         <div class="container">
@@ -40,11 +41,14 @@ export default {
     data() {
         return {
             userInfo: null,
+            licenseInfo: null,
+            isVip: false,
         };
     },
 
     created: function() {
         this.getUserInfo();
+        this.getLincenseInfo();
     },
     methods: {
         getUserInfo() {
@@ -56,6 +60,16 @@ export default {
         },
         goto(path) {
             this.$router.push({ path, });
+        },
+        getLincenseInfo() {
+            this.$store.dispatch('GetLicenseInfo');
+            let licenseInfo = Cookies.get('license_info');
+            try {
+                this.licenseInfo = JSON.parse(licenseInfo);
+                this.isVip = this.licenseInfo.is_activated === '1';
+                console.log(this.licenseInfo);
+            } catch (error) {
+            }
         },
     },
 };

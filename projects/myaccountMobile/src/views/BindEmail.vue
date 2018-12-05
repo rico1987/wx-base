@@ -5,7 +5,7 @@
             :title="$t('001176')"
         >
         </MobileHeader>
-        <p class="bind-warning">If you don't bind your mailbox, you risk losing your account.</p>
+        <p class="bind-warning">{{ $t('001754') }}</p>
         <div class="container">
             <MobileInput
                 type="text"
@@ -51,7 +51,7 @@ import Cookies from 'js-cookie';
 import Icon from '@/components/Icon.vue';
 import MobileInput from '@/components/MobileInput.vue';
 import MobileHeader from '@/components/MobileHeader.vue';
-import { sendVcode, bindEmail, } from '@/api/account';
+import { sendVcode, bindEmail, validateEmail, } from '@/api/account';
 
 export default {
     name: 'bindEmail',
@@ -70,7 +70,7 @@ export default {
                 {
                     type: 'regex',
                     value: /^[\w-]+(?:\.[\w-]+)*@[\w-]+(?:\.[\w-]+)+$/,
-                    message: '请输入有效邮箱',
+                    message: this.$t('001764'),
                 },
             ],
             vcodeRules: [
@@ -91,47 +91,66 @@ export default {
             if (!this.countDown) {
                 this.$refs.emailInput.validate();
                 if (this.$refs.emailInput.isValid) {
-                    sendVcode({
+                    validateEmail({
                         email: this.email,
-                        scene: 'register',
                         language: this.$i18n.locale,
                     })
                         .then((res) => {
                             if (res.data.status === '1') {
-                                this.$toast.show({
-                                    text: '验证码发送成功!',
-                                });
-                                this.countDown = 60;
-                                this.interval = setInterval(() => {
-                                    if (this.countDown > 0) {
-                                        this.countDown -= 1;
-                                    }
-                                    if (this.countDown === 0) {
-                                        if (this.interval) {
-                                            clearInterval(this.interval);
-                                        }
-                                    }
-                                }, 1000);
-                            } else {
-                                this.$toast.show({
-                                    text: '验证码发送失败!',
-                                });
+                                if (res.data.data.result === 2) {
+                                    this.$toast.show({
+                                        text: this.$t('001231'),
+                                    });
+                                } else {
+                                    sendVcode({
+                                        email: this.email,
+                                        scene: 'register',
+                                        language: this.$i18n.locale,
+                                    })
+                                        .then((res) => {
+                                            if (res.data.status === '1') {
+                                                this.$toast.show({
+                                                    text: this.$t('001757'),
+                                                });
+                                                this.countDown = 60;
+                                                this.interval = setInterval(() => {
+                                                    if (this.countDown > 0) {
+                                                        this.countDown -= 1;
+                                                    }
+                                                    if (this.countDown === 0) {
+                                                        if (this.interval) {
+                                                            clearInterval(this.interval);
+                                                        }
+                                                    }
+                                                }, 1000);
+                                            } else {
+                                                this.$toast.show({
+                                                    text: this.$t('001758'),
+                                                });
+                                            }
+                                        })
+                                        .catch((error) => {
+                                            if (error.status === -208) {
+                                                this.$toast.show({
+                                                    text: this.$t('001227'),
+                                                });
+                                            } else if (error.status === -210) {
+                                                this.$toast.show({
+                                                    text: this.$t('001379'),
+                                                });
+                                            } else {
+                                                this.$toast.show({
+                                                    text: this.$t('001758'),
+                                                });
+                                            }
+                                        });
+                                }
                             }
                         })
-                        .catch((error) => {
-                            if (error.status === -208) {
-                                this.$toast.show({
-                                    text: this.$t('001227'),
-                                });
-                            } else if (error.status === -210) {
-                                this.$toast.show({
-                                    text: this.$t('001379'),
-                                });
-                            } else {
-                                this.$toast.show({
-                                    text: '验证码发送失败!',
-                                });
-                            }
+                        .catch(() => {
+                            this.$toast.show({
+                                text: this.$t('001758'),
+                            });
                         });
                 }
             }
@@ -145,7 +164,7 @@ export default {
         bindEmail() {
             if (this.loading) {
                 this.$toast.show({
-                    text: '请稍等',
+                    text: this.$t('001782'),
                 });
                 return false;
             }
@@ -167,12 +186,14 @@ export default {
                             this.$toast.show({
                                 text: this.$t('001233'),
                             });
+                            userInfo.email = this.email;
+                            this.$store.dispatch('UpdateUserInfo', userInfo);
                             setTimeout(() => {
                                 this.$router.push({ path: '/account-menu', });
                             }, 1000);
                         } else {
                             this.$toast.show({
-                                text: '绑定邮箱失败!',
+                                text: this.$t('001760'),
                             });
                         }
                         this.loading = false;
@@ -180,19 +201,23 @@ export default {
                     .catch((error) => {
                         if (error.status === -204) {
                             this.$toast.show({
-                                text: '您已经绑定到该邮箱!',
+                                text: this.$t('001761'),
                             });
                         } else if (error.status === -205) {
                             this.$toast.show({
-                                text: '该邮箱已绑定到其他账户，请更换邮箱再试!',
+                                text: this.$t('001762'),
+                            });
+                        } else if (error.status === -206) {
+                            this.$toast.show({
+                                text: this.$t('001223'),
                             });
                         } else if (error.status === -208) {
                             this.$toast.show({
-                                text: '该邮箱已注册，请更换邮箱再试!',
+                                text: this.$t('001763'),
                             });
                         } else {
                             this.$toast.show({
-                                text: '绑定邮箱失败!',
+                                text: this.$t('001760'),
                             });
                         }
                     });

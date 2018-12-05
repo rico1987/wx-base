@@ -163,8 +163,8 @@
     </div>
 </template>
 <script>
-import Icon from './Icon.vue';
 import { getAreaCodes, } from '@/api/account';
+import Icon from './Icon.vue';
 
 export default {
     name: 'MobileInput',
@@ -320,7 +320,7 @@ export default {
                             });
                         }
                         this.areaCodes = arr.concat([]);
-                        this.$nextTick(function(){
+                        this.$nextTick(function() {
                             this.selectedAreaCode = this.areaCodes[0].code;
                         });
                     } else {

@@ -1,11 +1,13 @@
 import Cookies from 'js-cookie';
 import { login, registerByEmail, registerByPhone, changePassword, passwordLessLogin, } from '@/api/account';
+import { getUnlimitedVipInfo, } from '@/api/support';
 
 const user = {
     state: {
         api_token: '',
         identity_token: '',
         userInfo: {},
+        licenseInfo: {},
     },
 
     mutations: {
@@ -18,9 +20,19 @@ const user = {
         SET_USER_INFO: (state, userInfo) => {
             state.userInfo = userInfo;
         },
+        SET_LICENSE_INFO: (state, licenseInfo) => {
+            state.licenseInfo = licenseInfo;
+        },
     },
 
     actions: {
+        UpdateUserInfo({ commit, }, userInfo) {
+            return new Promise((resolve) => {
+                commit('SET_USER_INFO', userInfo);
+                Cookies.set('userInfo', JSON.stringify(userInfo));
+                resolve();
+            });
+        },
         // 账号密码登陆
         LoginByUsername({ commit, }, loginInfo) {
             const account = loginInfo.account.trim();
@@ -125,6 +137,32 @@ const user = {
                 });
             });
         },
+        // 获取license信息
+        GetLicenseInfo({ commit, }) {
+            return new Promise((resolve, reject) => {
+                let saveData = Cookies.get('userInfo');
+                let userInfo;
+                let userId;
+                try {
+                    userInfo = JSON.parse(saveData);
+                    userId = userInfo.user_id;
+                } catch (error) {
+                }
+
+                getUnlimitedVipInfo(userId).then((response) => {
+                    const data = response.data;
+                    if (data && data.status === 1) {
+                        commit('SET_LICENSE_INFO', data.data.license_info);
+                        Cookies.set('license_info', data.data.license_info);
+                        resolve();
+                    } else {
+                        reject(data.status);
+                    }
+                }).catch((error) => {
+                    reject(error);
+                });
+            });
+        },
 
         // 登出
         Logout({ commit, }) {
@@ -132,9 +170,11 @@ const user = {
                 commit('SET_API_TOKEN', '');
                 commit('SET_IDENTITY_TOKEN', '');
                 commit('SET_USER_INFO', {});
+                commit('SET_LICENSE_INFO', {});
                 Cookies.remove('api_token');
                 Cookies.remove('identity_token');
                 Cookies.remove('userInfo');
+                Cookies.remove('license_info');
                 resolve();
             });
         },

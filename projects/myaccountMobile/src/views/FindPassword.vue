@@ -1,6 +1,6 @@
 <template>
     <div class="myaccount-find-password myaccount-form-page">
-        <h1>Find Password</h1>
+        <h1>{{ $t("001174") }}</h1>
         <div class="container">
             <div v-show="step === 1">
                 <MobileInput
@@ -24,13 +24,13 @@
                     @on-blur="emailOnBlur"
                 ></MobileInput>
                 <div class="row">
-                    <span class="btn btn-primary" @click="sendCode()">Next</span>
+                    <span class="btn btn-primary" @click="sendCode()">{{ $t('001783') }}</span>
                 </div>
-                <p class="switch" v-show="by === 'phone'" @click="switchBy('email')">Find by Email</p>
-                <p class="switch" v-show="by === 'email'" @click="switchBy('phone')">Find by Phone</p>
+                <p class="switch" v-show="by === 'phone'" @click="switchBy('email')">{{ $t('001785') }}</p>
+                <p class="switch" v-show="by === 'email'" @click="switchBy('phone')">{{ $t('001786') }}</p>
             </div>
             <div v-show="step === 2">
-                <p class="tip">Verification code has been sent to</p>
+                <p class="tip">{{ $t('001787') }}</p>
                 <p class="sendTo">{{ by === 'phone' ? phone : email }}</p>
                 <div class="input-group">
                     <input ref="number1" v-model="number1" type="number" maxlength="1" @keyup="focus('number2')" />
@@ -39,7 +39,7 @@
                     <input ref="number4" v-model="number4" type="number" maxlength="1" @keyup="gotoLastStep()" />
                 </div>
                 <p class="resend" v-if="countDown">{{ countDown }}s to resend the code</p>
-                <p class="resend btn btn-primary" v-if="!countDown" @click="sendCode()">resend</p>
+                <p class="resend btn btn-primary" v-if="!countDown" @click="sendCode()">{{ $t('001789') }}</p>
             </div>
             <div v-show="step === 3">
                 <MobileInput
@@ -60,7 +60,7 @@
 
 <script>
 import MobileInput from '@/components/MobileInput.vue';
-import { getAreaCodes, sendVcode, resetPassword, } from '@/api/account';
+import { sendVcode, resetPassword, } from '@/api/account';
 
 export default {
     name: 'findPassword',
@@ -89,7 +89,7 @@ export default {
                 {
                     type: 'regex',
                     value: /^\d{7,14}$/,
-                    message: '请输入有效手机号码！',
+                    message: this.$t('001765'),
                 },
             ],
             emailRules: [
@@ -100,7 +100,7 @@ export default {
                 {
                     type: 'regex',
                     value: /^[\w-]+(?:\.[\w-]+)*@[\w-]+(?:\.[\w-]+)+$/,
-                    message: '请输入有效邮箱',
+                    message: this.$t('001764'),
                 },
             ],
             passwordRules: [
@@ -126,7 +126,7 @@ export default {
                             .then((res) => {
                                 if (res.data.status === '1') {
                                     this.$toast.show({
-                                        text: '验证码发送成功!',
+                                        text: this.$t('001757'),
                                     });
                                     setTimeout(() => {
                                         this.step = 2;
@@ -144,7 +144,7 @@ export default {
                                     }, 1000);
                                 } else {
                                     this.$toast.show({
-                                        text: '验证码发送失败!',
+                                        text: this.$t('001758'),
                                     });
                                 }
                             })
@@ -159,7 +159,7 @@ export default {
                                     });
                                 } else {
                                     this.$toast.show({
-                                        text: '验证码发送失败!',
+                                        text: this.$t('001758'),
                                     });
                                 }
                             });
@@ -170,7 +170,7 @@ export default {
                         let areaCode = this.$refs.phoneInput.getAreaCode();
                         if (!areaCode) {
                             this.$toast.show({
-                                text: '请选择国家或地区!',
+                                text: this.$t('001766'),
                             });
                         }
                         sendVcode({
@@ -182,7 +182,7 @@ export default {
                             .then((res) => {
                                 if (res.data.status === '1') {
                                     this.$toast.show({
-                                        text: '验证码发送成功!',
+                                        text: this.$t('001757'),
                                     });
                                     setTimeout(() => {
                                         this.step = 2;
@@ -200,22 +200,18 @@ export default {
                                     }, 1000);
                                 } else {
                                     this.$toast.show({
-                                        text: '验证码发送失败!',
+                                        text: this.$t('001758'),
                                     });
                                 }
                             })
                             .catch((error) => {
-                                if (error.status === -208) {
+                                if (error.status === -211) {
                                     this.$toast.show({
-                                        text: this.$t('001227'),
-                                    });
-                                } else if (error.status === -210) {
-                                    this.$toast.show({
-                                        text: this.$t('001379'),
+                                        text: this.$t('001380'),
                                     });
                                 } else {
                                     this.$toast.show({
-                                        text: '验证码发送失败!',
+                                        text: this.$t('001758'),
                                     });
                                 }
                             });
@@ -255,7 +251,7 @@ export default {
                 let areaCode = this.$refs.phoneInput.getAreaCode();
                 postData = {
                     captcha: `${this.number1}${this.number2}${this.number3}${this.number4}`,
-                    country_code: areaCode.code,
+                    country_code: areaCode,
                     telephone: this.phone,
                     language: this.$i18n.locale,
                     password: this.password,
@@ -263,11 +259,16 @@ export default {
             }
             resetPassword(postData)
                 .then(() => {
-                    this.$router.push({ path: '/login', });
-                    this.loading = false;
+                    this.$toast.show({
+                        text: '修改密码成功，即将登出！',
+                    });
+                    setTimeout(() => {
+                        this.$router.push({ path: '/login', });
+                        this.loading = false;
+                    }, 3000);
                 }).catch(() => {
                     this.$toast.show({
-                        text: '修改密码失败！',
+                        text: this.$t('001775'),
                     });
                     this.loading = false;
                 });

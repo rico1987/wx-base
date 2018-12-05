@@ -12,9 +12,9 @@
                 <img class="myaccount-orders__order-icon" :src="order.product_icon" />
                 <p class="myaccount-orders__order-edition">{{order.localize_name}}</p>
                 <p class="myaccount-orders__order-activation-code">{{ $t('001190') }}: <span>{{order.license_code}}</span></p>
-                <p class="myaccount-orders__order-expire">Term of validity: <span>{{order.license_code}}</span></p>
+                <p class="myaccount-orders__order-expire">Term of validity: <span>{{ getLicenseType(order) }}</span></p>
                 <div class="myaccount-orders__order-link">
-                    <a href="" class="renew">{{ $t('001185') }}</a>
+                    <a :href="getBuyLink(order)" class="renew" target="_blank" v-if="order.expire_date !== 'lifetime'">{{ $t('001185') }}</a>
                     <a href="" v-if="isApp(order)">Download now</a>
                 </div>
                 <div class="myaccount-orders__links">
@@ -24,7 +24,7 @@
             </div>
         </div>
         <div class="myaccount-orders__no-data" v-if="!loading && (!orders || orders.length === 0)">
-            <p>No orders, <a href="#">Order now</a></p>
+            <p>No orders, <a :href="storeLink">Order now</a></p>
         </div>
         <div class="loading" v-show="loading">
             <Icon type="spinner spin" />
@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import Cookies from 'js-cookie';
 import MobileHeader from '@/components/MobileHeader.vue';
 import Icon from '@/components/Icon.vue';
 
@@ -50,11 +51,17 @@ export default {
             page: 1,
             size: 10,
             loading: false,
+            storeLink: null,
         };
     },
 
     created: function() {
         this.getAccountOrders();
+        if (this.$i18n.locale === 'zh') {
+            this.storeLink = 'https://www.apowersoft.cn/store';
+        } else {
+            this.storeLink = 'https://www.apowersoft.com/store';
+        }
     },
 
     methods: {
@@ -64,7 +71,7 @@ export default {
 
         getAccountOrders() {
             this.loading = true;
-            getOrders(this.page, this.size)
+            getOrders(this.page, this.size, this.$i18n.locale)
                 .then((res) => {
                     if (res.data.status === 1) {
                         this.orders = res.data.data.orders;
@@ -87,6 +94,17 @@ export default {
                     }
                     this.loading = false;
                 });
+        },
+        getLicenseType(order) {
+            if (order.expire_date === 'lifetime') {
+                return this.$t('001247');
+            } else {
+                return order.expire_date;
+            }
+        },
+
+        getBuyLink(order) {
+            return `${order.buy_url}?identity_token=${Cookies.get('identity_token')}`;
         },
     },
 };

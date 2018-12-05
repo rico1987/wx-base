@@ -13,7 +13,7 @@
             <p><span>{{ $t('001296') }}</span><span>{{ userInfo.nickname }}</span></p>
             <p><span>{{ $t('001298') }}</span><span>{{ userInfo.first_name }}</span></p>
             <p><span>{{ $t('001299') }}</span><span>{{ userInfo.last_name }}</span></p>
-            <p><span>{{ $t('001300') }}</span><span>{{ userInfo.gender | gender }}</span></p>
+            <p><span>{{ $t('001300') }}</span><span>{{ getGender(userInfo.gender) }}</span></p>
             <p><span>{{ $t('001301') }}</span><span>{{ userInfo.birthday }}</span></p>
             <p><span>{{ $t('001302') }}</span><span>{{ userInfo.company }}</span></p>
             <p><span>{{ $t('001303') }}</span><span>{{ userInfo.industry }}</span></p>
@@ -43,6 +43,7 @@ export default {
 
     created: function() {
         this.getUserInfo();
+
     },
     methods: {
         getUserInfo() {
@@ -53,9 +54,8 @@ export default {
             } catch (error) {
             }
         },
-    },
-    filters: {
-        gender: function(value) {
+
+        getGender(value) {
             if (value === '1') {
                 return this.$t('001272');
             } else if (value === '2') {

@@ -22,6 +22,14 @@
                 border-radius: 32px;
                 border: 3px solid #F0C267;
             }
+            .default-avatar{
+                width: 64px;
+                height: 64px;
+                border-radius: 32px;
+                margin: 0 auto;
+                background: url('../../../icons/default-portrait.svg') center no-repeat;
+                background-size: contain;
+            }
             span{
                 display: inline-block;
                 width: 24px;
@@ -77,6 +85,11 @@
             text-align: left;
             border-radius: 8px;
             // border-image:linear-gradient(270deg, rgba(233,185,90,1), rgba(169,121,47,1), rgba(210,162,75,1), rgba(166,118,45,1), rgba(205,157,71,1)) 2 2;
+            a{
+                text-decoration: none;
+                color: #A27537;
+                padding-left: 10px;
+            }
         }
     }
     .myaccount-unlimited-vip__buy-link{

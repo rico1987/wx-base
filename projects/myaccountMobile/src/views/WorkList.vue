@@ -2,7 +2,7 @@
     <div class="myaccount-worklist has-header has-loading">
         <MobileHeader
             defaultLeft
-            title="My worklist"
+            :title="$t('001812')"
         >
         </MobileHeader>
         <div class="myaccount-worklist__header">
@@ -15,40 +15,40 @@
                     <li @click="filterByType(-1)">{{ $t("001337") }}</li>
                 </ul>
             </span>
-            <span class="submit" @click="showSubmit()">Submit work</span>
+            <span class="submit" @click="showSubmit()">{{ $t('001287') }}</span>
         </div>
         <div class="myacccount-work-list__worklist-list" v-if="!loading">
             <div class="myaccount-work-list__worklist" v-for="workList in workListArr" v-bind:key="workList.id">
                 <table>
                     <tr>
-                        <td class="header">Work number:</td>
+                        <td class="header">{{ $t('001418') }}:</td>
                         <td>{{workList.id}}</td>
                     </tr>
                      <tr>
-                        <td class="header">Theme:</td>
+                        <td class="header">{{ $t('001284') }}:</td>
                         <td>{{workList.problem_subject}}</td>
                     </tr>
                      <tr>
-                        <td class="header">Question type:</td>
+                        <td class="header">{{ $t('001310') }}:</td>
                         <td>{{TICKET_TYPES[workList.problem_type]}}</td>
                     </tr>
                      <tr>
-                        <td class="header">Product:</td>
+                        <td class="header">{{ $t('001285') }}:</td>
                         <td>{{workList.pro_name}}</td>
                     </tr>
                      <tr>
-                        <td class="header">Submit time:</td>
+                        <td class="header">{{ $t('001276') }}:</td>
                         <td>{{workList.submit_time}}</td>
                     </tr>
                      <tr>
-                        <td class="header">Status:</td>
+                        <td class="header">{{ $t('001286') }}:</td>
                         <td :class="{ 'replied': workList.status === 1 }">{{TICKET_STATES[workList.status]}}</td>
                     </tr>
                 </table>
             </div>
         </div>
         <div class="no-data" v-if="!loading && workListArr.length === 0">
-            <p>没有找到数据！</p>
+            <p>{{ $t('001776') }}</p>
         </div>
         <div class="loading" v-show="loading">
             <Icon type="spinner spin" />
@@ -132,7 +132,7 @@ export default {
                         this.workListArrCopy = this.workListArr.concat([]);
                     } else {
                         this.$toast.show({
-                            text: '获取工单失败！',
+                            text: this.$t('001813'),
                         });
                     }
                     this.loading = false;
@@ -140,11 +140,11 @@ export default {
                 .catch((error) => {
                     if (error === 'timeout of 5000ms exceeded') {
                         this.$toast.show({
-                            text: '获取工单超时，请刷新再试！',
+                            text: this.$t('001814'),
                         });
                     } else {
                         this.$toast.show({
-                            text: '获取工单失败！',
+                            text: this.$t('001813'),
                         });
                     }
                     this.loading = false;

@@ -72,13 +72,13 @@ export default {
                 {
                     type: 'min-length',
                     value: 6,
-                    message: '密码长度至少为6位！',
+                    message: this.$t('001774'),
                 },
             ],
             confirmPasswordRules: [
                 {
                     type: 'required',
-                    message: '请再次输入密码',
+                    message: this.$t('001796'),
                 },
             ],
             loading: false,
@@ -101,14 +101,14 @@ export default {
         confirmPasswordBlur: function() {
             this.$refs.confirmPasswordInput.validate();
             if (this.password !== this.confirmPassword) {
-                this.$refs.confirmPasswordInput.showErrorMessage('两次输入密码不一致');
+                this.$refs.confirmPasswordInput.showErrorMessage(this.$t('001797'));
             }
         },
 
         resetPassword: function() {
             if (this.loading) {
                 this.$toast.show({
-                    text: '请稍等',
+                    text: this.$t('001782'),
                 });
                 return false;
             }
@@ -131,7 +131,7 @@ export default {
                     this.loading = false;
                 }).catch(() => {
                     this.$toast.show({
-                        text: '修改密码失败！',
+                        text: this.$t('001775'),
                     });
                     this.loading = false;
                 });

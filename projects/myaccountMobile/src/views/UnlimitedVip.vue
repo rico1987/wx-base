@@ -15,20 +15,20 @@
             <p class="validity">{{ getLicenseType() }}</p>
         </div>
         <div class="myaccount-unlimited-vip__no-vip-header" v-if="!isVip">
-            <p>Open the exclusive privilege of Unlimited VIP</p>
+            <p>{{ $t('001800') }}</p>
         </div>
         <div class="myaccount-unlimited-vip__privilege">
-            <h2>VIP privilege</h2>
-            <p>享所有Apowersoft在线产品免费使用权</p>
-            <p>享Unlimited桌面产品免费使用所有产品权<a :href="unlimitedLink" target="_blank">查看>></a></p>
-            <p>享云端5G存储空间，助您轻松存储分享</p>
-            <p>享所有增值服务5折购买权益</p>
+            <h2>{{ $t('001801') }}</h2>
+            <p>{{ $t('001802') }}</p>
+            <p>{{ $t('001803') }}<a :href="unlimitedLink" target="_blank">Check>></a></p>
+            <p>{{ $t('001804') }}</p>
+            <p>{{ $t('001805') }}</p>
         </div>
         <div class="myaccount-unlimited-vip__rights">
-            <h2>Rights and interests</h2>
-            <p>开通Unlimited VIP 尊享OCR8折优惠</p>
-            <p>开通Unlimited VIP 尊享LightMV8折优惠</p>
-            <p>开通Unlimited VIP 尊享LightPDF8折优惠</p>
+            <h2>{{ $t('001806') }}</h2>
+            <p>{{ $t('001807') }}</p>
+            <p>{{ $t('001808') }}</p>
+            <p>{{ $t('001809') }}</p>
         </div>
         <div class="myaccount-unlimited-vip__buy-link" v-if="!isVip">
             <div class="left">

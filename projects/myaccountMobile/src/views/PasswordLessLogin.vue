@@ -5,7 +5,7 @@
             <span
                 :class="{active: activeTab === 'phone'}"
                 @click="setActiveTab('phone')"
-            >Phone<span></span></span>
+            >{{ $t('001795') }}<span></span></span>
             <span
                 :class="{active: activeTab === 'email'}"
                 @click="setActiveTab('email')"
@@ -90,7 +90,7 @@ export default {
                 {
                     type: 'regex',
                     value: /^[\w-]+(?:\.[\w-]+)*@[\w-]+(?:\.[\w-]+)+$/,
-                    message: '请输入有效邮箱！',
+                    message: this.$t('001764'),
                 },
             ],
             vcodeRules: [
@@ -107,7 +107,7 @@ export default {
                 {
                     type: 'regex',
                     value: /^\d{7,14}$/,
-                    message: '请输入有效手机号码！',
+                    message: this.$t('001765'),
                 },
             ],
             areaCodes: [],
@@ -139,7 +139,7 @@ export default {
                             .then((res) => {
                                 if (res.data.status === '1') {
                                     this.$toast.show({
-                                        text: '验证码发送成功！',
+                                        text: this.$t('001757'),
                                     });
                                     this.countDown = 60;
                                     this.interval = setInterval(() => {
@@ -154,7 +154,7 @@ export default {
                                     }, 1000);
                                 } else {
                                     this.$toast.show({
-                                        text: '验证码发送失败！',
+                                        text: this.$t('001758'),
                                     });
                                 }
                             })
@@ -165,7 +165,7 @@ export default {
                                     });
                                 } else {
                                     this.$toast.show({
-                                        text: '验证码发送失败！',
+                                        text: this.$t('001758'),
                                     });
                                 }
                             });
@@ -175,7 +175,7 @@ export default {
                         let areaCode = this.$refs.phoneInput.getAreaCode();
                         if (!areaCode) {
                             this.$toast.show({
-                                text: '请选择国家或地区!',
+                                text: this.$t('001766'),
                             });
                         }
                         sendVcode({
@@ -187,7 +187,7 @@ export default {
                             .then((res) => {
                                 if (res.data.status === '1') {
                                     this.$toast.show({
-                                        text: '验证码发送成功！',
+                                        text: this.$t('001757'),
                                     });
                                     this.countDown = 60;
                                     this.interval = setInterval(() => {
@@ -202,7 +202,7 @@ export default {
                                     }, 1000);
                                 } else {
                                     this.$toast.show({
-                                        text: '验证码发送失败！',
+                                        text: this.$t('001758'),
                                     });
                                 }
                             })
@@ -213,7 +213,7 @@ export default {
                                     });
                                 } else {
                                     this.$toast.show({
-                                        text: '验证码发送失败！',
+                                        text: this.$t('001758'),
                                     });
                                 }
                             });
@@ -226,7 +226,7 @@ export default {
         login() {
             if (this.loading) {
                 this.$toast.show({
-                    text: '请稍等',
+                    text: this.$t('001759'),
                 });
                 return false;
             }
@@ -256,7 +256,7 @@ export default {
                 let areaCode = this.$refs.phoneInput.getAreaCode();
                 if (!areaCode) {
                     this.$toast.show({
-                        text: '请选择国家或地区!',
+                        text: this.$t('001766'),
                     });
                     return false;
                 }

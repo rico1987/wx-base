@@ -2,7 +2,7 @@
     <div class="myaccount-submit-ticket has-header has-loading">
         <MobileHeader
             defaultLeft
-            title="My worklist"
+            :title="$t('001812')"
         >
         </MobileHeader>
         <div class="container">
@@ -116,7 +116,7 @@ export default {
                         this.products = res.data.data.products;
                     } else {
                         this.$toast.show({
-                            text: '获取产品列表失败！',
+                            text: this.$t('001816'),
                         });
                     }
                 });
@@ -125,7 +125,7 @@ export default {
         submit() {
             if (this.type === -1 || this.productId === -1 || !this.subject) {
                 this.$toast.show({
-                    text: '请填写所有信息！',
+                    text: this.$t('001817'),
                 });
                 return false;
             }
@@ -197,7 +197,7 @@ export default {
                                         this.attachment = res.data.data.url;
                                     } else {
                                         this.$toast.show({
-                                            text: '上传失败！',
+                                            text: this.$t('001815'),
                                         });
                                     }
                                 });

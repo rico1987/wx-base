@@ -38,7 +38,7 @@
                     <input ref="number3" v-model="number3" type="number" maxlength="1" @keyup="focus('number4')" />
                     <input ref="number4" v-model="number4" type="number" maxlength="1" @keyup="gotoLastStep()" />
                 </div>
-                <p class="resend" v-if="countDown">{{ countDown }}s to resend the code</p>
+                <p class="resend" v-if="countDown">{{ getCountDownMsg() }}</p>
                 <p class="resend btn btn-primary" v-if="!countDown" @click="sendCode()">{{ $t('001789') }}</p>
             </div>
             <div v-show="step === 3">
@@ -112,7 +112,16 @@ export default {
         };
     },
 
+    computed: {
+
+    },
+
     methods: {
+
+        getCountDownMsg() {
+            return this.$t('001788').replace('10', this.countDown);
+        },
+
         sendCode() {
             if (!this.countDown) {
                 if (this.by === 'email') {

@@ -12,10 +12,10 @@
                 <img class="myaccount-orders__order-icon" :src="order.product_icon" />
                 <p class="myaccount-orders__order-edition">{{order.localize_name}}</p>
                 <p class="myaccount-orders__order-activation-code">{{ $t('001190') }}: <span>{{order.license_code}}</span></p>
-                <p class="myaccount-orders__order-expire">Term of validity: <span>{{ getLicenseType(order) }}</span></p>
+                <p class="myaccount-orders__order-expire">{{ $t('001790') }}: <span>{{ getLicenseType(order) }}</span></p>
                 <div class="myaccount-orders__order-link">
                     <a :href="getBuyLink(order)" class="renew" target="_blank" v-if="order.expire_date !== 'lifetime'">{{ $t('001185') }}</a>
-                    <a href="" v-if="isApp(order)">Download now</a>
+                    <a href="" v-if="isApp(order)">{{ $t('001791') }}</a>
                 </div>
                 <div class="myaccount-orders__links">
                     <a :href="order.faq_url" target="_blank" class="faq">{{ $t('001186') }}</a>
@@ -24,7 +24,7 @@
             </div>
         </div>
         <div class="myaccount-orders__no-data" v-if="!loading && (!orders || orders.length === 0)">
-            <p>No orders, <a :href="storeLink">Order now</a></p>
+            <p>{{ $t('001279') }}, <a :href="storeLink">{{ $t('001280') }}</a></p>
         </div>
         <div class="loading" v-show="loading">
             <Icon type="spinner spin" />
@@ -77,7 +77,7 @@ export default {
                         this.orders = res.data.data.orders;
                     } else {
                         this.$toast.show({
-                            text: '获取订单失败！',
+                            text: this.$t('001793'),
                         });
                     }
                     this.loading = false;
@@ -85,11 +85,11 @@ export default {
                 .catch((error) => {
                     if (error === 'timeout of 5000ms exceeded') {
                         this.$toast.show({
-                            text: '获取订单超时，请刷新再试！',
+                            text: this.$t('001794'),
                         });
                     } else {
                         this.$toast.show({
-                            text: '获取订单失败！',
+                            text: this.$t('001793'),
                         });
                     }
                     this.loading = false;

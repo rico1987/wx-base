@@ -7,8 +7,7 @@
         </MobileHeader>
         <div class="container">
             <div class="row">
-                <div class="left">Apowersoft will send you internal real-time communications
-                    from time to time after subscription</div>
+                <div class="left">{{ $t('001779') }}</div>
                 <div class="right">
                     <MobileSwitch
                         v-model="subscription"
@@ -22,17 +21,17 @@
                     <span v-if="!userInfo || !userInfo.email" class="placeholder">{{ $t('001206') }}</span>
                 </div>
                 <div class="right">
-                    <span v-if="userInfo && userInfo.email" class="outline" @click="goto('bind-email')">Change</span>
+                    <span v-if="userInfo && userInfo.email" class="outline" @click="goto('bind-email')">{{ $t('001798') }}</span>
                     <span v-if="!userInfo || !userInfo.email" @click="goto('bind-email')">{{ $t('001176') }}</span>
                 </div>
             </div>
             <div class="row">
                 <div class="left telephone">
                     <span v-if="userInfo && userInfo.telephone">{{ userInfo.telephone }}</span>
-                    <span v-if="!userInfo || !userInfo.telephone" class="placeholder">Tel</span>
+                    <span v-if="!userInfo || !userInfo.telephone" class="placeholder">{{ $t('001777') }}</span>
                 </div>
                 <div class="right">
-                    <span v-if="userInfo && userInfo.telephone" class="outline" @click="goto('bind-phone')">Change</span>
+                    <span v-if="userInfo && userInfo.telephone" class="outline" @click="goto('bind-phone')">{{ $t('001798') }}</span>
                     <span v-if="!userInfo || !userInfo.telephone" @click="goto('bind-phone')">{{ $t('001176') }}</span>
                 </div>
             </div>
@@ -77,7 +76,7 @@ export default {
         exit() {
             this.$store.dispatch('Logout');
             this.$toast.show({
-                text: '您已退出当前账号',
+                text: this.$t('001799'),
             });
             setTimeout(() => {
                 this.$router.push({ path: '/login', });

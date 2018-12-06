@@ -73,7 +73,7 @@ export default {
         login() {
             if (this.loading) {
                 this.$toast.show({
-                    text: '请稍等',
+                    text: this.$t('001759'),
                 });
                 return false;
             }

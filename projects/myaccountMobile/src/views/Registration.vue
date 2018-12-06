@@ -5,7 +5,7 @@
             <span
                 :class="{active: activeTab === 'phone'}"
                 @click="setActiveTab('phone')"
-            >Phone<span></span></span>
+            >{{ $t('001795') }}<span></span></span>
             <span
                 :class="{active: activeTab === 'email'}"
                 @click="setActiveTab('email')"
@@ -99,12 +99,12 @@ export default {
             emailRules: [
                 {
                     type: 'required',
-                    message: '请输入邮箱',
+                    message: this.$t('001212'),
                 },
                 {
                     type: 'regex',
                     value: /^[\w-]+(?:\.[\w-]+)*@[\w-]+(?:\.[\w-]+)+$/,
-                    message: '请输入正确的邮箱地址',
+                    message: this.$t('001764'),
                 },
             ],
             vcodeRules: [
@@ -127,7 +127,7 @@ export default {
                 {
                     type: 'regex',
                     value: /^\d{7,14}$/,
-                    message: '请输入有效手机号码！',
+                    message: this.$t('001765'),
                 },
             ],
             areaCodes: [],
@@ -161,7 +161,7 @@ export default {
                             .then((res) => {
                                 if (res.data.status === '1') {
                                     this.$toast.show({
-                                        text: '验证码发送成功！',
+                                        text: this.$t('001757'),
                                     });
                                     this.countDown = 60;
                                     this.interval = setInterval(() => {
@@ -176,14 +176,14 @@ export default {
                                     }, 1000);
                                 } else {
                                     this.$toast.show({
-                                        text: '验证码发送失败！',
+                                        text: this.$t('001758'),
                                     });
                                 }
                             })
                             .catch((error) => {
                                 if (error.status === -208) {
                                     this.$toast.show({
-                                        text: '该邮箱已注册，请更换邮箱再试！',
+                                        text: this.$t('001763'),
                                     });
                                 } else if (error.status === -210) {
                                     this.$toast.show({
@@ -191,7 +191,7 @@ export default {
                                     });
                                 } else {
                                     this.$toast.show({
-                                        text: '验证码发送失败！',
+                                        text: this.$t('001758'),
                                     });
                                 }
                             });
@@ -201,7 +201,7 @@ export default {
                         let areaCode = this.$refs.phoneInput.getAreaCode();
                         if (!areaCode) {
                             this.$toast.show({
-                                text: '请选择国家或地区!',
+                                text: this.$t('001766'),
                             });
                         }
                         sendVcode({
@@ -213,7 +213,7 @@ export default {
                             .then((res) => {
                                 if (res.data.status === '1') {
                                     this.$toast.show({
-                                        text: '验证码发送成功！',
+                                        text: this.$t('001757'),
                                     });
                                     this.countDown = 60;
                                     this.interval = setInterval(() => {
@@ -228,14 +228,14 @@ export default {
                                     }, 1000);
                                 } else {
                                     this.$toast.show({
-                                        text: '验证码发送失败！',
+                                        text: this.$t('001758'),
                                     });
                                 }
                             })
                             .catch((error) => {
                                 if (error.status === -208) {
                                     this.$toast.show({
-                                        text: '该手机已注册，请更换手机再试或直接登陆！',
+                                        text: this.$t('001769'),
                                     });
                                 } else if (error.status === -210) {
                                     this.$toast.show({
@@ -243,7 +243,7 @@ export default {
                                     });
                                 } else {
                                     this.$toast.show({
-                                        text: '验证码发送失败！',
+                                        text: this.$t('001758'),
                                     });
                                 }
                             });
@@ -260,7 +260,7 @@ export default {
         register() {
             if (this.loading) {
                 this.$toast.show({
-                    text: '请稍等',
+                    text: this.$t('001782'),
                 });
                 return false;
             }
@@ -271,7 +271,7 @@ export default {
                 let areaCode = this.$refs.phoneInput.getAreaCode();
                 if (!areaCode) {
                     this.$toast.show({
-                        text: '请选择国家或地区!',
+                        text: this.$t('001766'),
                     });
                 }
                 if (this.$refs.phoneInput.isValid && this.$refs.vcodeInput.isValid && this.$refs.passwordInput.isValid) {
@@ -283,7 +283,7 @@ export default {
                         phone: this.phone,
                     }).then(() => {
                         this.$toast.show({
-                            text: '注册成功！',
+                            text: this.$t('001771'),
                         });
                         setTimeout(() => {
                             this.$router.push({ path: '/account-menu', });
@@ -292,7 +292,7 @@ export default {
                     }).catch((error) => {
                         if (error.status === -208) {
                             this.$toast.show({
-                                text: '手机号已注册，请直接登陆！',
+                                text: this.$t('001773'),
                             });
                         } else if (error.status === -206) {
                             this.$toast.show({
@@ -300,7 +300,7 @@ export default {
                             });
                         } else {
                             this.$toast.show({
-                                text: '注册失败，请重试！',
+                                text: this.$t('001772'),
                             });
                         }
                     });
@@ -317,7 +317,7 @@ export default {
                         email: this.email,
                     }).then(() => {
                         this.$toast.show({
-                            text: '注册成功！',
+                            text: this.$t('001771'),
                         });
                         setTimeout(() => {
                             this.$router.push({ path: '/account-menu', });
@@ -326,7 +326,7 @@ export default {
                     }).catch((error) => {
                         if (error.status === -208) {
                             this.$toast.show({
-                                text: '邮箱已注册，请直接登陆！',
+                                text: this.$t('001763'),
                             });
                         } else if (error.status === -206) {
                             this.$toast.show({
@@ -334,7 +334,7 @@ export default {
                             });
                         } else {
                             this.$toast.show({
-                                text: '注册失败，请重试！',
+                                text: this.$t('001772'),
                             });
                         }
                     });

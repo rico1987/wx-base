@@ -8,7 +8,7 @@
         <div class="container">
             <select class="question-type-select" v-model="type">
                 <option value="-1" class="default" disabled selected>{{ $t('001311') }}</option>
-                <option v-for="type in TICKET_TYPES" v-bind:key="type.key" :value="type.value">{{ type.value }}</option>
+                <option v-for="type in TICKET_TYPES" v-bind:key="type.key" :value="type.key">{{ type.value }}</option>
             </select>
             <select class="product-select" v-model="productId">
                 <option value="-1" class="default" disabled selected>{{ $t('001315') }}</option>
@@ -29,8 +29,11 @@
                 <label class="btn" for="fileInput">{{ $t('001288') }}</label>
                 <span class="btn btn-primary" @click="submit()">{{ $t('001292') }}</span>
             </div>
-            <div v-if="uploaded" class="attachment">
-                <p>{{ attachmentName }}</p>
+            <div v-if="attachments.length > 0" class="attachment">
+                <p v-for="attachment in attachments" v-bind:key="attachment.index">
+                    {{ attachment.name }}
+                    <span @click="removeAttachment(attachment.index)">X</span>
+                </p>
             </div>
         </div>
 
@@ -61,6 +64,7 @@ export default {
 
     data() {
         return {
+            index: 0,
             loading: false,
             content: null,
             products: null,
@@ -102,13 +106,17 @@ export default {
             type: -1,
             productId: -1,
             file: null,
-            uploaded: false,
-            attachment: null,
-            attachmentName: null,
+            attachments: [],
         };
     },
 
     methods: {
+
+        removeAttachment(index) {
+            let findIndex = this.attachments.findIndex(ele => ele.index === index);
+            this.attachments.splice(findIndex, 1);
+        },
+
         getProducts() {
             getProductsList(this.$i18n.locale)
                 .then((res) => {
@@ -136,11 +144,12 @@ export default {
             postData.problem_content = this.content;
             postData.action = 'submit-ticket';
             postData.language = this.$i18n.locale;
-            if (this.uploaded) {
-                postData.attachments_url = [{
-                    url: this.attachment,
-                    name: this.attachmentName,
-                }, ];
+            postData.attachments_url = [];
+            for (let i = 0; i < this.attachments.length; i += 1) {
+                postData.attachments_url.push({
+                    url: this.attachments[i].url,
+                    name: this.attachments[i].name,
+                });
             }
             submitTicket(postData)
                 .then((res) => {
@@ -161,9 +170,9 @@ export default {
         },
 
         upload() {
-            this.attachment = null;
-            this.attachmentName = null;
-            this.uploaded = false;
+            if (this.attachments.length > 5) {
+                return false;
+            }
             let acceptExtensions = ['gif', 'jpg', 'jpeg', 'png', 'bmp', ];
             let files = event.target.files;
             if (files && files.length > 0) {
@@ -193,8 +202,12 @@ export default {
                             upload(postData)
                                 .then((res) => {
                                     if (res.data.status === '1') {
-                                        this.uploaded = true;
-                                        this.attachment = res.data.data.url;
+                                        this.attachments.push({
+                                            index: this.index,
+                                            url: res.data.data.url,
+                                            name: file.name,
+                                        });
+                                        this.index = this.index + 1;
                                     } else {
                                         this.$toast.show({
                                             text: this.$t('001815'),

@@ -47,6 +47,11 @@
         p{
             font-size: 12px;
             text-align: left;
+            span{
+                color: red;
+                padding: 0 5px;
+                margin-left: 10px;
+            }
         }
     }
 }

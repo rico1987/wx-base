@@ -5,28 +5,35 @@
         background-size: cover;
         background-position: 0 -26px;
         padding-top: 32px;
-        img{
+        .avatar-container{
             width: 64px;
             height: 64px;
-            border-radius: 32px;
-            border: 3px solid rgba(255, 255, 255, 0.5);
-        }
-        .default-avatar{
-            width: 64px;
-            height: 64px;
-            border-radius: 32px;
+            position: relative;
             margin: 0 auto;
-            background: url('../../../icons/default-portrait.svg') center no-repeat;
-            background-size: contain;
+            img{
+                width: 64px;
+                height: 64px;
+                border-radius: 32px;
+                border: 3px solid rgba(255, 255, 255, 0.5);
+            }
+            .default-avatar{
+                width: 64px;
+                height: 64px;
+                border-radius: 32px;
+                margin: 0 auto;
+                background: url('../../../icons/default-portrait.svg') center no-repeat;
+                background-size: contain;
+            }
+            .crown{
+                width: 26px;
+                height: 24px;
+                background: url('../../../icons/crownWhite.svg') center no-repeat;
+                position: absolute;
+                top: -12px;
+                left: 52px;
+            }
         }
-        .crown{
-            width: 26px;
-            height: 24px;
-            background: url('../../../icons/crownWhite.svg') center no-repeat;
-            position: absolute;
-            top: 20px;
-            left: 202px;
-        }
+
         .nickname{
             color: white;
             font-size: 17px;

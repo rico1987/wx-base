@@ -1,10 +1,12 @@
 <template>
     <div class="myaccount-account-menu">
         <div class="header">
-            <img v-if="userInfo && userInfo.avatar" :src="userInfo.avatar" />
-            <div v-if="!userInfo || !userInfo.avatar" class="default-avatar"></div>
-            <div class="crown"></div>
-            <p class="nickname">{{userInfo.nickname}}</p>
+            <div class="avatar-container">
+                <img v-if="userInfo && userInfo.avatar" :src="userInfo.avatar" />
+                <div v-if="!userInfo || !userInfo.avatar" class="default-avatar"></div>
+                <div class="crown" v-if="isVip"></div>
+            </div>
+            <p class="nickname">{{userInfo && userInfo.nickname}}</p>
             <p class="privileges" @click="goto('unlimited-vip')">
                 {{ $t('001781') }}
             </p>

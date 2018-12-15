@@ -10,7 +10,7 @@
             <div class="avatar">
                 <img v-if="userInfo && userInfo.avatar" :src="userInfo.avatar" />
                 <div v-if="!userInfo || !userInfo.avatar" class="default-avatar"></div>
-                <span></span>
+                <span v-if="isVip"></span>
             </div>
             <p class="validity">{{ getLicenseType() }}</p>
         </div>
@@ -32,10 +32,10 @@
         </div>
         <div class="myaccount-unlimited-vip__buy-link" v-if="!isVip">
             <div class="left">
-                <p>开通$9.9/月</p>
+                <p>{{ getMonthText() }}</p>
             </div>
             <div class="right">
-                <p>开通$99/年</p>
+                <p>{{ getYearText() }}</p>
             </div>
         </div>
     </div>
@@ -44,6 +44,7 @@
 <script>
 import Cookies from 'js-cookie';
 import MobileHeader from '@/components/MobileHeader.vue';
+import { getDomain, } from '@/utils/index';
 
 export default {
     name: 'unlimitedVip',
@@ -55,13 +56,36 @@ export default {
             isVip: false,
             userInfo: null,
             licenseInfo: null,
-            unlimitedLinkL: null,
+            unlimitedLink: null,
+            buyText: {
+                'zh': ['￥39/月', '￥199/年', ],
+                'en': ['$9.9/month', '$99/year', ],
+                'cs': ['€9.9/měsíc', '€99/rok', ],
+                'da': ['€9.9/måned', '€99/år', ],
+                'de': ['9,9€/Monat', '99€/Jahr', ],
+                'el': ['€9.9/mήνη', '€99/έτος', ],
+                'es': ['9.9€/mes', '99€/año', ],
+                'fi': ['€9.9/kuukausi', '€99/vuosi', ],
+                'fr': ['9,9€/mois', '99€/an', ],
+                'hu': ['€9.9/hónap', '€99/év', ],
+                'it': ['€9.9/mese', '€99/anno', ],
+                'ja': ['1290円/月間', '12790円/年', ],
+                'nl': ['€9.9/maand', '€99/jaar', ],
+                'no': ['€9.9/måned', '€99/år', ],
+                'pl': ['€9.9/miesiąc', '€99/rok', ],
+                'pt': ['R$39/mês', 'R$199/ano', ],
+                'sv': ['€9.9/månad', '€99/år', ],
+                'tr': ['€9.9/ay', '€99/yıllık', ],
+                'tw': ['NT$390/月', 'NT$2990/年', ],
+            },
         };
     },
 
     created: function() {
         this.getAvatarUrl();
         this.getLincenseInfo();
+        let language = this.$i18n.locale;
+        this.unlimitedLink = getDomain(language);
         if (this.$i18n.locale === 'zh') {
             this.unlimitedLink = 'https://www.apowersoft.cn/all-apowersoft';
         } else {
@@ -70,6 +94,17 @@ export default {
     },
 
     methods: {
+
+        getMonthText() {
+            let language = this.$i18n.locale;
+            return this.buyText[language][0];
+        },
+
+        getYearText() {
+            let language = this.$i18n.locale;
+            return this.buyText[language][1];
+        },
+
         getAvatarUrl() {
             let saveData = Cookies.get('userInfo');
             try {
@@ -91,7 +126,7 @@ export default {
             } else if (this.licenseInfo.is_activated === '1') {
                 let remainDays = parseInt(this.licenseInfo.remain_days, 10);
                 let deadline = new Date(new Date().getTime() + (24 * 60 * 60 * 1000 * remainDays));
-                return `${this.$t('001210')}: ${deadline.toLocaleDateString}`;
+                return `${this.$t('001210')}: ${deadline.toLocaleDateString()}`;
             }
         },
     },

@@ -17,6 +17,15 @@ export function login(account, password, language) {
     return accountFetch.post('/sessions', qs.stringify(data));
 }
 
+export function loginByToken(data) {
+    const postData = {
+        identity_token: data.identity_token,
+        brand: 'Apowersoft',
+        language: data.language,
+    };
+    return accountFetch.post('/sessions', qs.stringify(postData));
+}
+
 export function passwordLessLogin(data) {
     return accountFetch.post('/sessions', qs.stringify(Object.assign(data, {
         brand: 'Apowersoft',

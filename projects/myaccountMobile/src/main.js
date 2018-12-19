@@ -74,7 +74,7 @@ router.beforeEach((to, from, next) => {
                     });
                 });
         } else {
-            if (to.name === 'PasswordLogin') {
+            if (to.name === 'PasswordLogin' || to.name === 'register' || to.name === 'passwordLessLogin' || to.name === 'findPassword') {
                 next();
             } else {
                 next({

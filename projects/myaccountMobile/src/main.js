@@ -44,7 +44,14 @@ let identity_token = getQueryValue('identity_token');
 router.beforeEach((to, from, next) => {
     if (Cookies.get('identity_token') && Cookies.get('api_token')) {
         if (!identity_token) {
-            next();
+            if (to.name === 'PasswordLogin') {
+                next({
+                    path: '/account-menu',
+                    query: { lang, },
+                });
+            } else {
+                next();
+            }
         } else {
             if (to.name === 'accountMenu') {
                 next();

@@ -46,6 +46,8 @@ const user = {
                         Cookies.set('api_token', data.data.api_token);
                         Cookies.set('identity_token', data.data.identity_token);
                         Cookies.set('userInfo', JSON.stringify(data.data.user));
+                        // 与android登陆的交互
+                        window.account && window.account.onLogin(document.cookie);
                         resolve();
                     } else {
                         reject(data.status);
@@ -67,6 +69,8 @@ const user = {
                         Cookies.set('api_token', data.data.api_token);
                         Cookies.set('identity_token', data.data.identity_token);
                         Cookies.set('userInfo', JSON.stringify(data.data.user));
+                        // 与android登陆的交互
+                        window.account && window.account.onLogin(document.cookie);
                         resolve();
                     } else {
                         reject(data.status);
@@ -88,6 +92,8 @@ const user = {
                         Cookies.set('api_token', data.data.api_token);
                         Cookies.set('identity_token', data.data.identity_token);
                         Cookies.set('userInfo', JSON.stringify(data.data.user));
+                        // 与android登陆的交互
+                        window.account && window.account.onLogin(document.cookie);
                         resolve();
                     } else {
                         reject(data.status);
@@ -109,6 +115,8 @@ const user = {
                         Cookies.set('api_token', data.data.api_token);
                         Cookies.set('identity_token', data.data.identity_token);
                         Cookies.set('userInfo', JSON.stringify(data.data.user));
+                        // 与android登陆的交互
+                        window.account && window.account.onLogin(document.cookie);
                         resolve();
                     } else {
                         reject(data.status);
@@ -128,6 +136,8 @@ const user = {
                         commit('SET_IDENTITY_TOKEN', data.data.identity_token);
                         Cookies.set('api_token', data.data.api_token);
                         Cookies.set('identity_token', data.data.identity_token);
+                        // 与android登陆的交互
+                        window.account && window.account.onLogin(document.cookie);
                         resolve();
                     } else {
                         reject(data.status);
@@ -175,6 +185,8 @@ const user = {
                 Cookies.remove('identity_token');
                 Cookies.remove('userInfo');
                 Cookies.remove('license_info');
+                // 与android登陆的交互
+                window.account && window.account.onLogout();
                 resolve();
             });
         },
@@ -191,6 +203,8 @@ const user = {
                         Cookies.set('api_token', data.data.api_token);
                         Cookies.set('identity_token', data.data.identity_token);
                         Cookies.set('userInfo', JSON.stringify(data.data.user));
+                        // 与android登陆的交互
+                        window.account && window.account.onLogin(document.cookie);
                         resolve();
                     } else {
                         reject(data.status);

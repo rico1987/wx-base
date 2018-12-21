@@ -2,41 +2,48 @@
     "faq-1": "How to display overlay icon/camera?",
     "faq-2": "Please follow the steps below to turn on overlay icon/camera:",
     "faq-3": "Solution : Enter device settings → “Apps & notifications” → “App info”/“Apps” → Choose Apowersoft Screen Recorder → Enter “Draw over other apps” under “ADVANCED” →“Permit drawing over other apps.”",
+
     "faq-4": "Why can’t I record internal sound?",
     "faq-5": "Android system currently does not support recording internal sound. Please turn on “Record audio” under “Settings” since internal sound can only be recorded via microphone. And we will optimize this function once Android system opened more permissions.",
+
     "faq-6": "Why can’t I record voice/Why can’t the other person hear me during the video call?",
     "faq-7": "Due to Android system restriction, microphone cannot be used by multiple apps at the same time, but the sound recording on Android is through microphone only. Therefore, you cannot record the voice or be heard by others during the video call.",
+
     "faq-8": "Why the recorded video has sound only?",
     "faq-9": "Certain apps will prevent users from screen recording their contents because of copyright issues, such as Netflix, etc.",
+
     "faq-10": "What are the differences among 3 recording modes?",
     "faq-11": "☆ Recording Mode One: Variable bit-rate. ",
     "faq-12": "The recording bit-rate ≤ Bit-rate you set",
     "faq-13": "Lower resolution than Mode Two",
-    "faq-14": "",
-    "faq-15": "Good compatibility",
-    "faq-16": "☆ Recording Mode Two: Constant bit-rate.",
-    "faq-17": "The recording bit-rate = Bit-rate you set",
-    "faq-18": "Higher resolution than Mode One",
-    "faq-19": "Larger video file",
-    "faq-20": "",
-    "faq-21": "☆ Recording Mode Three: Constant quality.",
-    "faq-22": "Best video quality",
-    "faq-23": "Highest resolution",
-    "faq-24": "Highest CPU utility",
-    "faq-25": "Biggest video file",
-    "faq-26": "You can select the most fit recording mode for your phone since manufacture settings differs among devices.",
-    "faq-27": "How to prevent the video from being choppy?",
-    "faq-28": "The recording is influenced by device settings, recorded applications, recording settings and CPU storage. Especially when CPU is being taken up too much, the recording may get a little bit choppy during the process. Please enter “Settings” to adjust resolution, bit-rate or frame rate to solve such issue. Meanwhile, it’s highly suggested that all the unnecessary applications should be closed while using the screen recorder.",
-    "faq-29": "How can I prevent app from auto closing or stop the recorded video from freezing?",
-    "faq-30": "Do not launch the app which also requires the permission of screen capture and close unnecessary applications as many as possible to save enough CPU space.",
-    "faq-31": "Why the recorded video can’t be played in full screen?",
-    "faq-32": "Incorrect screen orientation settings may cause such problem. Please enter “Settings” and choose the suitable recording orientation (portrait/landscape) for your video. Also, you can click the rotate button at the bottom right corner in the course of playing the video.",
-    "faq-33": "How can I prevent screen casting disconnection when opening games on the phone?",
-    "faq-34": "Due to the restriction of phone system, the screen casting will be cut out if you record from phone at the same time. However, it also can be caused by the automatic highlights recording within the game. Please check and turn off recording-related options in the game. And it’s highly suggested that such game settings should be turned off during screen casting or screen recording.",
-    "faq-35": "Why the screen is getting choppy when casting to PC? ",
-    "faq-36": "",
-    "faq-37": "Make sure the network is stable. 5G WIFI is highly recommended.",
-    "faq-38": "Network limitation: Certain devices may limit the internet speed for application.",
-    "faq-39": "Network doesn’t match with the screen casting settings. Such as screen casting a 2K high-definition screen over 1m/s network, in this case, the casting will definitely get choppy.",
-    "faq-40": "Set “Adjust casting quality” as “smooth” is also suggested under such circumstance."
+    "faq-14": "Good compatibility",
+
+    "faq-15": "☆ Recording Mode Two: Constant bit-rate.",
+    "faq-16": "The recording bit-rate = Bit-rate you set",
+    "faq-17": "Higher resolution than Mode One",
+    "faq-18": "Larger video file",
+
+    "faq-19": "☆ Recording Mode Three: Constant quality.",
+    "faq-20": "Best video quality",
+    "faq-21": "Highest resolution",
+    "faq-22": "Biggest video file",
+
+    "faq-23": "How to prevent the video from being choppy?",
+    "faq-24": "The recording is influenced by device settings, recorded applications, recording settings and CPU storage. Especially when CPU is being taken up too much, the recording may get a little bit choppy during the process. Please enter “Settings” to adjust resolution, bit-rate or frame rate to solve such issue. Meanwhile, it’s highly suggested that all the unnecessary applications should be closed while using the screen recorder.",
+
+    "faq-25": "How can I prevent app from auto closing or stop the recorded video from freezing?",
+    "faq-26": "Do not launch the app which also requires the permission of screen capture and close unnecessary applications as many as possible to save enough CPU space.",
+
+    "faq-27": "Why the recorded video can’t be played in full screen?",
+    "faq-28": "Incorrect screen orientation settings may cause such problem. Please enter “Settings” and choose the suitable recording orientation (portrait/landscape) for your video. Also, you can click the rotate button at the bottom right corner in the course of playing the video.",
+
+    "faq-29": "How can I prevent screen casting disconnection when opening games on the phone?",
+    "faq-30": "Due to the restriction of phone system, the screen casting will be cut out if you record from phone at the same time. However, it also can be caused by the automatic highlights recording within the game. Please check and turn off recording-related options in the game. And it’s highly suggested that such game settings should be turned off during screen casting or screen recording.",
+
+    "faq-31": "Why the screen is getting choppy when casting to PC? ",
+    "faq-32": "Please go through the steps below to check this issue:",
+    "faq-33": "Make sure the network is stable. 5G WIFI is highly recommended.",
+    "faq-34": "Network limitation: Certain devices may limit the internet speed for application.",
+    "faq-35": "Network doesn’t match with the screen casting settings. Such as screen casting a 2K high-definition screen over 1m/s network, in this case, the casting will definitely get choppy.",
+    "faq-36": "Set “Adjust casting quality” as “smooth” is also suggested under such circumstance."
 }

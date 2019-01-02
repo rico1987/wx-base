@@ -39,6 +39,26 @@ Vue.use(VueI18n);
 
 let lang = getQueryValue('lang') || 'en';
 
+(function(doc, win) {
+    let docEl = doc.documentElement;
+    let psdWidth;
+    let fontSize;
+    let clientWidth;
+    let resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize';
+    let recalc = function() {
+        clientWidth = docEl.clientWidth;
+        if (!clientWidth) return;
+        psdWidth = 720;
+        // 750这个值，根据设计师的psd宽度来修改，是多少就写多少，现在手机端一般是750px的设计稿
+        // 如果设计师给的1920的psd，自己用ps等比例缩小
+        fontSize = 100 * (clientWidth / psdWidth);
+        docEl.style.fontSize = `${fontSize}px`;
+    };
+    if (!doc.addEventListener) return;
+    win.addEventListener(resizeEvt, recalc, false);
+    doc.addEventListener('DOMContentLoaded', recalc, false);
+})(document, window);
+
 // let identity_token = getQueryValue('identity_token');
 
 // 路由守护

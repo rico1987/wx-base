@@ -1,0 +1,178 @@
+.top-title{
+    border-top: 1px solid transparent;
+    height: 2.69rem;
+    width: 100%;
+    background: #5184f6;
+    color: #fff;
+    text-align: center;
+    .title-content{
+        padding-top: 0.64rem;
+        font-size: 0.41rem;
+        margin-bottom: 0.3rem;
+    }
+    .title-des{
+        font-size: 0.24rem;
+        line-height: 1.2;
+        margin-left: 15%;
+        margin-right: 15%;
+    }
+}
+.convert-box{
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    padding-left: 0.08rem;
+    padding-bottom: 0.98rem;
+    .convert-item{
+        width: 2.32rem;
+        height: 2.82rem;
+        overflow: hidden;
+        // border: 0.005rem solid red;
+        float: left;
+        position: relative;
+        .img-box{
+            border: 0.1px solid transparent;
+            width: 1.2rem;
+            height: 1.2rem;
+            border-radius: 1.2rem;
+            background: #ff00ff;
+            margin: 0 auto;
+            margin-top: 0.52rem;
+
+            .img{
+                width: 0.57rem;
+                height: 0.57rem;
+                margin: 0.315rem auto;
+                background: url('../img/index/pdf-to-word.svg') center center/0.57rem 0.57rem no-repeat;
+                // background-size: 0.57rem 0.57rem;
+            }
+        }
+        .convert-name{
+            margin-top: 0.3rem;
+            color: #333;
+            font-size: 0.24rem;
+            line-height: 1.2;
+            text-align: center;
+        }
+        .border-box{
+            position: absolute;
+            width:70%;
+            height: 70%;
+            // $w90: ;
+            // right: 0;
+            // bottom: 0;
+            // border: 1px solid #000;
+            &.tl{
+                width: 90%;
+                height: 90%;
+                right: 0;
+                bottom: 0;
+                border-right: 0.01rem solid rgba(#efefef,0.8);
+                border-bottom: 0.01rem solid rgba(#efefef,0.8);
+            }
+            &.tc{
+                width: 100%;
+                height: 90%;
+                right: 0;
+                bottom: 0;
+                // border-left: 0.01rem solid rgba(#efefef,0.8);
+                border-right: 0.01rem solid rgba(#efefef,0.8);
+                border-bottom: 0.01rem solid rgba(#efefef,0.8);
+            }
+            &.tr{
+                width: 90%;
+                height: 90%;
+                left: 0;
+                bottom: 0;
+                // border-left: 0.01rem solid rgba(#efefef,0.8);
+                border-bottom: 0.01rem solid rgba(#efefef,0.8);
+            }
+            &.cl{
+                width: 90%;
+                height: 100%;
+                right: 0;
+                bottom: 0;
+                // border-top: 0.01rem solid rgba(#efefef,0.8);
+                border-right: 0.01rem solid rgba(#efefef,0.8);
+                border-bottom: 0.01rem solid rgba(#efefef,0.8);
+            }
+            &.cc{
+                width: 100%;
+                height: 100%;
+                right: 0;
+                bottom: 0;
+                border-right: 0.01rem solid rgba(#efefef,0.8);
+                border-bottom: 0.01rem solid rgba(#efefef,0.8);
+            }
+            &.cr{
+                width: 90%;
+                height: 100%;
+                left: 0;
+                bottom: 0;
+                // border-top: 0.01rem solid rgba(#efefef,0.8);
+                // border-left: 0.01rem solid rgba(#efefef,0.8);
+                border-bottom: 0.01rem solid rgba(#efefef,0.8);
+            }
+            &.bl{
+                width: 90%;
+                height: 90%;
+                right: 0;
+                top: 0;
+                border-right: 0.01rem solid rgba(#efefef,0.8);
+                // border-top: 0.01rem solid rgba(#efefef,0.8);
+            }
+            &.bc{
+                width: 100%;
+                height: 90%;
+                right: 0;
+                top: 0;
+                // border-left: 0.01rem solid rgba(#efefef,0.8);
+                border-right: 0.01rem solid rgba(#efefef,0.8);
+                // border-top: 0.01rem solid rgba(#efefef,0.8);
+            }
+            &.br{
+                width: 90%;
+                height: 90%;
+                left: 0;
+                top: 0;
+                // border-left: 0.01rem solid rgba(#efefef,0.8);
+                // border-top: 0.01rem solid rgba(#efefef,0.8);
+            }
+
+        }
+
+        $items:('pdf-to-word' , #eef3fe),
+        ('ocr-pdf'       , #eef3fe),
+        ('pdf-to-png'    , #eef3fe),
+        ('pdf-to-jpg'    , #eef3fe),
+        ('pdf-to-ppt'    , #eef3fe),
+        ('pdf-to-txt'    , #eef3fe),
+        ('pdf-to-excel'  , #eef3fe),
+        ('word-to-pdf'   , #eef3fe),
+        ('excel-to-pdf'  , #eef3fe),
+        ('ppt-to-pdf'    , #eef3fe),
+        ('png-to-pdf'    , #eef3fe),
+        ('jpg-to-pdf'    , #eef3fe),
+        ('edit-pdf'      , #eef3fe),
+        ('watermark-pdf' , #eef3fe),
+        ('merge-pdf'     , #eef3fe),
+        ('split-pdf'     , #eef3fe),
+        ('sign-pdf'      , #eef3fe),
+        ('unlock-pdf'    , #eef3fe),
+        ('compress-pdf'  , #eef3fe),
+        ('protect-pdf'   , #eef3fe),
+        ('rotate-pdf'    , #eef3fe);
+
+        @each $name,$bg in $items {
+            &.#{$name} .img-box{
+                background: $bg;
+                .img{
+                    background-image: url('../img/index/#{$name}.svg');
+                }
+            }
+            
+        }
+
+    }
+    
+}

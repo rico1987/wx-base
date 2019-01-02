@@ -1,9 +1,16 @@
-select{
-    -webkit-appearance: none;
+*, :after, :before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 body{
     font-size: 14px;
 }
+
+select{
+    -webkit-appearance: none;
+}
+
 .has-header{
     padding-top: 51px;
 }

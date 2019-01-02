@@ -72,6 +72,24 @@
             <div class="border-box bc"></div>
             </div>
         </div>
+        <div class="main-bar">
+            <div class="item active from-pdf">
+            <div class="img"></div>
+            <div class="item-name">PDF转换</div>
+            </div>
+            <div class="item active to-pdf">
+            <div class="img"></div>
+            <div class="item-name">转为PDF</div>
+            </div>
+            <div class="item active merge-pdf">
+            <div class="img"></div>
+            <div class="item-name">PDF合并</div>
+            </div>
+            <div class="item active user-center">
+            <div class="img"></div>
+            <div class="item-name">我的</div>
+            </div>
+        </div>
     </div>
 </template>
 

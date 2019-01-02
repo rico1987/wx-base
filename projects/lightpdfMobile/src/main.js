@@ -42,56 +42,56 @@ let lang = getQueryValue('lang') || 'en';
 let identity_token = getQueryValue('identity_token');
 
 // 路由守护
-router.beforeEach((to, from, next) => {
-    if (Cookies.get('identity_token') && Cookies.get('api_token')) {
-        if (!identity_token) {
-            if (to.name === 'PasswordLogin') {
-                next({
-                    path: '/account-menu',
-                    query: { lang, },
-                });
-            } else {
-                next();
-            }
-        } else {
-            if (to.name === 'accountMenu') {
-                next();
-            } else {
-                next({
-                    path: '/account-menu',
-                    query: { lang, },
-                });
-            }
-        }
-    } else {
-        if (identity_token) {
-            store.dispatch('LoginByToken', {
-                identity_token: identity_token.replace(/%2c/gi, ','),
-                language: lang,
-            })
-                .then(() => {
-                    next({
-                        path: '/account-menu',
-                        query: { lang, },
-                    });
-                })
-                .catch(() => {
-                    next({
-                        path: '/login',
-                        query: { lang, },
-                    });
-                });
-        } else {
-            if (to.name === 'PasswordLogin' || to.name === 'register' || to.name === 'passwordLessLogin' || to.name === 'findPassword') {
-                next();
-            } else {
-                next({
-                    path: '/login',
-                });
-            }
-        }
-    }
-});
+// router.beforeEach((to, from, next) => {
+//     if (Cookies.get('identity_token') && Cookies.get('api_token')) {
+//         if (!identity_token) {
+//             if (to.name === 'PasswordLogin') {
+//                 next({
+//                     path: '/account-menu',
+//                     query: { lang, },
+//                 });
+//             } else {
+//                 next();
+//             }
+//         } else {
+//             if (to.name === 'accountMenu') {
+//                 next();
+//             } else {
+//                 next({
+//                     path: '/account-menu',
+//                     query: { lang, },
+//                 });
+//             }
+//         }
+//     } else {
+//         if (identity_token) {
+//             store.dispatch('LoginByToken', {
+//                 identity_token: identity_token.replace(/%2c/gi, ','),
+//                 language: lang,
+//             })
+//                 .then(() => {
+//                     next({
+//                         path: '/account-menu',
+//                         query: { lang, },
+//                     });
+//                 })
+//                 .catch(() => {
+//                     next({
+//                         path: '/login',
+//                         query: { lang, },
+//                     });
+//                 });
+//         } else {
+//             if (to.name === 'PasswordLogin' || to.name === 'register' || to.name === 'passwordLessLogin' || to.name === 'findPassword') {
+//                 next();
+//             } else {
+//                 next({
+//                     path: '/login',
+//                 });
+//             }
+//         }
+//     }
+// });
 
 const i18n = new VueI18n({
     locale: lang,

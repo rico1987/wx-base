@@ -2,92 +2,70 @@
     <div class="index-container">
         <div class="top-title">
             <div class="title-content">PDF转换工具</div>
-            <div class="title-des">快速实现PDF文档转Word,Excel,PPT,JPG等格式，安全简单方便！</div>
+            <div class="title-des">
+                快速实现PDF文档转Word,Excel,PPT,JPG等格式，安全简单方便！
+            </div>
         </div>
         <div class="convert-box">
             <div class="convert-item pdf-to-word">
-            <div class="img-box">
-            <div class="img">
-            </div>
-            </div>
-            <div class="convert-name">Conversion de PDF en PNG...</div>
-            <div class="border-box tl"></div>
+                <div class="img-box"><div class="img"></div></div>
+                <div class="convert-name">Conversion de PDF en PNG...</div>
+                <div class="border-box tl"></div>
             </div>
             <div class="convert-item pdf-to-excel">
-            <div class="img-box">
-            <div class="img">
-            </div>
-            </div>
-            <div class="convert-name">pdf to excel</div>
-            <div class="border-box tc"></div>
+                <div class="img-box"><div class="img"></div></div>
+                <div class="convert-name">pdf to excel</div>
+                <div class="border-box tc"></div>
             </div>
             <div class="convert-item pdf-to-ppt">
-            <div class="img-box">
-            <div class="img">
-            </div>
-            </div>
-            <div class="convert-name">Conversion de PDF en PNG...</div>
-            <div class="border-box tr"></div>
+                <div class="img-box"><div class="img"></div></div>
+                <div class="convert-name">Conversion de PDF en PNG...</div>
+                <div class="border-box tr"></div>
             </div>
 
             <div class="convert-item pdf-to-word">
-            <div class="img-box">
-            <div class="img">
-            </div>
-            </div>
-            <div class="convert-name">Conversion de PDF en PNG...</div>
-            <div class="border-box cl"></div>
+                <div class="img-box"><div class="img"></div></div>
+                <div class="convert-name">Conversion de PDF en PNG...</div>
+                <div class="border-box cl"></div>
             </div>
             <div class="convert-item pdf-to-excel">
-            <div class="img-box">
-            <div class="img">
-            </div>
-            </div>
-            <div class="convert-name">pdf to excel</div>
-            <div class="border-box cc"></div>
+                <div class="img-box"><div class="img"></div></div>
+                <div class="convert-name">pdf to excel</div>
+                <div class="border-box cc"></div>
             </div>
             <div class="convert-item pdf-to-ppt">
-            <div class="img-box">
-            <div class="img">
-            </div>
-            </div>
-            <div class="convert-name">Conversion de PDF en PNG...</div>
-            <div class="border-box cr"></div>
+                <div class="img-box"><div class="img"></div></div>
+                <div class="convert-name">Conversion de PDF en PNG...</div>
+                <div class="border-box cr"></div>
             </div>
 
             <div class="convert-item pdf-to-word">
-            <div class="img-box">
-            <div class="img">
-            </div>
-            </div>
-            <div class="convert-name">Conversion de PDF en PNG...</div>
-            <div class="border-box bl"></div>
+                <div class="img-box"><div class="img"></div></div>
+                <div class="convert-name">Conversion de PDF en PNG...</div>
+                <div class="border-box bl"></div>
             </div>
             <div class="convert-item pdf-to-excel">
-            <div class="img-box">
-            <div class="img">
-            </div>
-            </div>
-            <div class="convert-name">pdf to excel</div>
-            <div class="border-box bc"></div>
+                <div class="img-box"><div class="img"></div></div>
+                <div class="convert-name">pdf to excel</div>
+                <div class="border-box bc"></div>
             </div>
         </div>
         <div class="main-bar">
             <div class="item active from-pdf">
-            <div class="img"></div>
-            <div class="item-name">PDF转换</div>
+                <div class="img"></div>
+                <div class="item-name">PDF转换</div>
             </div>
             <div class="item active to-pdf">
-            <div class="img"></div>
-            <div class="item-name">转为PDF</div>
+                <div class="img"></div>
+                <div class="item-name">转为PDF</div>
             </div>
             <div class="item active merge-pdf">
-            <div class="img"></div>
-            <div class="item-name">PDF合并</div>
+                <div class="img"></div>
+                <div class="item-name">PDF合并</div>
             </div>
             <div class="item active user-center">
-            <div class="img"></div>
-            <div class="item-name">我的</div>
+                <div class="img"></div>
+                <div class="item-name">我的</div>
             </div>
         </div>
     </div>

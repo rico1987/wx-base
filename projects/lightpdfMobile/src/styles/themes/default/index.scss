@@ -3,6 +3,7 @@
 @import "../../mixins/clearfix.scss";
 @import "../../mixins/float.scss";
 @import "../../mixins/ellipsis.scss";
+@import "../../mixins/filter.scss";
 
 //variables
 @import "variables.scss";
@@ -16,6 +17,8 @@
 @import "./mobileHeader.scss";
 @import "./list.scss";
 @import "./mobileSwitch.scss";
+@import "./pdfHeader.scss";
 
 // pages
 @import "./home.scss";
+@import "./frompdf.scss";

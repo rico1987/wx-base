@@ -74,7 +74,7 @@
 <script>
 
 export default {
-    name: 'index',
+    name: 'home',
     components: {
     },
     data() {

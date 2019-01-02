@@ -16,6 +16,12 @@ Vue.use(VueI18n);
 
 let lang = getQueryValue('lang') || 'en';
 
+let langArr = ['en', 'zh', ];
+
+if (!langArr.some(ele => ele === lang)) {
+    lang = 'en';
+}
+
 const i18n = new VueI18n({
     locale: lang,
     messages: {

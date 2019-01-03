@@ -1,0 +1,86 @@
+.convert-file-panel{
+	border: 0.5px solid transparent;
+	background: #f7f6fb;
+	padding-top: 0.98rem;
+	min-height: 100vh;
+	.add-file-btn{
+		width: 6.47rem;
+		height: 0.8rem;
+		background: #fff;
+		border-radius: 0.2rem;
+		margin-left: auto;
+		margin-right: auto;
+		margin-top: 0.3rem;
+		margin-bottom: 0.4rem;
+		@include filter(drop-shadow(0px 0px 10px rgba(#000,0.20)));
+		.btn-des{
+			color: #333;
+			font-size: 0.28rem;
+			text-align: center;
+			vertical-align: middle;
+			height: 0.8rem;
+			line-height: 0.8rem;
+			&:before{
+				content: '';
+				width: 0.28rem;
+				height: 0.28rem;
+				background: url(../../../assets/images/index/add-file/plus-black.svg) center center/100% auto no-repeat;
+				display: inline-block;
+				vertical-align: middle;
+				margin-right: 0.1rem;
+				top: -0.04rem;
+				position: relative;
+
+
+			}
+		}
+	}
+	.convert-file-list{
+		margin-top: 0.3rem;
+		margin-bottom: 0.4rem;
+		border: 0.5px solid transparent;
+
+	}
+	.convert-start-btn{
+		position: fixed;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		width: 6.47rem;
+		height: 0.8rem;
+		overflow: hidden;
+		border-radius: 0.2rem;
+		margin-left: auto;
+		margin-right: auto;
+		margin-bottom: 0.2rem;
+		@include filter(drop-shadow(0px 0px 10px rgba(#000,0.20)));
+		background: linear-gradient(to left,#1e5ff3,#6594ff);
+		font-size: 0.28rem;
+		text-align: center;
+		color: #fff;
+		line-height: 0.8rem;
+		cursor: pointer;
+	}
+	.convert-stop-btn{
+		position: fixed;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		width: 6.47rem;
+		height: 0.8rem;
+		overflow: hidden;
+		border-radius: 0.2rem;
+		margin-left: auto;
+		margin-right: auto;
+		margin-bottom: 0.2rem;
+		@include filter(drop-shadow(0px 0px 10px rgba(#000,0.20)));
+		background: #9d9d9d;
+		font-size: 0.28rem;
+		text-align: center;
+		color: #fff;
+		line-height: 0.8rem;
+		cursor: pointer;
+
+	}
+
+}

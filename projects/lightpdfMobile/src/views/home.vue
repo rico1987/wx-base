@@ -3,11 +3,16 @@
         <div class="top-title">
             <div class="title-content">PDF转换工具</div>
             <div class="title-des">
-                快速实现PDF文档转Word,Excel,PPT,JPG等格式，安全简单方便！
+                {{tr('aaa@@001193')}}
             </div>
         </div>
         <div class="convert-box">
-            <div class="convert-item pdf-to-word">
+            <div class="convert-item" v-for="item in convertkey" :class="item" :key="item"  @click="goConvert(item)">
+                <div class="img-box"><div class="img"></div></div>
+                <div class="convert-name">Conversion de PDF en PNG...</div>
+                <div class="border-box tl"></div>
+            </div>
+            <div class="convert-item pdf-to-word" data-ttype="pdf-to-word" @click="goConvert($event)">
                 <div class="img-box"><div class="img"></div></div>
                 <div class="convert-name">Conversion de PDF en PNG...</div>
                 <div class="border-box tl"></div>
@@ -79,12 +84,42 @@ export default {
     },
     data() {
         return {
+            convertkey: [
+                'pdf-to-word',
+                'pdf-to-excel',
+                'pdf-to-ppt',
+            ],
         };
     },
 
     created: function() {
     },
     methods: {
+        tr: function(keyStr) {
+            if (!keyStr) {
+                return '';
+            }
+            let old = '';
+            let key = '';
+            let index = keyStr.indexOf('@@');
+            if (index !== -1) {
+                old = keyStr.substring(0, index);
+                key = keyStr.substring(index + 2, keyStr.lenght);
+            } else {
+                key = keyStr;
+            }
+            let value = this.$t(key);
+            if (value === key && old.length) {
+                value = old;
+            }
+            return value;
+        },
+        goConvert: function(e) {
+            console.log(e);
+            console.log(this.$t('333'));
+            console.log(this.tr('aaa@@001193'));
+            // this.$router.push('/convert');
+        },
     },
 };
 </script>

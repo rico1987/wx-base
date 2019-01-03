@@ -21,5 +21,6 @@ body{
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #333333;
+    height: 100vh;
 }
 </style>

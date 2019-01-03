@@ -7,6 +7,7 @@ import './styles/themes/default/index.scss';
 import App from './App.vue';
 import router from './router';
 import store from './store';
+import trans from './utils/trans';
 import { getQueryValue, } from './utils/index';
 
 // import languages
@@ -36,6 +37,7 @@ Vue.use(ToastPlugin, { position: 'center', });
 
 Vue.config.productionTip = false;
 Vue.use(VueI18n);
+Vue.use(trans);
 
 let lang = getQueryValue('lang') || 'en';
 

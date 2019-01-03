@@ -3,7 +3,7 @@
         <div class="top-title">
             <div class="title-content">PDF转换工具</div>
             <div class="title-des">
-                {{tr('aaa@@001193')}}
+                {{$tr('aaa@@001193')}}
             </div>
         </div>
         <div class="convert-box">
@@ -55,32 +55,17 @@
                 <div class="border-box bc"></div>
             </div>
         </div>
-        <div class="main-bar">
-            <div class="item active from-pdf">
-                <div class="img"></div>
-                <div class="item-name">PDF转换</div>
-            </div>
-            <div class="item active to-pdf">
-                <div class="img"></div>
-                <div class="item-name">转为PDF</div>
-            </div>
-            <div class="item active merge-pdf">
-                <div class="img"></div>
-                <div class="item-name">PDF合并</div>
-            </div>
-            <div class="item active user-center">
-                <div class="img"></div>
-                <div class="item-name">我的</div>
-            </div>
-        </div>
+        <main-bar type="to-pdf"></main-bar>
     </div>
 </template>
 
 <script>
+import MainBar from '../components/MainBar.vue';
 
 export default {
     name: 'home',
     components: {
+        'main-bar': MainBar,
     },
     data() {
         return {
@@ -117,7 +102,7 @@ export default {
         goConvert: function(e) {
             console.log(e);
             console.log(this.$t('333'));
-            console.log(this.tr('aaa@@001193'));
+            console.log(this.$tr('aaa@@001193'));
             // this.$router.push('/convert');
         },
     },

@@ -6,25 +6,36 @@
     position: relative;
     display: flex;
     justify-content: flex-start;
+    min-width: 400px;
 
-    @include e(switch) {
+    @include e(menu) {
         flex: 0.2;
         align-items: center;
-        border-right: 1px solid black;
         div{
+            height: 16.6666%;
             padding: 0 10px;
-            border-bottom: 1px solid black;
+            align-items: center;
+            display: flex;
+            cursor: pointer;
             p{
                 margin: 0;
-                line-height: 40px;
-                text-align: right;
+                width: 100%;
+                text-align: center;
                 cursor: pointer;
+            }
+            &.active{
+                border: 1px solid $primary;
+                border-color: $primary transparent $primary $primary;
+                position: relative;
+                left: 1px;
+                background: $dark;
             }
         }
     }
 
     @include e(content) {
         flex: 0.8;
+        border: 1px solid $primary;
     }
 
 }

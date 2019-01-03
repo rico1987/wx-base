@@ -72,7 +72,7 @@ $info:          $cyan !default;
 $warning:       $yellow !default;
 $danger:        $red !default;
 $light:         $gray-100 !default;
-$dark:          $gray-800 !default;
+$dark:          #1f1f1f !default;
 
 $primary-light-1: mix($white, $primary, 10%) !default;
 $primary-light-2: mix($white, $primary, 20%) !default;

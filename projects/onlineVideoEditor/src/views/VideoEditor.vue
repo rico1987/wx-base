@@ -2,7 +2,7 @@
     <div class="editor-main-container">
         <div class="editor-main-container__top">
             <Material class="editor-main-container__material"></Material>
-            <Preview class="editor-main-container__preview"></Preview>
+            <Player class="editor-main-container__Player"></Player>
         </div>
         <div class="editor-main-container__bottom">
             <TimeLine></TimeLine>
@@ -13,14 +13,14 @@
 <script>
 import Material from '@/components/Material.vue';
 import TimeLine from '@/components/TimeLine.vue';
-import Preview from '@/components/Preview.vue';
+import Player from '@/components/Player.vue';
 
 export default {
     name: 'video-editor',
     components: {
         Material,
         TimeLine,
-        Preview,
+        Player,
     },
     data() {
         return {

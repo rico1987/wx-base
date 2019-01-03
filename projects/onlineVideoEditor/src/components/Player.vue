@@ -1,16 +1,16 @@
 <template>
-    <div class="editor-preview">
-        <div class="editor-preview__canvas-container">
+    <div class="editor-player">
+        <div class="editor-player__canvas-container">
             <canvas></canvas>
         </div>
-        <div class="editor-preview__controllers"></div>
+        <div class="editor-player__controllers"></div>
     </div>
 </template>
 
 <script>
 
 export default {
-    name: 'preview',
+    name: 'player',
     components: {
     },
     data() {

@@ -20,6 +20,18 @@ export default {
     created: function() {
     },
     methods: {
+        addTrack: () => {
+
+        },
+        removeTrack: () => {
+
+        },
+        copyTrack: () => {
+
+        },
+        lockTrack: () => {
+
+        },
     },
 };
 </script>

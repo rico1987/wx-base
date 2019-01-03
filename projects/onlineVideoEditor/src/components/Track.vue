@@ -17,6 +17,12 @@ export default {
     created: function() {
     },
     methods: {
+        addItem: () => {
+
+        },
+        removeItem: () => {
+
+        },
     },
 };
 </script>

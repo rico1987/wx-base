@@ -12,6 +12,7 @@ const operation = {
     },
     actions: {
         undo: () => {},
+        redo: () => {},
     },
 };
 

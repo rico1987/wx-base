@@ -32,6 +32,9 @@ export default {
         lockTrack: () => {
 
         },
+        muteTrack: () => {
+
+        },
     },
 };
 </script>

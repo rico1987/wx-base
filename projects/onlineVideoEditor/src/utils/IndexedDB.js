@@ -6,7 +6,7 @@ export function openDb(databaseName) {
     }
 }
 
-export function create(db) {
+export function createObjectStore(db) {
 
 }
 

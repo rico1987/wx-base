@@ -17,7 +17,7 @@ export default {
     },
     data() {
         return {
-            categories: ['materials', 'words', 'filters', 'covers', 'transitions', 'animations', ],
+            categories: ['materials', 'words', 'filters', 'overlays', 'transitions', 'animations', ],
         };
     },
 

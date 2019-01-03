@@ -1,14 +1,12 @@
 <template>
-    <div>
-        <canvas>
-        </canvas>
+    <div class="editor-track">
     </div>
 </template>
 
 <script>
 
 export default {
-    name: 'player',
+    name: 'track',
     components: {
     },
     data() {
@@ -19,6 +17,15 @@ export default {
     created: function() {
     },
     methods: {
+        addItem: () => {
+
+        },
+        removeItem: () => {
+
+        },
+        moveItem: () => {
+
+        },
     },
 };
 </script>

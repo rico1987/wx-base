@@ -4,3 +4,11 @@
 @import "../../mixins/float.scss";
 @import "../../mixins/ellipsis.scss";
 
+
+// components
+@import "./material.scss";
+@import "./player.scss";
+
+
+// pages
+@import "./videoEditor.scss";

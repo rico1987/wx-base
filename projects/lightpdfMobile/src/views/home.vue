@@ -23,6 +23,8 @@
 
 <script>
 import MainBar from '../components/MainBar.vue';
+import {getPdfSesstion, } from '../api/pdf';
+import ls from '../utils/littleStore';
 
 export default {
     name: 'home',
@@ -85,8 +87,19 @@ export default {
     },
 
     created: function() {
+        this.getSession();
     },
     methods: {
+        getSession: function() {
+            getPdfSesstion().then((response) => {
+                const data = response.data;
+                console.log(data);
+                ls.set('api_token', data.data.user.api_token);
+                console.log('aaaa');
+            }).catch((error) => {
+                console.log(error);
+            });
+        },
         pos: function(index) {
             let len = this.convertkey.length;
             let step = 3;

@@ -1,62 +1,24 @@
 <template>
     <div class="index-container">
-        <div class="top-title">
-            <div class="title-content">PDF转换工具</div>
-            <div class="title-des">
-                {{$tr('aaa@@001193')}}
+        <div class="inner-container">
+            <div class="top-title">
+                <div class="title-content">PDF转换工具</div>
+                <div class="title-des">
+                    {{$tr('aaa@@001193')}}
+                </div>
             </div>
+            <div class="convert-box">
+                <div class="convert-item" v-for="(item,index) in convertkey" :class="item.key" :key="index"
+                @click="goConvert(item.key)">
+                    <div class="img-box"><div class="img"></div></div>
+                    <div class="convert-name">{{$tr(item.trkey)}}</div>
+                    <div class="border-box" :class="pos(index)"></div>
+                </div>
+            </div>
+            <main-bar type="from-pdf"></main-bar>
         </div>
-        <div class="convert-box">
-            <div class="convert-item" v-for="item in convertkey" :class="item" :key="item"  @click="goConvert(item)">
-                <div class="img-box"><div class="img"></div></div>
-                <div class="convert-name">Conversion de PDF en PNG...</div>
-                <div class="border-box tl"></div>
-            </div>
-            <div class="convert-item pdf-to-word" data-ttype="pdf-to-word" @click="goConvert($event)">
-                <div class="img-box"><div class="img"></div></div>
-                <div class="convert-name">Conversion de PDF en PNG...</div>
-                <div class="border-box tl"></div>
-            </div>
-            <div class="convert-item pdf-to-excel">
-                <div class="img-box"><div class="img"></div></div>
-                <div class="convert-name">pdf to excel</div>
-                <div class="border-box tc"></div>
-            </div>
-            <div class="convert-item pdf-to-ppt">
-                <div class="img-box"><div class="img"></div></div>
-                <div class="convert-name">Conversion de PDF en PNG...</div>
-                <div class="border-box tr"></div>
-            </div>
-
-            <div class="convert-item pdf-to-word">
-                <div class="img-box"><div class="img"></div></div>
-                <div class="convert-name">Conversion de PDF en PNG...</div>
-                <div class="border-box cl"></div>
-            </div>
-            <div class="convert-item pdf-to-excel">
-                <div class="img-box"><div class="img"></div></div>
-                <div class="convert-name">pdf to excel</div>
-                <div class="border-box cc"></div>
-            </div>
-            <div class="convert-item pdf-to-ppt">
-                <div class="img-box"><div class="img"></div></div>
-                <div class="convert-name">Conversion de PDF en PNG...</div>
-                <div class="border-box cr"></div>
-            </div>
-
-            <div class="convert-item pdf-to-word">
-                <div class="img-box"><div class="img"></div></div>
-                <div class="convert-name">Conversion de PDF en PNG...</div>
-                <div class="border-box bl"></div>
-            </div>
-            <div class="convert-item pdf-to-excel">
-                <div class="img-box"><div class="img"></div></div>
-                <div class="convert-name">pdf to excel</div>
-                <div class="border-box bc"></div>
-            </div>
-        </div>
-        <main-bar type="to-pdf"></main-bar>
     </div>
+
 </template>
 
 <script>
@@ -70,9 +32,54 @@ export default {
     data() {
         return {
             convertkey: [
-                'pdf-to-word',
-                'pdf-to-excel',
-                'pdf-to-ppt',
+                {
+                    key: 'pdf-to-word',
+                    trkey: 'PDF to Word@@002096',
+                },
+                {
+                    key: 'pdf-to-excel',
+                    trkey: 'PDF to Excel@@002096',
+                },
+                {
+                    key: 'pdf-to-ppt',
+                    trkey: 'PDF to Ppt@@002096',
+                },
+                {
+                    key: 'pdf-to-jpg',
+                    trkey: 'PDF to Jpg@@002096',
+                },
+                {
+                    key: 'pdf-to-png',
+                    trkey: 'PDF to Png@@002096',
+                },
+                {
+                    key: 'pdf-to-txt',
+                    trkey: 'PDF to Text@@002096',
+                },
+                {
+                    key: 'pdf-to-txt',
+                    trkey: 'PDF to Text@@002096',
+                },
+                {
+                    key: 'pdf-to-txt',
+                    trkey: 'PDF to Text@@002096',
+                },
+                {
+                    key: 'pdf-to-txt',
+                    trkey: 'PDF to Text@@002096',
+                },
+                {
+                    key: 'pdf-to-txt',
+                    trkey: 'PDF to Text@@002096',
+                },
+                {
+                    key: 'pdf-to-txt',
+                    trkey: 'PDF to Text@@002096',
+                },
+                {
+                    key: 'pdf-to-txt',
+                    trkey: 'PDF to Text@@002096',
+                },
             ],
         };
     },
@@ -80,28 +87,31 @@ export default {
     created: function() {
     },
     methods: {
-        tr: function(keyStr) {
-            if (!keyStr) {
-                return '';
-            }
-            let old = '';
-            let key = '';
-            let index = keyStr.indexOf('@@');
-            if (index !== -1) {
-                old = keyStr.substring(0, index);
-                key = keyStr.substring(index + 2, keyStr.lenght);
+        pos: function(index) {
+            let len = this.convertkey.length;
+            let step = 3;
+            let lines = Math.ceil(len / step);
+            let first = 'c';
+            let second = 'c';
+            if (index < 3) {
+                first = 't';
+            } else if (index >= 3 && Math.ceil((index + 1) / step) < lines) {
+                first = 'c';
             } else {
-                key = keyStr;
+                first = 'b';
             }
-            let value = this.$t(key);
-            if (value === key && old.length) {
-                value = old;
+            if (index % 3 === 0) {
+                second = 'l';
+            } else if (index % 3 === 1) {
+                second = 'c';
+            } else {
+                second = 'r';
             }
-            return value;
+            return `${first}${second}`;
         },
         goConvert: function(e) {
             console.log(e);
-            console.log(this.$t('333'));
+            // console.log(this.$t('333'));
             console.log(this.$tr('aaa@@001193'));
             // this.$router.push('/convert');
         },

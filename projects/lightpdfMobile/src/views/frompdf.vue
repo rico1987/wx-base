@@ -150,6 +150,7 @@ export default {
         authorizeProgress: function() {
             let item = this.getCurrentConvertData();
             item.progress = 4;
+            console.log('98989898');
         },
         getCurrentConvertData: function() {
             return this.fileList[this.index];

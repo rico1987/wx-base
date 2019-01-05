@@ -23,7 +23,7 @@
 
 <script>
 import MainBar from '../components/MainBar.vue';
-import {getPdfSesstion, } from '../api/pdf';
+import {getPdfSession, } from '../api/pdf';
 import ls from '../utils/littleStore';
 
 export default {
@@ -91,14 +91,19 @@ export default {
     },
     methods: {
         getSession: function() {
-            getPdfSesstion().then((response) => {
+            getPdfSession().then((response) => {
                 const data = response.data;
                 console.log(data);
                 ls.set('api_token', data.data.user.api_token);
                 console.log('aaaa');
+                this.echoit(data.data.user);
+                console.log(this);
             }).catch((error) => {
                 console.log(error);
             });
+        },
+        echoit: function(params) {
+            console.log(params);
         },
         pos: function(index) {
             let len = this.convertkey.length;
@@ -127,6 +132,13 @@ export default {
             // console.log(this.$t('333'));
             console.log(this.$tr('aaa@@001193'));
             // this.$router.push('/convert');
+            this.$router.push({
+                path: '/frompdf',
+                query: {
+                    type: e,
+                    step: 1,
+                },
+            });
         },
     },
 };

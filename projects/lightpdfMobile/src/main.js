@@ -9,6 +9,7 @@ import router from './router';
 import store from './store';
 import trans from './utils/trans';
 import { getQueryValue, } from './utils/index';
+import ls from './utils/littleStore';
 
 // import languages
 import LangEn from './lang/en.json';
@@ -61,7 +62,8 @@ let lang = getQueryValue('lang') || 'en';
     doc.addEventListener('DOMContentLoaded', recalc, false);
 })(document, window);
 
-// let identity_token = getQueryValue('identity_token');
+let identity_token = getQueryValue('identity_token') || '';
+ls.set('identity_token', identity_token);
 
 // 路由守护
 // router.beforeEach((to, from, next) => {

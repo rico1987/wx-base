@@ -4,13 +4,38 @@ import ls from '../utils/littleStore';
 // import * as is from '../../../../lib/utils/is';
 // import { objToQuery, } from '../../../../lib/utils';
 
-export function getPdfSesstion() {
+export function getPdfSession() {
     let data = {
-        identity_token: ls.get('account_id_token') || '',
+        identity_token: ls.get('identity_token') || '',
     };
     return lightPdfFetch.post('/sessions', data);
 }
 
-export function getPdfSesstion2() {
+export function getPdfSession2() {
     return lightPdfFetch.post('/sessions');
+}
+
+export function getFileAuthorization(files) {
+    // let filesNameArr = files.map(function(fileItem) {
+    //     return fileItem.name;
+    // });
+    let filesNameArr = files.map(fileItem => fileItem.name);
+    filesNameArr;
+    let data = {
+        files: filesNameArr,
+    };
+    // $.ajax({
+    //     url: this.getAPIURL('/authentications'),
+    //     headers: {
+    //         Authorization: 'Bearer '+this.getSession(),
+    //     },
+    //     type: 'POST',
+    //     data:  JSON.stringify(data),
+    //     dataType: 'JSON',
+    //     processData: false,
+    //     contentType: 'application/json',
+    //     success: onsuccess.bind(scope),
+    //     error: onerror.bind(scope)
+    // })
+    return lightPdfFetch.post('/authentications', data);
 }

@@ -1,3 +1,21 @@
+div,a,img {
+    //去掉点击阴影
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select:none;
+}
+.index-container{
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+.inner-container{
+    height: 100%;
+    width: calc(100% + 20px);
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
 .top-title{
     border-top: 1px solid transparent;
     height: 2.69rem;
@@ -189,6 +207,8 @@
         // background: #ff00ff;
         border: 0.1px solid transparent;
         float: left;
+        cursor: pointer;
+
         .img{
             width: 0.55rem;
             height: 0.49rem;

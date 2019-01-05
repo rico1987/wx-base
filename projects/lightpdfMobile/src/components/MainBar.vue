@@ -4,6 +4,7 @@
             v-for="tabItem in tabArr"
             :key="tabItem.key"
             :class="[tabItem.key, tabItem.key == type ? 'active': '' ]"
+            @click="jumpTo(tabItem.key)"
             >
                 <div class="img"></div>
                 <div class="item-name">{{$tr(tabItem.trkey)}}</div>
@@ -26,6 +27,12 @@ export default {
 
     data() {
         return {
+            tabMap: {
+                'from-pdf': '/home',
+                'to-pdf': '/topdf',
+                'merge-pdf': '/mergepdf',
+                'user-center': '/usercenter',
+            },
             tabArr: [
                 {
                     key: 'from-pdf',
@@ -45,6 +52,16 @@ export default {
                 },
             ],
         };
+    },
+
+    methods: {
+        jumpTo: function(tabName) {
+            let url = this.tabMap[tabName];
+            if (!url) {
+                return;
+            }
+            this.$router.push(url);
+        },
     },
 
     provide() {

@@ -61,9 +61,6 @@ OssUploader.prototype = {
             //     '"';
             contentDisposition = `attachment;filename="${encodeURIComponent(file.name)}"`;
         }
-        
-        _this;
-        debugger;
         client.multipartUpload(key, file,
             {
                 cancelFlag: true,
@@ -89,7 +86,6 @@ OssUploader.prototype = {
         }
         // getFileAuthorization([this.file, ], this.fileAuthorizeSuccess, this.fileAuthorizeError, this);
         let _this = this;
-        _this;
         console.log(_this);
         getFileAuthorization([this.file, ])
             .then((data) => {

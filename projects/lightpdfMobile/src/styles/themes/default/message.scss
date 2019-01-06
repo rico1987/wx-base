@@ -1,0 +1,25 @@
+@import "../../mixins/bem.scss";
+@import "variables.scss";
+
+@include b(message) {
+    position: fixed;
+    z-index: 9999;
+    width: 4rem;
+    left: 50%;
+    margin-left: -2rem;
+    background: rgba(17,17,17,0.7);
+    text-align: center;
+    border-radius: 5px;
+    color: #ffffff;
+    padding: 0 10px;
+    top: 50%;
+    font-size: 0.22rem;
+
+    @include e(wrapper) {
+        margin: 15px 0;
+    }
+
+    @include e(content) {
+        line-height: 0.25rem;
+    }
+}

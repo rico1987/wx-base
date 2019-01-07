@@ -1,7 +1,7 @@
 <template>
     <div class="frompdf-container">
         <div class="inner-container">
-            <pdf-header></pdf-header>
+            <pdf-header ref="header"></pdf-header>
             <div v-show="isBigShow" ref="bigBtnEl" class="upload-panel">
                 <div class="upload-top-bg"></div>
                 <div class="upload-box">
@@ -22,6 +22,7 @@
                         ref="bigInput"
                         title=" "
                         @change="referenceUpload($event)"
+                        v-show="!isConverting"
                         multiple
                     >
                 </div>
@@ -40,10 +41,11 @@
                         multiple
                     >
                 </div>
-                <div v-for="(item) in fileList" class="convert-file-list" :key="item.id">
-                    <convert-file-item :fileData="item" @del-file="delFileItem(item)"></convert-file-item>
+                <div class="convert-file-list">
+                    <convert-file-item v-for="item in fileList" :key="item.id"
+                    :fileData="item" @del-file="delFileItem(item)"></convert-file-item>
                 </div>
-                <total-progress></total-progress>
+                <total-progress v-show="isProgressShwo"></total-progress>
                 <div v-show="isSureShow" class="convert-start-btn" @click="start">确认转换</div>
                 <div v-show="isStopShow" class="convert-stop-btn">取消转换</div>
             </div>
@@ -63,6 +65,7 @@ import Password from '../components/Password.vue';
 import pwdCheck from '../utils/pwdCheck';
 import {createTask, getTaskInfo, } from '../api/pdf';
 import TimeManager from '../utils/timeManager';
+import his from '../utils/pathHistory';
 
 export default {
     name: 'fromPdf',
@@ -81,6 +84,7 @@ export default {
             isListShow: false,
             isSureShow: false,
             isStopShow: false,
+            isProgressShwo: false,
             currentFile: null,
             fileList: [],
             index: 0,
@@ -88,6 +92,7 @@ export default {
             taskName: 'pdf-to-word',
             infoTimerId: -1,
             infoTime: 0,
+            isConverting: false,
         };
     },
 
@@ -97,6 +102,12 @@ export default {
         this.pwdCheckObj.on('pdf-err', this.pdfErr);
         this.pwdCheckObj.on('pdf-ok', this.pwdOk);
         this.pwdCheckObj.on('pdf-finish', this.pwdFinish);
+        console.log(this.$route);
+        his.push(this.$router.history.current);
+        if(this.$route.query.type){
+            this.taskName = this.$route.query.type;
+            this.$refs.header.type = this.taskName;
+        }
     },
     methods: {
         referenceUpload: function(e) {
@@ -140,6 +151,12 @@ export default {
         pwdFinish(data) {
             console.log(data);
             console.log('pwdFinish');
+            this.checkShowBtn();
+        },
+        checkShowBtn() {
+            if (this.fileList.length === 0) {
+                this.isSureShow = false;
+            }
         },
         pwdSet() {
             let str = this.$refs.pwd.pwd;
@@ -161,6 +178,7 @@ export default {
                 this.pwdCheckObj.push(file);
             } else {
                 // big;
+                this.checkShowBtn();
             }
         },
         checkFileSize: function(file) {
@@ -195,9 +213,7 @@ export default {
                 this.fileList.push(item);
             }
             console.log(this.fileList);
-            if (this.fileList.length) {
-                this.isSureShow = true;
-            }
+            this.checkShowBtn();
         },
         renderList: function() {
             console.log('33');
@@ -205,6 +221,7 @@ export default {
         delFileItem: function(data) {
             let index = this.fileList.indexOf(data);
             this.fileList.splice(index, 1);
+            this.checkShowBtn();
         },
         showPwd: function(des) {
             this.$refs.pwd.msg(des);
@@ -223,14 +240,19 @@ export default {
             let file = this.getCurrentConvertData().file;
             let uploader = Uploader.create(file, this.authorizeProgress, this.uploadOssOk, this.fileOssError, this.returnProgress, this, 1);
             console.log(uploader);
-            debugger
             uploader.start();
+            this.isSureShow = false;
+            this.isStopShow = true;
+            this.isConverting = true;
         },
         next() {
             this.index += 1;
             let item = this.getCurrentConvertData();
             if (!item) {
                 // finished
+                this.isConverting = false;
+                this.index = 0;
+                this.isStopShow = false;
                 return;
             }
             this.start();

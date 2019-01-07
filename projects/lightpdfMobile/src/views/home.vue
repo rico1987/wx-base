@@ -26,6 +26,7 @@ import MainBar from '../components/MainBar.vue';
 import {getPdfSession, } from '../api/pdf';
 import ls from '../utils/littleStore';
 import pwdCheck from '../utils/pwdCheck';
+import his from '../utils/pathHistory';
 
 export default {
     name: 'home',
@@ -92,6 +93,9 @@ export default {
         this.getSession();
         this.pwdCheckObj = pwdCheck.create();
         this.pwdCheckObj.on('pdf-ok', this.pwdOk);
+        console.log(this.$router);
+        console.log(this.$router.history.current);
+        his.push(this.$router.history.current);
     },
     methods: {
         pwdOk(data) {

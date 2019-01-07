@@ -16,27 +16,11 @@ export function getPdfSession2() {
 }
 
 export function getFileAuthorization(files) {
-    // let filesNameArr = files.map(function(fileItem) {
-    //     return fileItem.name;
-    // });
     let filesNameArr = files.map(fileItem => fileItem.name);
     filesNameArr;
     let data = {
         files: filesNameArr,
     };
-    // $.ajax({
-    //     url: this.getAPIURL('/authentications'),
-    //     headers: {
-    //         Authorization: 'Bearer '+this.getSession(),
-    //     },
-    //     type: 'POST',
-    //     data:  JSON.stringify(data),
-    //     dataType: 'JSON',
-    //     processData: false,
-    //     contentType: 'application/json',
-    //     success: onsuccess.bind(scope),
-    //     error: onerror.bind(scope)
-    // })
     return lightPdfFetch.post('/authentications', data);
 }
 

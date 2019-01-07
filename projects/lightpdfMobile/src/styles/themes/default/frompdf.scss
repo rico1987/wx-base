@@ -55,7 +55,7 @@
 				width: 2.32rem;
 				height: 2.32rem;
 				background: #5f90fe;
-				border-radius: 100%;
+				border-radius: 2.32rem;
 				margin-left: auto;
 				margin-right: auto;
 				.gray-ring{
@@ -63,6 +63,7 @@
 					background: #eef3ff;
 					width: 50%;
 					height: 50%;
+					overflow: hidden;
 					// top: -50%;
 					// left: 0%;
 				}

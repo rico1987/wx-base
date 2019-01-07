@@ -4,14 +4,15 @@
         <div class="item-file-name">{{fileData.file.name}}</div>
         <div class="right-box">
             <div class="progress-box">
-                <div v-show="fileData.state == 1" class="progress-txt">{{fileData.progress}}%</div>
+                <div v-show="fileData.state == 1 || fileData.state == 2" class="progress-txt">{{fileData.progress}}%</div>
                 <div class="bar-box">
-                    <div class="bar"></div>
-                    <div class="state-img"></div>
+                    <div class="bar" :style="{top:top}"></div>
+                    <div class="state-img" v-show="fileData && fileData.state == 2"></div>
                 </div>
             </div>
             <div class="del-btn" @click="onDel"></div>
         </div>
+        <a class="down-btn" ref="downBtn" :href="fileData.targetUrl"></a>
     </div>
 </template>
 
@@ -27,7 +28,16 @@ export default {
     data() {
         return {
             filed: this.fileData,
+            top: '100%',
         };
+    },
+    computed: {
+        progress() {
+            return this.filed.progress;
+        },
+        url() {
+            return this.filed.targetUrl;
+        },
     },
     methods: {
         onDel: function() {
@@ -35,6 +45,23 @@ export default {
         },
         start: function() {
             // start upload file and convert
+        },
+    },
+    watch: {
+        progress(newValue, oldValue) {
+            oldValue;
+            let num = 100 - newValue;
+            this.top = `${num}%`;
+        },
+        url(newValue, oldValue) {
+            oldValue;
+            if (newValue && newValue.length > 1) {
+                console.log('-----');
+                let _this = this;
+                setTimeout(() => {
+                    _this.$refs.downBtn.click();
+                }, 200);
+            }
         },
     },
 

@@ -39,3 +39,12 @@ export function getFileAuthorization(files) {
     // })
     return lightPdfFetch.post('/authentications', data);
 }
+
+export function createTask(data) {
+    return lightPdfFetch.post('/tasks', data);
+}
+
+export function getTaskInfo(taskid) {
+    var str = `?_t=${Date.now()}`;
+    return lightPdfFetch.get(`/tasks/${taskid}${str}`);
+}

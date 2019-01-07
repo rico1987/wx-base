@@ -25,6 +25,7 @@
 import MainBar from '../components/MainBar.vue';
 import {getPdfSession, } from '../api/pdf';
 import ls from '../utils/littleStore';
+import pwdCheck from '../utils/pwdCheck';
 
 export default {
     name: 'home',
@@ -83,13 +84,20 @@ export default {
                     trkey: 'PDF to Text@@002096',
                 },
             ],
+            pwdCheckObj: null,
         };
     },
 
     created: function() {
         this.getSession();
+        this.pwdCheckObj = pwdCheck.create();
+        this.pwdCheckObj.on('pdf-ok', this.pwdOk);
     },
     methods: {
+        pwdOk(data) {
+            console.log('iiindex');
+            console.log(data);
+        },
         getSession: function() {
             getPdfSession().then((response) => {
                 const data = response.data;

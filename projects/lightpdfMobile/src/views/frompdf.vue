@@ -61,6 +61,8 @@ import Uploader from '../utils/upload';
 import Message from '../components/Message.vue';
 import Password from '../components/Password.vue';
 import pwdCheck from '../utils/pwdCheck';
+import {createTask, getTaskInfo, } from '../api/pdf';
+import TimeManager from '../utils/timeManager';
 
 export default {
     name: 'fromPdf',
@@ -82,14 +84,19 @@ export default {
             currentFile: null,
             fileList: [],
             index: 0,
+            pwdCheckObj: null,
+            taskName: 'pdf-to-word',
+            infoTimerId: -1,
+            infoTime: 0,
         };
     },
 
     created: function() {
-        pwdCheck.on('pwd-err', this.pwdErr);
-        pwdCheck.on('pdf-err', this.pdfErr);
-        pwdCheck.on('pdf-ok', this.pwdOk);
-        pwdCheck.on('pdf-finish', this.pwdFinish);
+        this.pwdCheckObj = pwdCheck.create();
+        this.pwdCheckObj.on('pwd-err', this.pwdErr);
+        this.pwdCheckObj.on('pdf-err', this.pdfErr);
+        this.pwdCheckObj.on('pdf-ok', this.pwdOk);
+        this.pwdCheckObj.on('pdf-finish', this.pwdFinish);
     },
     methods: {
         referenceUpload: function(e) {
@@ -100,7 +107,7 @@ export default {
                 // this.addToList(list[i]);
                 // this.checkInfo(list[i]);
                 this.checkSize(list[i]);
-                // pwdCheck.push(list[i]);
+                // this.pwdCheckObj.push(list[i]);
             }
             this.isBigShow = false;
             this.isListShow = true;
@@ -122,6 +129,7 @@ export default {
         pdfErr(data) {
             console.log(data);
             console.log('pdfErr');
+            this.msg('file type err');
         },
         pwdOk(data) {
             console.log(data);
@@ -136,7 +144,7 @@ export default {
         pwdSet() {
             let str = this.$refs.pwd.pwd;
             console.log(str);
-            pwdCheck.checkPwd(str);
+            this.pwdCheckObj.checkPwd(str);
         },
         checkInfo(file) {
             window.wpdf.getPdfInfo({
@@ -148,8 +156,9 @@ export default {
             console.log(data);
         },
         checkSize(file) {
+            this.msg('checksize');
             if (this.checkFileSize(file)) {
-                pwdCheck.push(file);
+                this.pwdCheckObj.push(file);
             } else {
                 // big;
             }
@@ -160,11 +169,14 @@ export default {
         getInfoData: function(file, pwd) {
             let item = {
                 file: file,
+                // 0 未开始 1 进行中 2 完成 3错误
                 state: 0,
                 progress: 0,
                 id: 0,
                 fileId: '',
                 pwd: pwd || '',
+                taskId: '',
+                targetUrl: '',
             };
             this.fileCount += 1;
             item.id = this.fileCount;
@@ -197,9 +209,8 @@ export default {
         showPwd: function(des) {
             this.$refs.pwd.msg(des);
         },
-        msg: function(params) {
-            params;
-            this.$refs.msg.msg('xxxxxxxx1');
+        msg: function(txt) {
+            this.$refs.msg.msg(txt);
             // this.$refs.msg.
             // this.$toast.show({
             //     text: 'hello world,asdfasd , asdfasdf asdfasdf asdfasdf asdfasdf asdfasdf',
@@ -214,6 +225,15 @@ export default {
             console.log(uploader);
             uploader.start();
         },
+        next() {
+            this.index += 1;
+            let item = this.getCurrentConvertData();
+            if (!item) {
+                // finished
+                return;
+            }
+            this.start();
+        },
         uploadOssOk: function(res, file) {
             let data = res.data.data;
             let item = this.getCurrentConvertData();
@@ -221,9 +241,121 @@ export default {
             file;
             // console.log(res, file, 3);
             this.setProgress(4 + 10);
+            this.toCreateTask();
         },
-        createTask() {
+        getFileConfig(item) {
+            return {
+                file_id: item.fileId,
+                password: item.pwd,
+            };
+        },
+        toCreateTask() {
+            let obj = {
+                service_type: this.taskName,
+                autostart: true,
+                files: [this.getFileConfig(this.getCurrentConvertData()), ],
+            };
+            let _this = this;
+            createTask(obj).then((data) => {
+                console.log('taskok');
+                console.log(data);
+                let taskId = data.data.data.task_id;
+                _this.getCurrentConvertData().taskId = taskId;
+                _this.checkProgress(taskId);
+            }).catch((data) => {
+                console.log('err');
+                console.log(data);
+            });
+        },
+        checkProgress(id) {
+            // check
+            console.log('check-progress', id);
+            let checkInfo = function() {
+                this.infoTime += 1;
+                let _this = this;
+                // eslint-disable-next-line
+                getTaskInfo(id).then((response) => {
+                    _this.progressBack(response.data);
+                }).catch((response) => {
+                    _this.progressErr(response.data);
+                });
+                if (this.infoTime >= 500) {
+                    this.removeTaskInfoTimer();
+                }
+            }.bind(this);
+            var timer = TimeManager.timer(checkInfo, 1000, this);
+            this.infoTimerId = timer.id;
+            TimeManager.addTimer(timer);
+        },
+        removeTaskInfoTimer() {
+            if (this.infoTimerId === -1) {
+                return;
+            }
+            TimeManager.delTimer(this.infoTimerId);
+            this.infoTimerId = -1;
+        },
+        progressBack(res) {
+            // aaa
+            console.log(res);
+            console.log('progress--back');
+            if (!res.data || res.status !== '1') {
+                // 错误
+                // debugger;
+                this.removeTaskInfoTimer();
+                // this.onConvertFailed();
+                return;
+            }
+            switch (res.data.status) {
+            case 0:
+                // 未开始
+                break;
+            case 1:
+                // 进行中
+                this.onConvertProgress(res.data.progress);
+                break;
+            case 2:
+                // 完成
+                this.removeTaskInfoTimer();
+                this.onConvertProgress(res.data.progress);
+                this.onConvertSuccess(res);
+                break;
+            case -10:
+                // 错误
+                this.removeTaskInfoTimer();
+                // this.onConvertFailed();
+                break;
+            case -5:
+                // InvalidFileFormat
+                // this.filefromatErr(res.data.errors);
+                break;
+            default:
+                // 错误
+                this.removeTaskInfoTimer();
+                // this.onConvertFailed();
+            }
+        },
+        onConvertProgress(num) {
+            console.log('progress-', num);
+            this.setProgress(14 + parseInt((86 * num) / 100, 10));
+        },
+        onConvertSuccess(data) {
+            console.log(data);
+            let item = this.getCurrentConvertData();
+            let status = data.data.status;
+            if (status === 2) {
+                let targetFile = data.data.target_file;
+                item.state = 2;
+                item.targetUrl = targetFile.url;
+            } else {
+                item.state = 3;
+            }
+            this.next();
+            // this.pwdCheckObj.next();
 
+        },
+        progressErr(response) {
+            // aaa
+            console.log(response);
         },
         fileOssError: function(data) {
             console.log(data);

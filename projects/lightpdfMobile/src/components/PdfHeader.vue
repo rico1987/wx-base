@@ -30,7 +30,6 @@ export default {
                 'pdf-to-txt': '/home',
             },
         };
-        
     },
 
     methods: {
@@ -42,17 +41,17 @@ export default {
                 this.$router.push({
                     path: item.path,
                     query: item.query,
-                })
+                });
             } else {
                 this.$router.push({
                     path: path,
-                })
+                });
             }
 
         },
         getParentPath() {
             let path = '/home';
-            if (this.pathMap[this.type]){
+            if (this.pathMap[this.type]) {
                 path = this.pathMap[this.type];
             }
             return path;

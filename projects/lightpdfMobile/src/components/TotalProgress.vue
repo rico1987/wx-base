@@ -1,7 +1,7 @@
 <template>
     <div class="total-progress">
-        <div class="blue-bar"></div>
-        <div class="progress-txt">1/15 converting</div>
+        <div class="blue-bar" :style="{width:width}"></div>
+        <div class="progress-txt">{{index}}/{{totalNum}} {{trStr}}</div>
     </div>
 </template>
 
@@ -17,11 +17,24 @@ export default {
             default: '42px',
         },
     },
-
-    provide() {
+    data() {
         return {
-            TotalProgress: this,
+            index: 0,
+            totalNum: 0,
+            trStr: 'converting',
+            width: '0%',
         };
+    },
+
+    watch: {
+        index(newValue, oldValue) {
+            oldValue;
+            let width = 0;
+            if (newValue > 0 && this.totalNum) {
+                width = parseInt((this.index / this.totalNum) * 100, 10);
+            }
+            this.width = `${width}%`;
+        },
     },
 };
 </script>

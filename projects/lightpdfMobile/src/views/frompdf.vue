@@ -1,7 +1,7 @@
 <template>
     <div class="frompdf-container">
         <div class="inner-container">
-            <pdf-header ref="header"></pdf-header>
+            <pdf-header ref="header" :type="taskName"></pdf-header>
             <div v-show="isBigShow" ref="bigBtnEl" class="upload-panel">
                 <div class="upload-top-bg"></div>
                 <div class="upload-box">
@@ -45,9 +45,11 @@
                     <convert-file-item v-for="item in fileList" :key="item.id"
                     :fileData="item" @del-file="delFileItem(item)"></convert-file-item>
                 </div>
-                <total-progress v-show="isProgressShwo"></total-progress>
+                <total-progress ref="progress" v-show="isConverting"></total-progress>
                 <div v-show="isSureShow" class="convert-start-btn" @click="start">确认转换</div>
-                <div v-show="isStopShow" class="convert-stop-btn">取消转换</div>
+                <div v-show="isStopShow" class="convert-stop-btn"
+                @click="stop"
+                >取消转换</div>
             </div>
             <message ref="msg" :transition="'fade'"></message>
             <pdf-pwd ref="pwd" @on-set="pwdSet"></pdf-pwd>
@@ -93,6 +95,7 @@ export default {
             infoTimerId: -1,
             infoTime: 0,
             isConverting: false,
+            isStop: 0,
         };
     },
 
@@ -104,12 +107,15 @@ export default {
         this.pwdCheckObj.on('pdf-finish', this.pwdFinish);
         console.log(this.$route);
         his.push(this.$router.history.current);
-        if(this.$route.query.type){
-            this.taskName = this.$route.query.type;
-            this.$refs.header.type = this.taskName;
-        }
     },
     methods: {
+        updateHeader() {
+            if (this.$route.query.type) {
+                this.taskName = this.$route.query.type;
+                this.$refs.header;
+                // this.$refs.header.type = this.taskName;
+            }
+        },
         referenceUpload: function(e) {
             let list = [...e.target.files, ];
             this.currentFile = list;
@@ -228,11 +234,6 @@ export default {
         },
         msg: function(txt) {
             this.$refs.msg.msg(txt);
-            // this.$refs.msg.
-            // this.$toast.show({
-            //     text: 'hello world,asdfasd , asdfasdf asdfasdf asdfasdf asdfasdf asdfasdf',
-            //     position: 'top',
-            // });
             console.log('msg');
         },
         start: function() {
@@ -244,9 +245,20 @@ export default {
             this.isSureShow = false;
             this.isStopShow = true;
             this.isConverting = true;
+            this.updateTotalProgressBar();
+        },
+        updateTotalProgressBar() {
+            let totalNum = this.fileList.length;
+            let index = this.index;
+            this.$refs.progress.totalNum = totalNum;
+            this.$refs.progress.index = index;
         },
         next() {
+            if (this.isstop) {
+                return;
+            }
             this.index += 1;
+            this.updateTotalProgressBar();
             let item = this.getCurrentConvertData();
             if (!item) {
                 // finished
@@ -256,6 +268,10 @@ export default {
                 return;
             }
             this.start();
+        },
+        stop() {
+            this.isStop = 1;
+
         },
         uploadOssOk: function(res, file) {
             let data = res.data.data;

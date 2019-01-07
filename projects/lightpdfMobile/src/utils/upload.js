@@ -12,7 +12,6 @@ function OssUploader(file, authorizefun, successfun, errorfun, progressfun, scop
     this.scope = scope;
 
 }
-
 OssUploader.prototype = {
     fileAuthorizeSuccess: function(data) {
         this.uploadToOss(data, this.file);
@@ -24,10 +23,13 @@ OssUploader.prototype = {
     fileAuthorizeError: function(data) {
         this.errorfun.bind(this.scope)(data);
     },
-
+    uploadToOss2: function(data, file) {
+        data;
+        file;
+    },
     uploadToOss: function(data, file) {
-        var con = data.data;
-        // var timeout = con['expires_in'];
+        let _this = this;
+        var con = data.data.data;
         var url = con['callback_url'];
         var obj = {
             region: con['region'],
@@ -68,8 +70,8 @@ OssUploader.prototype = {
                     'Content-Disposition': contentDisposition,
                 },
             })
-            .then(this.uploadOssOk.bind(this))
-            .catch(this.errorfun);
+            .then(_this.uploadOssOk.bind(_this))
+            .catch(_this.errorfun);
 
     },
 
@@ -83,9 +85,15 @@ OssUploader.prototype = {
             return;
         }
         // getFileAuthorization([this.file, ], this.fileAuthorizeSuccess, this.fileAuthorizeError, this);
+        let _this = this;
+        console.log(_this);
         getFileAuthorization([this.file, ])
-            .then(this.fileAuthorizeSuccess)
-            .catch(this.fileAuthorizeError);
+            .then((data) => {
+                _this.fileAuthorizeSuccess(data);
+            })
+            .catch((data) => {
+                _this.fileAuthorizeError(data);
+            });
     },
 };
 const Uploader = {

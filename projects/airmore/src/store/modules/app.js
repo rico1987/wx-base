@@ -1,18 +1,16 @@
-import Cookies from 'js-cookie';
 
 const app = {
     state: {
-        language: Cookies.get('language') || 'en',
+        connected: false,
     },
     mutations: {
-        SET_LANGUAGE: (state, language) => {
-            state.language = language;
-            Cookies.set('language', language);
+        SET_CONNECTION_STATE: (state, connected) => {
+            state.connected = connected;
         },
     },
     actions: {
-        setLanguage({ commit, }, language) {
-            commit('SET_LANGUAGE', language);
+        setConnectionState({ commit, }, connected) {
+            commit('SET_CONNECTION_STATE', connected);
         },
     },
 };

@@ -136,6 +136,7 @@ export default {
             let file = this.getCurrentConvertData().file;
             let uploader = Uploader.create(file, this.authorizeProgress, this.uploadOssOk, this.fileOssError, this.returnProgress, this, 1);
             console.log(uploader);
+            debugger
             uploader.start();
         },
         uploadOssOk: function(res, file) {

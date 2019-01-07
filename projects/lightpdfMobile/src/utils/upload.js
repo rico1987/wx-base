@@ -12,6 +12,7 @@ function OssUploader(file, authorizefun, successfun, errorfun, progressfun, scop
     this.scope = scope;
 
 }
+
 OssUploader.prototype = {
     fileAuthorizeSuccess: function(data) {
         this.uploadToOss(data, this.file);
@@ -20,11 +21,11 @@ OssUploader.prototype = {
         }
     },
 
-    fileAuthorizeError: (data) => {
+    fileAuthorizeError: function(data) {
         this.errorfun.bind(this.scope)(data);
     },
 
-    uploadToOss: (data, file) => {
+    uploadToOss: function(data, file) {
         var con = data.data;
         // var timeout = con['expires_in'];
         var url = con['callback_url'];

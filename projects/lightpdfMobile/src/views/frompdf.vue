@@ -68,6 +68,7 @@ import pwdCheck from '../utils/pwdCheck';
 import {createTask, getTaskInfo, } from '../api/pdf';
 import TimeManager from '../utils/timeManager';
 import his from '../utils/pathHistory';
+import resultData from '../utils/convertResult';
 
 export default {
     name: 'fromPdf',
@@ -92,6 +93,7 @@ export default {
             index: 0,
             pwdCheckObj: null,
             taskName: 'pdf-to-word',
+            format: '',
             infoTimerId: -1,
             infoTime: 0,
             isConverting: false,
@@ -107,6 +109,17 @@ export default {
         this.pwdCheckObj.on('pdf-finish', this.pwdFinish);
         console.log(this.$route);
         his.push(this.$router.history.current);
+        if (this.$route.query.type) {
+            this.taskName = this.$route.query.type;
+            if (this.$route.query.type === 'pdf-to-png') {
+                this.taskName = 'pdf-to-image';
+                this.format = 'png';
+            }
+            if (this.$route.query.type === 'pdf-to-jpg') {
+                this.taskName = 'pdf-to-image';
+                this.format = 'jpg';
+            }
+        }
     },
     methods: {
         updateHeader() {
@@ -201,6 +214,7 @@ export default {
                 pwd: pwd || '',
                 taskId: '',
                 targetUrl: '',
+                targetName: '',
             };
             this.fileCount += 1;
             item.id = this.fileCount;
@@ -265,6 +279,7 @@ export default {
                 this.isConverting = false;
                 this.index = 0;
                 this.isStopShow = false;
+                this.showResult();
                 return;
             }
             this.start();
@@ -293,6 +308,7 @@ export default {
                 service_type: this.taskName,
                 autostart: true,
                 files: [this.getFileConfig(this.getCurrentConvertData()), ],
+                args: this.getArg(),
             };
             let _this = this;
             createTask(obj).then((data) => {
@@ -304,7 +320,20 @@ export default {
             }).catch((data) => {
                 console.log('err');
                 console.log(data);
+                _this.getCurrentConvertData().state = 3;
+                _this.next();
             });
+        },
+        getArg() {
+            let arg = {};
+            switch (this.taskName) {
+            case 'pdf-to-image':
+                arg.format = this.format;
+                break;
+            default:
+                break;
+            }
+            return arg;
         },
         checkProgress(id) {
             // check
@@ -385,6 +414,7 @@ export default {
                 let targetFile = data.data.target_file;
                 item.state = 2;
                 item.targetUrl = targetFile.url;
+                item.targetName = targetFile.filename;
             } else {
                 item.state = 3;
             }
@@ -413,6 +443,26 @@ export default {
         },
         getCurrentConvertData: function() {
             return this.fileList[this.index];
+        },
+        getTargetFileList() {
+            let arr = [];
+            let item;
+            for (let i = 0; i < this.fileList.length; i += 1) {
+                item = this.fileList[i];
+                if (item && item.state === 2 && item.targetUrl) {
+                    arr.push({
+                        targetName: item.targetName,
+                        targetUrl: item.targetUrl,
+                    });
+                }
+            }
+            return arr;
+        },
+        showResult() {
+            resultData.targetList = this.getTargetFileList();
+            this.$router.push({
+                path: '/convertresult',
+            });
         },
     },
 };

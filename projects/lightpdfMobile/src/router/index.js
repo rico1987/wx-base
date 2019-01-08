@@ -5,6 +5,8 @@ import FromPdf from '@/views/frompdf.vue';
 import ToPdf from '@/views/toPdf.vue';
 import ConvertList from '@/views/convert.vue';
 import MergePdfTab from '@/views/mergePdf.vue';
+import ConvertResult from '@/views/convertResult.vue';
+import Info from '@/views/info.vue';
 
 Vue.use(Router);
 
@@ -38,6 +40,16 @@ export default new Router({
             path: '/convert',
             name: 'convert',
             component: ConvertList,
+        },
+        {
+            path: '/convertresult',
+            name: 'convertresult',
+            component: ConvertResult,
+        },
+        {
+            path: '/info',
+            name: 'info',
+            component: Info,
         },
     ],
 });

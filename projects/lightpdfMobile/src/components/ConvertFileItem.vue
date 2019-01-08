@@ -7,7 +7,7 @@
                 <div v-show="fileData.state == 1 || fileData.state == 2" class="progress-txt">{{fileData.progress}}%</div>
                 <div class="bar-box">
                     <div class="bar" :style="{top:top}"></div>
-                    <div class="state-img" v-show="fileData && fileData.state == 2"></div>
+                    <div class="state-img" :class="imgState" v-show="fileData && (fileData.state == 2 || fileData.state == 3)"></div>
                 </div>
             </div>
             <div class="del-btn" @click="onDel"></div>
@@ -29,6 +29,7 @@ export default {
         return {
             filed: this.fileData,
             top: '100%',
+            imgState: '',
         };
     },
     computed: {
@@ -37,6 +38,9 @@ export default {
         },
         url() {
             return this.filed.targetUrl;
+        },
+        state() {
+            return this.filed.state;
         },
     },
     methods: {
@@ -61,6 +65,15 @@ export default {
                 setTimeout(() => {
                     _this.$refs.downBtn.click();
                 }, 200);
+            }
+        },
+        state(newValue, oldValue) {
+            oldValue;
+            if (newValue === 3) {
+                this.imgState = 'error';
+                this.filed.progress = 0;
+            } else {
+                this.imgState = '';
             }
         },
     },

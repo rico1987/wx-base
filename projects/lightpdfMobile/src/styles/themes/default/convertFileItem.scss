@@ -72,6 +72,7 @@ body{
 				border-radius: 100%;
 				overflow: hidden;
 				float: left;
+				background: #f1fbf0;
 				.bar{
 					position: relative;
 					overflow: hidden;
@@ -90,6 +91,11 @@ body{
 					right: 0;
 					left: 0;
 					margin: auto;
+					&.error{
+						width: 0.28rem;
+						height: 0.28rem;
+						background: url(../../../assets/images/index/add-file/error.svg) center center/120% auto no-repeat;
+					}
 				}
 			}
 		}

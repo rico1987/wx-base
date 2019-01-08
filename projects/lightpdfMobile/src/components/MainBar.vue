@@ -31,7 +31,7 @@ export default {
                 'from-pdf': '/home',
                 'to-pdf': '/topdf',
                 'merge-pdf': '/mergepdf',
-                'user-center': '/usercenter',
+                'user-center': '/info',
             },
             tabArr: [
                 {

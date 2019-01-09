@@ -7,6 +7,7 @@ import ConvertList from '@/views/convert.vue';
 import MergePdfTab from '@/views/mergePdf.vue';
 import ConvertResult from '@/views/convertResult.vue';
 import Info from '@/views/info.vue';
+import Myfiles from '@/views/myFiles.vue';
 
 Vue.use(Router);
 
@@ -50,6 +51,11 @@ export default new Router({
             path: '/info',
             name: 'info',
             component: Info,
+        },
+        {
+            path: '/myfiles',
+            name: 'myfiles',
+            component: Myfiles,
         },
     ],
 });

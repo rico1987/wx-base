@@ -40,6 +40,13 @@
         padding-left: 0.2rem;
         padding-right: 0.2rem;
     }
+    .my-file-list{
+        width: 100%;
+        height: calc(100vh - 2.4rem);
+        overflow-y: scroll;
+        overflow-x: hidden;
+        border-bottom: 1px solid #ff00ff;
+    }
     // input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { 
     //     color: #000;
     // }

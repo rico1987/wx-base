@@ -29,6 +29,17 @@ export function createTask(data) {
 }
 
 export function getTaskInfo(taskid) {
-    var str = `?_t=${Date.now()}`;
+    let str = `?_t=${Date.now()}`;
     return lightPdfFetch.get(`/tasks/${taskid}${str}`);
+}
+
+export function getMyTasks(page = 1, pageSize = 10) {
+    let obj = {
+        params: {
+            pre_page: pageSize,
+            page: page,
+            _t: Date.now(),
+        },
+    };
+    return lightPdfFetch.get('/my/tasks', obj);
 }

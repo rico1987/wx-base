@@ -7,7 +7,8 @@
                     <input type="text" ref="searchInput" class="search" placeholder="搜索文件">
                     <div class="search-btn" @click="onSearch"></div>
                 </div>
-                <div class="my-file-list">
+                <div class="my-file-list" ref="List" @touch="onTouch"  @touchstart="onTouchStart"
+                @touchend="onTouchEnd" @touchmove="onTouchMove">
                     <myfile-item v-for="(item,index) in fileList" :key="index" :item="item"></myfile-item>
                 </div>
             </div>
@@ -18,6 +19,7 @@
 <script>
 import PdfHeader from '../components/PdfHeader.vue';
 import MyFileItem from '../components/myfileItem.vue';
+import {getMyTasks, } from '../api/pdf';
 
 export default {
     name: 'myfiles',
@@ -28,15 +30,18 @@ export default {
     data() {
         return {
             fileList: [
-                {
-                    file: {name: 'aaaaa', },
-                    fileType: 'pdf',
-                },
             ],
+            currentPage: 1,
+            totalNum: 0,
+            pageNum: 10,
+            scrollTopArr: [],
+            touchYArr: [],
+            isLoadingData: 0,
         };
     },
 
     created: function() {
+        this.getMyList(1);
     },
     methods: {
         onSearch() {
@@ -50,6 +55,139 @@ export default {
         searchFile(key) {
             console.log(key);
         },
+        getMyList(page = 1) {
+            let _this = this;
+            this.isLoadingData = 1;
+            getMyTasks(page).then((res) => {
+                this.currentPage = page;
+                _this.listBack(res.data);
+                this.isLoadingData = 0;
+                console.log(this.isLoadingData);
+            }).catch((res) => {
+                console.log(res);
+                this.isLoadingData = 0;
+                this.currentPage = page;
+                console.log(this.isLoadingData);
+            });
+            
+        },
+        nextPage() {
+            if (this.currentPage < Math.ceil(this.totalNum / this.pageNum)) {
+                this.getMyList(this.currentPage + 1);
+            }
+        },
+        prePage() {
+           if (this.currentPage > 1) {
+                this.getMyList(this.currentPage - 1);
+            } 
+        },
+        listBack(data) {
+            console.log(data);
+            // this.fileList = data.data.list;
+            let list = data.data.list || [];
+            let arr = [];
+            this.totalNum = data.data.total;
+            list.forEach((item) => {
+            // for (let i = 0; i <list.a)
+                let obj = {
+                    time: this.timeFilter(item.created_at),
+                    service_type: item.service_type,
+                    source_files: item.source_files,
+                    target_file: item.target_file,
+                    task_id: item.task_id,
+                    targetExt: this.getTargetExt(item.target_file),
+                };
+                arr.push(obj);
+            });
+            this.fileList = arr;
+        },
+        timeFilter(time) {
+            let timeObj = {
+                s: 60,
+                m: 3600,
+                h: 3600 * 24,
+                d: 3600 * 24 * 7,
+            };
+            timeObj;
+            let timeStamp = new Date(parseInt(time, 10) * 1000);
+            return `${timeStamp.getFullYear()}-${timeStamp.getMonth() + 1}-${timeStamp.getDate()}`;
+        },
+        getTargetExt(file) {
+            let ext = '';
+            if (file && file.filename && file.filename.indexOf('.') !== -1) {
+                let arr = file.filename.split('.');
+                ext = arr[arr.length - 1];
+            }
+            return ext;
+        },
+        onTouch(e) {
+            console.log('onTouch');
+            console.log(e);
+        },
+        onTouchStart(e) {
+            console.log('onTouchStart');
+            console.log(e);
+        },
+        onTouchEnd(e) {
+            console.log('onTouchEnd');
+            console.log(e);
+        },
+        onTouchMove(e) {
+            this.addScrollTop(this.$refs.List.scrollTop);
+            this.addPosY(e.changedTouches[0].pageY);
+
+            if (this.isScrollEnd() && this.isUp() && !this.isLoadingData) {
+                console.log('isUp');
+                this.nextPage();
+            }
+            if (this.isScrollEnd() && this.isDown() && !this.isLoadingData) {
+                console.log('isDown');
+                this.prePage();
+            }
+
+        },
+        addScrollTop(dis) {
+           this.scrollTopArr.push(dis);
+            if (this.scrollTopArr.length > 3) {
+                this.scrollTopArr.shift();
+            }
+        },
+        addPosY(y) {
+            this.touchYArr.push(y);
+            if (this.touchYArr.length > 3) {
+                this.touchYArr.shift();
+            }
+        },
+        isScrollEnd() {
+            let flag = false;
+            if (this.scrollTopArr.length === 3
+            && this.scrollTopArr[2] === this.scrollTopArr[1]
+            && this.scrollTopArr[1] === this.scrollTopArr[0]) {
+                flag = true;
+            }
+            return flag;
+        },
+        isUp() {
+            // 向上滑动
+            let flag = false;
+            if (this.touchYArr.length === 3
+            && this.touchYArr[2] < this.touchYArr[1]
+            && this.touchYArr[1] < this.touchYArr[0]) {
+                flag = true;
+            }
+            return flag;
+        },
+        isDown() {
+            // 向下滑动
+            let flag = false;
+            if (this.touchYArr.length === 3
+            && this.touchYArr[2] > this.touchYArr[1]
+            && this.touchYArr[1] > this.touchYArr[0]) {
+                flag = true;
+            }
+            return flag;
+        },
+
     },
 };
 </script>

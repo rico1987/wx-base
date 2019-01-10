@@ -1,0 +1,57 @@
+.myaccount-submit-ticket{
+    .container {
+        textarea{
+            height: 225px;
+            width: 100%;
+            margin-top: 17px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        select{
+            border: none;
+            outline: none;
+            background-color: white;
+            width: 100%;
+            height: 59px;
+            border-bottom: 1px solid rgba(229,229,229,1);
+            font-size: 17px;
+            option.default{
+                color:rgba(204,204,204,1);
+            }
+        }
+    }
+    .buttons{
+        margin-top: 16px;
+        display: flex;
+        justify-content: space-between;
+        .btn{
+            height: 28px;
+            font-size: 13px;
+            line-height: 28px;
+            padding: 0 20px;
+            color: rgba(71,134,255,1);
+            border: 1px solid rgba(71,134,255,1);
+            background: white;
+            border-radius: 6px;
+            width: auto;
+            display: inline-block;
+            margin-bottom: 0;
+        }
+        .btn-primary{
+            color: white;
+            background: rgba(71,134,255,1);
+        }
+    }
+    .attachment{
+        p{
+            font-size: 12px;
+            text-align: left;
+            span{
+                color: red;
+                padding: 0 5px;
+                margin-left: 10px;
+            }
+        }
+    }
+}

@@ -1,0 +1,100 @@
+@import "../../mixins/bem.scss";
+@import "variables.scss";
+
+.btn{
+    display: block;
+    height: 42px;
+    width: 100%;
+    margin-bottom: 32px;
+    border-radius: 6px;
+    font-size: 17px;
+    line-height: 42px;
+    cursor: pointer;
+    &.btn-primary{
+        color: white;
+        background-color: $primary;
+    }
+    &.btn-white{
+        color: $primary;
+        background-color: white;
+        box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1) ;
+    }
+}
+.myaccount-form-page{
+    margin: 0;
+    padding: 0 32px;
+    >h1{
+        font-size: 22px;
+        margin-top: 31px;
+        text-align: center;
+        color: #333333;
+        margin-bottom: 32px;
+        font-weight: normal;
+    }
+    >.row{
+        width: 100%;
+        clear: both;
+        &.switch{
+            margin-bottom: 42px;
+            span{
+                color: #666666;
+                position: relative;
+                padding: 5px 16px;
+                &.active{
+                    color: $primary;
+                    span{
+                        background-color: $primary;
+                    }
+                }
+                span{
+                    position: absolute;
+                    width: 6px;
+                    height: 6px;
+                    border-radius: 3px;
+                    padding: 0!important;
+                    background-color: #666666;
+                    top: 24px;
+                    left: 50%;
+                    margin-left: -3px;
+                }
+            }
+        }
+        &.link-wrapper{
+            height: 52px;
+        }
+        .link{
+            cursor: pointer;
+            display: inline-block;
+            color: $primary;
+            font-size: 13px;
+            line-height: 15px;
+            margin-top: 5px;
+            &.left-link{
+                float: left;
+            }
+            &.right-link{
+                float: right;
+            }
+        }
+    }
+}
+.container{
+    padding: 0 16px;
+    .row{
+        display: flex;
+        padding: 16px 0;
+        justify-content: flex-start;
+        &.border-bottom{
+            border-bottom: 1px solid #dddddd;        }
+        .left {
+            flex: 0.75;
+            color: #333333;
+            font-size: 15px;
+            text-align: left;
+            line-height: 22px;
+        }
+        .right {
+            flex: 0.25;
+        }
+    }
+}

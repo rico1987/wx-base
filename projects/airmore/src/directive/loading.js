@@ -9,7 +9,7 @@ loadingDirective.install = (Vue) => {
         if (binding.value) {
             Vue.nextTick(() => {
                 if (binding.modifiers.fullscreen) {
-
+                    
                 }
             });
         } else {

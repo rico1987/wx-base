@@ -11,6 +11,9 @@
                 @touchend="onTouchEnd" @touchmove="onTouchMove">
                     <myfile-item v-for="(item,index) in fileList" :key="index" :item="item"></myfile-item>
                 </div>
+                <delfile-bar ref="delBar"
+                @del-file="onDelFile"
+                @select-all="selectAll"></delfile-bar>
             </div>
         </div>
     </div>
@@ -19,6 +22,7 @@
 <script>
 import PdfHeader from '../components/PdfHeader.vue';
 import MyFileItem from '../components/myfileItem.vue';
+import DelFileBar from '../components/delFileBar.vue';
 import {getMyTasks, } from '../api/pdf';
 
 export default {
@@ -26,6 +30,7 @@ export default {
     components: {
         'pdf-header': PdfHeader,
         'myfile-item': MyFileItem,
+        'delfile-bar': DelFileBar,
     },
     data() {
         return {
@@ -69,7 +74,6 @@ export default {
                 this.currentPage = page;
                 console.log(this.isLoadingData);
             });
-            
         },
         nextPage() {
             if (this.currentPage < Math.ceil(this.totalNum / this.pageNum)) {
@@ -77,9 +81,9 @@ export default {
             }
         },
         prePage() {
-           if (this.currentPage > 1) {
+            if (this.currentPage > 1) {
                 this.getMyList(this.currentPage - 1);
-            } 
+            }
         },
         listBack(data) {
             console.log(data);
@@ -96,6 +100,7 @@ export default {
                     target_file: item.target_file,
                     task_id: item.task_id,
                     targetExt: this.getTargetExt(item.target_file),
+                    selected: 0,
                 };
                 arr.push(obj);
             });
@@ -160,9 +165,9 @@ export default {
         },
         isScrollEnd() {
             let flag = false;
-            if (this.scrollTopArr.length === 3
-            && this.scrollTopArr[2] === this.scrollTopArr[1]
-            && this.scrollTopArr[1] === this.scrollTopArr[0]) {
+            if (this.scrollTopArr.length === 3 &&
+            this.scrollTopArr[2] === this.scrollTopArr[1] &&
+            this.scrollTopArr[1] === this.scrollTopArr[0]) {
                 flag = true;
             }
             return flag;
@@ -170,9 +175,9 @@ export default {
         isUp() {
             // 向上滑动
             let flag = false;
-            if (this.touchYArr.length === 3
-            && this.touchYArr[2] < this.touchYArr[1]
-            && this.touchYArr[1] < this.touchYArr[0]) {
+            if (this.touchYArr.length === 3 &&
+            this.touchYArr[2] < this.touchYArr[1] &&
+            this.touchYArr[1] < this.touchYArr[0]) {
                 flag = true;
             }
             return flag;
@@ -180,12 +185,18 @@ export default {
         isDown() {
             // 向下滑动
             let flag = false;
-            if (this.touchYArr.length === 3
-            && this.touchYArr[2] > this.touchYArr[1]
-            && this.touchYArr[1] > this.touchYArr[0]) {
+            if (this.touchYArr.length === 3 &&
+            this.touchYArr[2] > this.touchYArr[1] &&
+            this.touchYArr[1] > this.touchYArr[0]) {
                 flag = true;
             }
             return flag;
+        },
+        selectAll() {
+            console.log('select alll');
+        },
+        onDelFile() {
+            console.log('deldel file');
         },
 
     },

@@ -51,7 +51,7 @@ export function backToNative() {
 
 export function getNativeData() {
     if (window.account) {
-        return JSON.parse(window.account.getLoginMsg());
+        return JSON.parse(window.account.getLoginMsg() || '{}');
     } else {
         return JSON.parse(Cookies.get('accountMobileSaveData') || '{}');
     }

@@ -95,7 +95,7 @@ router.beforeEach((to, from, next) => {
         }
     }
 });
-
+// android
 const i18n = new VueI18n({
     locale: lang,
     messages: {
@@ -120,7 +120,31 @@ const i18n = new VueI18n({
         'zh_rTW': LangTw,
     },
 });
-
+// ios
+// const i18n = new VueI18n({
+//     locale: lang,
+//     messages: {
+//         'zh': LangZh,
+//         'en': LangEn,
+//         'cz': LangCs,
+//         'dk': LangDa,
+//         'de': LangDe,
+//         'el': LangEl,
+//         'es': LangEs,
+//         'fi': LangFi,
+//         'fr': LangFr,
+//         'hu': LangHu,
+//         'it': LangIt,
+//         'jp': LangJa,
+//         'nl': LangNl,
+//         'no': LangNo,
+//         'pl': LangPl,
+//         'br': LangPt,
+//         'se': LangSv,
+//         'tr': LangTr,
+//         'tw': LangTw,
+//     },
+// });
 /* eslint-disable no-new */
 new Vue({
     el: '#app',

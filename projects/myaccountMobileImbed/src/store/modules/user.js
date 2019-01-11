@@ -1,6 +1,6 @@
 import { login, registerByEmail, registerByPhone, changePassword, passwordLessLogin, loginByToken, } from '@/api/account';
 import { getUnlimitedVipInfo, } from '@/api/support';
-import { getNativeData, saveNativeData, } from '@/utils/index';
+import { getNativeData, saveNativeData, nativeLogin, nativeLogout, backToNative, } from '@/utils/index';
 
 const user = {
     state: {
@@ -49,7 +49,8 @@ const user = {
                         saveData['api_token'] = data.data.api_token;
                         saveData['identity_token'] = data.data.identity_token;
                         saveData['userInfo'] = data.data.user;
-                        saveNativeData(saveData);
+                        nativeLogin(saveData);
+                        backToNative();
                         resolve();
                     } else {
                         reject(data.status);
@@ -72,7 +73,8 @@ const user = {
                         saveData['api_token'] = data.data.api_token;
                         saveData['identity_token'] = data.data.identity_token;
                         saveData['userInfo'] = data.data.user;
-                        saveNativeData(saveData);
+                        nativeLogin(saveData);
+                        backToNative();
                         resolve();
                     } else {
                         reject(data.status);
@@ -95,7 +97,8 @@ const user = {
                         saveData['api_token'] = data.data.api_token;
                         saveData['identity_token'] = data.data.identity_token;
                         saveData['userInfo'] = data.data.user;
-                        saveNativeData(saveData);
+                        nativeLogin(saveData);
+                        backToNative();
                         resolve();
                     } else {
                         reject(data.status);
@@ -118,7 +121,8 @@ const user = {
                         saveData['api_token'] = data.data.api_token;
                         saveData['identity_token'] = data.data.identity_token;
                         saveData['userInfo'] = data.data.user;
-                        saveNativeData(saveData);
+                        nativeLogin(saveData);
+                        backToNative();
                         resolve();
                     } else {
                         reject(data.status);
@@ -185,9 +189,7 @@ const user = {
                 commit('SET_IDENTITY_TOKEN', '');
                 commit('SET_USER_INFO', {});
                 commit('SET_LICENSE_INFO', {});
-                let saveData = {};
-                saveNativeData(saveData);
-                window.account && window.account.onLogout();
+                nativeLogout();
                 resolve();
             });
         },
@@ -205,7 +207,7 @@ const user = {
                         saveData['api_token'] = data.data.api_token;
                         saveData['identity_token'] = data.data.identity_token;
                         saveData['userInfo'] = data.data.user;
-                        saveNativeData(saveData);
+                        nativeLogin(saveData);
                         resolve();
                     } else {
                         reject(data.status);

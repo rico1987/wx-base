@@ -51,7 +51,7 @@ export function backToNative() {
 
 export function getNativeData() {
     if (window.account) {
-        return JSON.parse(window.account.getLoginMsg() || '{}');
+        return JSON.parse(window.account.getData() || '{}');
     } else {
         return JSON.parse(Cookies.get('accountMobileSaveData') || '{}');
     }
@@ -60,11 +60,21 @@ export function getNativeData() {
 export function saveNativeData(data) {
     if (data) {
         if (window.account) {
-            window.account && window.account.onLogin(JSON.stringify(data));
+            window.account && window.account.onDataChanged(JSON.stringify(data));
         } else {
             Cookies.set('accountMobileSaveData', data);
         }
+    } else {
+        if (window.account) {
+            window.account && window.account.onDataChanged('');
+        } else {
+            Cookies.set('accountMobileSaveData', '');
+        }
     }
+}
+
+export function nativeLogin(data) {
+    window.account && window.account.onLogin(JSON.stringify(data));
 }
 
 export function nativeLogout() {

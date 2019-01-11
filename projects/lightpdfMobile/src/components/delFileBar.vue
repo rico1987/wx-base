@@ -32,11 +32,10 @@ export default {
         showDel() {
             this.isShowManage = 0;
             this.isShowDel = 1;
+            this.$emit('manage-file');
         },
         onDel() {
             this.$emit('del-file');
-            this.isShowManage = 1;
-            this.isShowDel = 0;
         },
     },
 };

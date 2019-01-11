@@ -8,8 +8,11 @@
                 <div class="size">128k</div>
             </div>
             <div class="right-box ">
-                    <div class="view-btn" v-show="!manage"></div>
-                    <div class="check-box" v-show="manage" :class="{select: selected}" @click="onSelect">
+                    <div class="view-btn" v-show="!manage"
+                    @click="onClickDownload"
+                    @touch="onClickDownload"
+                    ></div>
+                    <div class="check-box" v-show="manage" :class="{select: taskItem.selected}" @click="onSelect">
                         <div class="select-gou"></div>
                     </div>
             </div>
@@ -31,15 +34,28 @@ export default {
             taskItem: this.item,
             selected: 0,
             fileType: this.item.targetExt || 'pdf',
-            manage: false,
+            manage: this.item.manage,
         };
     },
     computed: {
+        manageState() {
+            return this.taskItem.manage;
+        },
     },
     methods: {
         onSelect() {
-            this.selected = !this.selected;
+            this.taskItem.selected = !this.taskItem.selected;
+        },
+        onClickDownload() {
+            console.log('onClickDownloadonClickDownload');
+            this.$emit('click-download');
         },
     },
+    watch: {
+        manageState() {
+            this.manage = this.taskItem.manage;
+        },
+    },
+
 };
 </script>

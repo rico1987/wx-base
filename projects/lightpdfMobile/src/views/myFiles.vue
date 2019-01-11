@@ -2,18 +2,22 @@
     <div class="myfile-container">
         <div class="inner-container">
             <div class="myfile-panel">
-                <pdf-header ref="header" ></pdf-header>
+                <pdf-header ref="header" @click-jump="onBack"></pdf-header>
                 <div class="search-bar">
                     <input type="text" ref="searchInput" class="search" placeholder="搜索文件">
                     <div class="search-btn" @click="onSearch"></div>
                 </div>
                 <div class="my-file-list" ref="List" @touch="onTouch"  @touchstart="onTouchStart"
                 @touchend="onTouchEnd" @touchmove="onTouchMove">
-                    <myfile-item v-for="(item,index) in fileList" :key="index" :item="item"></myfile-item>
+                    <myfile-item v-for="item in fileList" :key="item.uniqkey" :item="item"
+                    @click-download="onDownload(item)"></myfile-item>
                 </div>
                 <delfile-bar ref="delBar"
                 @del-file="onDelFile"
-                @select-all="selectAll"></delfile-bar>
+                @select-all="selectAll"
+                @manage-file="showSelectBar"
+                ></delfile-bar>
+                <download-panel ref="downLoadBar"></download-panel>
             </div>
         </div>
     </div>
@@ -23,7 +27,8 @@
 import PdfHeader from '../components/PdfHeader.vue';
 import MyFileItem from '../components/myfileItem.vue';
 import DelFileBar from '../components/delFileBar.vue';
-import {getMyTasks, } from '../api/pdf';
+import DownloadPanel from '../components/downloadPanel.vue';
+import {getMyTasks, delTask, } from '../api/pdf';
 
 export default {
     name: 'myfiles',
@@ -31,6 +36,7 @@ export default {
         'pdf-header': PdfHeader,
         'myfile-item': MyFileItem,
         'delfile-bar': DelFileBar,
+        'download-panel': DownloadPanel,
     },
     data() {
         return {
@@ -42,6 +48,7 @@ export default {
             scrollTopArr: [],
             touchYArr: [],
             isLoadingData: 0,
+            uniqKey: 0,
         };
     },
 
@@ -91,6 +98,11 @@ export default {
             let list = data.data.list || [];
             let arr = [];
             this.totalNum = data.data.total;
+            let manage = false;
+            if (this.$refs.delBar) {
+                manage = !!this.$refs.delBar.isShowDel;
+                console.log('ismanage', this.$refs.delBar.isShowDel);
+            }
             list.forEach((item) => {
             // for (let i = 0; i <list.a)
                 let obj = {
@@ -101,10 +113,19 @@ export default {
                     task_id: item.task_id,
                     targetExt: this.getTargetExt(item.target_file),
                     selected: 0,
+                    manage: manage,
+                    uniqkey: this.getUniqKey(),
                 };
                 arr.push(obj);
             });
+            console.log(this.fileList.length);
+            this.fileList.length = 0;
             this.fileList = arr;
+            console.log('nn', this.fileList.length);
+        },
+        getUniqKey() {
+            this.uniqKey += 1;
+            return this.uniqKey;
         },
         timeFilter(time) {
             let timeObj = {
@@ -115,7 +136,7 @@ export default {
             };
             timeObj;
             let timeStamp = new Date(parseInt(time, 10) * 1000);
-            return `${timeStamp.getFullYear()}-${timeStamp.getMonth() + 1}-${timeStamp.getDate()}`;
+            return `${timeStamp.getFullYear()}-${timeStamp.getMonth() + 1}-${timeStamp.getDate()} ${timeStamp.getHours()}:${timeStamp.getMinutes()}:${timeStamp.getSeconds()}`;
         },
         getTargetExt(file) {
             let ext = '';
@@ -152,7 +173,7 @@ export default {
 
         },
         addScrollTop(dis) {
-           this.scrollTopArr.push(dis);
+            this.scrollTopArr.push(dis);
             if (this.scrollTopArr.length > 3) {
                 this.scrollTopArr.shift();
             }
@@ -197,6 +218,53 @@ export default {
         },
         onDelFile() {
             console.log('deldel file');
+            let item;
+            let hasDel = false;
+            for (let i = 0; i < this.fileList.length; i += 1) {
+                item = this.fileList[i];
+                // item.manage = true;
+                if (item.selected && item.task_id) {
+                    console.log(item);
+                    hasDel = true;
+                    // await delTask(item.task_id);
+                    this.toDelTask(item.task_id);
+                }
+            }
+            if (hasDel) {
+                this.getMyList(this.currentPage);
+            }
+        },
+        async toDelTask(id) {
+            await delTask(id);
+        },
+        showSelectBar() {
+            console.log('showselect bar');
+            this.$refs.header.jumpDisable = 1;
+            this.setListManage(true);
+        },
+        setListManage(manage) {
+            let item;
+            for (let i = 0; i < this.fileList.length; i += 1) {
+                item = this.fileList[i];
+                item.manage = !!manage;
+            }
+        },
+        onBack() {
+            console.log('goo back');
+            this.$refs.delBar.isShowDel = 0;
+            this.$refs.delBar.isShowManage = 1;
+            this.setListManage(false);
+            let manage = false;
+            let item;
+            for (let i = 0; i < this.fileList.length; i += 1) {
+                item = this.fileList[i];
+                item.manage = !!manage;
+                item.selected = 0;
+            }
+        },
+        onDownload(item) {
+            console.log(item);
+            this.$refs.downLoadBar.isShow = 1;
         },
 
     },

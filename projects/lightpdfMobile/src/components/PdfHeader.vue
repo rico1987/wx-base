@@ -18,6 +18,10 @@ export default {
             type: String,
             default: '42px',
         },
+        disablejump: {
+            type: Number,
+            default: 0,
+        },
     },
     data() {
         return {
@@ -29,12 +33,21 @@ export default {
                 'pdf-to-png': '/home',
                 'pdf-to-txt': '/home',
             },
+            jumpDisable: this.disablejump || 0,
         };
     },
 
     methods: {
         back() {
             console.log(this.$router);
+            if (this.jumpDisable) {
+                this.$emit('click-jump');
+                return;
+            }
+            //  else {
+            //     console.log(11111);
+            //     return;
+            // }
             let path = this.getParentPath();
             let item = his.search(path);
             if (item) {

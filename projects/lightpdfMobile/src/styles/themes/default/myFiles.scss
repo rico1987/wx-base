@@ -40,6 +40,13 @@
         padding-left: 0.2rem;
         padding-right: 0.2rem;
     }
+    .my-file-list{
+        width: 100%;
+        height: calc(100vh - 2.4rem);
+        overflow-y: scroll;
+        overflow-x: hidden;
+        border-bottom: 1px solid #ff00ff;
+    }
     // input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { 
     //     color: #000;
     // }
@@ -53,4 +60,148 @@
     //     color: #000;
     // }
 
+}
+.del-file-bar{
+    position: fixed;
+    width: 100%;
+    height: 0.8rem;
+    bottom: 0;
+    .manager-btn{
+        width: 100%;
+        height: 0.8rem;
+        background: linear-gradient(to left,#1e5ff3,#6594ff);
+        color: #fff;
+        line-height: 0.8rem;
+    }
+    .del-box{
+        width: 100%;
+        height: 0.8rem;
+        position: relative;
+        line-height: 0.8rem;
+        .select-all{
+            background: #fff;
+            color: #1e5ff3;
+            text-align: center;
+            font-size: 0.28rem;
+            height: 100%;
+            width:50%;
+            float: left;
+        }
+        .del-btn{
+            width: 50%;
+            height: 100%;
+            background: #1e5ff3;
+            color: #fff;
+            font-size: 0.28rem;
+            text-align: center;
+            float: left;
+        }
+
+    }
+}
+.download-panel{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    .mask{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #000;
+        opacity: 0.2;
+
+    }
+    .download-box{
+        position: absolute;
+        width: 5.6rem;
+        height: 4.7rem;
+        background: #fff;
+        border-radius: 0.2rem;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+        top: 0;
+        bottom: 0;
+        margin-top: auto;
+        margin-bottom: auto;
+        .file-list{
+            // width: 4.7rem;
+            width: 100%;
+            height: 2.85rem;
+            overflow-y: auto;
+            overflow-x: hidden;
+            // background: #ff00ff;
+            padding-left: 0.35rem;
+            padding-right: 0.35rem;
+            margin-top: 0.4rem;
+            .file-item{
+                height: 0.6rem;
+                width: 100%;
+                line-height: 0.6rem;
+                .file-name{
+                    width: 4.3rem;
+                    float: left;
+                    text-align: left;
+                }
+            }
+        }
+        .btn-box{
+            width: 100%;
+            height: 0.8rem;
+            border-top: 1px solid #e2e2e2;
+            position: absolute;
+            bottom: 0;
+            line-height: 0.8rem;
+            text-align: center;
+            font-size: 0.28rem;
+            .sure{
+                width: 50%;
+                height: 100%;
+                border-bottom-left-radius: 0.2rem;
+                background: #1e5ff3;
+                color: #fff;
+                float: left;
+            }
+            .cancel{
+                width: 50%;
+                height: 100%;
+                border-bottom-right-radius: 0.2rem;
+                background: #fff;
+                color: #1e5ff3; 
+                float: left;
+            }
+        }
+    }
+    .check-box{
+        position: relative;
+        width: 0.36rem;
+        height: 0.36rem;
+        border-radius: 100%;
+        background: #fff;
+        border: 0.02rem solid #999;
+        margin-top: 0.12rem;
+        float: left;
+        .select-gou{
+            display: none;
+            background: url(../../../assets/images/index/add-file/gou.svg) center center/100% auto no-repeat;
+            position: absolute;
+            top: 0.05rem;
+            left: 0;
+            right: 0;
+            width: 0.18rem;
+            height: 0.18rem;
+            margin-right: auto;
+            margin-left: auto;
+        }
+        &.select{
+            background: #3f7aff;
+            border: 0.02rem solid #3f7aff;
+            .select-gou{
+                display: block;
+            }
+        }
+    }
 }

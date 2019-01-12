@@ -321,6 +321,7 @@ export default {
                 console.log('err');
                 console.log(data);
                 _this.getCurrentConvertData().state = 3;
+                console.log('createErr-next');
                 _this.next();
             });
         },
@@ -418,6 +419,7 @@ export default {
             } else {
                 item.state = 3;
             }
+            console.log('onConvertSuccess-next');
             this.next();
             // this.pwdCheckObj.next();
 
@@ -460,9 +462,10 @@ export default {
         },
         showResult() {
             resultData.targetList = this.getTargetFileList();
-            this.$router.push({
-                path: '/convertresult',
-            });
+            console.log('showresulettttt');
+            // this.$router.push({
+            //     path: '/convertresult',
+            // });
         },
     },
 };

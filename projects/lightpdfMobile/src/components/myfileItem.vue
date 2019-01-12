@@ -1,15 +1,20 @@
 <template>
     <div class="my-file-item">
-        <div class="file-img" :class="fileType"></div>
-        <div class="file-info">
-            <div class="item-file-name">aaaa.pdf</div>
-            <div class="date">2018-01-01 14:22:22</div>
-            <div class="size">128k</div>
-        </div>
-        <div class="right-box">
-            <div class="progress-box">
-                <div class="view-btn"></div>
-                <input class="checkbox" type="checkbox" id="jack" value="1" v-model="selected">
+        <div class="item-box">
+            <div class="file-img" :class="fileType"></div>
+            <div class="file-info">
+                <div class="item-file-name">{{taskItem.target_file.filename}}</div>
+                <div class="date">{{this.taskItem.time}}</div>
+                <div class="size">128k</div>
+            </div>
+            <div class="right-box ">
+                    <div class="view-btn" v-show="!manage"
+                    @click="onClickDownload"
+                    @touch="onClickDownload"
+                    ></div>
+                    <div class="check-box" v-show="manage" :class="{select: taskItem.selected}" @click="onSelect">
+                        <div class="select-gou"></div>
+                    </div>
             </div>
         </div>
     </div>
@@ -26,20 +31,31 @@ export default {
     ],
     data() {
         return {
-            file: this.item.file,
+            taskItem: this.item,
             selected: 0,
-            fileType: 'pdf',
+            fileType: this.item.targetExt || 'pdf',
+            manage: this.item.manage,
         };
     },
     computed: {
+        manageState() {
+            return this.taskItem.manage;
+        },
     },
     methods: {
-        onDel: function() {
-            console.log('aaa');
+        onSelect() {
+            this.taskItem.selected = !this.taskItem.selected;
         },
-        start: function() {
-            // start upload file and convert
+        onClickDownload() {
+            console.log('onClickDownloadonClickDownload');
+            this.$emit('click-download');
         },
     },
+    watch: {
+        manageState() {
+            this.manage = this.taskItem.manage;
+        },
+    },
+
 };
 </script>

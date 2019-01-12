@@ -1,0 +1,127 @@
+
+.pay-container{
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    .panel-one{
+        padding-top: 0.98rem;
+        .buy-panel{
+            width: 100%;
+            padding-left: 0.65rem;
+            padding-right: 0.65rem;
+            .plan-box{
+                width: 100%;
+                border-top: 1px dashed #ededed;
+                .plan{
+                    width: 100%;
+                    height: 1.2rem;
+                    border: 3px solid #c2c2c2;
+                    border-radius: 0.2rem;
+                    padding: 0 0.4rem;
+                    margin-top: 0.3rem;
+                    // margin-bottom: 0.15rem;
+                    .img{
+                        width: 0.42rem;
+                        height: 100%;
+                        float: left;
+                        background: url(../../../assets/images/index/pay/green-diamond.png) center center/100% auto no-repeat;
+                    }
+                    .des-box{
+                        width: 3rem;
+                        height: 0.8rem;
+                        text-align: left;
+                        float: left;
+                        margin-top: 0.1rem;
+                        padding-left: 0.2rem;
+                        .plan-name{
+                            width: 100%;
+                            color: #333;
+                            font-size: 0.28rem;
+                            height: 0.5rem;
+                            line-height: 0.5rem;
+                        }
+                        .plan-des{
+                            width: 100%;
+                            color: #999;
+                            font-size: 0.22rem;
+                            height: 0.3rem;
+                            line-height: 0.3rem;
+                        }
+                    }
+                    .plan-price{
+                        float: right;
+                        height: 100%;
+                        line-height: 1.2rem;
+                        color: #2ac164; 
+                    }
+
+                    &.month{
+                        &.active{
+                            border: 3px solid #2ac164; 
+                        }
+                        .img{
+                            background: url(../../../assets/images/index/pay/green-diamond.png) center center/100% auto no-repeat;
+                        }
+                        .plan-price{
+                            color: #2ac164; 
+                        }
+                    }
+                    &.year{
+                        &.active{
+                            border: 3px solid #ffab03; 
+                        }
+                        .img{
+                            background: url(../../../assets/images/index/pay/yellow-diamond.png) center center/100% auto no-repeat;
+                        }
+                        .plan-price{
+                            color: #ffab03; 
+                        }
+                    }
+                    &.life{
+                        &.active{
+                            border: 3px solid #2792ff; 
+                        }
+                        .img{
+                            background: url(../../../assets/images/index/pay/blue-diamond.png) center center/100% auto no-repeat;
+                        }
+                        .plan-price{
+                            color: #2792ff; 
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+.user-info{
+    height: 2.32rem;
+    width: 100%;
+    padding-left: 0.65rem;
+    padding-top: 0.49rem;
+    .avatar{
+        width: 1.35rem;
+        height: 1.35rem;
+        border-radius: 100%;
+        float: left;
+        background: #edecf1;
+        overflow: hidden;
+        img{
+            overflow: hidden;
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+    }
+    .user-name{
+        width: 4.65rem;
+        float: left;
+        color: #333;
+        font-size: 0.34rem;
+        text-align: left;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        margin-top: 0.4rem;
+        padding-left: 0.2rem;
+    }
+}

@@ -45,10 +45,9 @@ export function getMyTasks(page = 1, pageSize = 10) {
 }
 
 export function delTask(taskId) {
-    // let obj = {
-    //     params: {
-    //         pre_page: pageSize,
-    //     },
-    // };
     return lightPdfFetch.delete(`/tasks/${taskId}`);
+}
+
+export function myVip() {
+    return lightPdfFetch.get('/my/vip');
 }

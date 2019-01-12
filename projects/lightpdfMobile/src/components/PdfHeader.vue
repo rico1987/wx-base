@@ -43,10 +43,11 @@ export default {
             if (this.jumpDisable) {
                 this.$emit('click-jump');
                 return;
-            } else {
-                console.log(11111);
-                return;
             }
+            //  else {
+            //     console.log(11111);
+            //     return;
+            // }
             let path = this.getParentPath();
             let item = his.search(path);
             if (item) {

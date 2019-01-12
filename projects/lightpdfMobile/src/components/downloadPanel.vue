@@ -3,9 +3,9 @@
         <div class="mask"></div>
         <div class="download-box">
             <div class="file-list">
-                <div class="file-item">
-                    <div class="file-name"></div>
-                    <div class="check-box" v-for="(item,index) in fileList" :key="index" :class="{select: item.selected}" @click="onSelect">
+                <div class="file-item" v-for="(item,index) in fileList" :key="index">
+                    <div class="file-name">{{item.fileName}}</div>
+                    <div class="check-box" :class="{select: item.selected}" @click="onSelect(item)">
                         <div class="select-gou" :class="{selcet: item.selected}"></div>
                     </div>
                 </div>
@@ -14,16 +14,23 @@
                 <div class="btn sure" @click="onDownloadFile">确定</div>
                 <div class="btn cancel" @click="cancel">取消</div>
             </div>
-            <a ref="downA" href="aaa" class="download-btn" style="display: none;"></a>
+            <auto-download v-for="item in downloadPool" :key="item.uniqKey" :item="item"></auto-download>
+            <!-- <a ref="downA" href="aaa" class="download-btn" style="display: none;"></a> -->
         </div>
     </div>
 </template>
 
 <script>
+import autoDown from './autoDown.vue';
+
 export default {
     name: 'downLoadPanel',
 
     componentName: 'downLoadPanel',
+
+    components: {
+        'auto-download': autoDown,
+    },
 
     props: [
         'item',
@@ -60,6 +67,7 @@ export default {
                     url: item.url,
                     uniqkey: this.getUniqKey(),
                     selected: 0,
+                    start: 0,
                 };
                 list.push(obj);
             });
@@ -67,34 +75,38 @@ export default {
             this.downloadPool = [];
             this.fileList = list;
         },
-        onSelect() {
+        onSelect(item) {
+            item.selected = Number(!item.selected);
             console.log('nnnnn');
+            this.freshDownloadPool();
+
         },
         getUniqKey() {
             this.uniqKey += 1;
             return this.uniqKey;
         },
-        onDownloadFile() {
+        freshDownloadPool() {
             this.downloadPool = [];
             let item;
             for (let i = 0; i < this.fileList.length; i += 1) {
                 item = this.fileList[i];
                 if (item.selected) {
-                    this.downloadPool.push(item.url);
+                    this.downloadPool.push(item);
                 }
             }
-            this.start();
+        },
+        onDownloadFile() {
+            setTimeout(() => {
+                this.start();
+            }, 200);
         },
         start() {
-            if (this.downloadPool.length === 0) {
-                return;
+            let item;
+            for (let i = 0; i < this.downloadPool.length; i += 1) {
+                item = this.downloadPool[i];
+                item.start = 1;
             }
-            let url = this.downloadPool[this.index].url;
-            this.$refs.downA.href = url;
-            setTimeout(() => {
-                this.$refs.downA.click();
-                this.next();
-            }, 200);
+            this.isShow = 0;
         },
         next() {
             this.index += 1;

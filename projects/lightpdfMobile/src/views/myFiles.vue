@@ -136,7 +136,9 @@ export default {
             };
             timeObj;
             let timeStamp = new Date(parseInt(time, 10) * 1000);
-            return `${timeStamp.getFullYear()}-${timeStamp.getMonth() + 1}-${timeStamp.getDate()} ${timeStamp.getHours()}:${timeStamp.getMinutes()}:${timeStamp.getSeconds()}`;
+            let dateStr = `${timeStamp.getFullYear()}-${timeStamp.getMonth() + 1}-${timeStamp.getDate()}`;
+            let timeStr = `${timeStamp.getHours()}:${timeStamp.getMinutes()}:${timeStamp.getSeconds()}`;
+            return `${dateStr} ${timeStr}`;
         },
         getTargetExt(file) {
             let ext = '';
@@ -265,6 +267,7 @@ export default {
         onDownload(item) {
             console.log(item);
             this.$refs.downLoadBar.isShow = 1;
+            this.$refs.downLoadBar.freshList(item.source_files, item.target_file);
         },
 
     },

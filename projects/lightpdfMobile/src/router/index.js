@@ -9,6 +9,7 @@ import ConvertResult from '@/views/convertResult.vue';
 import Info from '@/views/info.vue';
 import Myfiles from '@/views/myFiles.vue';
 import pay from '@/views/pay.vue';
+import VipPay from '@/views/vipPay.vue';
 
 Vue.use(Router);
 
@@ -62,6 +63,11 @@ export default new Router({
             path: '/pay',
             name: 'pay',
             component: pay,
+        },
+        {
+            path: '/vippay',
+            name: 'vippay',
+            component: VipPay,
         },
     ],
 });

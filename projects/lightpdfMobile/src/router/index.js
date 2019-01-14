@@ -10,6 +10,7 @@ import Info from '@/views/info.vue';
 import Myfiles from '@/views/myFiles.vue';
 import pay from '@/views/pay.vue';
 import VipPay from '@/views/vipPay.vue';
+import ToPdfConvert from '@/views/toPdfConvert.vue';
 
 Vue.use(Router);
 
@@ -33,6 +34,11 @@ export default new Router({
             path: '/topdf',
             name: 'topdf',
             component: ToPdf,
+        },
+        {
+            path: '/topdfconvert',
+            name: 'topdfconvert',
+            component: ToPdfConvert,
         },
         {
             path: '/mergepdf',

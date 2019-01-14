@@ -71,7 +71,7 @@ import his from '../utils/pathHistory';
 import resultData from '../utils/convertResult';
 
 export default {
-    name: 'fromPdf',
+    name: 'toPdfConvert',
     components: {
         'pdf-header': PdfHeader,
         'convert-file-item': ConvertFileItem,
@@ -132,6 +132,14 @@ export default {
             }
             if (this.$route.query.type === 'pdf-to-jpg') {
                 this.taskName = 'pdf-to-image';
+                this.format = 'jpg';
+            }
+            if (this.$route.query.type === 'png-to-pdf') {
+                this.taskName = 'image-to-pdf';
+                this.format = 'png';
+            }
+            if (this.$route.query.type === 'jpg-to-pdf') {
+                this.taskName = 'image-to-pdf';
                 this.format = 'jpg';
             }
             this.accept = this.acceptMap[type] || '.pdf';
@@ -210,7 +218,9 @@ export default {
         checkSize(file) {
             this.msg('checksize');
             if (this.checkFileSize(file)) {
-                this.pwdCheckObj.push(file);
+                // this.pwdCheckObj.push(file);
+                let item = this.getInfoData(file, '');
+                this.addToList(item);
             } else {
                 // big;
                 this.checkShowBtn();
@@ -235,6 +245,12 @@ export default {
             };
             this.fileCount += 1;
             item.id = this.fileCount;
+            let ext = '';
+            let dotIndex = file.name.indexOf('.');
+            if (dotIndex !== -1){
+                ext = file.name.substring(dotIndex + 1, file.name.length);
+            }
+            item.ext = ext;
             return item;
         },
         addToList: function(item) {

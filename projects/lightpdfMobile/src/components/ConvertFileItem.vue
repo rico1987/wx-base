@@ -1,6 +1,6 @@
 <template>
     <div class="convert-file-item">
-        <div class="file-img"></div>
+        <div class="file-img" :file-type="fileData.ext"></div>
         <div class="item-file-name">{{fileData.file.name}}</div>
         <div class="right-box">
             <div class="progress-box">

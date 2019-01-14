@@ -1,5 +1,10 @@
 <template>
-    <div class="myaccount-account-menu">
+    <div class="myaccount-account-menu has-header">
+        <MobileHeader
+            defaultLeft
+            isReturnToNative
+        >
+        </MobileHeader>
         <div class="header">
             <div class="avatar-container">
                 <img v-if="userInfo && userInfo.avatar" :src="userInfo.avatar" />
@@ -35,10 +40,12 @@
 
 <script>
 import { getNativeData, } from '@/utils/index';
+import MobileHeader from '@/components/MobileHeader.vue';
 
 export default {
     name: 'accountMenu',
     components: {
+        MobileHeader,
     },
     data() {
         return {

@@ -26,8 +26,10 @@ export function getDomain(lang) {
 };
 
 export function getQueryValue(key) {
-    let location = window.location;
-    let queryString = location.hash.substr(location.hash.lastIndexOf('?') + 1);
+    if (!location.search) {
+        return null;
+    }
+    let queryString = location.search.substring(1);
     let find = queryString.split('&').find((ele) => {
         let queryKey = ele.split('=')[0];
         if (queryKey === key) {
@@ -51,7 +53,7 @@ export function backToNative() {
 
 export function getNativeData() {
     if (window.account) {
-        return JSON.parse(window.account.getLoginMsg() || '{}');
+        return JSON.parse(window.account.getData() || '{}');
     } else {
         return JSON.parse(Cookies.get('accountMobileSaveData') || '{}');
     }
@@ -60,11 +62,21 @@ export function getNativeData() {
 export function saveNativeData(data) {
     if (data) {
         if (window.account) {
-            window.account && window.account.onLogin(JSON.stringify(data));
+            window.account && window.account.onDataChanged(JSON.stringify(data));
         } else {
             Cookies.set('accountMobileSaveData', data);
         }
+    } else {
+        if (window.account) {
+            window.account && window.account.onDataChanged('');
+        } else {
+            Cookies.set('accountMobileSaveData', '');
+        }
     }
+}
+
+export function nativeLogin(data) {
+    window.account && window.account.onLogin(JSON.stringify(data));
 }
 
 export function nativeLogout() {

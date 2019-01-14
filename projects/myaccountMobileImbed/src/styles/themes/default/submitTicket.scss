@@ -30,8 +30,8 @@
             font-size: 13px;
             line-height: 28px;
             padding: 0 20px;
-            color: rgba(71,134,255,1);
-            border: 1px solid rgba(71,134,255,1);
+            color: $primary;
+            border: 1px solid $primary;
             background: white;
             border-radius: 6px;
             width: auto;
@@ -40,7 +40,7 @@
         }
         .btn-primary{
             color: white;
-            background: rgba(71,134,255,1);
+            background: $primary;
         }
     }
     .attachment{

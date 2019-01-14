@@ -26,8 +26,10 @@ export function getDomain(lang) {
 };
 
 export function getQueryValue(key) {
-    let location = window.location;
-    let queryString = location.hash.substr(location.hash.lastIndexOf('?') + 1);
+    if (!location.search) {
+        return null;
+    }
+    let queryString = location.search.substring(1);
     let find = queryString.split('&').find((ele) => {
         let queryKey = ele.split('=')[0];
         if (queryKey === key) {

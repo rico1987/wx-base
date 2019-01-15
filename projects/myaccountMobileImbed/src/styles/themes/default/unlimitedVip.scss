@@ -1,7 +1,7 @@
 .myaccount-unlimited-vip{
     .myaccount-unlimited-vip__vip-header{
         height: 268px;
-        background: url('~@/assets/images/unlimitedVipPageBg.png') center no-repeat;
+        background: url('../../../assets/images/unlimitedVipPageBg.png') center no-repeat;
         padding-top: 33px;
         background-size: cover;
         .title{
@@ -27,7 +27,7 @@
                 height: 64px;
                 border-radius: 32px;
                 margin: 0 auto;
-                background: url('~@/icons/default-portrait.svg') center no-repeat;
+                background: url('../../../icons/default-portrait.svg') center no-repeat;
                 background-size: contain;
             }
             span{
@@ -35,7 +35,7 @@
                 width: 24px;
                 height: 21px;
                 position: absolute;
-                background: url('~@/icons/crownGold.svg') center no-repeat;
+                background: url('../../../icons/crownGold.svg') center no-repeat;
                 left: 50%;
                 top: -18px;
                 margin-left: -12px;
@@ -48,7 +48,7 @@
         }
     }
     .myaccount-unlimited-vip__no-vip-header{
-        background: url('~@/assets/images/vipPageBg.png') center no-repeat;
+        background: url('../../../assets/images/vipPageBg.png') center no-repeat;
         height: 138px;
         background-size: cover;
         padding-top: 17px;
@@ -59,16 +59,16 @@
             font-size: 15px;
             line-height: 18px;
             text-align: center;
-            background: url('~@/icons/crownGold.svg') top center no-repeat;
+            background: url('../../../icons/crownGold.svg') top center no-repeat;
         }
     }
     .myaccount-unlimited-vip__privilege, .myaccount-unlimited-vip__rights{
         padding: 27px 16px;
-        background: #f5f5f5 url('~@/assets/images/vipTitleBg.png') top center no-repeat;
+        background: #f5f5f5 url('../../../assets/images/vipTitleBg.png') top center no-repeat;
         background-size: contain;
         >h2{
             padding-top: 38px;
-            background: transparent url('~@/icons/vipTitleIcon.svg') top center no-repeat;
+            background: transparent url('../../../icons/vipTitleIcon.svg') top center no-repeat;
             font-size: 17px;
             color: #A27537;
             line-height: 20px;
@@ -79,7 +79,7 @@
             line-height: 21px;
             color: #A27537;
             padding: 25px 24px 25px 57px;
-            background: white url('~@/icons/crownGold.svg') 16px center no-repeat;
+            background: white url('../../../icons/crownGold.svg') 16px center no-repeat;
             border: 2px solid;
             box-shadow:0px 5px 20px 0px rgba(153,153,153,0.2);
             text-align: left;

@@ -12,25 +12,25 @@ import { getQueryValue, } from './utils/index';
 import ls from './utils/littleStore';
 
 // import languages
-import LangEn from './lang/en.json';
-import LangZh from './lang/zh.json';
-import LangCs from './lang/cs.json';
-import LangDa from './lang/da.json';
-import LangDe from './lang/de.json';
-import LangEl from './lang/el.json';
-import LangEs from './lang/es.json';
-import LangFi from './lang/fi.json';
-import LangFr from './lang/fr.json';
-import LangHu from './lang/hu.json';
-import LangIt from './lang/it.json';
-import LangJa from './lang/ja.json';
-import LangNl from './lang/nl.json';
-import LangNo from './lang/no.json';
-import LangPl from './lang/pl.json';
-import LangPt from './lang/pt.json';
-import LangSv from './lang/sv.json';
-import LangTr from './lang/tr.json';
-import LangTw from './lang/tw.json';
+import LangEn from './lang/en';
+import LangZh from './lang/zh';
+import LangCs from './lang/cs';
+import LangDa from './lang/da';
+import LangDe from './lang/de';
+import LangEl from './lang/el';
+import LangEs from './lang/es';
+import LangFi from './lang/fi';
+import LangFr from './lang/fr';
+import LangHu from './lang/hu';
+import LangIt from './lang/it';
+import LangJa from './lang/ja';
+import LangNl from './lang/nl';
+import LangNo from './lang/no';
+import LangPl from './lang/pl';
+import LangPt from './lang/pt';
+import LangSv from './lang/sv';
+import LangTr from './lang/tr';
+import LangTw from './lang/tw';
 
 import ToastPlugin from './plugins/toast';
 

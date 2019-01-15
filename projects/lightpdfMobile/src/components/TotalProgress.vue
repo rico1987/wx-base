@@ -1,7 +1,8 @@
 <template>
     <div class="total-progress">
         <div class="blue-bar" :style="{width:width}"></div>
-        <div class="progress-txt">{{index}}/{{totalNum}} {{trStr}}</div>
+        <div class="progress-txt" v-show="isStep">{{index}}/{{totalNum}} {{trStr}}</div>
+        <div class="progress-txt" v-show="!isStep">{{trStr}}</div>
     </div>
 </template>
 
@@ -23,6 +24,7 @@ export default {
             totalNum: 0,
             trStr: 'converting',
             width: '0%',
+            isStep: 1,
         };
     },
 

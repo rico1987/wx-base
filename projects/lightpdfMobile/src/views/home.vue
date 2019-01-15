@@ -2,9 +2,9 @@
     <div class="index-container">
         <div class="inner-container">
             <div class="top-title">
-                <div class="title-content">PDF转换工具</div>
+                <div class="title-content">{{$tr('Convert PDF@@001707')}}</div>
                 <div class="title-des">
-                    {{$tr('aaa@@001193')}}
+                    {{$tr('aaa@@001562')}}
                 </div>
             </div>
             <div class="convert-box">

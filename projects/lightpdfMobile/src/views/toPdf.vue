@@ -22,9 +22,6 @@
 
 <script>
 import MainBar from '../components/MainBar.vue';
-import {getPdfSession, } from '../api/pdf';
-import ls from '../utils/littleStore';
-import pwdCheck from '../utils/pwdCheck';
 import his from '../utils/pathHistory';
 
 export default {
@@ -60,7 +57,7 @@ export default {
     },
 
     created: function() {
-         his.push(this.$router.history.current);
+        his.push(this.$router.history.current);
     },
     methods: {
         pos: function(index) {

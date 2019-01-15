@@ -59,7 +59,7 @@
 
 <script>
 import PdfHeader from '../components/PdfHeader.vue';
-import ConvertFileItem from '../components/ConvertFileItem.vue';
+import ConvertFileItem from '../components/mergeFileItem.vue';
 import TotalProgress from '../components/TotalProgress.vue';
 import Uploader from '../utils/upload';
 import Message from '../components/Message.vue';
@@ -71,7 +71,7 @@ import his from '../utils/pathHistory';
 import resultData from '../utils/convertResult';
 
 export default {
-    name: 'toPdfConvert',
+    name: 'merge',
     components: {
         'pdf-header': PdfHeader,
         'convert-file-item': ConvertFileItem,
@@ -99,6 +99,7 @@ export default {
             isConverting: false,
             isStop: 0,
             accept: '.pdf',
+            taskId: '',
             acceptMap: {
                 'pdf-to-word': '.pdf',
                 'pdf-to-jpg': '.pdf',
@@ -132,14 +133,6 @@ export default {
             }
             if (this.$route.query.type === 'pdf-to-jpg') {
                 this.taskName = 'pdf-to-image';
-                this.format = 'jpg';
-            }
-            if (this.$route.query.type === 'png-to-pdf') {
-                this.taskName = 'image-to-pdf';
-                this.format = 'png';
-            }
-            if (this.$route.query.type === 'jpg-to-pdf') {
-                this.taskName = 'image-to-pdf';
                 this.format = 'jpg';
             }
             this.accept = this.acceptMap[type] || '.pdf';
@@ -218,9 +211,7 @@ export default {
         checkSize(file) {
             this.msg('checksize');
             if (this.checkFileSize(file)) {
-                // this.pwdCheckObj.push(file);
-                let item = this.getInfoData(file, '');
-                this.addToList(item);
+                this.pwdCheckObj.push(file);
             } else {
                 // big;
                 this.checkShowBtn();
@@ -245,12 +236,6 @@ export default {
             };
             this.fileCount += 1;
             item.id = this.fileCount;
-            let ext = '';
-            let dotIndex = file.name.indexOf('.');
-            if (dotIndex !== -1) {
-                ext = file.name.substring(dotIndex + 1, file.name.length);
-            }
-            item.ext = ext;
             return item;
         },
         addToList: function(item) {
@@ -292,12 +277,14 @@ export default {
             this.isSureShow = false;
             this.isStopShow = true;
             this.isConverting = true;
-            this.updateTotalProgressBar();
+            this.$refs.progress.isStep = 0;
+            let num = (this.index / this.fileList.length) * 10;
+            this.updateTotalProgressBar(num);
         },
-        updateTotalProgressBar() {
-            let totalNum = this.fileList.length;
-            let index = this.index;
-            this.$refs.progress.totalNum = totalNum;
+        updateTotalProgressBar(num = 0) {
+            // let totalNum = this.fileList.length;
+            let index = num;
+            this.$refs.progress.totalNum = 100;
             this.$refs.progress.index = index;
         },
         next() {
@@ -305,14 +292,15 @@ export default {
                 return;
             }
             this.index += 1;
-            this.updateTotalProgressBar();
+            // this.updateTotalProgressBar();
             let item = this.getCurrentConvertData();
             if (!item) {
-                // finished
-                this.isConverting = false;
-                this.index = 0;
-                this.isStopShow = false;
-                this.showResult();
+                // this.isConverting = false;
+                // this.index = 0;
+                // this.isStopShow = false;
+                // this.showResult();
+                // 上传完成
+                this.toCreateTask();
                 return;
             }
             this.start();
@@ -327,8 +315,9 @@ export default {
             item.fileId = data.id;
             file;
             // console.log(res, file, 3);
-            this.setProgress(4 + 10);
-            this.toCreateTask();
+            // this.setProgress(4 + 10);
+            // this.toCreateTask();
+            this.next();
         },
         getFileConfig(item) {
             return {
@@ -337,10 +326,11 @@ export default {
             };
         },
         toCreateTask() {
+            this.updateTotalProgressBar(10);
             let obj = {
-                service_type: this.taskName,
+                service_type: 'merge-pdf',
                 autostart: true,
-                files: [this.getFileConfig(this.getCurrentConvertData()), ],
+                files: this.getFilesArg(),
                 args: this.getArg(),
             };
             let _this = this;
@@ -348,15 +338,26 @@ export default {
                 console.log('taskok');
                 console.log(data);
                 let taskId = data.data.data.task_id;
-                _this.getCurrentConvertData().taskId = taskId;
+                _this.taskId = taskId;
                 _this.checkProgress(taskId);
             }).catch((data) => {
                 console.log('err');
                 console.log(data);
                 _this.getCurrentConvertData().state = 3;
                 console.log('createErr-next');
-                _this.next();
+                // _this.next();
             });
+        },
+        getFilesArg() {
+            let arr = [];
+            this.fileList[this.index];
+            let item;
+            for (let i = 0; i < this.fileList.length; i += 1) {
+                item = this.fileList[i];
+                arr.push(this.getFileConfig(item));
+            }
+            console.log(arr);
+            return arr;
         },
         getArg() {
             let arg = {};
@@ -413,12 +414,14 @@ export default {
                 break;
             case 1:
                 // 进行中
-                this.onConvertProgress(res.data.progress);
+                // this.onConvertProgress(res.data.progress);
+                this.updateTotalProgressBar((10 + (res.data.progress * 90)) / 100);
                 break;
             case 2:
                 // 完成
                 this.removeTaskInfoTimer();
-                this.onConvertProgress(res.data.progress);
+                // this.onConvertProgress(res.data.progress);
+                this.updateTotalProgressBar(100);
                 this.onConvertSuccess(res);
                 break;
             case -10:
@@ -442,20 +445,40 @@ export default {
         },
         onConvertSuccess(data) {
             console.log(data);
-            let item = this.getCurrentConvertData();
+            let item = this.fileList[this.fileList.length - 1];
             let status = data.data.status;
             if (status === 2) {
                 let targetFile = data.data.target_file;
                 item.state = 2;
                 item.targetUrl = targetFile.url;
                 item.targetName = targetFile.filename;
+                this.isConverting = false;
+                this.index = 0;
+                this.isStopShow = false;
+                this.setAllItemOk();
+                // this.setAllItemErr();
+                this.showResult();
             } else {
                 item.state = 3;
+                this.setAllItemErr();
             }
             console.log('onConvertSuccess-next');
-            this.next();
+            // this.next();
             // this.pwdCheckObj.next();
-
+        },
+        setAllItemErr() {
+            let item;
+            for (let i = 0; i < this.fileList.length; i += 1) {
+                item = this.fileList[i];
+                item.state = 3;
+            }
+        },
+        setAllItemOk() {
+            let item;
+            for (let i = 0; i < this.fileList.length; i += 1) {
+                item = this.fileList[i];
+                item.state = 2;
+            }
         },
         progressErr(response) {
             // aaa
@@ -495,6 +518,7 @@ export default {
         },
         showResult() {
             resultData.targetList = this.getTargetFileList();
+            console.log(resultData.targetList);
             console.log('showresulettttt');
             // this.$router.push({
             //     path: '/convertresult',

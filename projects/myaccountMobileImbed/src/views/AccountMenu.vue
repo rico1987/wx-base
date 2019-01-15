@@ -12,9 +12,9 @@
                 <div class="crown" v-if="isVip"></div>
             </div>
             <p class="nickname">{{userInfo && userInfo.nickname}}</p>
-            <p class="privileges" @click="goto('unlimited-vip')">
+            <!-- <p class="privileges" @click="goto('unlimited-vip')">
                 {{ $t('001781') }}
-            </p>
+            </p> -->
         </div>
         <div class="container">
             <ul class="mobile-list-items">

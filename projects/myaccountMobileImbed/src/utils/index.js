@@ -76,7 +76,13 @@ export function saveNativeData(data) {
 }
 
 export function nativeLogin(data) {
-    window.account && window.account.onLogin(JSON.stringify(data));
+    if (data) {
+        if (window.account) {
+            window.account && window.account.onLogin(JSON.stringify(data));
+        } else {
+            Cookies.set('accountMobileSaveData', data);
+        }
+    }
 }
 
 export function nativeLogout() {

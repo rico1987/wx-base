@@ -22,8 +22,22 @@ body{
 		background: url(../../../assets/images/index/pdf.svg) center center/0.46rem auto no-repeat;
 		float: left;
 		margin-top: 0.14rem;
+	}
 
-
+	$items: ("doc","pdf-to-word.svg"),
+	("pdf","pdf.svg"),
+	("xls","pdf-to-excel.svg"),
+	("xlsx","pdf-to-excel.svg"),
+	("png","pdf-to-png.svg"),
+	("jpg","pdf-to-jpg.svg"),
+	("ppt","pdf-to-ppt.svg"),
+	("pptx","pdf-to-ppt.svg"),
+	("txt","pdf-to-txt.svg"),
+	("docx","pdf-to-word.svg");
+	@each $name, $svg in $items {
+		.file-img[file-type="#{$name}"]{
+			background-image: url(../../../assets/images/index/#{$svg});
+		}
 	}
 	.item-file-name{
 		height: 0.52rem;

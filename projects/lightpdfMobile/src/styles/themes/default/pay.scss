@@ -9,6 +9,7 @@
             width: 100%;
             padding-left: 0.65rem;
             padding-right: 0.65rem;
+            margin-bottom: 0.2rem;
             .plan-box{
                 width: 100%;
                 border-top: 1px dashed #ededed;
@@ -39,6 +40,7 @@
                             font-size: 0.28rem;
                             height: 0.5rem;
                             line-height: 0.5rem;
+                            position: relative;
                         }
                         .plan-des{
                             width: 100%;
@@ -53,6 +55,32 @@
                         height: 100%;
                         line-height: 1.2rem;
                         color: #2ac164; 
+                    }
+                    .tuijian{
+                        display: inline;
+                        position: absolute;
+                        top: -0.03rem;
+                        .triangle-left {
+                            width: 0;
+                            height: 0;
+                            border-top: 0.08rem solid transparent;
+                            border-right: 0.08rem solid #ff5e52;
+                            border-bottom: 0.08rem solid transparent;
+                            position: relative;
+                            top: 0.08rem;
+                            float: left;
+                        }
+                        .tuijian-txt{
+                            height: 0.4rem;
+                            line-height: 0.4rem;
+                            font-size: 0.14rem;
+                            color: #fff;
+                            background: #ff5e52;
+                            border-radius: 0.04rem;
+                            padding-left: 0.04rem;
+                            padding-right: 0.04rem;
+                            float: left;
+                        }
                     }
 
                     &.month{
@@ -90,6 +118,222 @@
                     }
                 }
             }
+        }
+        .pay-btns{
+            width: 5.88rem;
+            margin: 0 auto;
+            // height: 0.8rem;
+            line-height: 0.8rem;
+            font-size: 0.28rem;
+            .add-to-cart{
+                width: 100%;
+                height: 0.8rem;
+                background: #ff5e52;
+                border-radius: 0.2rem;
+                color: #fff;
+                margin: 0.12rem 0;
+            }
+            .pay-with-paypal{
+                width: 100%;
+                height: 0.8rem;
+                background: #ff9036; 
+                border-radius: 0.2rem;
+                color: #333;
+                margin: 0.12rem 0;
+                display: inline-block;
+                vertical-align: middle;
+                &:after{
+                    content: '';
+                    position: relative;
+                    display: inline-block;
+                    width: 1rem;
+                    height: 0.8rem;
+                    margin-left: 0.1rem;
+                    background: url(../../../assets/images/index/pay/paypal.svg) center center/100% auto no-repeat;
+                    vertical-align: middle;
+                }
+            }
+        }
+        .pay-des{
+            width: 100%;
+            text-align: center;
+            color: #333;
+            padding-left: 0.65rem;
+            padding-right: 0.65rem;
+            font-size: 0.24rem;
+        }
+        .vip-des{
+            width: 100%;
+            text-align: center;
+            color: #4285f4;
+            padding-left: 0.65rem;
+            padding-right: 0.65rem;
+            font-size: 0.28rem;
+            margin-top: 0.2rem;
+        }
+    }
+    .panel-two{
+        width: 100%;
+        &.add-header{
+            padding-top: 0.98rem;
+        }
+        .des-panel{
+            width: 100%;
+            padding-left: 0.65rem;
+            padding-right: 0.65rem;
+            .privilege-box{
+                .des-title{
+                    height: 0.8rem;
+                    line-height: 0.8rem;
+                    font-size: 0.32rem;
+                    width: 100%;
+                    text-align: left;
+                    border-bottom: 1px dashed #ededed;
+                    margin-top: 0.2rem;
+                    margin-bottom: 0.2rem;
+                }
+                .privilege-list{
+                    border-top: 0.1px solid transparent;
+                    padding-top: 0.3rem;
+                    .privilege-item{
+                        clear: both;
+                        margin-top: 0.3rem;
+                        margin-bottom: 0.3rem;
+                        width: 100%;
+                        overflow: hidden;
+                        height: 1rem;
+                        border: 0.1px solid transparent;
+                        .img{
+                            width: 1rem;
+                            height: 1rem;
+                            border-radius: 100%;
+                            background: #f2f6fe url(../../../assets/images/index/pay/pen.png) center center/0.55rem auto no-repeat;
+                            float: left;
+                            &.free-use{
+                                background: #f2f6fe url(../../../assets/images/index/pay/pen.png) center center/0.55rem auto no-repeat;
+                            }
+                            &.custom-service{
+                                background: #f2f6fe url(../../../assets/images/index/pay/custom-service.svg) center bottom/0.50rem auto no-repeat;
+                            }
+                            &.free-upgrade{
+                                background: #f2f6fe url(../../../assets/images/index/pay/zan.png) center center/0.52rem auto no-repeat;
+                            }
+                        }
+                        .privilege-des{
+                            text-align: left;
+                            float: left;
+                            line-height: 1rem;
+                            font-size: 0.24rem;
+                            padding-left: 0.3rem;
+                        }
+                    }
+                }
+            }
+            .secure-box{
+                .des-title{
+                    height: 0.8rem;
+                    line-height: 0.8rem;
+                    font-size: 0.32rem;
+                    width: 100%;
+                    text-align: left;
+                    border-bottom: 1px dashed #ededed;
+                    margin-top: 0.2rem;
+                    margin-bottom: 0.2rem; 
+                }
+                .secure-list{
+                    border-top: 0.1px solid transparent;
+                    padding-top: 0.3rem;
+                    .secure-item{
+                        clear: both;
+                        margin-top: 0.3rem;
+                        margin-bottom: 0.3rem;
+                        width: 100%;
+                        overflow: hidden;
+                        // height: 1rem;
+                        border: 0.1px solid transparent;
+                        .title-box{
+                            .img{
+                                width: 1rem;
+                                height: 1rem;
+                                border-radius: 100%;
+                                background: url(../../../assets/images/index/pay/money-back.svg) center center/100% auto no-repeat;
+                                float: left;
+                                &.money-back{
+                                    background: url(../../../assets/images/index/pay/money-back.svg) center center/100% auto no-repeat;
+                                }
+                                &.safety{
+                                    background: url(../../../assets/images/index/pay/safety.svg) center bottom/100% auto no-repeat;
+                                }
+                            }
+                            .secure-des{
+                                text-align: left;
+                                float: left;
+                                line-height: 1rem;
+                                font-size: 0.28rem;
+                                padding-left: 0.3rem;
+                                color: #333;
+                            }
+                        }
+                        
+                        .detail{
+                            text-align: left;
+                            clear: both;
+                            line-height: 0.43rem;
+                            font-size: 0.24rem;
+                            padding-left: 0.3rem;
+                            color: #666;
+                        }
+                    }
+                }
+            }
+
+        }
+        .pay-btns{
+            width: 100%;
+            height: 0.8rem;
+            line-height: 0.8rem;
+            border-top: 1px solid #e2e2e2;
+            .month-btn{
+                width: 50%;
+                height: 100%;
+                color: #2792ff;
+                background: #fff;
+                float: left;
+            }
+            .year-btn{
+                position: relative;
+                width: 50%;
+                height: 0.8rem;
+                color: #fff;
+                background: #2792ff;
+                float: left;
+            }
+            .tuijian{
+                display: inline;
+                position: absolute;
+                top: 0.03rem;
+                .triangle-left {
+                    width: 0;
+                    height: 0;
+                    border-top: 0.08rem solid transparent;
+                    border-right: 0.08rem solid #ff5e52;
+                    border-bottom: 0.08rem solid transparent;
+                    position: relative;
+                    top: 0.08rem;
+                    float: left;
+                }
+                .tuijian-txt{
+                    height: 0.4rem;
+                    line-height: 0.4rem;
+                    font-size: 0.14rem;
+                    color: #fff;
+                    background: #ff5e52;
+                    border-radius: 0.04rem;
+                    padding-left: 0.04rem;
+                    padding-right: 0.04rem;
+                    float: left;
+                }
+            } 
         }
     }
 }

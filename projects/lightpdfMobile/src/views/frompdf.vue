@@ -16,7 +16,7 @@
                     <div class="add-des">选择文件</div>
                     <input
                         type="file"
-                        accept=".pdf"
+                        :accept="accept"
                         draggable="false"
                         class="file-input select-pdf-input"
                         ref="bigInput"
@@ -98,6 +98,20 @@ export default {
             infoTime: 0,
             isConverting: false,
             isStop: 0,
+            accept: '.pdf',
+            acceptMap: {
+                'pdf-to-word': '.pdf',
+                'pdf-to-jpg': '.pdf',
+                'pdf-to-png': '.pdf',
+                'pdf-to-ppt': '.pdf',
+                'pdf-to-excel': '.pdf',
+                'pdf-to-txt': '.pdf',
+                'word-to-pdf': '.doc,.docx',
+                'excel-to-pdf': '.xls,.xlsx',
+                'png-to-pdf': '.png',
+                'jpg-to-pdf': '.jpg',
+                'ppt-to-pdf': '.ppt,.pptx',
+            },
         };
     },
 
@@ -111,6 +125,7 @@ export default {
         his.push(this.$router.history.current);
         if (this.$route.query.type) {
             this.taskName = this.$route.query.type;
+            let type = this.$route.query.type;
             if (this.$route.query.type === 'pdf-to-png') {
                 this.taskName = 'pdf-to-image';
                 this.format = 'png';
@@ -119,6 +134,7 @@ export default {
                 this.taskName = 'pdf-to-image';
                 this.format = 'jpg';
             }
+            this.accept = this.acceptMap[type] || '.pdf';
         }
     },
     methods: {
@@ -215,6 +231,7 @@ export default {
                 taskId: '',
                 targetUrl: '',
                 targetName: '',
+                ext: '',
             };
             this.fileCount += 1;
             item.id = this.fileCount;

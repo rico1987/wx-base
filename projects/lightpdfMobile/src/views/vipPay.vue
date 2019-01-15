@@ -2,49 +2,8 @@
     <div class="pay-container">
         <div class="inner-container">
             <pdf-header ref="header" @click-jump="onBack"></pdf-header>
-            <div class="panel-one">
+            <div class="panel-two add-header">
                 <user-info :info="userInfo"></user-info>
-                <div class="buy-panel">
-                    <div class="plan-box">
-                        <div class="plan month active">
-                            <div class="img"></div>
-                            <div class="des-box">
-                                <div class="plan-name">月度</div>
-                                <div class="plan-des">1个月会员</div>
-                            </div>
-                            <div class="plan-price">$9.9/月</div>
-                        </div>
-                        <div class="plan year">
-                            <div class="img"></div>
-                            <div class="des-box">
-                                <div class="plan-name">月asdf度
-                                    <div class="tuijian">
-                                        <div class="triangle-left"></div>
-                                        <div class="tuijian-txt">推荐</div>
-                                    </div>
-                                </div>
-                                <div class="plan-des">1个月会员</div>
-                            </div>
-                            <div class="plan-price">$9.9/月</div>
-                        </div>
-                        <div class="plan life">
-                            <div class="img"></div>
-                            <div class="des-box">
-                                <div class="plan-name">月度</div>
-                                <div class="plan-des">1个月会员</div>
-                            </div>
-                            <div class="plan-price">$9.9/月</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="pay-btns">
-                    <div class="add-to-cart">Add to cart</div>
-                    <div class="pay-with-paypal">check out with</div>
-                </div>
-                <div class="pay-des">The safer,easier way to pay</div>
-                <div class="vip-des">VIP account will be sent to you by email  immediately after you</div>
-            </div>
-            <div class="panel-two">
                 <div class="des-panel">
                     <div class="privilege-box">
                         <div class="des-title">开通VIP独享专属特权</div>
@@ -105,7 +64,7 @@ import PdfHeader from '../components/PdfHeader.vue';
 import UserInfo from '../components/userInfo.vue';
 
 export default {
-    name: 'pay',
+    name: 'vipPay',
     components: {
         'pdf-header': PdfHeader,
         'user-info': UserInfo,

@@ -22,6 +22,10 @@
 
 <script>
 import MainBar from '../components/MainBar.vue';
+import {getPdfSession, } from '../api/pdf';
+import ls from '../utils/littleStore';
+import pwdCheck from '../utils/pwdCheck';
+import his from '../utils/pathHistory';
 
 export default {
     name: 'topdf',
@@ -56,6 +60,7 @@ export default {
     },
 
     created: function() {
+         his.push(this.$router.history.current);
     },
     methods: {
         pos: function(index) {
@@ -85,6 +90,13 @@ export default {
             // console.log(this.$t('333'));
             console.log(this.$tr('aaa@@001193'));
             // this.$router.push('/convert');
+            this.$router.push({
+                path: '/topdfconvert',
+                query: {
+                    type: e,
+                    step: 1,
+                },
+            });
         },
     },
 };

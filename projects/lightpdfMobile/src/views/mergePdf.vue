@@ -2,9 +2,9 @@
     <div class="index-container">
         <div class="inner-container">
             <div class="top-title">
-                <div class="title-content">转为PDF工具</div>
+                <div class="title-content">{{$tr('Merge to PDF@@002082')}}</div>
                 <div class="title-des">
-                    {{$tr('aaa@@001193')}}
+                    {{$tr('快速实现PDF文档合并，安全简单方便！@@')}}
                 </div>
             </div>
             <div class="convert-box">
@@ -33,7 +33,7 @@ export default {
             convertkey: [
                 {
                     key: 'merge-pdf',
-                    trkey: 'Merge to PDF@@002096',
+                    trkey: 'Merge to PDF@@002082',
                 },
             ],
         };
@@ -65,10 +65,13 @@ export default {
             return `${first}${second}`;
         },
         goConvert: function(e) {
-            console.log(e);
-            // console.log(this.$t('333'));
-            console.log(this.$tr('aaa@@001193'));
-            // this.$router.push('/convert');
+            this.$router.push({
+                path: '/merge',
+                query: {
+                    type: e,
+                    step: 1,
+                },
+            });
         },
     },
 };

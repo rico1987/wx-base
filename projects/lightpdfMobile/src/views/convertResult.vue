@@ -1,7 +1,9 @@
 <template>
     <div class="convert-result-container">
         <div class="inner-container">
-            <pdf-header ref="header" :type="taskName"></pdf-header>
+            <pdf-header ref="header" :disablejump="1" :type="taskName"
+            @click-jump="back"
+            >{{headerTitle}}</pdf-header>
             <div class="convert-result-panel">
                 <div class="result-img-box">
                     <div class="img-box">
@@ -51,6 +53,72 @@ export default {
             infoTime: 0,
             isConverting: false,
             isStop: 0,
+            type: 'pdf-to-word',
+            headerTitle: '',
+            convertkey: [
+                {
+                    key: 'pdf-to-word',
+                    trkey: 'PDF to Word@@002074',
+                },
+                {
+                    key: 'pdf-to-excel',
+                    trkey: 'PDF to Excel@@001819',
+                },
+                {
+                    key: 'pdf-to-ppt',
+                    trkey: 'PDF to Ppt@@002075',
+                },
+                {
+                    key: 'pdf-to-jpg',
+                    trkey: 'PDF to Jpg@@001820',
+                },
+                {
+                    key: 'pdf-to-png',
+                    trkey: 'PDF to Png@@001821',
+                },
+                {
+                    key: 'pdf-to-txt',
+                    trkey: 'PDF to Text@@001823',
+                },
+                {
+                    key: 'word-to-pdf',
+                    trkey: 'Word to PDF@@002096',
+                },
+                {
+                    key: 'excel-to-pdf',
+                    trkey: 'Excel to PDF@@002079',
+                },
+                {
+                    key: 'png-to-pdf',
+                    trkey: 'Png to PDF@@002015',
+                },
+                {
+                    key: 'jpg-to-pdf',
+                    trkey: 'Jpg to PDF@@002014',
+                },
+                {
+                    key: 'ppt-to-pdf',
+                    trkey: 'Ppt to PDF@@002080',
+                },
+                {
+                    key: 'merge-pdf',
+                    trkey: 'Merge to PDF@@002082',
+                },
+            ],
+            backRtMap: {
+                'pdf-to-word': '/frompdf',
+                'pdf-to-excel': '/frompdf',
+                'pdf-to-ppt': '/frompdf',
+                'pdf-to-jpg': '/frompdf',
+                'pdf-to-png': '/frompdf',
+                'pdf-to-txt': '/frompdf',
+                'word-to-pdf': '/topdfconvert',
+                'excel-to-pdf': '/topdfconvert',
+                'png-to-pdf': '/topdfconvert',
+                'jpg-to-pdf': '/topdfconvert',
+                'ppt-to-pdf': '/topdfconvert',
+                'merge-pdf': '/merge',
+            },
         };
     },
 
@@ -58,8 +126,40 @@ export default {
         his.push(this.$router.history.current);
         this.fileList = resultData.targetList;
         console.log(this.fileList);
+        if (this.$route.query.type) {
+            let type = this.$route.query.type;
+            this.type = type;
+        }
+        this.initTitle();
     },
     methods: {
+        getConvertKey(key) {
+            let item;
+            for (let i = 0; i < this.convertkey.length; i += 1) {
+                item = this.convertkey[i];
+                if (item.key === key) {
+                    this.headerTitle = this.$tr(item.trkey);
+                    break;
+                }
+            }
+        },
+        initTitle() {
+            let item = this.getConvertKey(this.type);
+            if (item) {
+                this.headerTitle = this.$tr(item.trkey);
+            }
+        },
+        back() {
+            let rt = this.backRtMap[this.type];
+            if (rt) {
+                this.$router.push({
+                    path: rt,
+                    query: {
+                        type: this.type,
+                    },
+                });
+            }
+        },
         joinVip() {
 
         },

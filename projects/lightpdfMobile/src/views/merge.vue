@@ -1,7 +1,7 @@
 <template>
     <div class="frompdf-container">
         <div class="inner-container">
-            <pdf-header ref="header" :type="taskName"></pdf-header>
+            <pdf-header ref="header" :headertype="type">{{headerTitle}}</pdf-header>
             <div v-show="isBigShow" ref="bigBtnEl" class="upload-panel">
                 <div class="upload-top-bg"></div>
                 <div class="upload-box">
@@ -13,7 +13,7 @@
                             <div class="plus"></div>
                         </div>
                     </div>
-                    <div class="add-des">选择文件</div>
+                    <div class="add-des">{{$tr('Choose file@@000821')}}</div>
                     <input
                         type="file"
                         :accept="accept"
@@ -29,7 +29,7 @@
             </div>
             <div v-show="isListShow" class="convert-file-panel">
                 <div class="add-file-btn">
-                    <p class="btn-des">选择文件</p>
+                    <p class="btn-des">{{$tr('Choose file@@000821')}}</p>
                     <input
                         type="file"
                         accept=".pdf"
@@ -46,10 +46,10 @@
                     :fileData="item" @del-file="delFileItem(item)"></convert-file-item>
                 </div>
                 <total-progress ref="progress" v-show="isConverting"></total-progress>
-                <div v-show="isSureShow" class="convert-start-btn" @click="start">确认转换</div>
+                <div v-show="isSureShow" class="convert-start-btn" @click="start">{{$tr('Convert@@001834')}}</div>
                 <div v-show="isStopShow" class="convert-stop-btn"
                 @click="stop"
-                >取消转换</div>
+                >{{$tr('Cancel@@cancel')}}</div>
             </div>
             <message ref="msg" :transition="'fade'"></message>
             <pdf-pwd ref="pwd" @on-set="pwdSet"></pdf-pwd>
@@ -92,7 +92,8 @@ export default {
             fileList: [],
             index: 0,
             pwdCheckObj: null,
-            taskName: 'pdf-to-word',
+            taskName: 'merge-pdf',
+            type: 'merge-pdf',
             format: '',
             infoTimerId: -1,
             infoTime: 0,
@@ -113,6 +114,37 @@ export default {
                 'jpg-to-pdf': '.jpg',
                 'ppt-to-pdf': '.ppt,.pptx',
             },
+            convertkey: [
+                {
+                    key: 'pdf-to-word',
+                    trkey: 'PDF to Word@@002074',
+                },
+                {
+                    key: 'pdf-to-excel',
+                    trkey: 'PDF to Excel@@001819',
+                },
+                {
+                    key: 'pdf-to-ppt',
+                    trkey: 'PDF to Ppt@@002075',
+                },
+                {
+                    key: 'pdf-to-jpg',
+                    trkey: 'PDF to Jpg@@001820',
+                },
+                {
+                    key: 'pdf-to-png',
+                    trkey: 'PDF to Png@@001821',
+                },
+                {
+                    key: 'pdf-to-txt',
+                    trkey: 'PDF to Text@@001823',
+                },
+                {
+                    key: 'merge-pdf',
+                    trkey: 'Merge to PDF@@002082',
+                },
+            ],
+            headerTitle: '',
         };
     },
 
@@ -127,6 +159,7 @@ export default {
         if (this.$route.query.type) {
             this.taskName = this.$route.query.type;
             let type = this.$route.query.type;
+            this.type = type;
             if (this.$route.query.type === 'pdf-to-png') {
                 this.taskName = 'pdf-to-image';
                 this.format = 'png';
@@ -137,13 +170,18 @@ export default {
             }
             this.accept = this.acceptMap[type] || '.pdf';
         }
+        this.setTitleStr();
     },
     methods: {
-        updateHeader() {
-            if (this.$route.query.type) {
-                this.taskName = this.$route.query.type;
-                this.$refs.header;
-                // this.$refs.header.type = this.taskName;
+        setTitleStr() {
+            this.convertkey;
+            let item;
+            for (let i = 0; i < this.convertkey.length; i += 1) {
+                item = this.convertkey[i];
+                if (item.key === this.type) {
+                    this.headerTitle = this.$tr(item.trkey);
+                    break;
+                }
             }
         },
         referenceUpload: function(e) {
@@ -471,6 +509,7 @@ export default {
             for (let i = 0; i < this.fileList.length; i += 1) {
                 item = this.fileList[i];
                 item.state = 3;
+                item.progress = 0;
             }
         },
         setAllItemOk() {
@@ -478,10 +517,10 @@ export default {
             for (let i = 0; i < this.fileList.length; i += 1) {
                 item = this.fileList[i];
                 item.state = 2;
+                item.progress = 100;
             }
         },
         progressErr(response) {
-            // aaa
             console.log(response);
         },
         fileOssError: function(data) {
@@ -497,7 +536,6 @@ export default {
         },
         authorizeProgress: function() {
             this.setProgress(4);
-            console.log('98989898');
         },
         getCurrentConvertData: function() {
             return this.fileList[this.index];
@@ -518,10 +556,11 @@ export default {
         },
         showResult() {
             resultData.targetList = this.getTargetFileList();
-            console.log(resultData.targetList);
-            console.log('showresulettttt');
             // this.$router.push({
             //     path: '/convertresult',
+            //     query: {
+            //         type: this.type,
+            //     },
             // });
         },
     },

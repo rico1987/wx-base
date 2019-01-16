@@ -13,6 +13,8 @@
 </template>
 
 <script>
+import {getNativeData, jump, } from '../utils/index';
+
 export default {
     name: 'MainBar',
 
@@ -60,7 +62,22 @@ export default {
             if (!url) {
                 return;
             }
+            console.log(url);
+            // if (url === '/info') {
+            //     this.toUserCenter();
+            //     return;
+            // }
             this.$router.push(url);
+        },
+        toUserCenter() {
+            console.log('09090909090');
+            let data = getNativeData();
+            console.log(data);
+            // lightpdf account
+            let params = {
+                lang: 'zh',
+            };
+            jump('lightpdf', 'account', '/login', params);
         },
     },
 

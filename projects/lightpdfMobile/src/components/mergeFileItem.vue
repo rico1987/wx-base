@@ -5,7 +5,7 @@
         <div class="right-box">
             <div class="progress-box">
                 <div class="bar-box">
-                    <div class="bar" style="100%"></div>
+                    <div class="bar" :style="{top:top}"></div>
                     <div class="state-img" :class="imgState" v-show="fileData && (fileData.state == 2 || fileData.state == 3)"></div>
                 </div>
             </div>
@@ -54,7 +54,9 @@ export default {
         progress(newValue, oldValue) {
             oldValue;
             let num = 100 - newValue;
-            this.top = `${num}%`;
+            if(num === 100 || num ===0) {
+               this.top = `${num}%`; 
+            }
         },
         url(newValue, oldValue) {
             oldValue;

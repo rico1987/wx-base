@@ -4,7 +4,7 @@
             <div class="top-title">
                 <div class="title-content">{{$tr('Convert PDF@@001707')}}</div>
                 <div class="title-des">
-                    {{$tr('aaa@@001562')}}
+                    {{$tr('快速实现PDF文档转Word,Excel,PPT,JPG等格式，安全简单方便！')}}
                 </div>
             </div>
             <div class="convert-box">
@@ -38,51 +38,27 @@ export default {
             convertkey: [
                 {
                     key: 'pdf-to-word',
-                    trkey: 'PDF to Word@@002096',
+                    trkey: 'PDF to Word@@002074',
                 },
                 {
                     key: 'pdf-to-excel',
-                    trkey: 'PDF to Excel@@002096',
+                    trkey: 'PDF to Excel@@001819',
                 },
                 {
                     key: 'pdf-to-ppt',
-                    trkey: 'PDF to Ppt@@002096',
+                    trkey: 'PDF to Ppt@@002075',
                 },
                 {
                     key: 'pdf-to-jpg',
-                    trkey: 'PDF to Jpg@@002096',
+                    trkey: 'PDF to Jpg@@001820',
                 },
                 {
                     key: 'pdf-to-png',
-                    trkey: 'PDF to Png@@002096',
+                    trkey: 'PDF to Png@@001821',
                 },
                 {
                     key: 'pdf-to-txt',
-                    trkey: 'PDF to Text@@002096',
-                },
-                {
-                    key: 'pdf-to-txt',
-                    trkey: 'PDF to Text@@002096',
-                },
-                {
-                    key: 'pdf-to-txt',
-                    trkey: 'PDF to Text@@002096',
-                },
-                {
-                    key: 'pdf-to-txt',
-                    trkey: 'PDF to Text@@002096',
-                },
-                {
-                    key: 'pdf-to-txt',
-                    trkey: 'PDF to Text@@002096',
-                },
-                {
-                    key: 'pdf-to-txt',
-                    trkey: 'PDF to Text@@002096',
-                },
-                {
-                    key: 'pdf-to-txt',
-                    trkey: 'PDF to Text@@002096',
+                    trkey: 'PDF to Text@@001823',
                 },
             ],
             pwdCheckObj: null,
@@ -90,6 +66,9 @@ export default {
     },
 
     created: function() {
+        if (window.uinfo && window.uinfo.identity_token) {
+            ls.set('identity_token', window.uinfo.identity_token);
+        }
         this.getSession();
         this.pwdCheckObj = pwdCheck.create();
         this.pwdCheckObj.on('pdf-ok', this.pwdOk);
@@ -140,10 +119,6 @@ export default {
             return `${first}${second}`;
         },
         goConvert: function(e) {
-            console.log(e);
-            // console.log(this.$t('333'));
-            console.log(this.$tr('aaa@@001193'));
-            // this.$router.push('/convert');
             this.$router.push({
                 path: '/frompdf',
                 query: {

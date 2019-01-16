@@ -117,6 +117,12 @@ ls.set('identity_token', identity_token);
 //     }
 // });
 
+let info = `{"api_token":"4816931,cefe66cde5ade2c014e344a192a86583","identity_token":"4816931,1547640197,1e9fce6018214de31d2c262ef06fbd21","userInfo":{"user_id":4816931,"brand":"Apowersoft","nickname":"3004197106","avatar":"https://avatar.aoscdn.com/7b46fcfb791623c2e28a94eb1e9f098e.jpg!256?t=1536391882","country_code":null,"telephone":"","language":"en","email":"3004197106@qq.com","registed_app":"lightmake.test","created_at":1533275172,"last_login_time":1547640197,"is_auto_user":0,"is_verified":1,"first_name":"","last_name":"","gender":0,"birthday":"","company":"","industry":"","position":"","education":"","address":"","city":"","postcode":"","country":""}}`;
+
+window.uinfo = JSON.parse(info);
+
+console.log(window.uinfo);
+
 const i18n = new VueI18n({
     locale: lang,
     messages: {

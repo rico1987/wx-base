@@ -255,6 +255,8 @@ const aLang = {
     '001859': 'Complete',
     '001866': 'Converting PDF to Excel...',
     '001867': 'Converted to Excel successfully!',
+    '002014': 'JPG to PDF',
+    '002015': 'PNG to PDF',
     '002062': 'Output Files',
     '002063': 'Service',
     '002064': 'Source File',

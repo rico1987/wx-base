@@ -1,8 +1,8 @@
 <template>
     <div class="total-progress">
         <div class="blue-bar" :style="{width:width}"></div>
-        <div class="progress-txt" v-show="isStep">{{index}}/{{totalNum}} {{trStr}}</div>
-        <div class="progress-txt" v-show="!isStep">{{trStr}}</div>
+        <div class="progress-txt" v-show="isStep">{{index}}/{{totalNum}} {{$tr(trStr)}}</div>
+        <div class="progress-txt" v-show="!isStep">{{$tr(trStr)}}</div>
     </div>
 </template>
 
@@ -22,7 +22,7 @@ export default {
         return {
             index: 0,
             totalNum: 0,
-            trStr: 'converting',
+            trStr: 'Converting@@001840',
             width: '0%',
             isStep: 1,
         };

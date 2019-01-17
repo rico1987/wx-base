@@ -12,25 +12,25 @@ import { getQueryValue, } from './utils/index';
 import ls from './utils/littleStore';
 
 // import languages
-import LangEn from './lang/en.json';
-import LangZh from './lang/zh.json';
-import LangCs from './lang/cs.json';
-import LangDa from './lang/da.json';
-import LangDe from './lang/de.json';
-import LangEl from './lang/el.json';
-import LangEs from './lang/es.json';
-import LangFi from './lang/fi.json';
-import LangFr from './lang/fr.json';
-import LangHu from './lang/hu.json';
-import LangIt from './lang/it.json';
-import LangJa from './lang/ja.json';
-import LangNl from './lang/nl.json';
-import LangNo from './lang/no.json';
-import LangPl from './lang/pl.json';
-import LangPt from './lang/pt.json';
-import LangSv from './lang/sv.json';
-import LangTr from './lang/tr.json';
-import LangTw from './lang/tw.json';
+import LangEn from './lang/en';
+import LangZh from './lang/zh';
+import LangCs from './lang/cs';
+import LangDa from './lang/da';
+import LangDe from './lang/de';
+import LangEl from './lang/el';
+import LangEs from './lang/es';
+import LangFi from './lang/fi';
+import LangFr from './lang/fr';
+import LangHu from './lang/hu';
+import LangIt from './lang/it';
+import LangJa from './lang/ja';
+import LangNl from './lang/nl';
+import LangNo from './lang/no';
+import LangPl from './lang/pl';
+import LangPt from './lang/pt';
+import LangSv from './lang/sv';
+import LangTr from './lang/tr';
+import LangTw from './lang/tw';
 
 import ToastPlugin from './plugins/toast';
 
@@ -116,6 +116,12 @@ ls.set('identity_token', identity_token);
 //         }
 //     }
 // });
+
+let info = `{"api_token":"4816931,cefe66cde5ade2c014e344a192a86583","identity_token":"4816931,1547640197,1e9fce6018214de31d2c262ef06fbd21","userInfo":{"user_id":4816931,"brand":"Apowersoft","nickname":"3004197106","avatar":"https://avatar.aoscdn.com/7b46fcfb791623c2e28a94eb1e9f098e.jpg!256?t=1536391882","country_code":null,"telephone":"","language":"en","email":"3004197106@qq.com","registed_app":"lightmake.test","created_at":1533275172,"last_login_time":1547640197,"is_auto_user":0,"is_verified":1,"first_name":"","last_name":"","gender":0,"birthday":"","company":"","industry":"","position":"","education":"","address":"","city":"","postcode":"","country":""}}`;
+
+window.uinfo = JSON.parse(info);
+
+console.log(window.uinfo);
 
 const i18n = new VueI18n({
     locale: lang,

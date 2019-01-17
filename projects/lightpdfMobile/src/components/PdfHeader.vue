@@ -1,6 +1,6 @@
 <template>
     <div class="pdf-header">
-        <div class="header-title">我的文件</div>
+        <div class="header-title"><slot></slot></div>
         <div class="back-bar" @click="back"></div>
     </div>
 </template>
@@ -14,9 +14,9 @@ export default {
     componentName: 'PdfHeader',
 
     props: {
-        itemHeight: {
+        headertype: {
             type: String,
-            default: '42px',
+            default: 'pdf-to-word',
         },
         disablejump: {
             type: Number,
@@ -25,13 +25,20 @@ export default {
     },
     data() {
         return {
-            type: '',
+            type: this.headertype,
             pathMap: {
                 'pdf-to-word': '/home',
                 'pdf-to-excel': '/home',
                 'pdf-to-ppt': '/home',
                 'pdf-to-png': '/home',
                 'pdf-to-txt': '/home',
+                'word-to-pdf': '/topdf',
+                'excel-to-pdf': '/topdf',
+                'png-to-pdf': '/topdf',
+                'jpg-to-pdf': '/topdf',
+                'ppt-to-pdf': '/topdf',
+                'merge-pdf': '/mergepdf',
+                'my-files': '/info',
             },
             jumpDisable: this.disablejump || 0,
         };
@@ -48,6 +55,10 @@ export default {
             //     console.log(11111);
             //     return;
             // }
+           this.jumpBack(); 
+
+        },
+        jumpBack() {
             let path = this.getParentPath();
             let item = his.search(path);
             if (item) {
@@ -60,7 +71,6 @@ export default {
                     path: path,
                 });
             }
-
         },
         getParentPath() {
             let path = '/home';

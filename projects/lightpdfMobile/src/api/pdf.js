@@ -48,6 +48,6 @@ export function delTask(taskId) {
     return lightPdfFetch.delete(`/tasks/${taskId}`);
 }
 
-export function myVip() {
+export function getVip() {
     return lightPdfFetch.get('/my/vip');
 }

@@ -9,6 +9,7 @@
         padding-top: 0.98rem;
     }
     .search-bar{
+        display: none;
         position: relative;
         width: 6.26rem;
         height: 0.8rem;
@@ -45,7 +46,7 @@
         height: calc(100vh - 2.4rem);
         overflow-y: scroll;
         overflow-x: hidden;
-        border-bottom: 1px solid #ff00ff;
+        // border-bottom: 1px solid #ff00ff;
     }
     // input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { 
     //     color: #000;

@@ -2,7 +2,7 @@
     <div class="myfile-container">
         <div class="inner-container">
             <div class="myfile-panel">
-                <pdf-header ref="header" @click-jump="onBack"></pdf-header>
+                <pdf-header ref="header" :headertype="'my-files'" @click-jump="onBack">{{$tr('My Files@@001432')}}</pdf-header>
                 <div class="search-bar">
                     <input type="text" ref="searchInput" class="search" placeholder="搜索文件">
                     <div class="search-btn" @click="onSearch"></div>
@@ -217,6 +217,15 @@ export default {
         },
         selectAll() {
             console.log('select alll');
+            let item;
+            for (let i = 0; i < this.fileList.length; i += 1) {
+                item = this.fileList[i];
+                // item.manage = true;
+                // if (item.selected && item.task_id) {
+                item.selected = 1;
+                
+            }
+
         },
         onDelFile() {
             console.log('deldel file');
@@ -253,6 +262,10 @@ export default {
         },
         onBack() {
             console.log('goo back');
+            if (this.$refs.delBar.isShowDel === 0 && this.$refs.delBar.isShowManage === 1) {
+                this.$refs.header.jumpBack();
+                return;
+            }
             this.$refs.delBar.isShowDel = 0;
             this.$refs.delBar.isShowManage = 1;
             this.setListManage(false);

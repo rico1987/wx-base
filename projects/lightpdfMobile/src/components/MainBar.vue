@@ -13,6 +13,8 @@
 </template>
 
 <script>
+import {getNativeData, jump, } from '../utils/index';
+
 export default {
     name: 'MainBar',
 
@@ -36,15 +38,15 @@ export default {
             tabArr: [
                 {
                     key: 'from-pdf',
-                    trkey: 'PDF转换@@1212',
+                    trkey: 'PDF转换@@001707',
                 },
                 {
                     key: 'to-pdf',
-                    trkey: '转为PDF@@1212',
+                    trkey: '转为PDF@@001817',
                 },
                 {
                     key: 'merge-pdf',
-                    trkey: '合并PDF@@1212',
+                    trkey: '合并PDF@@002082',
                 },
                 {
                     key: 'user-center',
@@ -60,7 +62,22 @@ export default {
             if (!url) {
                 return;
             }
+            console.log(url);
+            // if (url === '/info') {
+            //     this.toUserCenter();
+            //     return;
+            // }
             this.$router.push(url);
+        },
+        toUserCenter() {
+            console.log('09090909090');
+            let data = getNativeData();
+            console.log(data);
+            // lightpdf account
+            let params = {
+                lang: 'zh',
+            };
+            jump('lightpdf', 'account', '/login', params);
         },
     },
 

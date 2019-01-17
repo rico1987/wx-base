@@ -11,8 +11,8 @@
                 </div>
             </div>
             <div class="btn-box">
-                <div class="btn sure" @click="onDownloadFile">确定</div>
-                <div class="btn cancel" @click="cancel">取消</div>
+                <div class="btn sure" @click="onDownloadFile">{{$tr('OK@@ok')}}</div>
+                <div class="btn cancel" @click="cancel">{{$tr('Cancel@@cancel')}}</div>
             </div>
             <auto-download v-for="item in downloadPool" :key="item.uniqKey" :item="item"></auto-download>
             <!-- <a ref="downA" href="aaa" class="download-btn" style="display: none;"></a> -->

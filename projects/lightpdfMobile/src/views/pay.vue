@@ -72,15 +72,14 @@
                                     <div class="secure-des">Money-back Guarantee</div>
                                 </div>
                                 <div class="detail">Our products come with a 30 days Money  Back Guarantee.</div>
-                                
                             </div>
                             <div class="secure-item">
                                 <div class="title-box">
                                     <div class="img safety"></div>
                                     <div class="secure-des">Secure</div>
                                 </div>
-                                <div class="detail">We value your privacy and protect your 
-financial/personal infowith advanced encryption 
+                                <div class="detail">We value your privacy and protect your
+financial/personal infowith advanced encryption
 and advanced fraudprotection</div>
                             </div>
                         </div>

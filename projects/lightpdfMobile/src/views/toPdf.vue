@@ -2,9 +2,9 @@
     <div class="index-container">
         <div class="inner-container">
             <div class="top-title">
-                <div class="title-content">转为PDF工具</div>
+                <div class="title-content">{{$tr('To PDF@@001817')}}</div>
                 <div class="title-des">
-                    {{$tr('aaa@@001193')}}
+                    {{$tr('快速实现Word,Excel,PPT,JPG等格式转为PDF文档，安全简单方便！')}}
                 </div>
             </div>
             <div class="convert-box">
@@ -22,9 +22,6 @@
 
 <script>
 import MainBar from '../components/MainBar.vue';
-import {getPdfSession, } from '../api/pdf';
-import ls from '../utils/littleStore';
-import pwdCheck from '../utils/pwdCheck';
 import his from '../utils/pathHistory';
 
 export default {
@@ -41,26 +38,26 @@ export default {
                 },
                 {
                     key: 'excel-to-pdf',
-                    trkey: 'Excel to PDF@@002096',
+                    trkey: 'Excel to PDF@@002079',
                 },
                 {
                     key: 'png-to-pdf',
-                    trkey: 'Png to PDF@@002096',
+                    trkey: 'Png to PDF@@002015',
                 },
                 {
                     key: 'jpg-to-pdf',
-                    trkey: 'Jpg to PDF@@002096',
+                    trkey: 'Jpg to PDF@@002014',
                 },
                 {
                     key: 'ppt-to-pdf',
-                    trkey: 'Ppt to PDF@@002096',
+                    trkey: 'Ppt to PDF@@002080',
                 },
             ],
         };
     },
 
     created: function() {
-         his.push(this.$router.history.current);
+        his.push(this.$router.history.current);
     },
     methods: {
         pos: function(index) {

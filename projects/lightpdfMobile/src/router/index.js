@@ -11,6 +11,7 @@ import Myfiles from '@/views/myFiles.vue';
 import pay from '@/views/pay.vue';
 import VipPay from '@/views/vipPay.vue';
 import ToPdfConvert from '@/views/toPdfConvert.vue';
+import Merge from '@/views/merge.vue';
 
 Vue.use(Router);
 
@@ -44,6 +45,11 @@ export default new Router({
             path: '/mergepdf',
             name: 'mergepdf',
             component: MergePdfTab,
+        },
+        {
+            path: '/merge',
+            name: 'merge',
+            component: Merge,
         },
         {
             path: '/convert',

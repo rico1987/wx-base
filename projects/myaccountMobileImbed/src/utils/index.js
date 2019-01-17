@@ -26,10 +26,12 @@ export function getDomain(lang) {
 };
 
 export function getQueryValue(key) {
-    if (!location.search) {
+    if (!location.search && !location.hash) {
         return null;
     }
-    let queryString = location.search.substring(1);
+    let queryString = location.search || location.hash;
+
+    queryString = queryString.substring(queryString.lastIndexOf('?') + 1);
     let find = queryString.split('&').find((ele) => {
         let queryKey = ele.split('=')[0];
         if (queryKey === key) {
@@ -89,6 +91,13 @@ export function nativeLogout() {
     window.account && window.account.onLogout();
 }
 
-export function jump(from, to, route) {
-    window.account && window.account.onWebJump(from, to, route);
+export function jump(from, to, route, query) {
+    let queryStr = '';
+    if (query) {
+        let keyvalueArr = Object.entries(query);
+        queryStr = keyvalueArr.map(item => `${item[0]}=${item[1]}`).join('&');
+    }
+    console.log('1234');
+    console.log({from, to, route, queryStr, });
+    window.account && window.account.onWebJump(from, to, route, queryStr);
 }

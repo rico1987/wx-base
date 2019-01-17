@@ -1,6 +1,6 @@
 import { login, registerByEmail, registerByPhone, changePassword, passwordLessLogin, loginByToken, } from '@/api/account';
 import { getUnlimitedVipInfo, } from '@/api/support';
-import { getNativeData, saveNativeData, nativeLogin, nativeLogout, backToNative, } from '@/utils/index';
+import { getNativeData, saveNativeData, nativeLogin, nativeLogout, backToNative, jump, } from '@/utils/index';
 
 const user = {
     state: {
@@ -49,8 +49,15 @@ const user = {
                         saveData['api_token'] = data.data.api_token;
                         saveData['identity_token'] = data.data.identity_token;
                         saveData['userInfo'] = data.data.user;
-                        nativeLogin(saveData);
-                        backToNative();
+                        console.log('登陆成功，执行跳转');
+                        console.log(saveData);
+                        if (saveData['backobj']) {
+                            saveNativeData(saveData);
+                            jump('account', saveData['backobj']['project'], saveData['backobj']['router'], saveData['backobj']['query']);
+                        } else {
+                            nativeLogin(saveData);
+                            backToNative();
+                        }
                         resolve();
                     } else {
                         reject(data.status);
@@ -73,8 +80,13 @@ const user = {
                         saveData['api_token'] = data.data.api_token;
                         saveData['identity_token'] = data.data.identity_token;
                         saveData['userInfo'] = data.data.user;
-                        nativeLogin(saveData);
-                        backToNative();
+                        if (saveData['backobj']) {
+                            saveNativeData(saveData);
+                            jump('account', saveData['backobj']['project'], saveData['backobj']['router'], saveData['backobj']['query']);
+                        } else {
+                            nativeLogin(saveData);
+                            backToNative();
+                        }
                         resolve();
                     } else {
                         reject(data.status);
@@ -97,8 +109,13 @@ const user = {
                         saveData['api_token'] = data.data.api_token;
                         saveData['identity_token'] = data.data.identity_token;
                         saveData['userInfo'] = data.data.user;
-                        nativeLogin(saveData);
-                        backToNative();
+                        if (saveData['backobj']) {
+                            saveNativeData(saveData);
+                            jump('account', saveData['backobj']['project'], saveData['backobj']['router'], saveData['backobj']['query']);
+                        } else {
+                            nativeLogin(saveData);
+                            backToNative();
+                        }
                         resolve();
                     } else {
                         reject(data.status);
@@ -121,8 +138,13 @@ const user = {
                         saveData['api_token'] = data.data.api_token;
                         saveData['identity_token'] = data.data.identity_token;
                         saveData['userInfo'] = data.data.user;
-                        nativeLogin(saveData);
-                        backToNative();
+                        if (saveData['backobj']) {
+                            saveNativeData(saveData);
+                            jump('account', saveData['backobj']['project'], saveData['backobj']['router'], saveData['backobj']['query']);
+                        } else {
+                            nativeLogin(saveData);
+                            backToNative();
+                        }
                         resolve();
                     } else {
                         reject(data.status);

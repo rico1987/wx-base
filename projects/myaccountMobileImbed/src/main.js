@@ -6,7 +6,7 @@ import './styles/themes/default/index.scss';
 import App from './App.vue';
 import router from './router';
 import store from './store';
-import { getNativeData, getQueryValue, } from './utils/index';
+import { getNativeData, getQueryValue, saveNativeData, } from './utils/index';
 import { startWith, looseIndexOf, } from '../../../lib/utils/index';
 
 // import languages
@@ -38,6 +38,35 @@ Vue.config.productionTip = false;
 Vue.use(VueI18n);
 
 let lang = getQueryValue('lang') || 'en';
+
+let backobj = getQueryValue('backobj');
+
+if (backobj) {
+    try {
+        backobj = JSON.parse(decodeURIComponent(backobj));
+    } catch (error) {
+        backobj = null;
+    }
+}
+
+let saveData = getNativeData();
+
+console.log('main.js存入backobj');
+console.log('saveData:');
+console.log(saveData);
+console.log('backobj:');
+console.log(backobj);
+
+if (backobj) {
+    saveData['backobj'] = backobj;
+} else {
+    delete saveData['backobj'];
+}
+
+saveNativeData(saveData);
+
+console.log('main.js存入backobj之后');
+console.log(getNativeData());
 
 let supportLangArr = ['cn', 'tw', 'en', 'cs', 'da', 'de', 'el', 'es', 'fi', 'fr', 'hu', 'it', 'ja', 'nl', 'nb', 'pl', 'pt', 'sv', 'tr', ];
 

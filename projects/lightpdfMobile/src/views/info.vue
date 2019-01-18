@@ -13,7 +13,7 @@
                     <div class="btn" @click="goMyfiles">我的文件</div>
                     <div class="btn">社区</div>
             </div>
-            <div class="btn logout-btn">退出登录</div>
+            <div class="btn logout-btn" @click="logout">退出登录</div>
             <main-bar type="user-center"></main-bar>
         </div>
     </div>
@@ -22,6 +22,7 @@
 <script>
 import MainBar from '../components/MainBar.vue';
 import {getVip, } from '../api/pdf';
+import {nativeLogout, getNativeData, jump, } from '../utils/index';
 
 export default {
     name: 'info',
@@ -39,7 +40,7 @@ export default {
     },
 
     created: function() {
-        this.info = window.uinfo;
+        this.info = getNativeData();
         this.getVipInfo();
     },
     methods: {
@@ -47,7 +48,7 @@ export default {
             getVip().then((response) => {
                 console.log('-0-0-0-0-0-0-0');
                 const data = response.data;
-                this.vip =data.vip;
+                this.vip = data.vip;
                 console.log(data);
             }).catch((error) => {
                 this.vip = null;
@@ -63,14 +64,19 @@ export default {
             if (this.vip && this.vip.is_vip) {
                 this.$router.push({
                     path: '/pay',
-                }); 
+                });
             } else {
                 this.$router.push({
                     path: '/pay',
-                }); 
+                });
             }
         },
-        
+        logout() {
+            nativeLogout();
+            setTimeout(() => {
+                jump('lightpdf', 'lightpdf', '/home');
+            }, 200);
+        },
     },
 };
 </script>

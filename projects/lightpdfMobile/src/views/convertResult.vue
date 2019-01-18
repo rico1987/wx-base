@@ -32,6 +32,7 @@ import Message from '../components/Message.vue';
 // import TimeManager from '../utils/timeManager';
 import his from '../utils/pathHistory';
 import resultData from '../utils/convertResult';
+import {getNativeData, jump, } from '../utils/index';
 
 export default {
     name: 'convertResult',
@@ -161,6 +162,32 @@ export default {
             }
         },
         joinVip() {
+            // let obj = {
+            //     project: 'lightpdf',
+            //     router: '/pay',
+            //     query: {
+            //         lang: 'zh',
+            //         type: 'pdf-to-word',
+            //         step: 1,
+            //     },
+            // }
+            let data = getNativeData();
+            if (data && data.identity_token) {
+                this.$router.push({
+                    path: '/pay',
+                });
+            } else {
+                let params = {};
+                let obj = {
+                    project: 'lightpdf',
+                    router: '/pay',
+                    query: {
+                        lang: this.$i18n.locale,
+                    },
+                };
+                params.backobj = encodeURIComponent(JSON.stringify(obj));
+                jump('lightpdf', 'account', '/login', params);
+            }
 
         },
         openFolder() {

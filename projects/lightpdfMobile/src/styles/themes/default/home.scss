@@ -12,7 +12,8 @@ div,a,img {
 }
 .inner-container{
     height: 100%;
-    width: calc(100% + 20px);
+    // width: calc(100% + 20px);
+    width: 100%;
     overflow-x: hidden;
     overflow-y: scroll;
 }

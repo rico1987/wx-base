@@ -223,7 +223,6 @@ export default {
                 // item.manage = true;
                 // if (item.selected && item.task_id) {
                 item.selected = 1;
-                
             }
 
         },

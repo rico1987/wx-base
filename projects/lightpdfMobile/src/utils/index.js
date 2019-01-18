@@ -26,8 +26,12 @@ export function getDomain(lang) {
 };
 
 export function getQueryValue(key) {
-    let location = window.location;
-    let queryString = location.hash.substr(location.hash.lastIndexOf('?') + 1);
+    if (!location.search && !location.hash) {
+        return null;
+    }
+    let queryString = location.search || location.hash;
+
+    queryString = queryString.substring(queryString.lastIndexOf('?') + 1);
     let find = queryString.split('&').find((ele) => {
         let queryKey = ele.split('=')[0];
         if (queryKey === key) {
@@ -51,7 +55,11 @@ export function backToNative() {
 
 export function getNativeData() {
     if (window.account) {
-        return JSON.parse(window.account.getData() || '{}');
+        let uinfo = '';
+        if (window.uinfo) {
+            uinfo = JSON.stringify(window.uinfo);
+        }
+        return JSON.parse(window.account.getData() || uinfo || '{}');
     } else {
         return JSON.parse(Cookies.get('accountMobileSaveData') || '{}');
     }
@@ -80,6 +88,13 @@ export function nativeLogin(data) {
         } else {
             Cookies.set('accountMobileSaveData', data);
         }
+    }
+}
+
+export function nativeDownload(url, fileName) {
+    console.log('nativeDownload', url, fileName);
+    if (url && fileName && window.account) {
+        window.account.onDownload(url, fileName);
     }
 }
 

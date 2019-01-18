@@ -55,7 +55,7 @@ export default {
             //     console.log(11111);
             //     return;
             // }
-           this.jumpBack(); 
+            this.jumpBack();
 
         },
         jumpBack() {

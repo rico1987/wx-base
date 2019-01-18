@@ -54,8 +54,8 @@ export default {
         progress(newValue, oldValue) {
             oldValue;
             let num = 100 - newValue;
-            if(num === 100 || num ===0) {
-               this.top = `${num}%`; 
+            if (num === 100 || num === 0) {
+                this.top = `${num}%`;
             }
         },
         url(newValue, oldValue) {

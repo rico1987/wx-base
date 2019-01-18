@@ -27,6 +27,7 @@ import {getPdfSession, } from '../api/pdf';
 import ls from '../utils/littleStore';
 import pwdCheck from '../utils/pwdCheck';
 import his from '../utils/pathHistory';
+import {getNativeData, } from '../utils/index';
 
 export default {
     name: 'home',
@@ -66,15 +67,22 @@ export default {
     },
 
     created: function() {
-        if (window.uinfo && window.uinfo.identity_token) {
-            ls.set('identity_token', window.uinfo.identity_token);
+        let data = getNativeData();
+        if (data && data.identity_token) {
+            ls.set('identity_token', data.identity_token);
+        } else {
+            ls.set('identity_token', '');
         }
+        console.log(ls.get('identity_token'));
         this.getSession();
         this.pwdCheckObj = pwdCheck.create();
         this.pwdCheckObj.on('pdf-ok', this.pwdOk);
+        console.log(this.$route);
+        console.log('09000000000000000');
         console.log(this.$router);
         console.log(this.$router.history.current);
         his.push(this.$router.history.current);
+        console.log(this.$i18n.locale);
     },
     methods: {
         pwdOk(data) {

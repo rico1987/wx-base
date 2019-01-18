@@ -10,6 +10,7 @@ import store from './store';
 import trans from './utils/trans';
 import { getQueryValue, } from './utils/index';
 import ls from './utils/littleStore';
+import { startWith, looseIndexOf, } from '../../../lib/utils/index';
 
 // import languages
 import LangEn from './lang/en';
@@ -39,8 +40,17 @@ Vue.use(ToastPlugin, { position: 'center', });
 Vue.config.productionTip = false;
 Vue.use(VueI18n);
 Vue.use(trans);
-
 let lang = getQueryValue('lang') || 'en';
+let supportLangArr = ['cn', 'tw', 'en', 'cs', 'da', 'de', 'el', 'es', 'fi', 'fr', 'hu', 'it', 'ja', 'nl', 'nb', 'pl', 'pt', 'sv', 'tr', ];
+
+if (startWith(lang, 'zh')) {
+    lang = lang.split('_')[1].toLowerCase();
+} else {
+    lang = lang.split('_')[0].toLowerCase();
+}
+if (looseIndexOf(supportLangArr, lang) === -1) {
+    lang = 'en';
+}
 
 (function(doc, win) {
     let docEl = doc.documentElement;
@@ -117,16 +127,22 @@ ls.set('identity_token', identity_token);
 //     }
 // });
 
-let info = `{"api_token":"4816931,cefe66cde5ade2c014e344a192a86583","identity_token":"4816931,1547640197,1e9fce6018214de31d2c262ef06fbd21","userInfo":{"user_id":4816931,"brand":"Apowersoft","nickname":"3004197106","avatar":"https://avatar.aoscdn.com/7b46fcfb791623c2e28a94eb1e9f098e.jpg!256?t=1536391882","country_code":null,"telephone":"","language":"en","email":"3004197106@qq.com","registed_app":"lightmake.test","created_at":1533275172,"last_login_time":1547640197,"is_auto_user":0,"is_verified":1,"first_name":"","last_name":"","gender":0,"birthday":"","company":"","industry":"","position":"","education":"","address":"","city":"","postcode":"","country":""}}`;
-
+let info = `{"api_token":"4816931,cefe66cde5ade2c014e344a192a86583",
+"identity_token":"4816931,1547717295,06759405ad51e6eacc382e585f512d18",
+"userInfo":{"user_id":4816931,"brand":"Apowersoft","nickname":"3004197106",
+"avatar":"https://avatar.aoscdn.com/7b46fcfb791623c2e28a94eb1e9f098e.jpg!256?t=1536391882",
+"country_code":null,"telephone":"","language":"en","email":"3004197106@qq.com",
+"registed_app":"lightmake.test","created_at":1533275172,"last_login_time":1547640197,
+"is_auto_user":0,"is_verified":1,"first_name":"","last_name":"","gender":0,"birthday":"",
+"company":"","industry":"","position":"","education":"","address":"","city":"","postcode":"","country":""}}`;
 window.uinfo = JSON.parse(info);
 
 console.log(window.uinfo);
-
+console.log(navigator.userAgent);
 const i18n = new VueI18n({
     locale: lang,
     messages: {
-        'zh': LangZh,
+        'cn': LangZh,
         'en': LangEn,
         'cs': LangCs,
         'da': LangDa,

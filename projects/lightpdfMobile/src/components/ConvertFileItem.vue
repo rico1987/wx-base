@@ -17,6 +17,8 @@
 </template>
 
 <script>
+import {getNativeData, nativeDownload, } from '../utils/index';
+
 export default {
     name: 'ConvertFileItem',
 
@@ -62,6 +64,13 @@ export default {
             if (newValue && newValue.length > 1) {
                 console.log('-----');
                 let _this = this;
+                // nativeDownload
+                console.log(this.filed.targetUrl, this.filed.targetName);
+                if (window.account) {
+                    console.log(this.filed.targetUrl, this.filed.targetName);
+                    nativeDownload(this.filed.targetUrl, this.filed.targetName);
+                    return;
+                }
                 setTimeout(() => {
                     _this.$refs.downBtn.click();
                 }, 200);

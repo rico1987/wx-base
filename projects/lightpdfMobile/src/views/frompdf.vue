@@ -331,7 +331,10 @@ export default {
                 this.index = 0;
                 this.isStopShow = false;
                 if (this.checkAllState()) {
-                    this.showResult();
+                    // this.showResult();
+                    setTimeout(() => {
+                        this.showResult();
+                    }, 300);
                 }
                 return;
             }

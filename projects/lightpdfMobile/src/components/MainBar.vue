@@ -63,21 +63,30 @@ export default {
                 return;
             }
             console.log(url);
-            // if (url === '/info') {
-            //     this.toUserCenter();
-            //     return;
-            // }
+            let data = getNativeData();
+            console.log(data);
+            console.log(data.userInfo);
+            if (url === '/info' && !(data.identity_token && data.userInfo)) {
+                this.toUserCenter();
+                return;
+            }
             this.$router.push(url);
         },
         toUserCenter() {
             console.log('09090909090');
             let data = getNativeData();
             console.log(data);
-            // lightpdf account
-            let params = {
-                lang: 'zh',
+            let params = {};
+            let obj = {
+                project: 'lightpdf',
+                router: '/info',
+                query: {
+                    lang: this.$i18n.locale,
+                },
             };
+            params.backobj = encodeURIComponent(JSON.stringify(obj));
             jump('lightpdf', 'account', '/login', params);
+            // jump('lightpdf', 'account', '/login', params);
         },
     },
 

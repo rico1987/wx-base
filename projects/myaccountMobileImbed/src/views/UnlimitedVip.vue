@@ -42,7 +42,8 @@
 </template>
 
 <script>
-import { getNativeData, getDomain, } from '@/utils/index';
+import { getNativeData, } from '@lib/utils/embedded';
+import { getDomain, } from '@/utils/index';
 import MobileHeader from '@/components/MobileHeader.vue';
 
 export default {

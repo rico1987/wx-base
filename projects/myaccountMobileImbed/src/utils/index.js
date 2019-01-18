@@ -1,5 +1,3 @@
-import Cookies from 'js-cookie';
-
 export function getDomain(lang) {
     let langDomainMappings = {
         pt: '.com.br',
@@ -25,77 +23,6 @@ export function getDomain(lang) {
     return `https://www.apowersoft${dotcom}`;
 };
 
-export function getQueryValue(key) {
-    if (!location.search && !location.hash) {
-        return null;
-    }
-    let queryString = location.search || location.hash;
-
-    queryString = queryString.substring(queryString.lastIndexOf('?') + 1);
-    let find = queryString.split('&').find((ele) => {
-        let queryKey = ele.split('=')[0];
-        if (queryKey === key) {
-            return true;
-        } else {
-            return false;
-        }
-    });
-    if (find) {
-        return find.split('=')[1];
-    } else {
-        return null;
-    }
-}
-
-// 与ios和android原生交互函数
-
-export function backToNative() {
-    window.account && window.account.onBackToNative();
-}
-
-export function getNativeData() {
-    if (window.account) {
-        return JSON.parse(window.account.getData() || '{}');
-    } else {
-        return JSON.parse(Cookies.get('accountMobileSaveData') || '{}');
-    }
-}
-
-export function saveNativeData(data) {
-    if (data) {
-        if (window.account) {
-            window.account && window.account.onDataChanged(JSON.stringify(data));
-        } else {
-            Cookies.set('accountMobileSaveData', data);
-        }
-    } else {
-        if (window.account) {
-            window.account && window.account.onDataChanged('');
-        } else {
-            Cookies.set('accountMobileSaveData', '');
-        }
-    }
-}
-
-export function nativeLogin(data) {
-    if (data) {
-        if (window.account) {
-            window.account && window.account.onLogin(JSON.stringify(data));
-        } else {
-            Cookies.set('accountMobileSaveData', data);
-        }
-    }
-}
-
-export function nativeLogout() {
-    window.account && window.account.onLogout();
-}
-
-export function jump(from, to, route, query) {
-    let queryStr = '';
-    if (query) {
-        let keyvalueArr = Object.entries(query);
-        queryStr = keyvalueArr.map(item => `${item[0]}=${item[1]}`).join('&');
-    }
-    window.account && window.account.onWebJump(from, to, route, queryStr);
+export function getSupportDomain() {
+    return 'https://support.aoscdn.com';
 }

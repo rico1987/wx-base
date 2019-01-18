@@ -1,6 +1,6 @@
 import { login, registerByEmail, registerByPhone, changePassword, passwordLessLogin, loginByToken, } from '@/api/account';
 import { getUnlimitedVipInfo, } from '@/api/support';
-import { getNativeData, saveNativeData, nativeLogin, nativeLogout, backToNative, jump, } from '@/utils/index';
+import { getNativeData, saveNativeData, nativeLogin, nativeLogout, backToNative, jump, } from '@lib/utils/embedded';
 
 const user = {
     state: {

@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import { getNativeData, } from '@/utils/index';
+import { getNativeData, } from '@lib/utils/embedded';
 import MobileHeader from '@/components/MobileHeader.vue';
 import Icon from '@/components/Icon.vue';
 

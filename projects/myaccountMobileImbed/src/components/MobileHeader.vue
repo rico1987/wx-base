@@ -17,7 +17,7 @@
 
 <script>
 import Icon from '@/components/Icon.vue';
-import { backToNative, } from '@/utils/index';
+import { backToNative, } from '@lib/utils/embedded';
 
 export default {
     name: 'MobileHeader',

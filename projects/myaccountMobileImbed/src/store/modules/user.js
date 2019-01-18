@@ -49,8 +49,6 @@ const user = {
                         saveData['api_token'] = data.data.api_token;
                         saveData['identity_token'] = data.data.identity_token;
                         saveData['userInfo'] = data.data.user;
-                        console.log('登陆成功，执行跳转');
-                        console.log(saveData);
                         if (saveData['backobj']) {
                             saveNativeData(saveData);
                             jump('account', saveData['backobj']['project'], saveData['backobj']['router'], saveData['backobj']['query']);

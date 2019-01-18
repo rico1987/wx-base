@@ -1,4 +1,4 @@
-import { getNativeData, saveNativeData, } from '@/utils/index';
+import { getNativeData, saveNativeData, } from '@lib/utils/embedded';
 
 const app = {
     state: {

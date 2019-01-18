@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getNativeData, } from '@/utils/index';
+import { getNativeData, } from '@lib/utils/embedded';
 import config from '../config';
 
 const service = axios.create({

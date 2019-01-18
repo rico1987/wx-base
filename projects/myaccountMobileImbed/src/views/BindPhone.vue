@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import { getNativeData, } from '@/utils/index';
+import { getNativeData, } from '@lib/utils/embedded';
 import MobileInput from '@/components/MobileInput.vue';
 import MobileHeader from '@/components/MobileHeader.vue';
 import { sendVcode, bindPhone, } from '@/api/account';

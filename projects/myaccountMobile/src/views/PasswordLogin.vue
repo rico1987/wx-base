@@ -35,7 +35,7 @@
         </div>
         <div class="row">
             <!-- 根据是否中文显示不同的第三方登陆 -->
-            <MobileThirdPartyLogin :isZh="lang === 'zh'"></MobileThirdPartyLogin>
+            <!-- <MobileThirdPartyLogin :isZh="lang === 'zh'"></MobileThirdPartyLogin> -->
         </div>
     </div>
 </template>

@@ -48,16 +48,19 @@ let identity_token = getQueryValue('identity_token');
 let isTest = getQueryValue('test');
 
 async function getUserInfo(code) {
+    alert('开始获取用户信息');
     let result = await weixinApi.getUserInfo(code);
-    return result;
+    alert(`result:${JSON.stringify(result)}`);
 }
 
 //  微信浏览器内自动登陆
+if (code && state) {
+    alert(code);
+    getUserInfo(code);
+}
+
 if (isTest) {
-    if (code && state) {
-        let result = getUserInfo(code);
-        alert(result);
-    } else {
+    if (!code || !state) {
         let weixinOauthLink = WEIXINCONFIG.getOauthLink(WEIXINCONFIG.appid, encodeURIComponent(APCONFIG.MYACCOUNTMOBILECNBASEURL), 'login');
         window.location = weixinOauthLink;
     }

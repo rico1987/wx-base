@@ -6,42 +6,31 @@
                 <user-info :info="userInfo"></user-info>
                 <div class="buy-panel">
                     <div class="plan-box">
-                        <div class="plan month active">
+
+                        <div v-for="(item,index) in planArr" :key="index"
+                        :class="[item.type, item.active ? 'active' : '']"
+                        class="plan"
+                        @click="selectPlan(item.type)"
+                        >
                             <div class="img"></div>
                             <div class="des-box">
-                                <div class="plan-name">月度</div>
-                                <div class="plan-des">1个月会员</div>
-                            </div>
-                            <div class="plan-price">$9.9/月</div>
-                        </div>
-                        <div class="plan year">
-                            <div class="img"></div>
-                            <div class="des-box">
-                                <div class="plan-name">月asdf度
-                                    <div class="tuijian">
+                                <div class="plan-name">{{$tr(item.title)}}
+                                    <div v-show="item.recommend" class="tuijian">
                                         <div class="triangle-left"></div>
-                                        <div class="tuijian-txt">推荐</div>
+                                        <div class="tuijian-txt">Recommend</div>
                                     </div>
                                 </div>
-                                <div class="plan-des">1个月会员</div>
+                                <div class="plan-des">{{$tr(item.priceDes)}}</div>
                             </div>
-                            <div class="plan-price">$9.9/月</div>
-                        </div>
-                        <div class="plan life">
-                            <div class="img"></div>
-                            <div class="des-box">
-                                <div class="plan-name">月度</div>
-                                <div class="plan-des">1个月会员</div>
-                            </div>
-                            <div class="plan-price">$9.9/月</div>
+                            <div class="plan-price">{{item.priceStr}}</div>
                         </div>
                     </div>
                 </div>
                 <div class="pay-btns">
-                    <div class="add-to-cart">Add to cart</div>
-                    <div class="pay-with-paypal">check out with</div>
+                    <div class="add-to-cart" @click="payIt">Add to cart</div>
+                    <div v-if="0" class="pay-with-paypal">check out with</div>
                 </div>
-                <div class="pay-des">The safer,easier way to pay</div>
+                <div v-if="0" class="pay-des">The safer,easier way to pay</div>
                 <div class="vip-des">VIP account will be sent to you by email  immediately after you</div>
             </div>
             <div class="panel-two">
@@ -86,8 +75,8 @@ and advanced fraudprotection</div>
                     </div>
                 </div>
                 <div class="pay-btns">
-                    <div class="month-btn">开通￥9.9/月</div>
-                    <div class="year-btn">开通￥99/年
+                    <div class="month-btn" @click="openNormalPay">{{normalPlan.priceDes}}</div>
+                    <div class="year-btn" @canplay="openRecommondPay">{{recommendPlan.priceDes}}
                         <div class="tuijian">
                             <div class="triangle-left"></div>
                             <div class="tuijian-txt">推荐</div>
@@ -102,6 +91,8 @@ and advanced fraudprotection</div>
 <script>
 import PdfHeader from '../components/PdfHeader.vue';
 import UserInfo from '../components/userInfo.vue';
+import payUrl from '../utils/storeUrl';
+import {openUrl, } from '../utils/index';
 
 export default {
     name: 'pay',
@@ -114,15 +105,120 @@ export default {
             userInfo: {
                 avatar: 'https://avatar.aoscdn.com/7b46fcfb791623c2e28a94eb1e9f098e.jpg!256?t=1536391882',
                 nickname: '3004197106',
+                planArr: [],
+                currentPlan: null,
+                normalPlan: null,
+                recommendPlan: null,
             },
         };
     },
 
     created: function() {
+        console.log(payUrl);
+        this.initPlanArr();
     },
     methods: {
+        initPlanArr() {
+            let type = this.$i18n.locale;
+            console.log(type);
+            let typeArr = ['1', '3', '4', ];
+            if (type === 'cn') {
+                typeArr = ['2', '3', '4', ];
+            }
+            let typeDes = {
+                '1': 'month',
+                '2': 'season',
+                '3': 'year',
+                '4': 'life',
+            };
+            let planObj = payUrl['link'][type];
+            if (!planObj) {
+                planObj = payUrl['link']['en'];
+            }
+            let keys = Object.keys(planObj);
+            keys.sort();
+            this.planArr = [];
+            let item;
+            let key;
+            for (let i = 0; i < keys.length; i += 1) {
+                key = keys[i];
+                if (typeArr.indexOf(key) === -1) {
+                    continue;
+                }
+                item = planObj[key];
+                item.type = typeDes[key];
+                item.priceDes = this.trstr('{0}/{1}', item.priceStr, this.$tr(item.title));
+                if (this.planArr.length === 1) {
+                    item.active = 1;
+                    item.recommend = 1;
+                    this.currentPlan = item;
+                } else {
+                    item.active = 0;
+                    item.recommend = 0;
+                }
+                this.planArr.push(item);
+            }
+            console.log(this.planArr);
+            this.normalPlan = this.planArr[0];
+            this.recommendPlan = this.planArr[1];
+        },
+        trstr(url, ...rest) {
+            // trstr('a{0}bc{0}de{1}ft, '-1-', '-2-')
+            // a-1-bc-1-de-2-ft
+            if (rest.length > 0) {
+                let reg;
+                for (let i = 0; i < rest.length; i += 1) {
+                    reg = new RegExp(`\\{${i}\\}`, 'g');
+                    url = url.replace(reg, rest[i]);
+                }
+            }
+            return url;
+        },
+        selectPlan(type) {
+            let item;
+            for (let i = 0; i < this.planArr.length; i += 1) {
+                item = this.planArr[i];
+                if (item.type === type) {
+                    item.selected = 1;
+                    this.currentPlan = item;
+                } else {
+                    item.selected = 0;
+                }
+            }
+        },
+        payIt() {
+            if (!this.currentPlan) {
+                return;
+            }
+            this.openPayUrl(this.currentPlan.link);
+        },
+        openPayUrl(url) {
+            if (!url) {
+                return;
+            }
+            let identifyStr = '';
+            if (this.$i18n.locale === 'cn' && this.account && this.account['identity_token']) {
+                identifyStr = `&identity_token=${this.account['identity_token']}`;
+                url = `url${identifyStr}`;
+            }
+            if (window.account) {
+                openUrl(url);
+            } else {
+                window.open(url);
+            }
+        },
         onBack() {
             console.log('onback');
+        },
+        openNormalPay() {
+            if (this.normalPlan) {
+                this.openPayUrl(this.normalPlan.link);
+            }
+        },
+        openRecommondPay() {
+            if (this.recommendPlan) {
+                this.openPayUrl(this.recommendPlan.link);
+            }
         },
     },
 };

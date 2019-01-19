@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import {getNativeData, nativeDownload, } from '../utils/index';
+import {nativeDownload, } from '../utils/index';
 
 export default {
     name: 'ConvertFileItem',

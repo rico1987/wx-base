@@ -27,6 +27,14 @@ export function getUnlimitedVipInfo(userId, language) {
     }));
 }
 
+export function getPdfConverterVipInfo(userId, language) {
+    return supportFetch.post('/account', qs.stringify({
+        action: 'get-user-license-info',
+        language,
+        product_name: 'Windows PDF Converter',
+    }));
+}
+
 export function getProductsList(language) {
     return supportFetch.post('/account', qs.stringify({
         action: 'get_all_apowersoft_software',

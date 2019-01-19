@@ -98,6 +98,13 @@ export function nativeDownload(url, fileName) {
     }
 }
 
+export function openUrl(url) {
+    console.log('onOpenBrowser openUrl', url);
+    if (url && window.account) {
+        window.account.onOpenBrowser(url);
+    }
+}
+
 export function nativeLogout() {
     window.account && window.account.onLogout();
 }

@@ -23,20 +23,6 @@ export function getDomain(lang) {
     return `https://www.apowersoft${dotcom}`;
 };
 
-export function getQueryValue(key) {
-    let location = window.location;
-    let queryString = location.hash.substr(location.hash.lastIndexOf('?') + 1);
-    let find = queryString.split('&').find((ele) => {
-        let queryKey = ele.split('=')[0];
-        if (queryKey === key) {
-            return true;
-        } else {
-            return false;
-        }
-    });
-    if (find) {
-        return find.split('=')[1];
-    } else {
-        return null;
-    }
+export function getSupportDomain() {
+    return 'https://support.aoscdn.com';
 }

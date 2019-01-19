@@ -33,18 +33,24 @@
             </span>
             <span class="btn btn-white" @click="goto('register')">{{ $t("001171") }}</span>
         </div>
+        <div class="row">
+            <!-- 根据是否中文显示不同的第三方登陆 -->
+            <MobileThirdPartyLogin :isZh="lang === 'zh'"></MobileThirdPartyLogin>
+        </div>
     </div>
 </template>
 
 <script>
 import Icon from '@/components/Icon.vue';
 import MobileInput from '@/components/MobileInput.vue';
+import MobileThirdPartyLogin from '@/components/ThirdPartyLogin.vue';
 
 export default {
     name: 'passwordLogin',
     components: {
         Icon,
         MobileInput,
+        MobileThirdPartyLogin,
     },
     data() {
         return {
@@ -63,10 +69,12 @@ export default {
                     message: this.$t('001213'),
                 },
             ],
+            lang: null,
         };
     },
 
     created: function() {
+        this.lang = this.$i18n.locale;
     },
 
     methods: {

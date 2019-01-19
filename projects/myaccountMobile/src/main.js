@@ -7,7 +7,11 @@ import './styles/themes/default/index.scss';
 import App from './App.vue';
 import router from './router';
 import store from './store';
-import { getQueryValue, } from './utils/index';
+import { getQueryValue, } from '../../../lib/utils/index';
+// import { isMicroMessenger, } from '../../../lib/utils/env';
+import WEIXINCONFIG from '../../../lib/config/weixin';
+import APCONFIG from '../../../lib/config/apowersoft';
+import weixinApi from '../../../lib/utils/weixin';
 
 // import languages
 import LangEn from './lang/en.json';
@@ -38,8 +42,26 @@ Vue.config.productionTip = false;
 Vue.use(VueI18n);
 
 let lang = getQueryValue('lang') || 'en';
-
+let code = getQueryValue('code');
+let state = getQueryValue('state');
 let identity_token = getQueryValue('identity_token');
+let isTest = getQueryValue('test');
+
+async function getUserInfo(code) {
+    let result = await weixinApi.getUserInfo(code);
+    return result;
+}
+
+//  微信浏览器内自动登陆
+if (isTest) {
+    if (code && state) {
+        let result = getUserInfo(code);
+        alert(result);
+    } else {
+        let weixinOauthLink = WEIXINCONFIG.getOauthLink(WEIXINCONFIG.appid, encodeURIComponent(APCONFIG.MYACCOUNTMOBILECNBASEURL), 'login');
+        window.location = weixinOauthLink;
+    }
+}
 
 router.beforeEach((to, from, next) => {
     if (Cookies.get('identity_token') && Cookies.get('api_token')) {

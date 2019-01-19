@@ -1,7 +1,7 @@
 import qs from 'qs';
+import * as is from '@lib/utils/is';
+import { objToQuery, } from '@lib/utils/index';
 import accountFetch from '../utils/accountFetch';
-import * as is from '../../../../lib/utils/is';
-import { objToQuery, } from '../../../../lib/utils';
 
 export function login(account, password, language) {
     const data = {

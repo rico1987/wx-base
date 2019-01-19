@@ -6,3 +6,6 @@
 /test/unit/coverage/
 {{/unit}}
 /.cache/
+/projects/**/build/
+/projects/**/config/
+/projects/**/dist/

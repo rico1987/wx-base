@@ -26,6 +26,18 @@ export function loginByToken(data) {
     return accountFetch.post('/sessions', qs.stringify(postData));
 }
 
+export function loginByWeixinUniqueId(data) {
+    const postData = {
+        unique_id: data.unique_id,
+        open_id: data.open_id,
+        provider: 'weixin',
+        brand: 'Apowersoft',
+        registed_app: 'myaccountm.apowersoft.com',
+        language: data.language,
+    };
+    return accountFetch.post('/sessions', qs.stringify(postData));
+}
+
 export function passwordLessLogin(data) {
     return accountFetch.post('/sessions', qs.stringify(Object.assign(data, {
         brand: 'Apowersoft',

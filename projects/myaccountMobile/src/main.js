@@ -8,10 +8,9 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 import { getQueryValue, } from '../../../lib/utils/index';
-// import { isMicroMessenger, } from '../../../lib/utils/env';
+import { isMicroMessenger, } from '../../../lib/utils/env';
 import WEIXINCONFIG from '../../../lib/config/weixin';
 import APCONFIG from '../../../lib/config/apowersoft';
-import weixinApi from '../../../lib/utils/weixin';
 
 // import languages
 import LangEn from './lang/en.json';
@@ -45,21 +44,9 @@ let lang = getQueryValue('lang') || 'en';
 let code = getQueryValue('code');
 let state = getQueryValue('state');
 let identity_token = getQueryValue('identity_token');
-let isTest = getQueryValue('test');
+let weixinAutoLogin = getQueryValue('weixin_auto_login');
 
-async function getUserInfo(code) {
-    alert('开始获取用户信息');
-    let result = await weixinApi.getUserInfo(code);
-    alert(`result:${JSON.stringify(result)}`);
-}
-
-//  微信浏览器内自动登陆
-if (code && state) {
-    alert(code);
-    getUserInfo(code);
-}
-
-if (isTest) {
+if (weixinAutoLogin && isMicroMessenger) {
     if (!code || !state) {
         let weixinOauthLink = WEIXINCONFIG.getOauthLink(WEIXINCONFIG.appid, encodeURIComponent(APCONFIG.MYACCOUNTMOBILECNBASEURL), 'login');
         window.location = weixinOauthLink;

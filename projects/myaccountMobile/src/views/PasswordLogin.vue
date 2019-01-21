@@ -44,6 +44,8 @@
 import Icon from '@/components/Icon.vue';
 import MobileInput from '@/components/MobileInput.vue';
 import MobileThirdPartyLogin from '@/components/ThirdPartyLogin.vue';
+import { getQueryValue, } from '@lib/utils/index';
+import weixinApi from '@lib/utils/weixin';
 
 export default {
     name: 'passwordLogin',
@@ -75,6 +77,38 @@ export default {
 
     created: function() {
         this.lang = this.$i18n.locale;
+
+        // 微信公众号内自动登陆
+        let code = getQueryValue('code');
+        let state = getQueryValue('state');
+
+        //  如果带有这两个参数，表明是从微信回调回来
+        if (code && state) {
+            this.loading = true;
+            autoLoginByCode(code);
+        }
+
+        let _this = this;
+
+        async function autoLoginByCode(code) {
+            let result = await weixinApi.getUserInfo(code);
+            if (result && result.data) {
+                let userInfo = result.data.user;
+                _this.$store.dispatch('loginByUniqueId', {
+                    unique_id: userInfo.unionid,
+                    open_id: userInfo.openid,
+                    language: _this.$i18n.locale,
+                }).then(() => {
+                    _this.$router.push({ path: '/account-menu', });
+                    _this.loading = false;
+                }).catch(() => {
+                    _this.$toast.show({
+                        text: _this.$t('001220'),
+                    });
+                    _this.loading = false;
+                });
+            }
+        }
     },
 
     methods: {

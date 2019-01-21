@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie';
-import { login, registerByEmail, registerByPhone, changePassword, passwordLessLogin, loginByToken, } from '@/api/account';
+import { login, registerByEmail, registerByPhone, changePassword, passwordLessLogin, loginByToken, loginByWeixinUniqueId, } from '@/api/account';
 import { getUnlimitedVipInfo, } from '@/api/support';
 
 const user = {
@@ -195,6 +195,30 @@ const user = {
         LoginByToken({ commit, }, loginInfo) {
             return new Promise((resolve, reject) => {
                 loginByToken(loginInfo).then((response) => {
+                    const data = response.data;
+                    if (data && data.status === '1') {
+                        commit('SET_API_TOKEN', data.data.api_token);
+                        commit('SET_IDENTITY_TOKEN', data.data.identity_token);
+                        commit('SET_USER_INFO', data.data.user);
+                        Cookies.set('api_token', data.data.api_token);
+                        Cookies.set('identity_token', data.data.identity_token);
+                        Cookies.set('userInfo', JSON.stringify(data.data.user));
+                        // 与android登陆的交互
+                        window.account && window.account.onLogin(document.cookie);
+                        resolve();
+                    } else {
+                        reject(data.status);
+                    }
+                }).catch((error) => {
+                    reject(error);
+                });
+            });
+        },
+
+        // 微信unionid登陆
+        loginByUniqueId({ commit, }, loginInfo) {
+            return new Promise((resolve, reject) => {
+                loginByWeixinUniqueId(loginInfo).then((response) => {
                     const data = response.data;
                     if (data && data.status === '1') {
                         commit('SET_API_TOKEN', data.data.api_token);

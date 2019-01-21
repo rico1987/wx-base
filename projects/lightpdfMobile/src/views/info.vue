@@ -11,6 +11,7 @@
                     </div>
                     <div class="btn active" @click="goPayCenter">充值中心</div>
                     <div class="btn" @click="goMyfiles">我的文件</div>
+                    <div class="btn" @click="goMyCenter">用户中心</div>
                     <div class="btn">社区</div>
             </div>
             <div class="btn logout-btn" @click="logout">退出登录</div>
@@ -41,6 +42,7 @@ export default {
 
     created: function() {
         this.info = getNativeData();
+        this.info = window.uinfo;
         this.getVipInfo();
     },
     methods: {
@@ -70,6 +72,9 @@ export default {
                     path: '/pay',
                 });
             }
+        },
+        goMyCenter() {
+            jump('lightpdf', 'account', '/account-menu');
         },
         logout() {
             nativeLogout();

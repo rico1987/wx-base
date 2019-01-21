@@ -54,6 +54,11 @@ export function backToNative() {
 }
 
 export function getNativeData() {
+    // let uinfo = '';
+    // if (window.uinfo) {
+    //     uinfo = JSON.stringify(window.uinfo);
+    //     return uinfo;
+    // }
     if (window.account) {
         let uinfo = '';
         if (window.uinfo) {
@@ -102,6 +107,13 @@ export function openUrl(url) {
     console.log('onOpenBrowser openUrl', url);
     if (url && window.account) {
         window.account.onOpenBrowser(url);
+    }
+}
+
+export function openFolder() {
+    console.log('onOpenFile');
+    if (window.account) {
+        window.account.onOpenFile();
     }
 }
 

@@ -16,7 +16,7 @@
                 <div class="btn-box">
                     <div v-show="isVipBtnShwo" class="join-vip" @click="joinVip">开通会员</div>
                     <div v-show="isOpenShow" class="open-folder"
-                    @click="openFolder"
+                    @click="openPDFFolder"
                     >查看文档</div>
                 </div>
             </div>
@@ -32,7 +32,7 @@ import Message from '../components/Message.vue';
 // import TimeManager from '../utils/timeManager';
 import his from '../utils/pathHistory';
 import resultData from '../utils/convertResult';
-import {getNativeData, jump, } from '../utils/index';
+import {getNativeData, jump, openFolder, } from '../utils/index';
 
 export default {
     name: 'convertResult',
@@ -190,8 +190,8 @@ export default {
             }
 
         },
-        openFolder() {
-
+        openPDFFolder() {
+            openFolder();
         },
     },
 };

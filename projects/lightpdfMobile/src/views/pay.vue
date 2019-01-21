@@ -105,11 +105,11 @@ export default {
             userInfo: {
                 avatar: 'https://avatar.aoscdn.com/7b46fcfb791623c2e28a94eb1e9f098e.jpg!256?t=1536391882',
                 nickname: '3004197106',
-                planArr: [],
                 currentPlan: null,
                 normalPlan: null,
                 recommendPlan: null,
             },
+            planArr: [],
         };
     },
 
@@ -175,16 +175,20 @@ export default {
             return url;
         },
         selectPlan(type) {
+            console.log('nnn', type);
             let item;
+            // debugger;
             for (let i = 0; i < this.planArr.length; i += 1) {
                 item = this.planArr[i];
+                console.log(item.type, type);
                 if (item.type === type) {
-                    item.selected = 1;
+                    item.active = 1;
                     this.currentPlan = item;
                 } else {
-                    item.selected = 0;
+                    item.active = 0;
                 }
             }
+            console.log(this.planArr);
         },
         payIt() {
             if (!this.currentPlan) {

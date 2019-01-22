@@ -48,7 +48,8 @@ let weixinAutoLogin = getQueryValue('weixin_auto_login');
 
 if (weixinAutoLogin && isMicroMessenger) {
     if (!code || !state) {
-        let weixinOauthLink = WEIXINCONFIG.getOauthLink(WEIXINCONFIG.appid, encodeURIComponent(APCONFIG.MYACCOUNTMOBILECNBASEURL), 'login');
+        // eslint-disable-next-line
+        let weixinOauthLink = WEIXINCONFIG.getOauthLink(WEIXINCONFIG.appid, encodeURIComponent(`${APCONFIG.MYACCOUNTMOBILECNBASEURL}?lang=zh`), 'login');
         window.location = weixinOauthLink;
     }
 }

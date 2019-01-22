@@ -6,7 +6,7 @@ import './styles/themes/default/index.scss';
 import App from './App.vue';
 import router from './router';
 import store from './store';
-import { getQueryValue, startWith, looseIndexOf, } from '../../../lib/utils/index';
+import { getQueryValue, looseIndexOf, } from '../../../lib/utils/index';
 import { getNativeData, saveNativeData, } from '../../../lib/utils/embedded';
 
 // import languages

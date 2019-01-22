@@ -11,6 +11,7 @@ import trans from './utils/trans';
 import { getQueryValue, } from './utils/index';
 import ls from './utils/littleStore';
 import { startWith, looseIndexOf, } from '../../../lib/utils/index';
+import vip from './utils/vipInfo';
 
 // import languages
 import LangEn from './lang/en';
@@ -34,7 +35,9 @@ import LangTr from './lang/tr';
 import LangTw from './lang/tw';
 
 import ToastPlugin from './plugins/toast';
+import { getPdfConverterVipInfo } from './api/support';
 
+vip.init();
 Vue.use(ToastPlugin, { position: 'center', });
 
 Vue.config.productionTip = false;

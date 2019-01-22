@@ -28,6 +28,7 @@ import ls from '../utils/littleStore';
 import pwdCheck from '../utils/pwdCheck';
 import his from '../utils/pathHistory';
 import {getNativeData, } from '../utils/index';
+import {getPdfConverterVipInfo, } from '../api/support';
 
 export default {
     name: 'home',
@@ -68,12 +69,16 @@ export default {
 
     created: function() {
         let data = getNativeData();
-        if (data && data.identity_token) {
-            ls.set('identity_token', data.identity_token);
+        // if (data && data.identity_token) {
+        if (1) {
+            // ls.set('identity_token', data.identity_token);
+            ls.set('identity_token', '4816931,1548054256,a17570d2e8d3b0ae152714007493fd52');
+            // ls.set('identity_token', '3106030,1548139771,aca1ea964fda6e6555381f541e253878');
         } else {
             ls.set('identity_token', '');
         }
         console.log(ls.get('identity_token'));
+        console.log(this.$tr('001685','333333333'));
         this.getSession();
         this.pwdCheckObj = pwdCheck.create();
         this.pwdCheckObj.on('pdf-ok', this.pwdOk);
@@ -90,19 +95,46 @@ export default {
             console.log(data);
         },
         getSession: function() {
+            console.log('identity_token');
+            console.log(ls.get('identity_token'));
             getPdfSession().then((response) => {
                 const data = response.data;
                 console.log(data);
                 ls.set('api_token', data.data.user.api_token);
                 console.log('aaaa');
                 this.echoit(data.data.user);
+                // this.getVip();
+                window.freshVip();
                 console.log(this);
             }).catch((error) => {
                 console.log(error);
+                if (error.error) {
+                    // error token失效
+                    ls.set('identity_token', '');
+                    this.getSession();
+                    return;
+                }
+                ls.set('api_token', '');
+                ls.set('client-vip', 0);
             });
         },
         echoit: function(params) {
             console.log(params);
+        },
+        getVip() {
+            getPdfConverterVipInfo().then((response)=>{
+                const data = response.data;
+                console.log('vip--infooooo');
+                console.log(data);
+                if(data.data.license_info && data.data.user_info && data.data.license_info.is_activated === 1){
+                    ls.set('client-vip', 1);
+                } else {
+                    ls.set('client-vip', 0);
+                }
+            }).catch((error) => {
+                ls.set('client-vip', 0);
+            });
+
         },
         pos: function(index) {
             let len = this.convertkey.length;

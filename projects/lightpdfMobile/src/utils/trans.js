@@ -4,7 +4,7 @@
 // 简单实现
 const Trans = {};
 Trans.install = function(Vue) {
-    Vue.prototype.$tr = function(keyStr) {
+    Vue.prototype.$tr = function(keyStr, ...rest) {
         if (!keyStr) {
             return '';
         }
@@ -21,8 +21,25 @@ Trans.install = function(Vue) {
         if (value === key && old.length) {
             value = old;
         }
+        let arr = [value, ];
+        if (rest.length > 0) {
+            for (let i = 0; i < rest.length; i += 1) {
+                arr.push(rest[i]);
+            }
+        }
+        value = Trans.tr.apply(null, arr);
         return value;
     };
+};
+Trans.tr = function(str, ...rest) {
+    if (rest.length > 0) {
+        let reg;
+        for (let i = 0; i < rest.length; i += 1) {
+            reg = new RegExp(`\\{${i}\\}`, 'g');
+            str = str.replace(reg, rest[i]);
+        }
+    }
+    return str;
 };
 // module.exports = Trans;
 

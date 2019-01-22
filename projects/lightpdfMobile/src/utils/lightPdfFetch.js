@@ -12,7 +12,12 @@ service.interceptors.request.use((config) => {
     let api_token = ls.get('api_token');
     if (api_token) {
         config.headers['Authorization'] = `Bearer ${api_token}`;
+        config.headers['IsClientVip'] = 1;
+
     }
+    config.headers['Cli-OS'] = 'Android';
+    config.headers['APP'] = 'ApowerPDF';
+    config.headers['Brand'] = 'Apowersoft';
     return config;
 }, error => Promise.reject(error));
 

@@ -41,6 +41,7 @@ export default {
                 'my-files': '/info',
             },
             jumpDisable: this.disablejump || 0,
+            backObj: null,
         };
     },
 

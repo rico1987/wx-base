@@ -3,6 +3,7 @@ import ls from '../utils/littleStore';
 
 const vip = {
     getVip() {
+        console.log('iiiii----vip--infooooo');
         getPdfConverterVipInfo().then((response) => {
             const data = response.data;
             console.log('iiiii----vip--infooooo');

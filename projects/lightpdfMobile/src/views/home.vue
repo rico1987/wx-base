@@ -16,6 +16,7 @@
                 </div>
             </div>
             <main-bar type="from-pdf"></main-bar>
+            <feed-back-entry></feed-back-entry>
         </div>
     </div>
 
@@ -23,6 +24,7 @@
 
 <script>
 import MainBar from '../components/MainBar.vue';
+import FeedBackEntry from '../components/feedBackEntry.vue';
 import {getPdfSession, } from '../api/pdf';
 import ls from '../utils/littleStore';
 import pwdCheck from '../utils/pwdCheck';
@@ -34,6 +36,7 @@ export default {
     name: 'home',
     components: {
         'main-bar': MainBar,
+        'feed-back-entry': FeedBackEntry,
     },
     data() {
         return {
@@ -69,25 +72,20 @@ export default {
 
     created: function() {
         let data = getNativeData();
-        // if (data && data.identity_token) {
-        if (1) {
-            // ls.set('identity_token', data.identity_token);
-            ls.set('identity_token', '4816931,1548054256,a17570d2e8d3b0ae152714007493fd52');
+        if (data && data.identity_token) {
+        // if (1) {
+            ls.set('identity_token', data.identity_token);
+            // ls.set('identity_token', '4816931,1548054256,a17570d2e8d3b0ae152714007493fd52');
             // ls.set('identity_token', '3106030,1548139771,aca1ea964fda6e6555381f541e253878');
+            // ls.set('identity_token', '4816931,1548054256,a17570d2e8d3b0ae152714007493fd52');
+            // ls.set('identity_token', '1968363,1548247249,acf478799959c26160bd5e5bc521fd55');
         } else {
             ls.set('identity_token', '');
         }
-        console.log(ls.get('identity_token'));
-        console.log(this.$tr('001685','333333333'));
         this.getSession();
         this.pwdCheckObj = pwdCheck.create();
         this.pwdCheckObj.on('pdf-ok', this.pwdOk);
-        console.log(this.$route);
-        console.log('09000000000000000');
-        console.log(this.$router);
-        console.log(this.$router.history.current);
         his.push(this.$router.history.current);
-        console.log(this.$i18n.locale);
     },
     methods: {
         pwdOk(data) {
@@ -122,16 +120,17 @@ export default {
             console.log(params);
         },
         getVip() {
-            getPdfConverterVipInfo().then((response)=>{
+            getPdfConverterVipInfo().then((response) => {
                 const data = response.data;
                 console.log('vip--infooooo');
                 console.log(data);
-                if(data.data.license_info && data.data.user_info && data.data.license_info.is_activated === 1){
+                if (data.data.license_info && data.data.user_info && data.data.license_info.is_activated === 1) {
                     ls.set('client-vip', 1);
                 } else {
                     ls.set('client-vip', 0);
                 }
             }).catch((error) => {
+                error;
                 ls.set('client-vip', 0);
             });
 

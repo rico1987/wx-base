@@ -17,7 +17,7 @@
                                 <div class="plan-name">{{$tr(item.title)}}
                                     <div v-show="item.recommend" class="tuijian">
                                         <div class="triangle-left"></div>
-                                        <div class="tuijian-txt">Recommend</div>
+                                        <div class="tuijian-txt">{{$tr('Recommend@@002039')}}</div>
                                     </div>
                                 </div>
                                 <div class="plan-des">{{$tr(item.priceDes)}}</div>
@@ -27,7 +27,7 @@
                     </div>
                 </div>
                 <div class="pay-btns">
-                    <div class="add-to-cart" @click="payIt">Add to cart</div>
+                    <div class="add-to-cart" @click="payIt">{{$tr('Add to cart@@002040')}}</div>
                     <div v-if="0" class="pay-with-paypal">check out with</div>
                 </div>
                 <div v-if="0" class="pay-des">The safer,easier way to pay</div>
@@ -58,18 +58,16 @@
                             <div class="secure-item">
                                 <div class="title-box">
                                     <div class="img money-back"></div>
-                                    <div class="secure-des">Money-back Guarantee</div>
+                                    <div class="secure-des">{{$tr('Money-back Guarantee@@002035')}}</div>
                                 </div>
-                                <div class="detail">Our products come with a 30 days Money  Back Guarantee.</div>
+                                <div class="detail">{{$tr('Our products come with a 30 days Money Back Guarantee.@@002036')}}</div>
                             </div>
                             <div class="secure-item">
                                 <div class="title-box">
                                     <div class="img safety"></div>
-                                    <div class="secure-des">Secure</div>
+                                    <div class="secure-des">{{$tr('Secure@@002037')}}</div>
                                 </div>
-                                <div class="detail">We value your privacy and protect your
-financial/personal infowith advanced encryption
-and advanced fraudprotection</div>
+                                <div class="detail">{{$tr('We value your privacy and protect your financial/personal info with advanced encryption and advanced fraud protection.@@002038')}}</div>
                             </div>
                         </div>
                     </div>
@@ -79,7 +77,7 @@ and advanced fraudprotection</div>
                     <div class="year-btn" @canplay="openRecommondPay">{{recommendPlan.priceDes}}
                         <div class="tuijian">
                             <div class="triangle-left"></div>
-                            <div class="tuijian-txt">推荐</div>
+                            <div class="tuijian-txt">{{$tr('Recommend@@002039')}}</div>
                         </div>
                     </div>
                 </div>
@@ -92,7 +90,7 @@ and advanced fraudprotection</div>
 import PdfHeader from '../components/PdfHeader.vue';
 import UserInfo from '../components/userInfo.vue';
 import payUrl from '../utils/storeUrl';
-import {openUrl, } from '../utils/index';
+import {openUrl, getNativeData, } from '../utils/index';
 
 export default {
     name: 'pay',
@@ -103,12 +101,12 @@ export default {
     data() {
         return {
             userInfo: {
-                avatar: 'https://avatar.aoscdn.com/7b46fcfb791623c2e28a94eb1e9f098e.jpg!256?t=1536391882',
-                nickname: '3004197106',
-                currentPlan: null,
-                normalPlan: null,
-                recommendPlan: null,
+                avatar: '',
+                nickname: '',
             },
+            currentPlan: null,
+            normalPlan: null,
+            recommendPlan: null,
             planArr: [],
         };
     },
@@ -116,6 +114,10 @@ export default {
     created: function() {
         console.log(payUrl);
         this.initPlanArr();
+        let data = getNativeData();
+        if (data['userInfo']) {
+            this.userInfo = data['userInfo'];
+        }
     },
     methods: {
         initPlanArr() {
@@ -201,8 +203,9 @@ export default {
                 return;
             }
             let identifyStr = '';
-            if (this.$i18n.locale === 'cn' && this.account && this.account['identity_token']) {
-                identifyStr = `&identity_token=${this.account['identity_token']}`;
+            let data = getNativeData();
+            if (this.$i18n.locale === 'cn' && this.account && data['identity_token']) {
+                identifyStr = `&identity_token=${data['identity_token']}`;
                 url = `url${identifyStr}`;
             }
             if (window.account) {

@@ -5,21 +5,21 @@
                 <div class="info-box">
                     <div class="user-info">
                         <div class="avatar">
-                            <img v-show="info && info.userInfo && info.userInfo.avatar" :src="info.userInfo.avatar">
+                            <img v-show="info && info.userInfo && avatar" :src="avatar">
                         </div>
-                        <div class="user-name">{{info.userInfo.nickname}}</div>
+                        <div class="user-name">{{nickname}}</div>
                         <div class="expire-day"
                         v-show="licenseInfo.isVip"
                         >
                             {{$tr('001685',licenseInfo.expire_date)}}
                         </div>
                     </div>
-                    <div class="btn active" @click="goPayCenter">充值中心</div>
-                    <div class="btn" @click="goMyfiles">我的文件</div>
-                    <div class="btn" @click="goMyCenter">用户中心</div>
-                    <div class="btn">社区</div>
+                    <div class="btn active" @click="goPayCenter">{{$tr('Recharge centre@@002033')}}</div>
+                    <div class="btn" @click="goMyfiles">{{$tr('My Files@@001432')}}</div>
+                    <div class="btn" @click="goMyCenter">{{$tr('Account')}}</div>
+                    <div class="btn" @click="goCommunity">{{$tr('Forum@@002032')}}</div>
             </div>
-            <div class="btn logout-btn" @click="logout">退出登录</div>
+            <div class="btn logout-btn" @click="logout">{{$tr('Logout@@002034')}}</div>
             <main-bar type="user-center"></main-bar>
         </div>
     </div>
@@ -27,8 +27,7 @@
 
 <script>
 import MainBar from '../components/MainBar.vue';
-import {getVip, } from '../api/pdf';
-import {nativeLogout, getNativeData, jump, } from '../utils/index';
+import {nativeLogout, getNativeData, jump, openUrl, } from '../utils/index';
 import {getPdfConverterVipInfo, } from '../api/support';
 
 export default {
@@ -38,19 +37,27 @@ export default {
     },
     data() {
         return {
-            info: null,
+            info: {},
             userInfo: {
                 // avatar: 'https://avatar.aoscdn.com/7b46fcfb791623c2e28a94eb1e9f098e.jpg!256?t=1536391882',
             },
             vip: null,
             licenseInfo: {
             },
+            avatar: '',
+            nickname: '',
         };
     },
 
     created: function() {
-        this.info = getNativeData();
-        this.info = window.uinfo;
+        let data = getNativeData();
+        if (data.userInfo) {
+            this.info = data.userInfo;
+            this.avatar = this.info.avatar;
+            this.nickname = this.info.nickname;
+        }
+        // this.info = getNativeData();
+        // this.info = window.uinfo;
         this.getVipInfo();
     },
     methods: {
@@ -60,11 +67,11 @@ export default {
                 const data = response.data;
                 // debugger;
                 if (data.data.error_code) {
-                    this.licenseInfo ={};
+                    this.licenseInfo = {};
                 } else {
                     this.licenseInfo = data.data.license_info;
                 }
-                //expire_date
+                // expire_date
                 this.dealVipInfo(this.licenseInfo);
                 // expire_date
                 // passport_license_type monthly
@@ -85,6 +92,16 @@ export default {
                 vip.isVip = 1;
             } else {
                 vip.isVip = 0;
+            }
+            if (vip.expire_date) {
+                let machArr = vip.expire_date.match(/\d{4}-\d{2}-\d{2}/);
+                if (machArr) {
+                    vip.expire_date = machArr[0];
+                }
+            }
+            // yearly
+            if (vip.passport_license_type === 'lifelog') {
+                vip.expire_date = this.$tr('Lifetime@@001670');
             }
         },
         goMyfiles() {
@@ -111,6 +128,20 @@ export default {
             setTimeout(() => {
                 jump('lightpdf', 'lightpdf', '/home');
             }, 200);
+        },
+        goCommunity() {
+            if (window.account) {
+                openUrl(this.getUrl());
+            } else {
+                window.open(this.getUrl());
+            }
+        },
+        getUrl() {
+            if (this.$i18n.local === 'cn') {
+                return 'https://www.apowersoft.cn/community/';
+            } else {
+                return 'https://www.apowersoft.com/community/';
+            }
         },
     },
 };

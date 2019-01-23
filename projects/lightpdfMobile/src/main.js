@@ -35,7 +35,6 @@ import LangTr from './lang/tr';
 import LangTw from './lang/tw';
 
 import ToastPlugin from './plugins/toast';
-import { getPdfConverterVipInfo } from './api/support';
 
 vip.init();
 Vue.use(ToastPlugin, { position: 'center', });

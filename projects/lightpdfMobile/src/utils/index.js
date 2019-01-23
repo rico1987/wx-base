@@ -60,13 +60,13 @@ export function getNativeData() {
     //     return uinfo;
     // }
     if (window.account) {
-        let uinfo = '';
-        if (window.uinfo) {
-            uinfo = JSON.stringify(window.uinfo);
-        }
-        return JSON.parse(window.account.getData() || uinfo || '{}');
+        // let uinfo = '';
+        // if (window.uinfo) {
+        //     uinfo = JSON.stringify(window.uinfo);
+        // }
+        return JSON.parse(window.account.getData() || '{}');
     } else {
-        return JSON.parse(Cookies.get('accountMobileSaveData') || '{}');
+        return JSON.parse('{}');
     }
 }
 
@@ -130,3 +130,15 @@ export function jump(from, to, route, query) {
     console.log(from, to, route, queryStr);
     window.account && window.account.onWebJump(from, to, route, queryStr);
 }
+
+export function nativeFeedBack(mail, content, subject) {
+    window.account && window.account.onFeedBack(mail, content, subject);
+}
+
+export function isNetConnect() {
+    return window.account && window.account.isNetConnect();
+}
+export function isWifiConnect() {
+    return window.account && window.account.isWifiConnect();
+}
+

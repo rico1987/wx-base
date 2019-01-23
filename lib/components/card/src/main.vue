@@ -18,5 +18,5 @@ export default {
             type: String,
         },
     },
-}
+};
 </script>

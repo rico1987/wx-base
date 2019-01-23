@@ -59,7 +59,11 @@ if (backobj) {
 
 saveNativeData(saveData);
 
-let supportLangArr = ['cn', 'tw', 'en', 'cs', 'da', 'de', 'el', 'es', 'fi', 'fr', 'hu', 'it', 'ja', 'nl', 'nb', 'pl', 'pt', 'sv', 'tr', ];
+// android
+// let supportLangArr = ['cn', 'tw', 'en', 'cs', 'da', 'de', 'el', 'es', 'fi', 'fr', 'hu', 'it', 'ja', 'nl', 'nb', 'pl', 'pt', 'sv', 'tr', ];
+
+// ios
+let supportLangArr = ['zh', 'en', 'cs', 'da', 'de', 'el', 'es', 'fi', 'fr', 'hu', 'it', 'ja', 'nl', 'nb', 'pl', 'pt', 'sv', 'tr', ];
 
 // android
 // if (startWith(lang, 'zh')) {
@@ -156,6 +160,7 @@ router.beforeEach((to, from, next) => {
 //         'tr': LangTr,
 //     },
 // });
+
 // ios
 const i18n = new VueI18n({
     locale: lang,

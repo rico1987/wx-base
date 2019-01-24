@@ -1,3 +1,4 @@
+// registed_app 字段在 ios端应为 'iOS Airmore', android端应为 'Andorid Airmore', web端应为 'Web Airmore', pdf app应为 'Android PDF Converter'
 import qs from 'qs';
 import accountFetch from '../utils/accountFetch';
 import * as is from '../../../../lib/utils/is';
@@ -29,7 +30,7 @@ export function loginByToken(data) {
 export function passwordLessLogin(data) {
     return accountFetch.post('/sessions', qs.stringify(Object.assign(data, {
         brand: 'Apowersoft',
-        registed_app: 'myaccountm.apowersoft.com',
+        registed_app: 'Android PDF Converter',
     })));
 }
 
@@ -40,7 +41,7 @@ export function registerByEmail(data) {
         email: data.email,
         language: data.language,
         password: data.password,
-        registed_app: 'myaccountm.apowersoft.com',
+        registed_app: 'Android PDF Converter',
     }));
 }
 
@@ -52,7 +53,7 @@ export function registerByPhone(data) {
         language: data.language,
         password: data.password,
         telephone: data.phone,
-        registed_app: 'myaccountm.apowersoft.com',
+        registed_app: 'Android PDF Converter',
     }));
 }
 

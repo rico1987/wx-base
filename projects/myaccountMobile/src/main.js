@@ -69,10 +69,14 @@ router.beforeEach((to, from, next) => {
             if (to.name === 'accountMenu') {
                 next();
             } else {
-                next({
-                    path: '/account-menu',
-                    query: { lang, },
-                });
+                if (from.path === '/account-menu') {
+                    next();
+                } else {
+                    next({
+                        path: '/account-menu',
+                        query: { lang, },
+                    });
+                }
             }
         }
     } else {

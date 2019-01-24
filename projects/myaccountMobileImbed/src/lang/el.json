@@ -298,5 +298,6 @@
     "001814": "Λήξη χρονικού ορίου αιτήματος, παρακαλώ πραγματοποιήστε ανανέωση και προσπαθήστε ξανά.",
     "001815": "Failed to upload!",
     "001816": "Failed to get product list!",
-    "001817": "Please put all of the information"
+	"001817": "Please put all of the information",
+	"001818": "No network"
 }

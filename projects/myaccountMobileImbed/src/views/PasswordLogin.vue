@@ -46,6 +46,7 @@
 import Icon from '@/components/Icon.vue';
 import MobileInput from '@/components/MobileInput.vue';
 import MobileHeader from '@/components/MobileHeader.vue';
+import { isNetConnect, } from '@lib/utils/embedded';
 
 export default {
     name: 'passwordLogin',
@@ -79,6 +80,13 @@ export default {
 
     methods: {
         login() {
+            // 没有网络时的提示
+            if (window.account && !isNetConnect()) {
+                this.$toast.show({
+                    text: this.$t('001818'),
+                });
+                return false;
+            }
             if (this.loading) {
                 this.$toast.show({
                     text: this.$t('001759'),

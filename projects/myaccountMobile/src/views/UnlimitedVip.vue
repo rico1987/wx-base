@@ -31,10 +31,10 @@
             <p>{{ $t('001809') }}</p>
         </div>
         <div class="myaccount-unlimited-vip__buy-link" v-if="!isVip">
-            <div class="left">
+            <div class="left" @click="gotoUnlimitedVipPage('month')">
                 <p>{{ getMonthText() }}</p>
             </div>
-            <div class="right">
+            <div class="right" @click="gotoUnlimitedVipPage('year')">
                 <p>{{ getYearText() }}</p>
             </div>
         </div>
@@ -127,6 +127,22 @@ export default {
                 let remainDays = parseInt(this.licenseInfo.remain_days, 10);
                 let deadline = new Date(new Date().getTime() + (24 * 60 * 60 * 1000 * remainDays));
                 return `${this.$t('001210')}: ${deadline.toLocaleDateString()}`;
+            }
+        },
+
+        gotoUnlimitedVipPage(type) {
+            if (this.$i18n.locale === 'zh') {
+                if (type === 'month') {
+                    window.open('https://www.apowersoft.cn/order?product_id=18180250_M&SRC=alltop');
+                } else if (type === 'year') {
+                    window.open('https://www.apowersoft.cn/order?product_id=18180251_Y&SRC=alltop');
+                }
+            } else {
+                if (type === 'month') {
+                    window.open('https://shop.apowersoft.com/order/checkout.php?PRODS=18288870&CART=1&CARD=2');
+                } else if (type === 'year') {
+                    window.open('https://shop.apowersoft.com/order/checkout.php?PRODS=18288872&CART=1&CARD=2');
+                }
             }
         },
     },

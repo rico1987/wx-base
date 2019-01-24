@@ -9,3 +9,4 @@
 /projects/**/build/
 /projects/**/config/
 /projects/**/dist/
+/lib/components/index.js

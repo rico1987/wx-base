@@ -86,6 +86,7 @@
 import MobileInput from '@/components/MobileInput.vue';
 import MobileHeader from '@/components/MobileHeader.vue';
 import { sendVcode, } from '@/api/account';
+import { isNetConnect, } from '@lib/utils/embedded';
 
 export default {
     name: 'registration',
@@ -156,6 +157,13 @@ export default {
         },
 
         sendCode() {
+            // 没有网络时的提示
+            if (window.account && !isNetConnect()) {
+                this.$toast.show({
+                    text: this.$t('001818'),
+                });
+                return false;
+            }
             if (!this.countDown) {
                 if (this.activeTab === 'email') {
                     this.$refs.emailInput.validate();
@@ -265,6 +273,13 @@ export default {
         },
 
         register() {
+            // 没有网络时的提示
+            if (window.account && !isNetConnect()) {
+                this.$toast.show({
+                    text: this.$t('001818'),
+                });
+                return false;
+            }
             if (this.loading) {
                 this.$toast.show({
                     text: this.$t('001782'),

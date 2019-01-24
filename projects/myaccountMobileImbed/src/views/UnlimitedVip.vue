@@ -31,10 +31,10 @@
             <p>{{ $t('001809') }}</p>
         </div>
         <div class="myaccount-unlimited-vip__buy-link" v-if="!isVip">
-            <div class="left">
+            <div class="left" @click="gotoUnlimitedVipPage()">
                 <p>{{ getMonthText() }}</p>
             </div>
-            <div class="right">
+            <div class="right" @click="gotoUnlimitedVipPage()">
                 <p>{{ getYearText() }}</p>
             </div>
         </div>
@@ -126,6 +126,14 @@ export default {
                 let remainDays = parseInt(this.licenseInfo.remain_days, 10);
                 let deadline = new Date(new Date().getTime() + (24 * 60 * 60 * 1000 * remainDays));
                 return `${this.$t('001210')}: ${deadline.toLocaleDateString()}`;
+            }
+        },
+
+        gotoUnlimitedVipPage() {
+            if (this.$i18n.locale === 'zh') {
+                window.open('https://www.apowersoft.cn/unlimited-vip');
+            } else {
+                window.open('https://www.apowersoft.com/unlimited-vip');
             }
         },
     },

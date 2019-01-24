@@ -67,6 +67,7 @@
 import MobileInput from '@/components/MobileInput.vue';
 import MobileHeader from '@/components/MobileHeader.vue';
 import { sendVcode, resetPassword, } from '@/api/account';
+import { isNetConnect, } from '@lib/utils/embedded';
 
 export default {
     name: 'findPassword',
@@ -130,6 +131,13 @@ export default {
         },
 
         sendCode() {
+            // 没有网络时的提示
+            if (window.account && !isNetConnect()) {
+                this.$toast.show({
+                    text: this.$t('001818'),
+                });
+                return false;
+            }
             if (!this.countDown) {
                 if (this.by === 'email') {
                     this.$refs.emailInput.validate();
@@ -255,6 +263,13 @@ export default {
         },
 
         changePassword() {
+            // 没有网络时的提示
+            if (window.account && !isNetConnect()) {
+                this.$toast.show({
+                    text: this.$t('001818'),
+                });
+                return false;
+            }
             let postData;
             if (this.by === 'email') {
                 postData = {

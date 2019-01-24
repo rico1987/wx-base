@@ -5,7 +5,7 @@
                 <div class="info-box">
                     <div class="user-info">
                         <div class="avatar">
-                            <img v-show="info && info.userInfo && avatar" :src="avatar">
+                            <img v-show="info && avatar" :src="avatar">
                         </div>
                         <div class="user-name">{{nickname}}</div>
                         <div class="expire-day"
@@ -29,6 +29,7 @@
 import MainBar from '../components/MainBar.vue';
 import {nativeLogout, getNativeData, jump, openUrl, } from '../utils/index';
 import {getPdfConverterVipInfo, } from '../api/support';
+import ls from '../utils/littleStore';
 
 export default {
     name: 'info',
@@ -51,8 +52,13 @@ export default {
 
     created: function() {
         let data = getNativeData();
+        console.log('data----getnativedata');
+        console.log(data.userInfo);
         if (data.userInfo) {
+            console.log('data----getnativedata');
+            console.log(data.userInfo);
             this.info = data.userInfo;
+            this.userInfo = this.info;
             this.avatar = this.info.avatar;
             this.nickname = this.info.nickname;
         }
@@ -68,6 +74,7 @@ export default {
                 // debugger;
                 if (data.data.error_code) {
                     this.licenseInfo = {};
+                    ls.set('client-vip', 0);
                 } else {
                     this.licenseInfo = data.data.license_info;
                 }
@@ -90,8 +97,10 @@ export default {
             console.log(vip.is_activated);
             if (vip.is_activated === '1') {
                 vip.isVip = 1;
+                ls.set('client-vip', 1);
             } else {
                 vip.isVip = 0;
+                ls.set('client-vip', 0);
             }
             if (vip.expire_date) {
                 let machArr = vip.expire_date.match(/\d{4}-\d{2}-\d{2}/);
@@ -100,7 +109,7 @@ export default {
                 }
             }
             // yearly
-            if (vip.passport_license_type === 'lifelog') {
+            if (vip.passport_license_type === 'lifetime') {
                 vip.expire_date = this.$tr('Lifetime@@001670');
             }
         },
@@ -110,9 +119,9 @@ export default {
             });
         },
         goPayCenter() {
-            if (this.vip && this.vip.is_vip) {
+            if (this.licenseInfo && this.licenseInfo.isVip) {
                 this.$router.push({
-                    path: '/pay',
+                    path: '/vippay',
                 });
             } else {
                 this.$router.push({

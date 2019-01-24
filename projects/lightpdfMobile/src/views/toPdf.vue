@@ -16,6 +16,7 @@
                 </div>
             </div>
             <main-bar type="to-pdf"></main-bar>
+            <feed-back-entry></feed-back-entry>
         </div>
     </div>
 </template>
@@ -23,11 +24,13 @@
 <script>
 import MainBar from '../components/MainBar.vue';
 import his from '../utils/pathHistory';
+import FeedBackEntry from '../components/feedBackEntry.vue';
 
 export default {
     name: 'topdf',
     components: {
         'main-bar': MainBar,
+        'feed-back-entry': FeedBackEntry,
     },
     data() {
         return {

@@ -75,10 +75,6 @@
                 <div class="pay-btns">
                     <div class="month-btn" @click="openNormalPay">{{normalPlan.priceDes}}</div>
                     <div class="year-btn" @canplay="openRecommondPay">{{recommendPlan.priceDes}}
-                        <div class="tuijian">
-                            <div class="triangle-left"></div>
-                            <div class="tuijian-txt">{{$tr('Recommend@@002039')}}</div>
-                        </div>
                     </div>
                 </div>
             </div>

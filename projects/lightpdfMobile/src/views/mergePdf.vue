@@ -16,17 +16,20 @@
                 </div>
             </div>
             <main-bar type="merge-pdf"></main-bar>
+            <feed-back-entry></feed-back-entry>
         </div>
     </div>
 </template>
 
 <script>
 import MainBar from '../components/MainBar.vue';
+import FeedBackEntry from '../components/feedBackEntry.vue';
 
 export default {
     name: 'mergepdf',
     components: {
         'main-bar': MainBar,
+        'feed-back-entry': FeedBackEntry,
     },
     data() {
         return {

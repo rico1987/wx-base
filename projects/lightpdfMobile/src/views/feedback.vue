@@ -10,25 +10,28 @@
                 <div class="label">{{$tr('Subject@@subject')}}</div>
                 <input ref="subject" class="input" type="text" :placeholder="$tr('Subject@@subject')">
             </div>
-            <textarea ref="content" name="content" class="textarea"></textarea>
+            <textarea ref="content" name="content" class="textarea" :placeholder="$tr('Feedback@@001853')"></textarea>
             <div class="submit" @click="sendMsg">{{$tr('OK@@ok')}}</div>
+            <message ref="msg" :transition="'fade'"></message>
         </div>
     </div>
 </template>
 
 <script>
 import PdfHeader from '../components/PdfHeader.vue';
-import {nativeFeedBack, } from '../utils/index';
+import {nativeFeedBack, isNetConnect, } from '../utils/index';
+import Message from '../components/Message.vue';
 
 export default {
     name: 'feedBack',
     components: {
         'pdf-header': PdfHeader,
+        'message': Message,
     },
     data() {
         return {
             headerTitle: '',
-            backObj:null,
+            backObj: null,
         };
     },
 
@@ -42,13 +45,28 @@ export default {
             let mail = '';
             let subject = '';
             let content = '';
-            mail = this.$refs.mail.value;
-            subject = this.$refs.subject.value;
-            content = this.$refs.content.value;
+            mail = this.$refs.mail.value.trim();
+            subject = this.$refs.subject.value.trim();
+            content = this.$refs.content.value.trim();
             console.log(mail, subject, content);
+
+            if (mail === '') {
+                this.msg(this.$tr('Email and feedback can not be empty.@@002047'));
+                return;
+            }
+            if (content === '') {
+                this.msg(this.$tr('Email and feedback can not be empty.@@002047'));
+                return;
+            }
             if (mail && content) {
                 nativeFeedBack(mail, content, subject);
+                if (isNetConnect()) {
+                    this.back();
+                }
             }
+        },
+        msg: function(txt) {
+            this.$refs.msg.msg(txt);
         },
         back() {
             if (window.history.length > 1) {

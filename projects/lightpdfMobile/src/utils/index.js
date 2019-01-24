@@ -132,7 +132,7 @@ export function jump(from, to, route, query) {
 }
 
 export function nativeFeedBack(mail, content, subject) {
-    window.account && window.account.onFeedBack(mail, content, subject);
+    window.account && window.account.onFeedback(mail, subject, content);
 }
 
 export function isNetConnect() {

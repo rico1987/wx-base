@@ -10,14 +10,16 @@
                         <div class="folder-img"></div>
                         <div class="lamp-img"></div>
                     </div>
-                    <p class="vip-des">会员可无限制转换</p>
-                    <p class="normal-des">由于未开通会员，只能享受前5页转换</p>
+
+                    <p class="vip-des" v-show="isVip == 0">会员可无限制转换</p>
+                    <p class="normal-des" v-show="isVip == 0">由于未开通会员，只能享受前5页转换</p>
+                    <p class="vip-des" v-show="isVip == 1">转换成功</p>
                 </div>
                 <div class="btn-box">
-                    <div v-show="isVipBtnShwo" class="join-vip" @click="joinVip">开通会员</div>
+                    <div v-show="isVip == 0" class="join-vip" @click="joinVip">{{$tr('Join VIP@@002145')}}</div>
                     <div v-show="isOpenShow" class="open-folder"
                     @click="openPDFFolder"
-                    >查看文档</div>
+                    >{{$tr('View document@@002049')}}</div>
                 </div>
             </div>
             <message ref="msg"></message>
@@ -33,6 +35,7 @@ import Message from '../components/Message.vue';
 import his from '../utils/pathHistory';
 import resultData from '../utils/convertResult';
 import {getNativeData, jump, openFolder, } from '../utils/index';
+import ls from '../utils/littleStore';
 
 export default {
     name: 'convertResult',
@@ -56,6 +59,7 @@ export default {
             isStop: 0,
             type: 'pdf-to-word',
             headerTitle: '',
+            isVip: 0,
             convertkey: [
                 {
                     key: 'pdf-to-word',
@@ -132,6 +136,8 @@ export default {
             this.type = type;
         }
         this.initTitle();
+        this.isVip = ls.get('client-vip') || 0;
+        console.log('isvip', this.isVip);
     },
     methods: {
         getConvertKey(key) {

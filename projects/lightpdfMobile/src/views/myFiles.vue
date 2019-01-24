@@ -136,9 +136,20 @@ export default {
             };
             timeObj;
             let timeStamp = new Date(parseInt(time, 10) * 1000);
-            let dateStr = `${timeStamp.getFullYear()}-${timeStamp.getMonth() + 1}-${timeStamp.getDate()}`;
-            let timeStr = `${timeStamp.getHours()}:${timeStamp.getMinutes()}:${timeStamp.getSeconds()}`;
+            let mStr = this.fillZero(timeStamp.getMonth() + 1);
+            let dStr = this.fillZero(timeStamp.getDate());
+            let hStr = this.fillZero(timeStamp.getHours());
+            let miStr = this.fillZero(timeStamp.getMinutes());
+            let sStr = this.fillZero(timeStamp.getSeconds());
+            let dateStr = `${timeStamp.getFullYear()}-${mStr}-${dStr}`;
+            let timeStr = `${hStr}:${miStr}:${sStr}`;
             return `${dateStr} ${timeStr}`;
+        },
+        fillZero(num) {
+            let str = '00';
+            let numstr = `${num}`;
+            let reg = new RegExp(`\\d{${numstr.length}}$`);
+            return str.replace(reg, num);
         },
         getTargetExt(file) {
             let ext = '';

@@ -50,12 +50,11 @@ export default {
                 },
                 {
                     key: 'user-center',
-                    trkey: '我的@@1212',
+                    trkey: 'Me@@002048',
                 },
             ],
         };
     },
-
     methods: {
         jumpTo: function(tabName) {
             let url = this.tabMap[tabName];

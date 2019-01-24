@@ -5,7 +5,7 @@
             <div class="file-info">
                 <div class="item-file-name">{{taskItem.target_file.filename}}</div>
                 <div class="date">{{this.taskItem.time}}</div>
-                <div class="size">128k</div>
+                <div class="size" v-show="0">128k</div>
             </div>
             <div class="right-box ">
                     <div class="view-btn" v-show="!manage"

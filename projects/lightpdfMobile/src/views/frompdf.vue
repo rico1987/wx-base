@@ -38,6 +38,7 @@
                         ref="smallInput"
                         title=" "
                         @change="smallReferenceUpload($event)"
+                        v-show="!isConverting"
                         multiple
                     >
                 </div>
@@ -53,6 +54,7 @@
             </div>
             <message ref="msg" :transition="'fade'"></message>
             <pdf-pwd ref="pwd" @on-set="pwdSet"></pdf-pwd>
+            <feed-back-entry></feed-back-entry>
         </div>
     </div>
 </template>
@@ -69,6 +71,7 @@ import {createTask, getTaskInfo, } from '../api/pdf';
 import TimeManager from '../utils/timeManager';
 import his from '../utils/pathHistory';
 import resultData from '../utils/convertResult';
+import FeedBackEntry from '../components/feedBackEntry.vue';
 
 export default {
     name: 'fromPdf',
@@ -78,6 +81,7 @@ export default {
         'total-progress': TotalProgress,
         'message': Message,
         'pdf-pwd': Password,
+        'feed-back-entry': FeedBackEntry,
     },
     data() {
         return {
@@ -242,7 +246,7 @@ export default {
             console.log(data);
         },
         checkSize(file) {
-            this.msg('checksize');
+            // this.msg('checksize');
             if (this.checkFileSize(file)) {
                 this.pwdCheckObj.push(file);
             } else {

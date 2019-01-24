@@ -19,6 +19,23 @@
 		float: left;
 		float: left;
 		background: #eef3ff url(../../../assets/images/index/pdf-to-word.svg) center center/0.46rem auto no-repeat;
+		// &.pdf
+		$items: ("doc","pdf-to-word.svg"),
+		("pdf","pdf.svg"),
+		("xls","pdf-to-excel.svg"),
+		("xlsx","pdf-to-excel.svg"),
+		("png","pdf-to-png.svg"),
+		("jpg","pdf-to-jpg.svg"),
+		("jpeg","pdf-to-jpg.svg"),
+		("ppt","pdf-to-ppt.svg"),
+		("pptx","pdf-to-ppt.svg"),
+		("txt","pdf-to-txt.svg"),
+		("docx","pdf-to-word.svg");
+		@each $name, $svg in $items {
+			&.#{$name}{
+				background-image: url(../../../assets/images/index/#{$svg});
+			}
+		}
 
 	}
 	.file-info{

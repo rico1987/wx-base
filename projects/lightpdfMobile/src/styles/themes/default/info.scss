@@ -3,7 +3,6 @@
     width: 100vw;
     height: 100vh;
     overflow: hidden;
-	border: 0.5px solid transparent;
 	background: #f7f6fb;
 	padding-top: 0.98rem;
 	.inner-container{
@@ -64,6 +63,13 @@
 			white-space: nowrap;
 			margin-top: 0.4rem;
 			padding-left: 0.2rem;
+			
+		}
+		.expire-day{
+			float: left;
+			text-align: left;
+			color: #999;
+			padding-left: .2rem;
 		}
 	}
 	.btn{

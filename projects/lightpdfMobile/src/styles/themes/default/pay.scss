@@ -3,6 +3,9 @@
     width: 100vw;
     height: 100vh;
     overflow: hidden;
+    .inner-container.vip{
+        padding-top: 0.98rem;
+    }
     .panel-one{
         padding-top: 0.98rem;
         .buy-panel{
@@ -223,7 +226,7 @@
                             text-align: left;
                             float: left;
                             line-height: 1rem;
-                            font-size: 0.24rem;
+                            font-size: 0.28rem;
                             padding-left: 0.3rem;
                         }
                     }

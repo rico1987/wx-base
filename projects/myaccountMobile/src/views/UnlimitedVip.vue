@@ -31,10 +31,10 @@
             <p>{{ $t('001809') }}</p>
         </div>
         <div class="myaccount-unlimited-vip__buy-link" v-if="!isVip">
-            <div class="left" @click="gotoUnlimitedVipPage()">
+            <div class="left" @click="gotoUnlimitedVipPage('month')">
                 <p>{{ getMonthText() }}</p>
             </div>
-            <div class="right" @click="gotoUnlimitedVipPage()">
+            <div class="right" @click="gotoUnlimitedVipPage('year')">
                 <p>{{ getYearText() }}</p>
             </div>
         </div>
@@ -130,11 +130,19 @@ export default {
             }
         },
 
-        gotoUnlimitedVipPage() {
+        gotoUnlimitedVipPage(type) {
             if (this.$i18n.locale === 'zh') {
-                window.open('https://www.apowersoft.cn/unlimited-vip');
+                if (type === 'month') {
+                    window.open('https://www.apowersoft.cn/order?product_id=18180250_M&SRC=alltop');
+                } else if (type === 'year') {
+                    window.open('https://www.apowersoft.cn/order?product_id=18180251_Y&SRC=alltop');
+                }
             } else {
-                window.open('https://www.apowersoft.com/unlimited-vip');
+                if (type === 'month') {
+                    window.open('https://shop.apowersoft.com/order/checkout.php?PRODS=18288870&CART=1&CARD=2');
+                } else if (type === 'year') {
+                    window.open('https://shop.apowersoft.com/order/checkout.php?PRODS=18288872&CART=1&CARD=2');
+                }
             }
         },
     },

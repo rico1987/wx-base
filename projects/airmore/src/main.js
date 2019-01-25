@@ -35,6 +35,9 @@ Vue.use(VueI18n);
 
 let lang = getQueryValue('lang') || 'en';
 
+// 默认未连接手机
+Vue.prototype.$connected = false;
+
 // let identity_token = getQueryValue('identity_token');
 
 // router.beforeEach((to, from, next) => {

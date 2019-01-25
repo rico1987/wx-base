@@ -5,7 +5,7 @@
             <div class="airmore-connection__tab">Raddar</div>
         </div>
         <div class="airmore-connection__tab-panes">
-            <div class="airmore-connection__tab-pane" v-loading="isLoadingQrCode">
+            <div class="airmore-connection__tab-pane">
                 <img src="" alt="">
                 <p>Scan QR code using Airmore</p>
             </div>
@@ -27,7 +27,7 @@ export default {
         return {
             connected: false,
             isLoadingQrCode: false,
-        }
+        };
     },
 
     methods: {
@@ -36,7 +36,7 @@ export default {
 
         getConnectionState() {
             return this.connected;
-        }
+        },
     },
 
 };

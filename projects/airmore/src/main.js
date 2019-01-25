@@ -2,7 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
 import VueI18n from 'vue-i18n';
-import Cookies from 'js-cookie';
+// import Cookies from 'js-cookie';
 import './styles/themes/default/index.scss';
 import App from './App.vue';
 import router from './router';
@@ -34,6 +34,9 @@ Vue.config.productionTip = false;
 Vue.use(VueI18n);
 
 let lang = getQueryValue('lang') || 'en';
+
+// 默认未连接手机
+Vue.prototype.$connected = false;
 
 // let identity_token = getQueryValue('identity_token');
 

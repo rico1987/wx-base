@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from '@/views/Home.vue';
+import PasswordLogin from '@/views/PasswordLogin.vue';
 
 Vue.use(Router);
 
@@ -8,12 +8,12 @@ export default new Router({
     routes: [
         {
             path: '/',
-            redirect: 'home',
+            redirect: '/login',
         },
         {
-            path: '/home',
-            name: 'Home',
-            component: Home,
+            path: '/login',
+            name: 'PasswordLogin',
+            component: PasswordLogin,
         },
     ],
 });

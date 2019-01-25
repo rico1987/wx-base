@@ -1,2 +1,2 @@
 # 用户中心移动端,供嵌入到android和ios app使用
-打包时需要注意 android端和ios端的区别
+打包时需要注意 android端和ios端的区别,主要是main.js里面android和ios传的语言参数不一致，所以需要加个判断

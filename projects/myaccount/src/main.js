@@ -2,12 +2,12 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
 import VueI18n from 'vue-i18n';
-import Cookies from 'js-cookie';
+// import Cookies from 'js-cookie';
 import './styles/themes/default/index.scss';
 import App from './App.vue';
 import router from './router';
 import store from './store';
-import { getQueryValue, } from './utils/index';
+import { getQueryValue, } from '../../../lib/utils/index';
 
 // import languages
 import LangEn from './lang/en.json';
@@ -38,6 +38,11 @@ Vue.config.productionTip = false;
 Vue.use(VueI18n);
 
 let lang = getQueryValue('lang') || 'en';
+
+// 获取当前运行环境并保存
+let env = getQueryValue('env') || 'web';
+
+Vue.prototype.$renderEnv = env === 'inside' ? 'software' : 'web';
 
 // let identity_token = getQueryValue('identity_token');
 

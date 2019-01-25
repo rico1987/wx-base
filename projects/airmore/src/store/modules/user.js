@@ -1,6 +1,5 @@
 import Cookies from 'js-cookie';
 import { login, registerByEmail, registerByPhone, changePassword, passwordLessLogin, loginByToken, } from '@/api/account';
-import { getUnlimitedVipInfo, } from '@/api/support';
 
 const user = {
     state: {
@@ -138,32 +137,6 @@ const user = {
                         Cookies.set('identity_token', data.data.identity_token);
                         // 与android登陆的交互
                         window.account && window.account.onLogin(document.cookie);
-                        resolve();
-                    } else {
-                        reject(data.status);
-                    }
-                }).catch((error) => {
-                    reject(error);
-                });
-            });
-        },
-        // 获取license信息
-        GetLicenseInfo({ commit, }) {
-            return new Promise((resolve, reject) => {
-                let saveData = Cookies.get('userInfo');
-                let userInfo;
-                let userId;
-                try {
-                    userInfo = JSON.parse(saveData);
-                    userId = userInfo.user_id;
-                } catch (error) {
-                }
-
-                getUnlimitedVipInfo(userId).then((response) => {
-                    const data = response.data;
-                    if (data && data.status === 1) {
-                        commit('SET_LICENSE_INFO', data.data.license_info);
-                        Cookies.set('license_info', data.data.license_info);
                         resolve();
                     } else {
                         reject(data.status);

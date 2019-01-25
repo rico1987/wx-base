@@ -16,7 +16,7 @@
                     </div>
                     <div class="btn active" @click="goPayCenter">{{$tr('Recharge centre@@002033')}}</div>
                     <div class="btn" @click="goMyfiles">{{$tr('My Files@@001432')}}</div>
-                    <div class="btn" @click="goMyCenter">{{$tr('Account')}}</div>
+                    <div class="btn" @click="goMyCenter">{{$tr('Account@@002053')}}</div>
                     <div class="btn" @click="goCommunity">{{$tr('Forum@@002032')}}</div>
             </div>
             <div class="btn logout-btn" @click="logout">{{$tr('Logout@@002034')}}</div>
@@ -98,6 +98,7 @@ export default {
             if (vip.is_activated === '1') {
                 vip.isVip = 1;
                 ls.set('client-vip', 1);
+                ls.set('client-vip-express-day', vip.expire_date);
             } else {
                 vip.isVip = 0;
                 ls.set('client-vip', 0);
@@ -130,12 +131,23 @@ export default {
             }
         },
         goMyCenter() {
-            jump('lightpdf', 'account', '/account-menu');
+            let params = {};
+            let obj = {
+                project: 'lightpdf',
+                router: '/info',
+                query: {
+                    lang: this.$i18n.locale,
+                },
+            };
+            params.backobj = encodeURIComponent(JSON.stringify(obj));
+            jump('lightpdf', 'account', '/account-menu', params);
         },
         logout() {
             nativeLogout();
             setTimeout(() => {
-                jump('lightpdf', 'lightpdf', '/home');
+                jump('lightpdf', 'lightpdf', '/home', {
+                    lang: this.$i18n.locale,
+                });
             }, 200);
         },
         goCommunity() {

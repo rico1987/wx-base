@@ -4,7 +4,7 @@
             <div class="top-title">
                 <div class="title-content">{{$tr('To PDF@@001817')}}</div>
                 <div class="title-des">
-                    {{$tr('快速实现Word,Excel,PPT,JPG等格式转为PDF文档，安全简单方便！')}}
+                    {{$tr('Quickly convert other formats to PDF. Easy, effective and high quality!@@002051')}}
                 </div>
             </div>
             <div class="convert-box">

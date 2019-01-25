@@ -32,7 +32,7 @@
                     <p class="btn-des">{{$tr('Choose file@@000821')}}</p>
                     <input
                         type="file"
-                        accept=".pdf"
+                        :accept="accept"
                         draggable="false"
                         class="file-input select-pdf-input"
                         ref="smallInput"
@@ -363,7 +363,11 @@ export default {
         uploadOssOk: function(res, file) {
             let data = res.data.data;
             let item = this.getCurrentConvertData();
-            item.fileId = data.id;
+            if (data['app_data']) {
+                item.fileId = data['app_data']['id'];
+            } else {
+                item.fileId = data.id;
+            }
             file;
             // console.log(res, file, 3);
             this.setProgress(4 + 10);

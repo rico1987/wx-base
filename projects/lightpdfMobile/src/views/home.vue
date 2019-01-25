@@ -4,7 +4,7 @@
             <div class="top-title">
                 <div class="title-content">{{$tr('Convert PDF@@001707')}}</div>
                 <div class="title-des">
-                    {{$tr('快速实现PDF文档转Word,Excel,PPT,JPG等格式，安全简单方便！')}}
+                    {{$tr('Quickly convert PDF to other formats. Easy, effective and high quality!@@002050')}}
                 </div>
             </div>
             <div class="convert-box">
@@ -71,6 +71,7 @@ export default {
     },
 
     created: function() {
+        console.log('this.$i18n.locale', this.$i18n.locale);
         let data = getNativeData();
         if (data && data.identity_token) {
         // if (1) {
@@ -124,6 +125,7 @@ export default {
                 const data = response.data;
                 if (data.data.license_info && data.data.user_info && data.data.license_info.is_activated === 1) {
                     ls.set('client-vip', 1);
+                    ls.set('client-vip-express-day', data.data.license_info.expire_date);
                 } else {
                     ls.set('client-vip', 0);
                 }

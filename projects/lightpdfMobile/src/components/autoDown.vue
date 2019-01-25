@@ -4,6 +4,8 @@
 </template>
 
 <script>
+import {nativeDownload, } from '../utils/index';
+
 export default {
     name: 'downLoadPanel',
 
@@ -15,6 +17,7 @@ export default {
     data() {
         return {
             url: this.item.url,
+            fileName: this.item.fileName,
             isShowDel: 0,
             fileList: [],
             uniqKey: 0,
@@ -29,8 +32,13 @@ export default {
     },
     methods: {
         download() {
-            this.$refs.a.click();
+            if (window.account) {
+                nativeDownload(this.url, this.fileName);
+            } else {
+                this.$refs.a.click();
+            }
         },
+        
     },
     watch: {
         state(nvalue) {

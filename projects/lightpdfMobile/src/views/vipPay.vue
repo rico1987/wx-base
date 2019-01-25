@@ -44,7 +44,7 @@
                 </div>
                 <div class="pay-btns">
                     <div class="month-btn" @click="openNormalPay">{{normalPlan.priceDes}}</div>
-                    <div class="year-btn" @canplay="openRecommondPay">{{recommendPlan.priceDes}}
+                    <div class="year-btn" @click="openRecommondPay">{{recommendPlan.priceDes}}
                     </div>
                 </div>
             </div>

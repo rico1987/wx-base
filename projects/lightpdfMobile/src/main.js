@@ -42,7 +42,13 @@ Vue.use(ToastPlugin, { position: 'center', });
 Vue.config.productionTip = false;
 Vue.use(VueI18n);
 Vue.use(trans);
-let lang = getQueryValue('lang') || 'en';
+let lang = getQueryValue('lang');
+let lsLang = ls.get('ls-lang');
+if (!lang && lsLang) {
+    lang = lsLang;
+} else if (!lang && !lsLang) {
+    lang = 'en';
+}
 let supportLangArr = ['cn', 'tw', 'en', 'cs', 'da', 'de', 'el', 'es', 'fi', 'fr', 'hu', 'it', 'ja', 'nl', 'nb', 'pl', 'pt', 'sv', 'tr', ];
 
 if (startWith(lang, 'zh')) {
@@ -53,6 +59,8 @@ if (startWith(lang, 'zh')) {
 if (looseIndexOf(supportLangArr, lang) === -1) {
     lang = 'en';
 }
+
+ls.set('ls-lang', lang);
 
 (function(doc, win) {
     let docEl = doc.documentElement;

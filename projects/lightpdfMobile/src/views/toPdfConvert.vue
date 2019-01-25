@@ -32,7 +32,7 @@
                     <p class="btn-des">{{$tr('Choose file@@000821')}}</p>
                     <input
                         type="file"
-                        accept=".pdf"
+                        :accept="accept"
                         draggable="false"
                         class="file-input select-pdf-input"
                         ref="smallInput"
@@ -252,7 +252,6 @@ export default {
             console.log(data);
         },
         checkSize(file) {
-            this.msg('checksize');
             if (this.checkFileSize(file)) {
                 // this.pwdCheckObj.push(file);
                 let item = this.getInfoData(file, '');

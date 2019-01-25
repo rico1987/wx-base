@@ -50,16 +50,19 @@ OssUploader.prototype = {
 
         // var timestamp = Date.parse(new Date());
         var fileStr = con.objects[file.name];
+        var encodeName = encodeURIComponent(file.name);
         var key = fileStr;
         var callback = {
             url: url.callbackUrl,
-            body: url.callbackBody,
+            body: `${url.callbackBody}&x:original_name=${file.name}`,
         };
+        console.log(callback);
+        console.log('-----------------');
         var contentDisposition = '';
         if (this.attachment) {
             // contentDisposition = 'attachment;filename="' + encodeURIComponent(file.name) +
             //     '"';
-            contentDisposition = `attachment;filename="${encodeURIComponent(file.name)}"`;
+            contentDisposition = `attachment;filename="${encodeName}"`;
         }
         client.multipartUpload(key, file,
             {

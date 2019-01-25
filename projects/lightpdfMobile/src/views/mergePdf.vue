@@ -4,7 +4,7 @@
             <div class="top-title">
                 <div class="title-content">{{$tr('Merge to PDF@@002082')}}</div>
                 <div class="title-des">
-                    {{$tr('快速实现PDF文档合并，安全简单方便！@@')}}
+                    {{$tr('Quickly merge multiple PDFs into one. Easy, effective and high quality!@@002052')}}
                 </div>
             </div>
             <div class="convert-box">

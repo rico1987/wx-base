@@ -74,16 +74,18 @@
                 </div>
                 <div class="pay-btns">
                     <div class="month-btn" @click="openNormalPay">{{normalPlan.priceDes}}</div>
-                    <div class="year-btn" @canplay="openRecommondPay">{{recommendPlan.priceDes}}
+                    <div class="year-btn" @click="openRecommondPay">{{recommendPlan.priceDes}}
                     </div>
                 </div>
             </div>
+            <pay-result ref="payResult"></pay-result>
         </div>
     </div>
 </template>
 
 <script>
 import PdfHeader from '../components/PdfHeader.vue';
+import PayResult from '../components/PayResult.vue';
 import UserInfo from '../components/userInfo.vue';
 import payUrl from '../utils/storeUrl';
 import {openUrl, getNativeData, } from '../utils/index';
@@ -93,6 +95,7 @@ export default {
     components: {
         'pdf-header': PdfHeader,
         'user-info': UserInfo,
+        'pay-result': PayResult,
     },
     data() {
         return {
@@ -157,8 +160,8 @@ export default {
                 this.planArr.push(item);
             }
             console.log(this.planArr);
-            this.normalPlan = this.planArr[0];
-            this.recommendPlan = this.planArr[1];
+            this.normalPlan = this.planArr[1];
+            this.recommendPlan = this.planArr[2];
         },
         trstr(url, ...rest) {
             // trstr('a{0}bc{0}de{1}ft, '-1-', '-2-')
@@ -200,15 +203,18 @@ export default {
             }
             let identifyStr = '';
             let data = getNativeData();
-            if (this.$i18n.locale === 'cn' && this.account && data['identity_token']) {
+            console.log('this.$i18n.locale', this.$i18n.locale);
+            console.log(data['identity_token']);
+            if (this.$i18n.locale === 'cn' && data['identity_token']) {
                 identifyStr = `&identity_token=${data['identity_token']}`;
-                url = `url${identifyStr}`;
+                url = `${url}${identifyStr}`;
             }
             if (window.account) {
                 openUrl(url);
             } else {
                 window.open(url);
             }
+            this.$refs.payResult.show();
         },
         onBack() {
             console.log('onback');

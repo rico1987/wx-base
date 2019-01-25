@@ -8,6 +8,7 @@ const vip = {
             const data = response.data;
             if (data.data.license_info && data.data.user_info && data.data.license_info.is_activated === 1) {
                 ls.set('client-vip', 1);
+                ls.set('client-vip-express-day', data.data.license_info.expire_date);
             } else {
                 ls.set('client-vip', 0);
             }

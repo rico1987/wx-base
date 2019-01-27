@@ -49,6 +49,9 @@
 			font-size: 0.28rem;
 			color: #333;
 			text-align: left;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
 		}
 		.date{
 			width: 100%;

@@ -81,6 +81,7 @@ export default {
             // ls.set('identity_token', '4816931,1548054256,a17570d2e8d3b0ae152714007493fd52');
             // ls.set('identity_token', '1968363,1548247249,acf478799959c26160bd5e5bc521fd55');
         } else {
+            console.log('clear identity_token2');
             ls.set('identity_token', '');
         }
         this.getSession();
@@ -109,6 +110,7 @@ export default {
                 console.log(error);
                 if (error.error) {
                     // error token失效
+                    console.log('clear identity_token1');
                     ls.set('identity_token', '');
                     this.getSession();
                     return;

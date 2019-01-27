@@ -30,6 +30,7 @@ import MainBar from '../components/MainBar.vue';
 import {nativeLogout, getNativeData, jump, openUrl, } from '../utils/index';
 import {getPdfConverterVipInfo, } from '../api/support';
 import ls from '../utils/littleStore';
+import vip from '../utils/vipInfo';
 
 export default {
     name: 'info',
@@ -64,55 +65,84 @@ export default {
         }
         // this.info = getNativeData();
         // this.info = window.uinfo;
+        this.showStoreVipInfo();
         this.getVipInfo();
     },
     methods: {
-        getVipInfo() {
-            getPdfConverterVipInfo().then((response) => {
-                console.log('-0-0-0-0-0-0-0');
-                const data = response.data;
-                // debugger;
-                if (data.data.error_code) {
-                    this.licenseInfo = {};
-                    ls.set('client-vip', 0);
-                } else {
-                    this.licenseInfo = data.data.license_info;
-                }
-                // expire_date
-                this.dealVipInfo(this.licenseInfo);
-                // expire_date
-                // passport_license_type monthly
-                console.log(data);
-            }).catch((error) => {
-                this.vip = null;
-                this.license_info = null;
-                console.log(error);
-            });
+        showStoreVipInfo() {
+            if (ls.get('client-vip') === '1' && vip.licenseInfo) {
+                this.licenseInfo.isVip = 1;
+                this.licenseInfo.expire_date = this.shortTime(vip.licenseInfo.expire_date);
+            }
         },
-        dealVipInfo(vip) {
-            if (!vip) {
+        getVipInfo() {
+            // getPdfConverterVipInfo().then((response) => {
+            //     console.log('-0-0-0-0-0-0-0');
+            //     const data = response.data;
+            //     if (data.data.error_code) {
+            //         this.licenseInfo = {};
+            //         ls.set('client-vip', 0);
+            //         vip.licenseInfo = null;
+            //     } else {
+            //         this.licenseInfo = data.data.license_info;
+            //     }
+            //     this.dealVipInfo(this.licenseInfo);
+            // }).catch((error) => {
+            //     this.vip = null;
+            //     this.license_info = null;
+            //     console.log(error);
+            // });
+            vip.getVip(this.dealLicenseInfo);
+        },
+        dealLicenseInfo(data) {
+            console.log('dealLicenseInfo');
+            console.log(data);
+            
+            if (data) {
+                this.licenseInfo = data;
+                if (data.expire_date) {
+                    data.expire_date = this.shortTime(data.expire_date);
+                }
+                if (data.passport_license_type === 'lifetime') {
+                    data.expire_date = this.$tr('Lifetime@@001670');
+                }
+            } else {
+                this.licenseInfo = {};
+            }
+        },
+        dealVipInfo(data) {
+            if (!data) {
                 return;
             }
-            console.log(vip);
-            console.log(vip.is_activated);
-            if (vip.is_activated === '1') {
-                vip.isVip = 1;
+            console.log(data);
+            console.log(data.is_activated);
+            if (data.is_activated === '1') {
+                data.isVip = 1;
                 ls.set('client-vip', 1);
-                ls.set('client-vip-express-day', vip.expire_date);
+                ls.set('client-vip-express-day', data.expire_date);
+                vip.licenseInfo = data;
             } else {
-                vip.isVip = 0;
+                data.isVip = 0;
                 ls.set('client-vip', 0);
+                vip.licenseInfo = null;
             }
-            if (vip.expire_date) {
-                let machArr = vip.expire_date.match(/\d{4}-\d{2}-\d{2}/);
-                if (machArr) {
-                    vip.expire_date = machArr[0];
-                }
+            if (data.expire_date) {
+                data.expire_date = this.shortTime(data.expire_date);
             }
             // yearly
-            if (vip.passport_license_type === 'lifetime') {
-                vip.expire_date = this.$tr('Lifetime@@001670');
+            if (data.passport_license_type === 'lifetime') {
+                data.expire_date = this.$tr('Lifetime@@001670');
             }
+        },
+        shortTime(time) {
+            if (!time) {
+                return '';
+            }
+            let machArr = time.match(/\d{4}-\d{2}-\d{2}/);
+            if (machArr) {
+                return machArr[0];
+            }
+            return time;
         },
         goMyfiles() {
             this.$router.push({

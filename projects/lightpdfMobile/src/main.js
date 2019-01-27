@@ -33,10 +33,13 @@ import LangPt from './lang/pt';
 import LangSv from './lang/sv';
 import LangTr from './lang/tr';
 import LangTw from './lang/tw';
-
 import ToastPlugin from './plugins/toast';
 
+console.log('main-init1');
 vip.init();
+console.log('main-init2');
+vip.freshIdentityToken();
+console.log('main-init3');
 Vue.use(ToastPlugin, { position: 'center', });
 
 Vue.config.productionTip = false;
@@ -81,9 +84,6 @@ ls.set('ls-lang', lang);
     win.addEventListener(resizeEvt, recalc, false);
     doc.addEventListener('DOMContentLoaded', recalc, false);
 })(document, window);
-
-let identity_token = getQueryValue('identity_token') || '';
-ls.set('identity_token', identity_token);
 
 // 路由守护
 // router.beforeEach((to, from, next) => {

@@ -10,6 +10,7 @@ const service = axios.create({
 
 // 添加请求拦截器
 service.interceptors.request.use((config) => {
+    console.log('supportfetch - identity', ls.get('identity_token'));
     let identity_token = ls.get('identity_token') || Cookies.get('identity_token');
     if (identity_token) {
         if (config.data) {

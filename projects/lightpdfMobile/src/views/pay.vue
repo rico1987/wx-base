@@ -1,6 +1,6 @@
 <template>
     <div class="pay-container">
-        <div class="inner-container">
+        <div class="inner-container" ref="aaa" @touchmove="onTouchMove">
             <pdf-header ref="header" @click-jump="onBack"></pdf-header>
             <div class="panel-one">
                 <user-info :info="userInfo"></user-info>
@@ -27,33 +27,33 @@
                     </div>
                 </div>
                 <div class="pay-btns">
-                    <div class="add-to-cart" @click="payIt">{{$tr('Add to cart@@002040')}}</div>
+                    <div class="add-to-cart" ref="attBtn" @click="payIt">{{$tr('Add to cart@@002040')}}</div>
                     <div v-if="0" class="pay-with-paypal">check out with</div>
                 </div>
                 <div v-if="0" class="pay-des">The safer,easier way to pay</div>
-                <div class="vip-des">VIP account will be sent to you by email  immediately after you</div>
+                <div class="vip-des">{{$tr('VIP account will be sent to you by email immediately after your payment@@002151')}}</div>
             </div>
             <div class="panel-two">
                 <div class="des-panel">
                     <div class="privilege-box">
-                        <div class="des-title">开通VIP独享专属特权</div>
+                        <div class="des-title">{{$tr('Privileges of Being VIP Members@@002152')}}</div>
                         <div class="privilege-list">
                             <div class="privilege-item">
                                 <div class="img free-use"></div>
-                                <div class="privilege-des">享PDF转换王产品免费使用权</div>
+                                <div class="privilege-des">{{$tr('Free usage of PDF Converter@@002153')}}</div>
                             </div>
                             <div class="privilege-item">
                                 <div class="img custom-service"></div>
-                                <div class="privilege-des">享24小时客服服务</div>
+                                <div class="privilege-des">{{$tr('24-hour support service@@002154')}}</div>
                             </div>
                             <div class="privilege-item">
                                 <div class="img free-upgrade"></div>
-                                <div class="privilege-des">享免费升级服务</div>
+                                <div class="privilege-des">{{$tr('Free update service@@002155')}}</div>
                             </div>
                         </div>
                     </div>
                     <div class="secure-box">
-                        <div class="des-title">我们的承诺</div>
+                        <div class="des-title">{{$tr('Our Promises@@002156')}}</div>
                         <div class="secure-list">
                             <div class="secure-item">
                                 <div class="title-box">
@@ -72,7 +72,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="pay-btns">
+                <div class="pay-btns" :class="bottomBtnState">
                     <div class="month-btn" @click="openNormalPay">{{normalPlan.priceDes}}</div>
                     <div class="year-btn" @click="openRecommondPay">{{recommendPlan.priceDes}}
                     </div>
@@ -107,6 +107,8 @@ export default {
             normalPlan: null,
             recommendPlan: null,
             planArr: [],
+            bottomBtnState: '',
+
         };
     },
 
@@ -215,6 +217,7 @@ export default {
                 window.open(url);
             }
             this.$refs.payResult.show();
+            this.$refs.payResult.payUrl = url;
         },
         onBack() {
             console.log('onback');
@@ -228,6 +231,19 @@ export default {
             if (this.recommendPlan) {
                 this.openPayUrl(this.recommendPlan.link);
             }
+        },
+        onTouchMove(e) {
+            this.$refs.aaa.scrollTop;
+            console.log(this.$refs.aaa.scrollTop);
+            console.log(this.$refs.attBtn.getBoundingClientRect());
+            let rect = this.$refs.attBtn.getBoundingClientRect();
+            if (rect.top < 50) {
+                this.bottomBtnState = 'to-fixed';
+            } else {
+                this.bottomBtnState = '';
+            }
+            console.log(e);
+            
         },
     },
 };

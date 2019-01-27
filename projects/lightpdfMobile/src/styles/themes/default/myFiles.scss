@@ -142,6 +142,9 @@
                 height: 0.6rem;
                 width: 100%;
                 line-height: 0.6rem;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
                 .file-name{
                     width: 4.3rem;
                     float: left;

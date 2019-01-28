@@ -38,7 +38,6 @@ export default {
                 this.$refs.a.click();
             }
         },
-        
     },
     watch: {
         state(nvalue) {

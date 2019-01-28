@@ -61,8 +61,10 @@ export default {
         },
         url(newValue, oldValue) {
             oldValue;
+            console.log('download url update');
+            
             if (newValue && newValue.length > 1) {
-                console.log('-----');
+                console.log('--111---');
                 let _this = this;
                 // nativeDownload
                 console.log(this.filed.targetUrl, this.filed.targetName);
@@ -71,9 +73,9 @@ export default {
                     nativeDownload(this.filed.targetUrl, this.filed.targetName);
                     return;
                 }
-                setTimeout(() => {
-                    _this.$refs.downBtn.click();
-                }, 200);
+                // setTimeout(() => {
+                //     _this.$refs.downBtn.click();
+                // }, 200);
             }
         },
         state(newValue, oldValue) {

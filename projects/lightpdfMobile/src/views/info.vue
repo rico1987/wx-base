@@ -53,11 +53,11 @@ export default {
 
     created: function() {
         let data = getNativeData();
-        console.log('data----getnativedata');
+        // console.log('data----getnativedata');
         console.log(data.userInfo);
         if (data.userInfo) {
             console.log('data----getnativedata');
-            console.log(data.userInfo);
+            // console.log(data.userInfo);
             this.info = data.userInfo;
             this.userInfo = this.info;
             this.avatar = this.info.avatar;
@@ -76,27 +76,11 @@ export default {
             }
         },
         getVipInfo() {
-            // getPdfConverterVipInfo().then((response) => {
-            //     console.log('-0-0-0-0-0-0-0');
-            //     const data = response.data;
-            //     if (data.data.error_code) {
-            //         this.licenseInfo = {};
-            //         ls.set('client-vip', 0);
-            //         vip.licenseInfo = null;
-            //     } else {
-            //         this.licenseInfo = data.data.license_info;
-            //     }
-            //     this.dealVipInfo(this.licenseInfo);
-            // }).catch((error) => {
-            //     this.vip = null;
-            //     this.license_info = null;
-            //     console.log(error);
-            // });
             vip.getVip(this.dealLicenseInfo);
         },
         dealLicenseInfo(data) {
-            console.log('dealLicenseInfo');
-            console.log(data);
+            // console.log('dealLicenseInfo');
+            // console.log(data);
             
             if (data) {
                 this.licenseInfo = data;
@@ -114,8 +98,8 @@ export default {
             if (!data) {
                 return;
             }
-            console.log(data);
-            console.log(data.is_activated);
+            // console.log(data);
+            // console.log(data.is_activated);
             if (data.is_activated === '1') {
                 data.isVip = 1;
                 ls.set('client-vip', 1);
@@ -188,7 +172,7 @@ export default {
             }
         },
         getUrl() {
-            if (this.$i18n.local === 'cn') {
+            if (this.$i18n.locale === 'cn') {
                 return 'https://www.apowersoft.cn/community/';
             } else {
                 return 'https://www.apowersoft.com/community/';

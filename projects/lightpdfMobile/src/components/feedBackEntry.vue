@@ -63,9 +63,9 @@ export default {
             let maxHeight = document.body.clientHeight;
             let left = 0;
             let top = 0;
-            console.log('----------');
-            console.log(maxWidth, maxHeight);
-            console.log(width, height);
+            // console.log('----------');
+            // console.log(maxWidth, maxHeight);
+            // console.log(width, height);
             left = maxWidth - (1.4 * width);
             // left = `${left}px`;
             top = maxHeight - (4.5 * height);

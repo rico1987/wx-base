@@ -1,6 +1,8 @@
 import axios from 'axios';
 import config from '../config';
 import ls from '../utils/littleStore';
+import {saveLog, } from '../utils/index';
+
 
 const service = axios.create({
     baseURL: config.lightPdfApiBaseUrl,
@@ -22,6 +24,10 @@ service.interceptors.request.use((config) => {
 }, error => Promise.reject(error));
 
 // 添加响应拦截器
-service.interceptors.response.use(response => response, error => Promise.reject(error.response.data));
+service.interceptors.response.use(response => response, (error) => {
+    let str = JSON.stringify(error);
+    saveLog(str);
+    Promise.reject(error.response.data);
+});
 
 export default service;

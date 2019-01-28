@@ -150,7 +150,6 @@ export default {
         this.pwdCheckObj.on('pdf-err', this.pdfErr);
         this.pwdCheckObj.on('pdf-ok', this.pwdOk);
         this.pwdCheckObj.on('pdf-finish', this.pwdFinish);
-        console.log(this.$route);
         his.push(this.$router.history.current);
         if (this.$route.query.type) {
             let type = this.$route.query.type;
@@ -202,25 +201,21 @@ export default {
             }
         },
         pwdErr(data) {
-            console.log(data);
-            console.log('pwdErr');
+            // console.log('pwdErr');
             let fileName = data.name;
             this.showPwd(fileName);
         },
         pdfErr(data) {
-            console.log(data);
-            console.log('pdfErr');
+            // console.log('pdfErr');
             this.msg('file type err');
         },
         pwdOk(data) {
-            console.log(data);
-            console.log('pwdok');
+            // console.log('pwdok');
             let item = this.getInfoData(data.file, data.pwd);
             this.addToList(item);
         },
         pwdFinish(data) {
-            console.log(data);
-            console.log('pwdFinish');
+            // console.log('pwdFinish');
             this.checkShowBtn();
         },
         checkShowBtn() {
@@ -230,7 +225,7 @@ export default {
         },
         pwdSet() {
             let str = this.$refs.pwd.pwd;
-            console.log(str);
+            // console.log(str);
             this.pwdCheckObj.checkPwd(str);
         },
         checkInfo(file) {
@@ -284,7 +279,7 @@ export default {
                 item.state = 1;
                 this.fileList.push(item);
             }
-            console.log(this.fileList);
+            // console.log(this.fileList);
             this.checkShowBtn();
         },
         renderList: function() {
@@ -300,13 +295,13 @@ export default {
         },
         msg: function(txt) {
             this.$refs.msg.msg(txt);
-            console.log('msg');
+            // console.log('msg');
         },
         start: function() {
             // 开始处理 上传 转换
             let file = this.getCurrentConvertData().file;
             let uploader = Uploader.create(file, this.authorizeProgress, this.uploadOssOk, this.fileOssError, this.returnProgress, this, 1);
-            console.log(uploader);
+            // console.log(uploader);
             uploader.start();
             this.isSureShow = false;
             this.isStopShow = true;
@@ -331,12 +326,12 @@ export default {
                 this.isConverting = false;
                 this.index = 0;
                 this.isStopShow = false;
-                if (this.checkAllState()) {
+                // if (this.checkAllState()) {
                     // this.showResult();
                     setTimeout(() => {
                         this.showResult();
                     }, 300);
-                }
+                // }
                 return;
             }
             this.start();
@@ -385,16 +380,16 @@ export default {
             };
             let _this = this;
             createTask(obj).then((data) => {
-                console.log('taskok');
-                console.log(data);
+                // console.log('taskok');
+                // console.log(data);
                 let taskId = data.data.data.task_id;
                 _this.getCurrentConvertData().taskId = taskId;
                 _this.checkProgress(taskId);
             }).catch((data) => {
                 console.log('err');
-                console.log(data);
+                // console.log(data);
                 _this.getCurrentConvertData().state = 3;
-                console.log('createErr-next');
+                // console.log('createErr-next');
                 _this.next();
             });
         },
@@ -411,7 +406,7 @@ export default {
         },
         checkProgress(id) {
             // check
-            console.log('check-progress', id);
+            // console.log('check-progress', id);
             let checkInfo = function() {
                 this.infoTime += 1;
                 let _this = this;
@@ -438,8 +433,8 @@ export default {
         },
         progressBack(res) {
             // aaa
-            console.log(res);
-            console.log('progress--back');
+            // console.log(res);
+            // console.log('progress--back');
             if (!res.data || res.status !== '1') {
                 // 错误
                 // debugger;
@@ -477,11 +472,11 @@ export default {
             }
         },
         onConvertProgress(num) {
-            console.log('progress-', num);
+            // console.log('progress-', num);
             this.setProgress(14 + parseInt((86 * num) / 100, 10));
         },
         onConvertSuccess(data) {
-            console.log(data);
+            // console.log(data);
             let item = this.getCurrentConvertData();
             let status = data.data.status;
             if (status === 2) {
@@ -502,9 +497,9 @@ export default {
             console.log(response);
         },
         fileOssError: function(data) {
-            console.log(111);
-            console.log(data);
-            console.log(333);
+            // console.log(111);
+            // console.log(data);
+            // console.log(333);
             let item = this.getCurrentConvertData();
             item.state = 3;
             this.next();
@@ -519,7 +514,7 @@ export default {
         },
         authorizeProgress: function() {
             this.setProgress(4);
-            console.log('98989898');
+            // console.log('98989898');
         },
         getCurrentConvertData: function() {
             return this.fileList[this.index];
@@ -540,7 +535,7 @@ export default {
         },
         showResult() {
             resultData.targetList = this.getTargetFileList();
-            console.log('showresulettttt');
+            // console.log('showresulettttt');
             this.$router.push({
                 path: '/convertresult',
                 query: {

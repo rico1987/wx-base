@@ -16,6 +16,8 @@
 </template>
 
 <script>
+import {nativeDownload, } from '../utils/index';
+
 export default {
     name: 'mergeFileItem',
 
@@ -59,13 +61,21 @@ export default {
             }
         },
         url(newValue, oldValue) {
+            console.log('url-update', newValue, oldValue);
             oldValue;
             if (newValue && newValue.length > 1) {
                 console.log('-----');
                 let _this = this;
-                setTimeout(() => {
-                    _this.$refs.downBtn.click();
-                }, 200);
+                // nativeDownload
+                console.log(this.filed.targetUrl, this.filed.targetName);
+                if (window.account) {
+                    console.log(this.filed.targetUrl, this.filed.targetName);
+                    nativeDownload(this.filed.targetUrl, this.filed.targetName);
+                    return;
+                }
+                // setTimeout(() => {
+                //     _this.$refs.downBtn.click();
+                // }, 200);
             }
         },
         state(newValue, oldValue) {

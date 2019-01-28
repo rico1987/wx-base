@@ -38,6 +38,7 @@
                         ref="smallInput"
                         title=" "
                         @change="smallReferenceUpload($event)"
+                        v-show="!isConverting"
                         multiple
                     >
                 </div>
@@ -347,7 +348,10 @@ export default {
                 this.isConverting = false;
                 this.index = 0;
                 this.isStopShow = false;
-                this.showResult();
+                console.log('-0-0-0-0-0-0-0-0-');
+                    setTimeout(() => {
+                        this.showResult();
+                    }, 300);
                 return;
             }
             this.start();
@@ -359,7 +363,11 @@ export default {
         uploadOssOk: function(res, file) {
             let data = res.data.data;
             let item = this.getCurrentConvertData();
-            item.fileId = data.id;
+            if (data['app_data']) {
+                item.fileId = data['app_data']['id'];
+            } else {
+                item.fileId = data.id;
+            }
             file;
             // console.log(res, file, 3);
             this.setProgress(4 + 10);
@@ -498,6 +506,10 @@ export default {
         },
         fileOssError: function(data) {
             console.log(data);
+            console.log(333);
+            let item = this.getCurrentConvertData();
+            item.state = 3;
+            this.next();
         },
         returnProgress: function(data) {
             // console.log(data);

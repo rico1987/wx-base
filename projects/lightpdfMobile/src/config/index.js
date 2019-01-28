@@ -5,5 +5,5 @@ export default {
     storageApiBaseUrl: 'https://storage.aoscdn.com/api',
     lightPdfApiBaseUrl: 'https://api.lightpdf.com/api',
     // lightPdfApiBaseUrl: 'http://newdev-api-lightpdf.aoscdn.com/api',
-    timeout: 5000,
+    timeout: 30000,
 };

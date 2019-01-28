@@ -71,7 +71,7 @@ export default {
     },
 
     created: function() {
-        console.log('this.$i18n.locale', this.$i18n.locale);
+        // console.log('this.$i18n.locale', this.$i18n.locale);
         let data = getNativeData();
         if (data && data.identity_token) {
         // if (1) {
@@ -81,7 +81,7 @@ export default {
             // ls.set('identity_token', '4816931,1548054256,a17570d2e8d3b0ae152714007493fd52');
             // ls.set('identity_token', '1968363,1548247249,acf478799959c26160bd5e5bc521fd55');
         } else {
-            console.log('clear identity_token2');
+            // console.log('clear identity_token2');
             ls.set('identity_token', '');
         }
         this.getSession();
@@ -92,25 +92,25 @@ export default {
     methods: {
         pwdOk(data) {
             console.log('iiindex');
-            console.log(data);
+            // console.log(data);
         },
         getSession: function() {
-            console.log('identity_token');
-            console.log(ls.get('identity_token'));
+            // console.log('identity_token');
+            // console.log(ls.get('identity_token'));
             getPdfSession().then((response) => {
                 const data = response.data;
-                console.log(data);
+                // console.log(data);
                 ls.set('api_token', data.data.user.api_token);
-                console.log('aaaa');
+                // console.log('aaaa');
                 this.echoit(data.data.user);
                 // this.getVip();
                 window.freshVip();
-                console.log(this);
+                // console.log(this);
             }).catch((error) => {
                 console.log(error);
                 if (error.error) {
                     // error token失效
-                    console.log('clear identity_token1');
+                    // console.log('clear identity_token1');
                     ls.set('identity_token', '');
                     this.getSession();
                     return;

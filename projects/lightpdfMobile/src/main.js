@@ -35,11 +35,8 @@ import LangTr from './lang/tr';
 import LangTw from './lang/tw';
 import ToastPlugin from './plugins/toast';
 
-console.log('main-init1');
 vip.init();
-console.log('main-init2');
 vip.freshIdentityToken();
-console.log('main-init3');
 Vue.use(ToastPlugin, { position: 'center', });
 
 Vue.config.productionTip = false;
@@ -147,8 +144,6 @@ let info = `{"api_token":"4816931,cefe66cde5ade2c014e344a192a86583",
 "company":"","industry":"","position":"","education":"","address":"","city":"","postcode":"","country":""}}`;
 window.uinfo = JSON.parse(info);
 
-console.log(window.uinfo);
-console.log(navigator.userAgent);
 const i18n = new VueI18n({
     locale: lang,
     messages: {

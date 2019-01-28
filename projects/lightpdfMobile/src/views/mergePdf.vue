@@ -24,6 +24,10 @@
 <script>
 import MainBar from '../components/MainBar.vue';
 import FeedBackEntry from '../components/feedBackEntry.vue';
+import {getPdfSession, } from '../api/pdf';
+import ls from '../utils/littleStore';
+import his from '../utils/pathHistory';
+import {getNativeData, } from '../utils/index';
 
 export default {
     name: 'mergepdf',
@@ -43,8 +47,46 @@ export default {
     },
 
     created: function() {
+        // console.log('this.$i18n.locale', this.$i18n.locale);
+        let data = getNativeData();
+        if (data && data.identity_token) {
+            ls.set('identity_token', data.identity_token);
+        } else {
+            // console.log('clear identity_token2');
+            ls.set('identity_token', '');
+        }
+        this.getSession();
+        his.push(this.$router.history.current);
     },
     methods: {
+        getSession: function() {
+            // console.log('identity_token');
+            // console.log(ls.get('identity_token'));
+            getPdfSession().then((response) => {
+                const data = response.data;
+                // console.log(data);
+                ls.set('api_token', data.data.user.api_token);
+                // console.log('aaaa');
+                this.echoit(data.data.user);
+                // this.getVip();
+                window.freshVip();
+                // console.log(this);
+            }).catch((error) => {
+                console.log(error);
+                if (error.error) {
+                    // error tokenʧЧ
+                    console.log('clear identity_token1');
+                    ls.set('identity_token', '');
+                    this.getSession();
+                    return;
+                }
+                ls.set('api_token', '');
+                ls.set('client-vip', 0);
+            });
+        },
+        echoit: function(params) {
+            console.log(params);
+        },
         pos: function(index) {
             let len = this.convertkey.length;
             let step = 3;

@@ -57,7 +57,7 @@ export default {
     },
     methods: {
         onSearch() {
-            console.log(this.$refs.searchInput.value);
+            // console.log(this.$refs.searchInput.value);
             let key = this.$refs.searchInput.value || '';
             if (key.length === 0) {
                 return;
@@ -74,12 +74,12 @@ export default {
                 this.currentPage = page;
                 _this.listBack(res.data);
                 this.isLoadingData = 0;
-                console.log(this.isLoadingData);
+                // console.log(this.isLoadingData);
             }).catch((res) => {
-                console.log(res);
+                // console.log(res);
                 this.isLoadingData = 0;
                 this.currentPage = page;
-                console.log(this.isLoadingData);
+                // console.log(this.isLoadingData);
             });
         },
         nextPage() {
@@ -93,7 +93,7 @@ export default {
             }
         },
         listBack(data) {
-            console.log(data);
+            // console.log(data);
             // this.fileList = data.data.list;
             let list = data.data.list || [];
             let arr = [];
@@ -101,7 +101,7 @@ export default {
             let manage = false;
             if (this.$refs.delBar) {
                 manage = !!this.$refs.delBar.isShowDel;
-                console.log('ismanage', this.$refs.delBar.isShowDel);
+                // console.log('ismanage', this.$refs.delBar.isShowDel);
             }
             list.forEach((item) => {
             // for (let i = 0; i <list.a)
@@ -118,10 +118,10 @@ export default {
                 };
                 arr.push(obj);
             });
-            console.log(this.fileList.length);
+            // console.log(this.fileList.length);
             this.fileList.length = 0;
             this.fileList = arr;
-            console.log('nn', this.fileList.length);
+            // console.log('nn', this.fileList.length);
         },
         getUniqKey() {
             this.uniqKey += 1;
@@ -161,26 +161,26 @@ export default {
         },
         onTouch(e) {
             console.log('onTouch');
-            console.log(e);
+            // console.log(e);
         },
         onTouchStart(e) {
             console.log('onTouchStart');
-            console.log(e);
+            // console.log(e);
         },
         onTouchEnd(e) {
             console.log('onTouchEnd');
-            console.log(e);
+            // console.log(e);
         },
         onTouchMove(e) {
             this.addScrollTop(this.$refs.List.scrollTop);
             this.addPosY(e.changedTouches[0].pageY);
 
             if (this.isScrollEnd() && this.isUp() && !this.isLoadingData) {
-                console.log('isUp');
+                // console.log('isUp');
                 this.nextPage();
             }
             if (this.isScrollEnd() && this.isDown() && !this.isLoadingData) {
-                console.log('isDown');
+                // console.log('isDown');
                 this.prePage();
             }
 
@@ -227,7 +227,7 @@ export default {
             return flag;
         },
         selectAll() {
-            console.log('select alll');
+            // console.log('select alll');
             let item;
             for (let i = 0; i < this.fileList.length; i += 1) {
                 item = this.fileList[i];
@@ -238,7 +238,7 @@ export default {
 
         },
         onDelFile() {
-            console.log('deldel file');
+            // console.log('deldel file');
             let item;
             let hasDel = false;
             for (let i = 0; i < this.fileList.length; i += 1) {
@@ -259,7 +259,7 @@ export default {
             await delTask(id);
         },
         showSelectBar() {
-            console.log('showselect bar');
+            // console.log('showselect bar');
             this.$refs.header.jumpDisable = 1;
             this.setListManage(true);
         },
@@ -271,7 +271,7 @@ export default {
             }
         },
         onBack() {
-            console.log('goo back');
+            // console.log('goo back');
             if (this.$refs.delBar.isShowDel === 0 && this.$refs.delBar.isShowManage === 1) {
                 this.$refs.header.jumpBack();
                 return;
@@ -288,7 +288,7 @@ export default {
             }
         },
         onDownload(item) {
-            console.log(item);
+            // console.log(item);
             this.$refs.downLoadBar.isShow = 1;
             this.$refs.downLoadBar.freshList(item.source_files, item.target_file);
         },

@@ -154,7 +154,7 @@ export default {
         this.pwdCheckObj.on('pdf-err', this.pdfErr);
         this.pwdCheckObj.on('pdf-ok', this.pwdOk);
         this.pwdCheckObj.on('pdf-finish', this.pwdFinish);
-        console.log(this.$route);
+        // console.log(this.$route);
         his.push(this.$router.history.current);
         if (this.$route.query.type) {
             this.taskName = this.$route.query.type;
@@ -206,25 +206,25 @@ export default {
             }
         },
         pwdErr(data) {
-            console.log(data);
-            console.log('pwdErr');
+            // console.log(data);
+            // console.log('pwdErr');
             let fileName = data.name;
             this.showPwd(fileName);
         },
         pdfErr(data) {
-            console.log(data);
-            console.log('pdfErr');
+            // console.log(data);
+            // console.log('pdfErr');
             this.msg('file type err');
         },
         pwdOk(data) {
-            console.log(data);
-            console.log('pwdok');
+            // console.log(data);
+            // console.log('pwdok');
             let item = this.getInfoData(data.file, data.pwd);
             this.addToList(item);
         },
         pwdFinish(data) {
-            console.log(data);
-            console.log('pwdFinish');
+            // console.log(data);
+            // console.log('pwdFinish');
             this.checkShowBtn();
         },
         checkShowBtn() {
@@ -234,7 +234,7 @@ export default {
         },
         pwdSet() {
             let str = this.$refs.pwd.pwd;
-            console.log(str);
+            // console.log(str);
             this.pwdCheckObj.checkPwd(str);
         },
         checkInfo(file) {
@@ -287,7 +287,7 @@ export default {
                 item.state = 1;
                 this.fileList.push(item);
             }
-            console.log(this.fileList);
+            // console.log(this.fileList);
             this.checkShowBtn();
         },
         renderList: function() {
@@ -303,13 +303,13 @@ export default {
         },
         msg: function(txt) {
             this.$refs.msg.msg(txt);
-            console.log('msg');
+            // console.log('msg');
         },
         start: function() {
             // 开始处理 上传 转换
             let file = this.getCurrentConvertData().file;
             let uploader = Uploader.create(file, this.authorizeProgress, this.uploadOssOk, this.fileOssError, this.returnProgress, this, 1);
-            console.log(uploader);
+            // console.log(uploader);
             uploader.start();
             this.isSureShow = false;
             this.isStopShow = true;
@@ -372,16 +372,16 @@ export default {
             };
             let _this = this;
             createTask(obj).then((data) => {
-                console.log('taskok');
-                console.log(data);
+                // console.log('taskok');
+                // console.log(data);
                 let taskId = data.data.data.task_id;
                 _this.taskId = taskId;
                 _this.checkProgress(taskId);
             }).catch((data) => {
                 console.log('err');
-                console.log(data);
+                // console.log(data);
                 _this.getCurrentConvertData().state = 3;
-                console.log('createErr-next');
+                // console.log('createErr-next');
                 // _this.next();
             });
         },
@@ -393,7 +393,7 @@ export default {
                 item = this.fileList[i];
                 arr.push(this.getFileConfig(item));
             }
-            console.log(arr);
+            // console.log(arr);
             return arr;
         },
         getArg() {
@@ -409,7 +409,7 @@ export default {
         },
         checkProgress(id) {
             // check
-            console.log('check-progress', id);
+            // console.log('check-progress', id);
             let checkInfo = function() {
                 this.infoTime += 1;
                 let _this = this;
@@ -436,8 +436,8 @@ export default {
         },
         progressBack(res) {
             // aaa
-            console.log(res);
-            console.log('progress--back');
+            // console.log(res);
+            // console.log('progress--back');
             if (!res.data || res.status !== '1') {
                 // 错误
                 // debugger;
@@ -477,29 +477,33 @@ export default {
             }
         },
         onConvertProgress(num) {
-            console.log('progress-', num);
+            // console.log('progress-', num);
             this.setProgress(14 + parseInt((86 * num) / 100, 10));
         },
         onConvertSuccess(data) {
-            console.log(data);
+            // console.log(data);
             let item = this.fileList[this.fileList.length - 1];
             let status = data.data.status;
+            // console.log(this.fileList);
             if (status === 2) {
                 let targetFile = data.data.target_file;
                 item.state = 2;
                 item.targetUrl = targetFile.url;
                 item.targetName = targetFile.filename;
-                this.isConverting = false;
-                this.index = 0;
-                this.isStopShow = false;
+                
                 this.setAllItemOk();
                 // this.setAllItemErr();
-                this.showResult();
+                setTimeout(() => {
+                    this.isConverting = false;
+                    this.index = 0;
+                    this.isStopShow = false;
+                    this.showResult();
+                }, 200);
             } else {
                 item.state = 3;
                 this.setAllItemErr();
             }
-            console.log('onConvertSuccess-next');
+            // console.log('onConvertSuccess-next');
             // this.next();
             // this.pwdCheckObj.next();
         },
@@ -554,13 +558,15 @@ export default {
             return arr;
         },
         showResult() {
+            console.log('showResult1');
             resultData.targetList = this.getTargetFileList();
-            // this.$router.push({
-            //     path: '/convertresult',
-            //     query: {
-            //         type: this.type,
-            //     },
-            // });
+            // console.log(resultData.targetList);
+            this.$router.push({
+                path: '/convertresult',
+                query: {
+                    type: this.type,
+                },
+            });
         },
     },
 };

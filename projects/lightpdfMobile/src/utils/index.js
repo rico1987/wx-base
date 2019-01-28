@@ -138,7 +138,14 @@ export function nativeFeedBack(mail, content, subject) {
 export function isNetConnect() {
     return window.account && window.account.isNetConnect();
 }
+
 export function isWifiConnect() {
     return window.account && window.account.isWifiConnect();
 }
 
+export function saveLog(str) {
+    if (!str) {
+        return;
+    }
+    return window.account && window.account.onSaveLog(str);
+}

@@ -6,24 +6,24 @@
             <div class="panel-two">
                 <div class="des-panel">
                     <div class="privilege-box">
-                        <div class="des-title">开通VIP独享专属特权</div>
+                        <div class="des-title">{{$tr('Privileges of Being VIP Members@@002152')}}</div>
                         <div class="privilege-list">
                             <div class="privilege-item">
                                 <div class="img free-use"></div>
-                                <div class="privilege-des">享PDF转换王产品免费使用权</div>
+                                <div class="privilege-des">{{$tr('Free usage of PDF Converter@@002153')}}</div>
                             </div>
                             <div class="privilege-item">
                                 <div class="img custom-service"></div>
-                                <div class="privilege-des">享24小时客服服务</div>
+                                <div class="privilege-des">{{$tr('24-hour support service@@002154')}}</div>
                             </div>
                             <div class="privilege-item">
                                 <div class="img free-upgrade"></div>
-                                <div class="privilege-des">享免费升级服务</div>
+                                <div class="privilege-des">{{$tr('Free update service@@002155')}}</div>
                             </div>
                         </div>
                     </div>
                     <div class="secure-box">
-                        <div class="des-title">我们的承诺</div>
+                        <div class="des-title">{{$tr('Our Promises@@002156')}}</div>
                         <div class="secure-list">
                             <div class="secure-item">
                                 <div class="title-box">
@@ -42,18 +42,20 @@
                         </div>
                     </div>
                 </div>
-                <div class="pay-btns">
+                <div class="pay-btns to-fixed">
                     <div class="month-btn" @click="openNormalPay">{{normalPlan.priceDes}}</div>
                     <div class="year-btn" @click="openRecommondPay">{{recommendPlan.priceDes}}
                     </div>
                 </div>
             </div>
+            <pay-result ref="payResult"></pay-result>
         </div>
     </div>
 </template>
 
 <script>
 import PdfHeader from '../components/PdfHeader.vue';
+import PayResult from '../components/PayResult.vue';
 import UserInfo from '../components/userInfo.vue';
 import payUrl from '../utils/storeUrl';
 import {openUrl, getNativeData, } from '../utils/index';
@@ -63,6 +65,7 @@ export default {
     components: {
         'pdf-header': PdfHeader,
         'user-info': UserInfo,
+        'pay-result': PayResult,
     },
     data() {
         return {
@@ -74,6 +77,8 @@ export default {
             normalPlan: null,
             recommendPlan: null,
             planArr: [],
+            bottomBtnState: '',
+
         };
     },
 
@@ -170,15 +175,19 @@ export default {
             }
             let identifyStr = '';
             let data = getNativeData();
-            if (this.$i18n.locale === 'cn' && this.account && data['identity_token']) {
+            console.log('this.$i18n.locale', this.$i18n.locale);
+            console.log(data['identity_token']);
+            if (this.$i18n.locale === 'cn' && data['identity_token']) {
                 identifyStr = `&identity_token=${data['identity_token']}`;
-                url = `url${identifyStr}`;
+                url = `${url}${identifyStr}`;
             }
             if (window.account) {
                 openUrl(url);
             } else {
                 window.open(url);
             }
+            this.$refs.payResult.show();
+            this.$refs.payResult.payUrl = url;
         },
         onBack() {
             console.log('onback');

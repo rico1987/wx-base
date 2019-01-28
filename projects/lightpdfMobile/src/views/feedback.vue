@@ -40,15 +40,15 @@ export default {
     },
     methods: {
         sendMsg() {
-            console.log(this.$router);
-            console.log(this.$route);
+            // console.log(this.$router);
+            // console.log(this.$route);
             let mail = '';
             let subject = '';
             let content = '';
             mail = this.$refs.mail.value.trim();
             subject = this.$refs.subject.value.trim();
             content = this.$refs.content.value.trim();
-            console.log(mail, subject, content);
+            // console.log(mail, subject, content);
 
             if (mail === '') {
                 this.msg(this.$tr('Email and feedback can not be empty.@@002047'));

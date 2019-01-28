@@ -11,9 +11,9 @@
                         <div class="lamp-img"></div>
                     </div>
 
-                    <p class="vip-des" v-show="isVip == 0">会员可无限制转换</p>
-                    <p class="normal-des" v-show="isVip == 0">由于未开通会员，只能享受前5页转换</p>
-                    <p class="vip-des" v-show="isVip == 1">转换成功</p>
+                    <p class="vip-des" v-show="isVip == 0">{{$tr('VIP members can convert without any limitations@@002158')}}</p>
+                    <p class="normal-des" v-show="isVip == 0">{{$tr('You can only convert the very first 5 pages since you are not VIP member yet!@@002159')}}</p>
+                    <p class="vip-des">{{numStr}}</p>
                 </div>
                 <div class="btn-box">
                     <div v-show="isVip == 0" class="join-vip" @click="joinVip">{{$tr('Join VIP@@002145')}}</div>
@@ -60,6 +60,7 @@ export default {
             type: 'pdf-to-word',
             headerTitle: '',
             isVip: 0,
+            numStr: '',
             convertkey: [
                 {
                     key: 'pdf-to-word',
@@ -130,14 +131,15 @@ export default {
     created: function() {
         his.push(this.$router.history.current);
         this.fileList = resultData.targetList;
-        console.log(this.fileList);
+        // console.log(this.fileList);
+        this.numStr = this.$tr('{0} file(s) converted successfully@@002157', this.fileList.length);
         if (this.$route.query.type) {
             let type = this.$route.query.type;
             this.type = type;
         }
         this.initTitle();
         this.isVip = ls.get('client-vip') || 0;
-        console.log('isvip', this.isVip);
+        // console.log('isvip', this.isVip);
     },
     methods: {
         getConvertKey(key) {

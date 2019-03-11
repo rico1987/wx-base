@@ -125,10 +125,10 @@ export default {
         },
         goFeedBack() {
             console.log('-0-0-0-0--');
-            let obj = {
-                path: this.$route.path,
-                query: this.$route.query,
-            };
+            // let obj = {
+            //     path: this.$route.path,
+            //     query: this.$route.query,
+            // };
             this.$router.push({
                 path: '/feedback',
             });

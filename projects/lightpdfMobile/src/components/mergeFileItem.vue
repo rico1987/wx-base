@@ -65,13 +65,13 @@ export default {
             oldValue;
             if (newValue && newValue.length > 1) {
                 console.log('-----');
-                let _this = this;
+                // let _this = this;
                 // nativeDownload
                 console.log(this.filed.targetUrl, this.filed.targetName);
                 if (window.account) {
                     console.log(this.filed.targetUrl, this.filed.targetName);
                     nativeDownload(this.filed.targetUrl, this.filed.targetName);
-                    return;
+                    // return;
                 }
                 // setTimeout(() => {
                 //     _this.$refs.downBtn.click();

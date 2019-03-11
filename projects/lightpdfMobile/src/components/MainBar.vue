@@ -65,10 +65,10 @@ export default {
             let data = getNativeData();
             console.log(data);
             console.log(data.userInfo);
-            if (url === '/info' && !(data.identity_token && data.userInfo)) {
-                this.toUserCenter();
-                return;
-            }
+            // if (url === '/info' && !(data.identity_token && data.userInfo)) {
+            //     this.toUserCenter();
+            //     return;
+            // }
             this.$router.push(url);
         },
         toUserCenter() {

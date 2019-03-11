@@ -119,7 +119,7 @@ export default {
         },
         checkLicense(data) {
             if (data && data.isVip) {
-                let exp = data.expire_date;
+                // let exp = data.expire_date;
                 // let code = `1-a-${exp}`;
                 // if (code !== this.vipState) {
                 // 转换成功

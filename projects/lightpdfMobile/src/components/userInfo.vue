@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import ls from '../utils/littleStore';
+// import ls from '../utils/littleStore';
 import vip from '../utils/vipInfo';
 
 export default {

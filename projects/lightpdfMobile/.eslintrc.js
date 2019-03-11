@@ -54,7 +54,8 @@ module.exports = {
     "key-spacing": [2, { "beforeColon": false, "afterColon": true }],
     "linebreak-style": 0,
     "lines-around-comment": 0,
-    "max-len": ["error", { "code": 150, "tabWidth": 4 }],
+    //需要对翻译字段的长度做兼容150-->250
+    "max-len": ["error", { "code": 250, "tabWidth": 4 }],
     "max-nested-callbacks": 0,
     "new-cap": [2, { "newIsCap": true, "capIsNew": false }],
     "new-parens": 2,

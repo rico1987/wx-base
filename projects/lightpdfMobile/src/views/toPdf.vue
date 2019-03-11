@@ -29,7 +29,6 @@ import ls from '../utils/littleStore';
 import his from '../utils/pathHistory';
 import {getNativeData, } from '../utils/index';
 
-
 export default {
     name: 'topdf',
     components: {

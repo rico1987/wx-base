@@ -349,9 +349,9 @@ export default {
                 this.index = 0;
                 this.isStopShow = false;
                 console.log('-0-0-0-0-0-0-0-0-');
-                    setTimeout(() => {
-                        this.showResult();
-                    }, 300);
+                setTimeout(() => {
+                    this.showResult();
+                }, 300);
                 return;
             }
             this.start();

@@ -85,7 +85,7 @@
 
 <script>
 import PdfHeader from '../components/PdfHeader.vue';
-import PayResult from '../components/PayResult.vue';
+import PayResult from '../components/payResult.vue';
 import UserInfo from '../components/userInfo.vue';
 import payUrl from '../utils/storeUrl';
 import {openUrl, getNativeData, } from '../utils/index';
@@ -243,7 +243,6 @@ export default {
                 this.bottomBtnState = '';
             }
             console.log(e);
-            
         },
     },
 };

@@ -211,7 +211,7 @@ export default {
             let fileName = data.name;
             this.showPwd(fileName);
         },
-        pdfErr(data) {
+        pdfErr() {
             // console.log(data);
             // console.log('pdfErr');
             this.msg('file type err');
@@ -222,7 +222,7 @@ export default {
             let item = this.getInfoData(data.file, data.pwd);
             this.addToList(item);
         },
-        pwdFinish(data) {
+        pwdFinish() {
             // console.log(data);
             // console.log('pwdFinish');
             this.checkShowBtn();
@@ -377,7 +377,7 @@ export default {
                 let taskId = data.data.data.task_id;
                 _this.taskId = taskId;
                 _this.checkProgress(taskId);
-            }).catch((data) => {
+            }).catch(() => {
                 console.log('err');
                 // console.log(data);
                 _this.getCurrentConvertData().state = 3;
@@ -490,7 +490,6 @@ export default {
                 item.state = 2;
                 item.targetUrl = targetFile.url;
                 item.targetName = targetFile.filename;
-                
                 this.setAllItemOk();
                 // this.setAllItemErr();
                 setTimeout(() => {

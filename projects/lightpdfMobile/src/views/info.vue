@@ -16,19 +16,21 @@
                     </div>
                     <div class="btn active" @click="goPayCenter">{{$tr('Recharge centre@@002033')}}</div>
                     <div class="btn" @click="goMyfiles">{{$tr('My Files@@001432')}}</div>
+                    <div class="btn" @click="goLocalFile">{{$tr('My Local Files')}}</div>
                     <div class="btn" @click="goMyCenter">{{$tr('Account@@002053')}}</div>
                     <div class="btn" @click="goCommunity">{{$tr('Forum@@002032')}}</div>
+                    <div class="btn" @click="goCommunity">{{$tr('Version')}}</div>
             </div>
             <div class="btn logout-btn" @click="logout">{{$tr('Logout@@002034')}}</div>
-            <main-bar type="user-center"></main-bar>
+            <main-bar v-if="!isIos" type="user-center"></main-bar>
         </div>
     </div>
 </template>
 
 <script>
 import MainBar from '../components/MainBar.vue';
-import {nativeLogout, getNativeData, jump, openUrl, } from '../utils/index';
-import {getPdfConverterVipInfo, } from '../api/support';
+import {nativeLogout, getNativeData, jump, openUrl, openFolder, } from '../utils/index';
+// import {getPdfConverterVipInfo, } from '../api/support';
 import ls from '../utils/littleStore';
 import vip from '../utils/vipInfo';
 
@@ -40,6 +42,7 @@ export default {
     data() {
         return {
             info: {},
+            isIos: 1,
             userInfo: {
                 // avatar: 'https://avatar.aoscdn.com/7b46fcfb791623c2e28a94eb1e9f098e.jpg!256?t=1536391882',
             },
@@ -81,7 +84,6 @@ export default {
         dealLicenseInfo(data) {
             // console.log('dealLicenseInfo');
             // console.log(data);
-            
             if (data) {
                 this.licenseInfo = data;
                 if (data.expire_date) {
@@ -132,6 +134,9 @@ export default {
             this.$router.push({
                 path: '/myfiles',
             });
+        },
+        goLocalFile() {
+            openFolder();
         },
         goPayCenter() {
             if (this.licenseInfo && this.licenseInfo.isVip) {

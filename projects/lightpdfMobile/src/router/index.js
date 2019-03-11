@@ -13,6 +13,7 @@ import VipPay from '@/views/vipPay.vue';
 import ToPdfConvert from '@/views/toPdfConvert.vue';
 import Merge from '@/views/merge.vue';
 import FeedBack from '@/views/feedback.vue';
+import About from '@/views/about.vue';
 
 Vue.use(Router);
 
@@ -86,6 +87,11 @@ export default new Router({
             path: '/feedback',
             name: 'feedback',
             component: FeedBack,
+        },
+        {
+            path: '/about',
+            name: 'about',
+            component: About,
         },
     ],
 });

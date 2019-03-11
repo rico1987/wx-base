@@ -90,7 +90,7 @@ export default {
         his.push(this.$router.history.current);
     },
     methods: {
-        pwdOk(data) {
+        pwdOk() {
             console.log('iiindex');
             // console.log(data);
         },

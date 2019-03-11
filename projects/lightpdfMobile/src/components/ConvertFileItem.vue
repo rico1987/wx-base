@@ -62,16 +62,14 @@ export default {
         url(newValue, oldValue) {
             oldValue;
             console.log('download url update');
-            
             if (newValue && newValue.length > 1) {
                 console.log('--111---');
-                let _this = this;
                 // nativeDownload
                 console.log(this.filed.targetUrl, this.filed.targetName);
                 if (window.account) {
                     console.log(this.filed.targetUrl, this.filed.targetName);
                     nativeDownload(this.filed.targetUrl, this.filed.targetName);
-                    return;
+                    // return;
                 }
                 // setTimeout(() => {
                 //     _this.$refs.downBtn.click();

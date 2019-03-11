@@ -7,6 +7,7 @@
 
 <script>
 import his from '../utils/pathHistory';
+import {backToIosNative, } from '../utils/index';
 
 export default {
     name: 'PdfHeader',
@@ -63,14 +64,18 @@ export default {
             let path = this.getParentPath();
             let item = his.search(path);
             if (item) {
-                this.$router.push({
-                    path: item.path,
-                    query: item.query,
-                });
+                // this.$router.push({
+                //     path: item.path,
+                //     query: item.query,
+                // });
+                console.log('9090909090');
+                backToIosNative();
+
             } else {
-                this.$router.push({
-                    path: path,
-                });
+                backToIosNative();
+                // this.$router.push({
+                //     path: path,
+                // });
             }
         },
         getParentPath() {

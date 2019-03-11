@@ -3,7 +3,6 @@ import config from '../config';
 import ls from '../utils/littleStore';
 import {saveLog, } from '../utils/index';
 
-
 const service = axios.create({
     baseURL: config.lightPdfApiBaseUrl,
     timeout: config.timeout,

@@ -205,7 +205,7 @@ export default {
             let fileName = data.name;
             this.showPwd(fileName);
         },
-        pdfErr(data) {
+        pdfErr() {
             // console.log('pdfErr');
             this.msg('file type err');
         },
@@ -214,7 +214,7 @@ export default {
             let item = this.getInfoData(data.file, data.pwd);
             this.addToList(item);
         },
-        pwdFinish(data) {
+        pwdFinish() {
             // console.log('pwdFinish');
             this.checkShowBtn();
         },
@@ -327,10 +327,10 @@ export default {
                 this.index = 0;
                 this.isStopShow = false;
                 // if (this.checkAllState()) {
-                    // this.showResult();
-                    setTimeout(() => {
-                        this.showResult();
-                    }, 300);
+                // this.showResult();
+                setTimeout(() => {
+                    this.showResult();
+                }, 300);
                 // }
                 return;
             }
@@ -385,7 +385,7 @@ export default {
                 let taskId = data.data.data.task_id;
                 _this.getCurrentConvertData().taskId = taskId;
                 _this.checkProgress(taskId);
-            }).catch((data) => {
+            }).catch(() => {
                 console.log('err');
                 // console.log(data);
                 _this.getCurrentConvertData().state = 3;
@@ -496,7 +496,7 @@ export default {
             // aaa
             console.log(response);
         },
-        fileOssError: function(data) {
+        fileOssError: function() {
             // console.log(111);
             // console.log(data);
             // console.log(333);

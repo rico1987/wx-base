@@ -1,0 +1,76 @@
+.about-container{
+	position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+	background: #f7f6fb;
+	padding-top: 0.98rem;
+	.inner-container{
+		width: 100%;
+	}
+	.logo-box{
+		display: inline-block;
+		margin: 70px auto 0;
+		width: 128px;
+		height: 128px;
+		background: url(../../../assets/images/header/app-logo.svg) center center/100% auto no-repeat;
+	}
+	.app-name{
+	    font-size: 0.49rem;
+	    margin-top: 17px;
+	}
+	.app-verson{
+		color: #666;
+	}
+	.app-update{
+		color: #666;
+		cursor: pointer;
+		margin-top: 56px;
+		font-size: 0.3rem;
+		line-height: 0.6rem;
+		height: 0.6rem;
+		border-top: 1px solid;
+		border-bottom: 1px solid;
+		border-top: 2px solid #ececec;
+		border-bottom: 1px solid #ececec;
+		text-align: left;
+		padding-left: 0.2rem;
+		padding-right: 0.2rem;
+		display: inline-block;
+		width: 100%;
+		&::before{
+			content: '';
+			width: 0.3rem;
+			height: 0.6rem;
+			background: url(../../../assets/images/index/about/update.svg) center center/100% auto no-repeat;
+			display: inline-block;
+			position: relative;
+			top: -0.03rem;
+			margin-right: 0.2rem;
+			vertical-align: middle;
+		}
+		&::after{
+			content: '';
+			width: 0.3rem;
+			height: 0.6rem;
+			background: url(../../../assets/images/index/about/arrow-right.svg) center center/0.15rem auto no-repeat;
+			display: inline-block;
+			position: relative;
+			top: -0.03rem;
+			vertical-align: middle;
+			float: right;
+		}
+		&:active {
+			background: #ccc;
+		}
+	}
+	.app-copyright{
+		position: absolute;
+		color: #999;
+		width: 100%;
+		bottom: 20px;
+	}
+
+
+
+}

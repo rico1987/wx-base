@@ -49,5 +49,4 @@ const vip = {
     licenseInfo: null,
 };
 
-
 export default vip;

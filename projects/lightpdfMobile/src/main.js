@@ -52,7 +52,11 @@ if (!lang && lsLang) {
 let supportLangArr = ['cn', 'tw', 'en', 'cs', 'da', 'de', 'el', 'es', 'fi', 'fr', 'hu', 'it', 'ja', 'nl', 'nb', 'pl', 'pt', 'sv', 'tr', ];
 
 if (startWith(lang, 'zh')) {
-    lang = lang.split('_')[1].toLowerCase();
+    if (lang === 'zh') {
+        lang = 'cn';
+    } else {
+        lang = lang.split('_')[1].toLowerCase();
+    }
 } else {
     lang = lang.split('_')[0].toLowerCase();
 }

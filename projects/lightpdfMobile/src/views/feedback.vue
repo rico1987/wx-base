@@ -19,7 +19,7 @@
 
 <script>
 import PdfHeader from '../components/PdfHeader.vue';
-import {nativeFeedBack, isNetConnect, } from '../utils/index';
+import {nativeFeedBack, isNetConnect, backToIosNative, } from '../utils/index';
 import Message from '../components/Message.vue';
 
 export default {
@@ -71,6 +71,8 @@ export default {
         back() {
             if (window.history.length > 1) {
                 this.$router.back(-1);
+            } else {
+                backToIosNative();
             }
         },
     },

@@ -75,7 +75,7 @@ export default {
                 _this.listBack(res.data);
                 this.isLoadingData = 0;
                 // console.log(this.isLoadingData);
-            }).catch((res) => {
+            }).catch(() => {
                 // console.log(res);
                 this.isLoadingData = 0;
                 this.currentPage = page;
@@ -159,15 +159,15 @@ export default {
             }
             return ext;
         },
-        onTouch(e) {
+        onTouch() {
             console.log('onTouch');
             // console.log(e);
         },
-        onTouchStart(e) {
+        onTouchStart() {
             console.log('onTouchStart');
             // console.log(e);
         },
-        onTouchEnd(e) {
+        onTouchEnd() {
             console.log('onTouchEnd');
             // console.log(e);
         },

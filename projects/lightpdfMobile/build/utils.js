@@ -99,3 +99,30 @@ exports.createNotifierCallback = () => {
     })
   }
 }
+
+/**
+ * 获取命令行中以--env.aa开头的参数
+ * --env.aa=1,{aa:1},
+ * --env.aa,{aa:true},
+ * 
+ */
+exports.getParas = function () {
+  let arr = process.argv;
+  let obj = {};
+  let key;
+  let value;
+  let index;
+  for (let i = 0; i < arr.length; i++) {
+    index = arr[i].indexOf('=');
+    if (arr[i].startsWith('--env.') && index != -1) {
+      key = arr[i].substring(6, index);
+      value = arr[i].substring(index + 1);
+      obj[key] = value;
+    } else if (arr[i].startsWith('--env.')) {
+      key = arr[i].substring(6);
+      value = true;
+      obj[key] = value;
+    }
+  }
+  return obj
+}

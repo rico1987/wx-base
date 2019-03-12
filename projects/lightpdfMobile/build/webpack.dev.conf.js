@@ -13,6 +13,10 @@ const portfinder = require('portfinder')
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
 
+// package.json  "devios": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --env.isIos=32 --disable-host-check",
+// 获取参数 --env.isIos 是否是iso平台
+let isIos = utils.getParas()['isIos'] || 0;
+
 const devWebpackConfig = merge(baseWebpackConfig, {
   module: {
     rules: utils.styleLoaders({ sourceMap: config.dev.cssSourceMap, usePostCSS: true })
@@ -47,7 +51,9 @@ const devWebpackConfig = merge(baseWebpackConfig, {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': require('../config/dev.env')
+      'process.env': require('../config/dev.env'),
+      //在process注入变量isIos
+      'process.isIos': JSON.stringify(isIos),
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(), // HMR shows correct file names in console on update.

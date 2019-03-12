@@ -15,6 +15,9 @@ const env = process.env.NODE_ENV === 'testing'
   ? require('../config/test.env')
   : require('../config/prod.env')
 
+//获取参数 --env.isIos 是否是iso平台
+let isIos = utils.getParas()['isIos'] || 0;
+
 const webpackConfig = merge(baseWebpackConfig, {
   module: {
     rules: utils.styleLoaders({
@@ -32,7 +35,8 @@ const webpackConfig = merge(baseWebpackConfig, {
   plugins: [
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
     new webpack.DefinePlugin({
-      'process.env': env
+      'process.env': env,
+      'process.isIos': JSON.stringify(isIos),
     }),
     new UglifyJsPlugin({
       uglifyOptions: {

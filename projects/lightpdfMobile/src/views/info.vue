@@ -3,7 +3,7 @@
         <div class="inner-container">
             <div class="info-top-bg"></div>
                 <div class="info-box">
-                    <div class="user-info">
+                    <div class="user-info" v-if="isLogin">
                         <div class="avatar">
                             <img v-show="info && avatar" :src="avatar">
                         </div>
@@ -14,14 +14,20 @@
                             {{$tr('001685',licenseInfo.expire_date)}}
                         </div>
                     </div>
+                    <div class="user-info isguest" v-else-if="!isLogin">
+                        <div class="avatar">
+                            <img v-show="info && avatar" :src="avatar">
+                        </div>
+                        <div class="user-login-btn btn active" @click="toLogin">{{$tr('Login@@002161')}}</div>
+                    </div>
                     <div class="btn active" @click="goPayCenter">{{$tr('Recharge centre@@002033')}}</div>
                     <div class="btn" @click="goMyfiles">{{$tr('My Files@@001432')}}</div>
                     <div class="btn" @click="goLocalFile">{{$tr('My Local Files')}}</div>
                     <div class="btn" @click="goMyCenter">{{$tr('Account@@002053')}}</div>
                     <div class="btn" @click="goCommunity">{{$tr('Forum@@002032')}}</div>
-                    <div class="btn" @click="goCommunity">{{$tr('Version')}}</div>
+                    <div class="btn" @click="goAbout">{{$tr('About@@001851')}}</div>
             </div>
-            <div class="btn logout-btn" @click="logout">{{$tr('Logout@@002034')}}</div>
+            <div class="btn logout-btn" v-if="isLogin" @click="logout">{{$tr('Logout@@002034')}}</div>
             <main-bar v-if="!isIos" type="user-center"></main-bar>
         </div>
     </div>
@@ -42,7 +48,7 @@ export default {
     data() {
         return {
             info: {},
-            isIos: 1,
+            isIos: process.isIos,
             userInfo: {
                 // avatar: 'https://avatar.aoscdn.com/7b46fcfb791623c2e28a94eb1e9f098e.jpg!256?t=1536391882',
             },
@@ -51,6 +57,7 @@ export default {
             },
             avatar: '',
             nickname: '',
+            isLogin: 0,
         };
     },
 
@@ -65,9 +72,11 @@ export default {
             this.userInfo = this.info;
             this.avatar = this.info.avatar;
             this.nickname = this.info.nickname;
+            this.isLogin = 1;
         }
         // this.info = getNativeData();
         // this.info = window.uinfo;
+        console.log('isIos===1', process.isIos, process.isIos === 1, process.isIos === '1');
         this.showStoreVipInfo();
         this.getVipInfo();
     },
@@ -169,11 +178,34 @@ export default {
                 });
             }, 200);
         },
+        toLogin() {
+            let params = {};
+            let obj = {
+                project: 'lightpdf',
+                router: '/info',
+                query: {
+                    lang: this.$i18n.locale,
+                },
+            };
+            params.backobj = encodeURIComponent(JSON.stringify(obj));
+            jump('lightpdf', 'account', '/login', params);
+        },
         goCommunity() {
             if (window.account) {
                 openUrl(this.getUrl());
             } else {
                 window.open(this.getUrl());
+            }
+        },
+        goAbout() {
+            if (window.account && window.account.onWebJump) {
+                jump('lightpdf', 'lightpdf', '/about', {
+                    lang: this.$i18n.locale,
+                });
+            } else {
+                this.$router.push({
+                    path: '/about',
+                });
             }
         },
         getUrl() {

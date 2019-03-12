@@ -88,6 +88,7 @@ export default {
         this.pwdCheckObj = pwdCheck.create();
         this.pwdCheckObj.on('pdf-ok', this.pwdOk);
         his.push(this.$router.history.current);
+        console.log(process.isIos);
     },
     methods: {
         pwdOk() {

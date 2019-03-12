@@ -2,7 +2,7 @@ const aLang = {
     '000821': 'Escolher arquivo',
     '000822': 'Recomeçar',
     '000823': 'Enviar',
-    '000824': 'Versão Desktop',
+    '000824': 'Baixar Aplicativo',
     '000825': 'Baixe o arquivo',
     '000826': 'Arraste o PDF aqui',
     '000828': 'Extensão de arquivo inválida.',
@@ -380,5 +380,7 @@ const aLang = {
     '001859': 'Completo',
     '001866': 'Convertendo PDF para o Excel ...',
     '001867': 'Convertido para Excel com sucesso!',
+    '002160': 'Loja',
+    '002161': 'Entrar',
 };
 export default aLang;

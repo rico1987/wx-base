@@ -378,5 +378,7 @@ const aLang = {
     '001859': 'Tamamla',
     '001866': 'Excel PDF’ye Dönüştürülüyor…',
     '001867': 'Excel’e başarıyla dönüştürüldü!',
+    '002160': 'Mağaza',
+    '002161': 'Oturum aç',
 };
 export default aLang;

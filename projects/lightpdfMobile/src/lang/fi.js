@@ -378,5 +378,7 @@ const aLang = {
     '001859': 'Valmis',
     '001866': 'Muuntaa PDF-tiedostoa Excel-muotoon…',
     '001867': 'Muunnettu Excel-muotoon onnistuneesti!',
+    '002160': 'Kauppa',
+    '002161': 'Kirjaudu sisään',
 };
 export default aLang;

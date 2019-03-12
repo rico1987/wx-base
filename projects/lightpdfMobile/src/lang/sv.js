@@ -378,5 +378,7 @@ const aLang = {
     '001859': 'Färdig',
     '001866': 'Konverterar PDF till Excel…',
     '001867': 'Konverterat till Excel utan problem!',
+    '002160': 'Butik',
+    '002161': 'Logga in',
 };
 export default aLang;

@@ -378,5 +378,7 @@ const aLang = {
     '001859': 'Befejezve',
     '001866': 'PDF konvertálása Excel formátumba...',
     '001867': 'Sikeres konvertálás Excel formátumba!',
+    '002160': 'Áruház',
+    '002161': 'Bejelentkezés',
 };
 export default aLang;

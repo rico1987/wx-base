@@ -378,5 +378,7 @@ const aLang = {
     '001859': 'Compleet',
     '001866': 'PDF naar Excel converteren…',
     '001867': 'Succesvol naar Excel geconverteerd!',
+    '002160': 'Winkel',
+    '002161': 'Log in',
 };
 export default aLang;

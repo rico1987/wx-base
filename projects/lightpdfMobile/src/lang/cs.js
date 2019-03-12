@@ -378,5 +378,7 @@ const aLang = {
     '001859': 'Dokončit',
     '001866': 'Konverze do Excelu proběhla úspěšně.',
     '001867': 'Konverze PDF do Excelu..',
+    '002160': 'Obchod',
+    '002161': 'Přihlášení',
 };
 export default aLang;

@@ -35,7 +35,8 @@
 
 <script>
 import MainBar from '../components/MainBar.vue';
-import {nativeLogout, getNativeData, jump, openUrl, openFolder, } from '../utils/index';
+import {nativeLogout, getNativeData, saveNativeData, jump, openUrl, openFolder, } from '../utils/index';
+import convert from '../utils/convert';
 // import {getPdfConverterVipInfo, } from '../api/support';
 import ls from '../utils/littleStore';
 import vip from '../utils/vipInfo';
@@ -77,8 +78,22 @@ export default {
         // this.info = getNativeData();
         // this.info = window.uinfo;
         console.log('isIos===1', process.isIos, process.isIos === 1, process.isIos === '1');
-        this.showStoreVipInfo();
-        this.getVipInfo();
+        let saveData = getNativeData();
+        let pdfSession = saveData['pdf_api_token'] || ls.get('api_token') || '';
+        if (pdfSession !== '') {
+            saveNativeData(saveData);
+            ls.set('api_token', pdfSession);
+            this.showStoreVipInfo();
+            this.getVipInfo();
+        } else {
+            convert.getSession().then((response) => {
+                console.log('sesson pdf back', response);
+                this.showStoreVipInfo();
+                this.getVipInfo();
+            }).catch((error) => {
+                console.log('error', error);
+            });
+        }
     },
     methods: {
         showStoreVipInfo() {
@@ -171,6 +186,7 @@ export default {
             jump('lightpdf', 'account', '/account-menu', params);
         },
         logout() {
+            ls.set('api_token', '');
             nativeLogout();
             setTimeout(() => {
                 jump('lightpdf', 'lightpdf', '/home', {
@@ -198,15 +214,18 @@ export default {
             }
         },
         goAbout() {
-            if (window.account && window.account.onWebJump) {
-                jump('lightpdf', 'lightpdf', '/about', {
-                    lang: this.$i18n.locale,
-                });
-            } else {
-                this.$router.push({
-                    path: '/about',
-                });
-            }
+            this.$router.push({
+                path: '/about',
+            });
+            // if (window.account && window.account.onWebJump) {
+            //     jump('lightpdf', 'lightpdf', '/about', {
+            //         lang: this.$i18n.locale,
+            //     });
+            // } else {
+            //     this.$router.push({
+            //         path: '/about',
+            //     });
+            // }
         },
         getUrl() {
             if (this.$i18n.locale === 'cn') {

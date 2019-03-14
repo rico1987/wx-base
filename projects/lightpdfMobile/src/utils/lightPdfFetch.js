@@ -1,7 +1,7 @@
 import axios from 'axios';
 import config from '../config';
 import ls from '../utils/littleStore';
-import {saveLog, } from '../utils/index';
+import {saveLog, getNativeData, } from '../utils/index';
 
 const service = axios.create({
     baseURL: config.lightPdfApiBaseUrl,
@@ -10,7 +10,8 @@ const service = axios.create({
 
 // 添加请求拦截器
 service.interceptors.request.use((config) => {
-    let api_token = ls.get('api_token');
+    let saveData = getNativeData();
+    let api_token = saveData['pdf_api_token'] || ls.get('api_token') || '';
     if (api_token) {
         config.headers['Authorization'] = `Bearer ${api_token}`;
         config.headers['IsClientVip'] = 1;

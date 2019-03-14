@@ -29,7 +29,7 @@ import {getPdfSession, } from '../api/pdf';
 import ls from '../utils/littleStore';
 import pwdCheck from '../utils/pwdCheck';
 import his from '../utils/pathHistory';
-import {getNativeData, } from '../utils/index';
+import {getNativeData, saveNativeData, } from '../utils/index';
 import {getPdfConverterVipInfo, } from '../api/support';
 
 export default {
@@ -101,6 +101,9 @@ export default {
             getPdfSession().then((response) => {
                 const data = response.data;
                 // console.log(data);
+                let saveData = getNativeData();
+                saveData['pdf_api_token'] = data.data.user.api_token;
+                saveNativeData(saveData);
                 ls.set('api_token', data.data.user.api_token);
                 // console.log('aaaa');
                 this.echoit(data.data.user);
@@ -116,6 +119,9 @@ export default {
                     this.getSession();
                     return;
                 }
+                let saveData = getNativeData();
+                saveData['pdf_api_token'] = '';
+                saveNativeData(saveData);
                 ls.set('api_token', '');
                 ls.set('client-vip', 0);
             });

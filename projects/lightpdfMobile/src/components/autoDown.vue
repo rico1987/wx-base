@@ -32,7 +32,8 @@ export default {
     },
     methods: {
         download() {
-            if (window.account) {
+            console.log('---', process.isIos);
+            if (process.isIos && window.account) {
                 nativeDownload(this.url, this.fileName);
             } else {
                 this.$refs.a.click();
@@ -42,8 +43,9 @@ export default {
     watch: {
         state(nvalue) {
             if (nvalue) {
-                this.$refs.a.click();
+                // this.$refs.a.click();
                 this.item.start = 0;
+                this.download();
             }
         },
     },

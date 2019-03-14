@@ -70,6 +70,9 @@ import {createTask, getTaskInfo, } from '../api/pdf';
 import TimeManager from '../utils/timeManager';
 import his from '../utils/pathHistory';
 import resultData from '../utils/convertResult';
+import convert from '../utils/convert';
+import {saveNativeData, getNativeData, } from '../utils';
+import ls from '../utils/littleStore';
 
 export default {
     name: 'fromPdf',
@@ -166,6 +169,18 @@ export default {
             this.accept = this.acceptMap[type] || '.pdf';
         }
         this.setTitleStr();
+        let saveData = getNativeData();
+        let pdfSession = saveData['pdf_api_token'] || ls.get('api_token') || '';
+        if (pdfSession !== '') {
+            saveNativeData(saveData);
+            ls.set('api_token', pdfSession);
+        } else {
+            convert.getSession().then((response) => {
+                console.log('sesson pdf back', response);
+            }).catch((error) => {
+                console.log('error', error);
+            });
+        }
     },
     methods: {
         setTitleStr() {

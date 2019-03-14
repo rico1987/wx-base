@@ -2,6 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
 import VueI18n from 'vue-i18n';
+import VConsole from 'vconsole';
 // import Cookies from 'js-cookie';
 import './styles/themes/default/index.scss';
 import App from './App.vue';
@@ -35,6 +36,8 @@ import LangTr from './lang/tr';
 import LangTw from './lang/tw';
 import ToastPlugin from './plugins/toast';
 
+const vConsole = new VConsole();
+console.log(vConsole.version);
 vip.init();
 vip.freshIdentityToken();
 Vue.use(ToastPlugin, { position: 'center', });

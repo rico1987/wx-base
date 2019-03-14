@@ -1,12 +1,14 @@
 // import qs from 'qs';
 import lightPdfFetch from '../utils/lightPdfFetch';
 import ls from '../utils/littleStore';
+import {getNativeData, } from '../utils/index';
 // import * as is from '../../../../lib/utils/is';
 // import { objToQuery, } from '../../../../lib/utils';
 
 export function getPdfSession() {
+    let saveData = getNativeData();
     let data = {
-        identity_token: ls.get('identity_token') || '',
+        identity_token: saveData['identity_token'] || ls.get('identity_token') || '',
     };
     return lightPdfFetch.post('/sessions', data);
 }

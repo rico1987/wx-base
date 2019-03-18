@@ -29,6 +29,7 @@
             </div>
             <div class="btn logout-btn" v-if="isLogin" @click="logout">{{$tr('Logout@@002034')}}</div>
             <main-bar v-if="!isIos" type="user-center"></main-bar>
+            <ios-pay-result ref="payResult"></ios-pay-result>
         </div>
     </div>
 </template>
@@ -40,11 +41,13 @@ import convert from '../utils/convert';
 // import {getPdfConverterVipInfo, } from '../api/support';
 import ls from '../utils/littleStore';
 import vip from '../utils/vipInfo';
+import IosPayResult from '../components/IosPayResult.vue';
 
 export default {
     name: 'info',
     components: {
         'main-bar': MainBar,
+        'ios-pay-result': IosPayResult,
     },
     data() {
         return {
@@ -59,6 +62,7 @@ export default {
             avatar: '',
             nickname: '',
             isLogin: 0,
+            showResult: 0,
         };
     },
 
@@ -78,22 +82,12 @@ export default {
         // this.info = getNativeData();
         // this.info = window.uinfo;
         console.log('isIos===1', process.isIos, process.isIos === 1, process.isIos === '1');
-        let saveData = getNativeData();
-        let pdfSession = saveData['pdf_api_token'] || ls.get('api_token') || '';
-        if (pdfSession !== '') {
-            saveNativeData(saveData);
-            ls.set('api_token', pdfSession);
-            this.showStoreVipInfo();
-            this.getVipInfo();
-        } else {
-            convert.getSession().then((response) => {
-                console.log('sesson pdf back', response);
-                this.showStoreVipInfo();
-                this.getVipInfo();
-            }).catch((error) => {
-                console.log('error', error);
-            });
+        if (!window.freshInfo) {
+            window.freshInfo = this.getSessionAndVip;
         }
+        this.getSessionAndVip();
+        window.autoCheckVipState = this.autoCheckVipState;
+        // this.autoCheckVipState();
     },
     methods: {
         showStoreVipInfo() {
@@ -103,6 +97,13 @@ export default {
             }
         },
         getVipInfo() {
+            console.log(this.$route);
+            console.log(this.$router);
+            console.log('--------');
+            if (this.$route.path !== '/info') {
+                console.log('rettun');
+                return;
+            }
             vip.getVip(this.dealLicenseInfo);
         },
         dealLicenseInfo(data) {
@@ -155,6 +156,10 @@ export default {
             return time;
         },
         goMyfiles() {
+            if (this.isLogin === 0) {
+                this.toLogin();
+                return;
+            }
             this.$router.push({
                 path: '/myfiles',
             });
@@ -232,6 +237,46 @@ export default {
                 return 'https://www.apowersoft.cn/community/';
             } else {
                 return 'https://www.apowersoft.com/community/';
+            }
+        },
+        autoCheckVipState() {
+            this.showResult = 1;
+            setTimeout(() => {
+                console.log(this.$refs.payResult);
+                console.log(33333);
+                this.$refs.payResult.show();
+                this.$refs.payResult.checkVip();
+            }, 300);
+            // payResult
+        },
+        getSessionAndVip() {
+            let data = getNativeData();
+            // console.log('data----getnativedata');
+            console.log(data.userInfo);
+            if (data.userInfo) {
+                console.log('data----getnativedata');
+                // console.log(data.userInfo);
+                this.info = data.userInfo;
+                this.userInfo = this.info;
+                this.avatar = this.info.avatar;
+                this.nickname = this.info.nickname;
+                this.isLogin = 1;
+            }
+            let saveData = data;
+            let pdfSession = saveData['pdf_api_token'] || ls.get('api_token') || '';
+            if (pdfSession !== '') {
+                saveNativeData(saveData);
+                ls.set('api_token', pdfSession);
+                this.showStoreVipInfo();
+                this.getVipInfo();
+            } else {
+                convert.getSession().then((response) => {
+                    console.log('sesson pdf back', response);
+                    this.showStoreVipInfo();
+                    this.getVipInfo();
+                }).catch((error) => {
+                    console.log('error', error);
+                });
             }
         },
     },

@@ -222,3 +222,25 @@ export function onCheckUpdate() {
     console.log('getAppInfo');
     window.account && window.account.onCheckUpdate();
 }
+/**
+ * 调用ios购买
+ */
+export function isoPay(id) {
+    console.log('onPayForProduct');
+    window.account && window.account.onPayForProduct(id);
+}
+/**
+ * 获取ios价格
+ */
+export function getIosProductPrice(idArr) {
+    if (!idArr || idArr.length === 0) {
+        console.log('onPayForProduct no id');
+        return JSON.parse('{}');
+    }
+    console.log('onPayForProduct');
+    var idStr = JSON.stringify(idArr);
+    if (window.account && window.account.getProductInfos) {
+        return JSON.parse(window.account.getProductInfos(idStr) || '{}');
+    }
+    return JSON.parse('{}');
+}

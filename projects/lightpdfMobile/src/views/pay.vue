@@ -103,6 +103,24 @@ export default {
                 avatar: '',
                 nickname: '',
             },
+            en: {
+                '2': '273',
+                '3': '2',
+                '4': '1',
+            },
+            cn: {
+                '2': '33',
+                '3': '22',
+                '4': '11',
+            },
+            iosPrice: {
+                '1': '59.95',
+                '2': '39.95',
+                '273': '29.95',
+                '11': '99',
+                '22': '79',
+                '33': '59',
+            },
             currentPlan: null,
             normalPlan: null,
             recommendPlan: null,
@@ -114,7 +132,11 @@ export default {
 
     created: function() {
         console.log(payUrl);
-        this.initPlanArr();
+        if (process.isIos === '1') {
+            this.initIosPlan();
+        } else {
+            this.initPlanArr();
+        }
         let data = getNativeData();
         if (data['userInfo']) {
             this.userInfo = data['userInfo'];
@@ -124,10 +146,10 @@ export default {
         initPlanArr() {
             let type = this.$i18n.locale;
             console.log(type);
-            let typeArr = ['1', '3', '4', ];
-            if (type === 'cn') {
-                typeArr = ['2', '3', '4', ];
-            }
+            let typeArr = ['2', '3', '4', ];
+            // if (type === 'cn') {
+            //     typeArr = ['2', '3', '4', ];
+            // }
             let typeDes = {
                 '1': 'month',
                 '2': 'season',
@@ -149,6 +171,54 @@ export default {
                     continue;
                 }
                 item = planObj[key];
+                item.type = typeDes[key];
+                item.priceDes = this.trstr('{0}/{1}', item.priceStr, this.$tr(item.title));
+                if (this.planArr.length === 1) {
+                    item.active = 1;
+                    item.recommend = 1;
+                    this.currentPlan = item;
+                } else {
+                    item.active = 0;
+                    item.recommend = 0;
+                }
+                this.planArr.push(item);
+            }
+            console.log(this.planArr);
+            this.normalPlan = this.planArr[1];
+            this.recommendPlan = this.planArr[2];
+        },
+        initIosPlan() {
+            let type = this.$i18n.locale;
+            console.log(type);
+            let typeArr = ['2', '3', '4', ];
+            let typeDes = {
+                '1': 'month',
+                '2': 'season',
+                '3': 'year',
+                '4': 'life',
+            };
+            let langType = 'cn';
+            if (type !== 'cn') {
+                langType = 'en';
+            }
+            let idObj = this[langType];
+            console.log(idObj);
+            let planObj = payUrl['link'][type];
+            if (!planObj) {
+                planObj = payUrl['link']['en'];
+            }
+            let keys = Object.keys(planObj);
+            keys.sort();
+            this.planArr = [];
+            let item;
+            let key;
+            for (let i = 0; i < keys.length; i += 1) {
+                key = keys[i];
+                if (typeArr.indexOf(key) === -1) {
+                    continue;
+                }
+                item = planObj[key];
+                item.iosId = idObj[key];
                 item.type = typeDes[key];
                 item.priceDes = this.trstr('{0}/{1}', item.priceStr, this.$tr(item.title));
                 if (this.planArr.length === 1) {

@@ -33,6 +33,7 @@ export default {
                 'pdf-to-ppt': '/home',
                 'pdf-to-png': '/home',
                 'pdf-to-txt': '/home',
+                'pdf-to-text': '/home',
                 'word-to-pdf': '/topdf',
                 'excel-to-pdf': '/topdf',
                 'png-to-pdf': '/topdf',
@@ -49,7 +50,9 @@ export default {
     methods: {
         back() {
             console.log(this.$router);
+            console.log(90000);
             if (this.jumpDisable) {
+                console.log('jump disable');
                 this.$emit('click-jump');
                 return;
             }
@@ -61,21 +64,22 @@ export default {
 
         },
         jumpBack() {
+            console.log('jumpback');
             let path = this.getParentPath();
             let item = his.search(path);
+            if (process.isIos === '1') {
+                backToIosNative();
+                return;
+            }
             if (item) {
-                // this.$router.push({
-                //     path: item.path,
-                //     query: item.query,
-                // });
-                console.log('9090909090');
-                backToIosNative();
-
+                this.$router.push({
+                    path: item.path,
+                    query: item.query,
+                });
             } else {
-                backToIosNative();
-                // this.$router.push({
-                //     path: path,
-                // });
+                this.$router.push({
+                    path: path,
+                });
             }
         },
         getParentPath() {

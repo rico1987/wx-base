@@ -232,15 +232,26 @@ export function isoPay(id) {
 /**
  * 获取ios价格
  */
+// export function getIosProductPrice(idArr) {
+//     if (!idArr || idArr.length === 0) {
+//         console.log('onPayForProduct no id');
+//         return JSON.parse('{}');
+//     }
+//     console.log('onPayForProduct');
+//     var idStr = JSON.stringify(idArr);
+//     if (window.account && window.account.getProductInfos) {
+//         return JSON.parse(window.account.getProductInfos(idStr) || '{}');
+//     }
+//     return JSON.parse('{}');
+// }
 export function getIosProductPrice(idArr) {
     if (!idArr || idArr.length === 0) {
         console.log('onPayForProduct no id');
-        return JSON.parse('{}');
+        return;
     }
     console.log('onPayForProduct');
     var idStr = JSON.stringify(idArr);
     if (window.account && window.account.getProductInfos) {
-        return JSON.parse(window.account.getProductInfos(idStr) || '{}');
+        window.account.getProductInfos(idStr);
     }
-    return JSON.parse('{}');
 }

@@ -88,7 +88,7 @@ import PdfHeader from '../components/PdfHeader.vue';
 import PayResult from '../components/payResult.vue';
 import UserInfo from '../components/userInfo.vue';
 import payUrl from '../utils/storeUrl';
-import {openUrl, getNativeData, } from '../utils/index';
+import {openUrl, getNativeData, isoPay, getIosProductPrice, } from '../utils/index';
 
 export default {
     name: 'pay',
@@ -104,22 +104,22 @@ export default {
                 nickname: '',
             },
             en: {
-                '2': '273',
-                '3': '2',
-                '4': '1',
+                '2': '8181810004',
+                '3': '8181810005',
+                '4': '8181810006',
             },
             cn: {
-                '2': '33',
-                '3': '22',
-                '4': '11',
+                '2': '8181810001',
+                '3': '8181810002',
+                '4': '8181810003',
             },
             iosPrice: {
-                '1': '59.95',
-                '2': '39.95',
-                '273': '29.95',
-                '11': '99',
-                '22': '79',
-                '33': '59',
+                '8181810006': '$59.95',
+                '8181810005': '$39.95',
+                '8181810004': '$29.95',
+                '8181810003': '￥99',
+                '8181810002': '￥79',
+                '8181810001': '￥59',
             },
             currentPlan: null,
             normalPlan: null,
@@ -133,8 +133,10 @@ export default {
     created: function() {
         console.log(payUrl);
         if (process.isIos === '1') {
+            window.setIosProductPrice = this.setPlan;
             this.initIosPlan();
         } else {
+            
             this.initPlanArr();
         }
         let data = getNativeData();
@@ -203,6 +205,15 @@ export default {
             }
             let idObj = this[langType];
             console.log(idObj);
+            let iosIdArr = Object.values(idObj);
+            console.log(iosIdArr);
+            console.log('-0-0-0-00-0-');
+            let price = getIosProductPrice(JSON.stringify(iosIdArr));
+            if (!price || Object.keys(price).length === 0) {
+                price = this.iosPrice;
+            }
+            console.log(price);
+            console.log('price obj');
             let planObj = payUrl['link'][type];
             if (!planObj) {
                 planObj = payUrl['link']['en'];
@@ -220,6 +231,9 @@ export default {
                 item = planObj[key];
                 item.iosId = idObj[key];
                 item.type = typeDes[key];
+                if (price[item.iosId]) {
+                    item.priceStr = price[item.iosId];
+                }
                 item.priceDes = this.trstr('{0}/{1}', item.priceStr, this.$tr(item.title));
                 if (this.planArr.length === 1) {
                     item.active = 1;
@@ -234,6 +248,34 @@ export default {
             console.log(this.planArr);
             this.normalPlan = this.planArr[1];
             this.recommendPlan = this.planArr[2];
+        },
+        setPlan(str) {
+            console.log('set price', str);
+            if (!str) {
+                return;
+            }
+            let price = JSON.parse(str);
+            let item = null;
+            for (let i = 0; i < this.planArr.length; i += 1) {
+                item = this.planArr[i];
+                if (price[item.iosId]) {
+                    this.iosPrice[item.iosId] = price[item.iosId];
+                    item.priceStr = price[item.iosId];
+                    item.priceDes = this.trstr('{0}/{1}', item.priceStr, this.$tr(item.title));
+                }
+            }
+        },
+        getProductPrice() {
+            // var promise = new Promise((resolve,reject)=>{
+            //     let url1 = '/toutiao/index?type=top&key=秘钥'
+            //     this.get(url,{})
+            //     .then((res)=>{
+            //         resolve(res);
+            //     })
+            //     .catch((err)=>{
+            //         console.log(err)
+            //     })
+            // });
         },
         trstr(url, ...rest) {
             // trstr('a{0}bc{0}de{1}ft, '-1-', '-2-')
@@ -265,6 +307,11 @@ export default {
         },
         payIt() {
             if (!this.currentPlan) {
+                return;
+            }
+            if (process.isIos === '1') {
+                // iosId
+                isoPay(this.currentPlan['iosId']);
                 return;
             }
             this.openPayUrl(this.currentPlan.link);

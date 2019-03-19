@@ -62,7 +62,7 @@ export default {
                     trkey: 'PDF to Png@@001821',
                 },
                 {
-                    key: 'pdf-to-txt',
+                    key: 'pdf-to-text',
                     trkey: 'PDF to Text@@001823',
                 },
             ],

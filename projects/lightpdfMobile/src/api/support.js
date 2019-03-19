@@ -32,6 +32,7 @@ export function getPdfConverterVipInfo(userId, language) {
         action: 'get-user-license-info',
         language,
         product_name: 'Windows PDF Converter',
+        // product_name: 'Windows PDF Converter',
     }));
 }
 

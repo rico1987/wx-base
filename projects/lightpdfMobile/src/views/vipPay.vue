@@ -58,7 +58,7 @@ import PdfHeader from '../components/PdfHeader.vue';
 import PayResult from '../components/payResult.vue';
 import UserInfo from '../components/userInfo.vue';
 import payUrl from '../utils/storeUrl';
-import {openUrl, getNativeData, } from '../utils/index';
+import {openUrl, getNativeData, isoPay, getIosProductPrice, } from '../utils/index';
 
 export default {
     name: 'vipPay',
@@ -73,6 +73,24 @@ export default {
                 avatar: '',
                 nickname: '',
             },
+            en: {
+                '2': '8181810004',
+                '3': '8181810005',
+                '4': '8181810006',
+            },
+            cn: {
+                '2': '8181810001',
+                '3': '8181810002',
+                '4': '8181810003',
+            },
+            iosPrice: {
+                '8181810006': '$59.95',
+                '8181810005': '$39.95',
+                '8181810004': '$29.95',
+                '8181810003': '￥99',
+                '8181810002': '￥79',
+                '8181810001': '￥59',
+            },
             currentPlan: null,
             normalPlan: null,
             recommendPlan: null,
@@ -84,7 +102,11 @@ export default {
 
     created: function() {
         console.log(payUrl);
-        this.initPlanArr();
+        if (process.isIos === '1') {
+            this.initIosPlan();
+        } else {
+            this.initPlanArr();
+        }
         let data = getNativeData();
         if (data['userInfo']) {
             this.userInfo = data['userInfo'];
@@ -94,10 +116,10 @@ export default {
         initPlanArr() {
             let type = this.$i18n.locale;
             console.log(type);
-            let typeArr = ['1', '3', '4', ];
-            if (type === 'cn') {
-                typeArr = ['2', '3', '4', ];
-            }
+            let typeArr = ['2', '3', '4', ];
+            // if (type === 'cn') {
+            //     typeArr = ['2', '3', '4', ];
+            // }
             let typeDes = {
                 '1': 'month',
                 '2': 'season',
@@ -120,6 +142,66 @@ export default {
                 }
                 item = planObj[key];
                 item.type = typeDes[key];
+                item.priceDes = this.trstr('{0}/{1}', item.priceStr, this.$tr(item.title));
+                if (this.planArr.length === 1) {
+                    item.active = 1;
+                    item.recommend = 1;
+                    this.currentPlan = item;
+                } else {
+                    item.active = 0;
+                    item.recommend = 0;
+                }
+                this.planArr.push(item);
+            }
+            console.log(this.planArr);
+            this.normalPlan = this.planArr[1];
+            this.recommendPlan = this.planArr[2];
+        },
+        initIosPlan() {
+            let type = this.$i18n.locale;
+            console.log(type);
+            let typeArr = ['2', '3', '4', ];
+            let typeDes = {
+                '1': 'month',
+                '2': 'season',
+                '3': 'year',
+                '4': 'life',
+            };
+            let langType = 'cn';
+            if (type !== 'cn') {
+                langType = 'en';
+            }
+            let idObj = this[langType];
+            console.log(idObj);
+            let iosIdArr = Object.values(idObj);
+            console.log(iosIdArr);
+            console.log('-0-0-0-00-0-');
+            let price = getIosProductPrice(JSON.stringify(iosIdArr));
+            if (Object.keys(price).length === 0) {
+                price = this.iosPrice;
+            }
+            console.log(price);
+            console.log('price obj');
+            let planObj = payUrl['link'][type];
+            if (!planObj) {
+                planObj = payUrl['link']['en'];
+            }
+            let keys = Object.keys(planObj);
+            keys.sort();
+            this.planArr = [];
+            let item;
+            let key;
+            for (let i = 0; i < keys.length; i += 1) {
+                key = keys[i];
+                if (typeArr.indexOf(key) === -1) {
+                    continue;
+                }
+                item = planObj[key];
+                item.iosId = idObj[key];
+                item.type = typeDes[key];
+                if (price[item.iosId]) {
+                    item.priceStr = price[item.iosId];
+                }
                 item.priceDes = this.trstr('{0}/{1}', item.priceStr, this.$tr(item.title));
                 if (this.planArr.length === 1) {
                     item.active = 1;
@@ -167,10 +249,19 @@ export default {
             if (!this.currentPlan) {
                 return;
             }
+            if (process.isIos === '1') {
+                isoPay(this.currentPlan['iosId']);
+                return;
+            }
             this.openPayUrl(this.currentPlan.link);
         },
-        openPayUrl(url) {
+        openPayUrl(url, item) {
             if (!url) {
+                return;
+            }
+            if (process.isIos === '1') {
+                isoPay(item['iosId']);
+                console.log('iospay', item);
                 return;
             }
             let identifyStr = '';
@@ -194,12 +285,12 @@ export default {
         },
         openNormalPay() {
             if (this.normalPlan) {
-                this.openPayUrl(this.normalPlan.link);
+                this.openPayUrl(this.normalPlan.link, this.normalPlan);
             }
         },
         openRecommondPay() {
             if (this.recommendPlan) {
-                this.openPayUrl(this.recommendPlan.link);
+                this.openPayUrl(this.recommendPlan.link, this.recommendPlan);
             }
         },
     },

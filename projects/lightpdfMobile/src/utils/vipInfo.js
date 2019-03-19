@@ -4,10 +4,11 @@ import {getNativeData, } from '../utils/index';
 
 const vip = {
     freshIdentityToken() {
-        console.log('freshIdentityToken');
-        let data = getNativeData();
-        if (data && data.identity_token) {
-            ls.set('identity_token', data.identity_token);
+        console.log('freshIdentityToken333');
+        let saveData = getNativeData();
+        let token = saveData['identity_token'] || ls.get('identity_token') || '';
+        if (token) {
+            ls.set('identity_token', token);
         } else {
             ls.set('identity_token', '');
             console.log('clear identity_token3');
@@ -16,7 +17,7 @@ const vip = {
         console.log('identity_token', ls.get('identity_token'));
     },
     getVip(callback) {
-        console.log('iiiii----vip--infooooo');
+        console.log('iiiii-2222---vip--infooooo');
         getPdfConverterVipInfo().then((response) => {
             const data = response.data;
             console.log(data);

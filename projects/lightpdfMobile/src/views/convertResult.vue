@@ -118,6 +118,7 @@ export default {
                 'pdf-to-jpg': '/frompdf',
                 'pdf-to-png': '/frompdf',
                 'pdf-to-txt': '/frompdf',
+                'pdf-to-text': '/frompdf',
                 'word-to-pdf': '/topdfconvert',
                 'excel-to-pdf': '/topdfconvert',
                 'png-to-pdf': '/topdfconvert',

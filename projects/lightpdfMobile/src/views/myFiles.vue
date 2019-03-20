@@ -2,7 +2,7 @@
     <div class="myfile-container">
         <div class="inner-container">
             <div class="myfile-panel">
-                <pdf-header ref="header" :headertype="'my-files'" @click-jump="onBack">{{$tr('My Files@@001432')}}</pdf-header>
+                <pdf-header ref="header" :headertype="'my-files'" @click-jump="onBack">{{$tr('Network files@@002164')}}</pdf-header>
                 <div class="search-bar">
                     <input type="text" ref="searchInput" class="search" placeholder="搜索文件">
                     <div class="search-btn" @click="onSearch"></div>

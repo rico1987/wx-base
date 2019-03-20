@@ -21,8 +21,8 @@
                         <div class="user-login-btn btn active" @click="toLogin">{{$tr('Login@@002161')}}</div>
                     </div>
                     <div class="btn active" @click="goPayCenter">{{$tr('Recharge centre@@002033')}}</div>
-                    <div class="btn" @click="goMyfiles">{{$tr('My Files@@001432')}}</div>
-                    <div class="btn" @click="goLocalFile">{{$tr('My Local Files')}}</div>
+                    <div class="btn" @click="goMyfiles">{{$tr('Network files@@002164')}}</div>
+                    <div class="btn" @click="goLocalFile">{{$tr('Local files@@002165')}}</div>
                     <div class="btn" @click="goMyCenter">{{$tr('Account@@002053')}}</div>
                     <div class="btn" @click="goCommunity">{{$tr('Forum@@002032')}}</div>
                     <div class="btn" @click="goAbout">{{$tr('About@@001851')}}</div>
@@ -42,6 +42,7 @@ import convert from '../utils/convert';
 import ls from '../utils/littleStore';
 import vip from '../utils/vipInfo';
 import IosPayResult from '../components/IosPayResult.vue';
+import price from '../utils/iosPrice';
 
 export default {
     name: 'info',
@@ -67,6 +68,7 @@ export default {
     },
 
     created: function() {
+        console.log('price.state', price.state);
         let data = getNativeData();
         // console.log('data----getnativedata');
         console.log(data.userInfo);

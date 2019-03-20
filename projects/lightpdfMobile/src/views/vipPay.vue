@@ -103,6 +103,7 @@ export default {
     created: function() {
         console.log(payUrl);
         if (process.isIos === '1') {
+            window.setIosProductPrice = this.setPlan;
             this.initIosPlan();
         } else {
             this.initPlanArr();
@@ -177,7 +178,7 @@ export default {
             console.log(iosIdArr);
             console.log('-0-0-0-00-0-');
             let price = getIosProductPrice(JSON.stringify(iosIdArr));
-            if (Object.keys(price).length === 0) {
+            if (!price || Object.keys(price).length === 0) {
                 price = this.iosPrice;
             }
             console.log(price);
@@ -216,6 +217,22 @@ export default {
             console.log(this.planArr);
             this.normalPlan = this.planArr[1];
             this.recommendPlan = this.planArr[2];
+        },
+        setPlan(str) {
+            console.log('set price', str);
+            if (!str) {
+                return;
+            }
+            let price = JSON.parse(str);
+            let item = null;
+            for (let i = 0; i < this.planArr.length; i += 1) {
+                item = this.planArr[i];
+                if (price[item.iosId]) {
+                    this.iosPrice[item.iosId] = price[item.iosId];
+                    item.priceStr = price[item.iosId];
+                    item.priceDes = this.trstr('{0}/{1}', item.priceStr, this.$tr(item.title));
+                }
+            }
         },
         trstr(url, ...rest) {
             // trstr('a{0}bc{0}de{1}ft, '-1-', '-2-')

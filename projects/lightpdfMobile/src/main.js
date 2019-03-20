@@ -35,12 +35,16 @@ import LangSv from './lang/sv';
 import LangTr from './lang/tr';
 import LangTw from './lang/tw';
 import ToastPlugin from './plugins/toast';
+import price from './utils/iosPrice';
 
 const vConsole = new VConsole();
 console.log(vConsole.version);
 vip.init();
 vip.freshIdentityToken();
 Vue.use(ToastPlugin, { position: 'center', });
+
+price.init();
+window.price = price;
 
 Vue.config.productionTip = false;
 Vue.use(VueI18n);

@@ -136,7 +136,6 @@ export default {
             window.setIosProductPrice = this.setPlan;
             this.initIosPlan();
         } else {
-            
             this.initPlanArr();
         }
         let data = getNativeData();

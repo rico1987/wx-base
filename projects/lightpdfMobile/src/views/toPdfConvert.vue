@@ -111,10 +111,11 @@ export default {
                 'pdf-to-ppt': '.pdf',
                 'pdf-to-excel': '.pdf',
                 'pdf-to-txt': '.pdf',
+                'pdf-to-text': '.pdf',
                 'word-to-pdf': '.doc,.docx',
                 'excel-to-pdf': '.xls,.xlsx',
-                'png-to-pdf': '.png',
-                'jpg-to-pdf': '.jpg',
+                'png-to-pdf': '.png,.jpg,.jpeg,.heic,.gif',
+                'jpg-to-pdf': '.png,.jpg,.jpeg,.heic,.gif',
                 'ppt-to-pdf': '.ppt,.pptx',
             },
             convertkey: [
@@ -267,6 +268,21 @@ export default {
             console.log(data);
         },
         checkSize(file) {
+            let ext = file.name;
+            if (ext.lastIndexOf('.') !== -1) {
+                ext = ext.substring(ext.lastIndexOf('.'));
+            } else {
+                ext = '';
+            }
+            if (!ext) {
+                this.pdfErr();
+                return;
+            }
+            let acceptArr = this.accept.split(',');
+            if (acceptArr.indexOf(ext.toLowerCase()) === -1) {
+                this.pdfErr();
+                return;
+            }
             if (this.checkFileSize(file)) {
                 // this.pwdCheckObj.push(file);
                 let item = this.getInfoData(file, '');
@@ -300,7 +316,7 @@ export default {
             if (dotIndex !== -1) {
                 ext = file.name.substring(dotIndex + 1, file.name.length);
             }
-            item.ext = ext;
+            item.ext = ext.toLowerCase();
             return item;
         },
         addToList: function(item) {

@@ -371,7 +371,7 @@ const aLang = {
     '001852': 'Támogatás',
     '001853': 'Visszajelzés',
     '001854': 'Kattintson ide a honlap meglátogatásához',
-    '001855': 'Copyright © 2018 Apowersoft Ltd. Minden jog fenntartva',
+    '001855': 'Copyright © 2019 Apowersoft Ltd. Minden jog fenntartva',
     '001856': 'Sebességközpontú',
     '001857': 'Minőségközpontú',
     '001858': 'Beállítások',

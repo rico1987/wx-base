@@ -371,7 +371,7 @@ const aLang = {
     '001852': 'Support',
     '001853': 'Feedback',
     '001854': 'Klicka för att besöka webbplatsen',
-    '001855': 'Copyright © 2018 Apowersoft Ltd. Alla rättigheter förbehålls',
+    '001855': 'Copyright © 2019 Apowersoft Ltd. Alla rättigheter förbehålls',
     '001856': 'Hastighetsprioritet',
     '001857': 'Kvalitetsprioritet',
     '001858': 'Inställningar',

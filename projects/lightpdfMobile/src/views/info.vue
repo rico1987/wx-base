@@ -69,18 +69,7 @@ export default {
 
     created: function() {
         console.log('price.state', price.state);
-        let data = getNativeData();
-        // console.log('data----getnativedata');
-        console.log(data.userInfo);
-        if (data.userInfo) {
-            console.log('data----getnativedata');
-            // console.log(data.userInfo);
-            this.info = data.userInfo;
-            this.userInfo = this.info;
-            this.avatar = this.info.avatar;
-            this.nickname = this.info.nickname;
-            this.isLogin = 1;
-        }
+        this.freshUserData();
         // this.info = getNativeData();
         // this.info = window.uinfo;
         console.log('isIos===1', process.isIos, process.isIos === 1, process.isIos === '1');
@@ -92,6 +81,35 @@ export default {
         // this.autoCheckVipState();
     },
     methods: {
+        freshUserData() {
+            let data = getNativeData();
+            console.log(data.userInfo);
+            if (data.userInfo) {
+                console.log('data----getnativedata');
+                // console.log(data.userInfo);
+                this.info = data.userInfo;
+                this.userInfo = this.info;
+                this.avatar = this.info.avatar;
+                this.nickname = this.info.nickname;
+                this.isLogin = 1;
+            } else {
+                this.info = {};
+                this.userInfo = {};
+                this.avatar = '';
+                this.nickname = '';
+                this.isLogin = 0;
+            }
+        },
+        logined() {
+            if (!process.isIos) {
+                return true;
+            }
+            let saveData = getNativeData();
+            if (saveData['userInfo'] && saveData['identity_token']) {
+                return true;
+            }
+            return false;
+        },
         showStoreVipInfo() {
             if (ls.get('client-vip') === '1' && vip.licenseInfo) {
                 this.licenseInfo.isVip = 1;
@@ -158,7 +176,7 @@ export default {
             return time;
         },
         goMyfiles() {
-            if (this.isLogin === 0) {
+            if (!this.logined()) {
                 this.toLogin();
                 return;
             }
@@ -170,6 +188,10 @@ export default {
             openFolder();
         },
         goPayCenter() {
+            if (!this.logined()) {
+                this.toLogin();
+                return;
+            }
             if (this.licenseInfo && this.licenseInfo.isVip) {
                 this.$router.push({
                     path: '/vippay',
@@ -194,6 +216,7 @@ export default {
         },
         logout() {
             ls.set('api_token', '');
+            ls.set('identity_token', '');
             nativeLogout();
             setTimeout(() => {
                 jump('lightpdf', 'lightpdf', '/home', {

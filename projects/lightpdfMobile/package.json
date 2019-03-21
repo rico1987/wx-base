@@ -5,7 +5,7 @@
   "author": "Fengxing <272355332@qq.com>",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --disable-host-check",
+    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --disable-host-check --host 0.0.0.0",
     "devios": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --env.isIos=1 --disable-host-check",
     "start": "npm run dev",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",

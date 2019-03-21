@@ -339,14 +339,26 @@ export default {
             console.log('onback');
         },
         openNormalPay() {
-            if (this.normalPlan) {
-                this.openPayUrl(this.normalPlan.link);
+            if (!this.normalPlan) {
+                return;
             }
+            if (process.isIos === '1') {
+                // iosId
+                isoPay(this.normalPlan['iosId']);
+                return;
+            }
+            this.openPayUrl(this.normalPlan.link);
         },
         openRecommondPay() {
-            if (this.recommendPlan) {
-                this.openPayUrl(this.recommendPlan.link);
+            if (!this.recommendPlan) {
+                return;
             }
+            if (process.isIos === '1') {
+                // iosId
+                isoPay(this.recommendPlan['iosId']);
+                return;
+            }
+            this.openPayUrl(this.recommendPlan.link);
         },
         onTouchMove(e) {
             this.$refs.aaa.scrollTop;

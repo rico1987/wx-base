@@ -38,15 +38,15 @@ export default {
             tabArr: [
                 {
                     key: 'from-pdf',
-                    trkey: 'PDF转换@@001707',
+                    trkey: 'Convert PDF@@001707',
                 },
                 {
                     key: 'to-pdf',
-                    trkey: '转为PDF@@001817',
+                    trkey: 'To PDF@@001817',
                 },
                 {
                     key: 'merge-pdf',
-                    trkey: '合并PDF@@002082',
+                    trkey: 'Merge PDF@@002082',
                 },
                 {
                     key: 'user-center',

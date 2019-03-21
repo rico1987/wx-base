@@ -371,7 +371,7 @@ const aLang = {
     '001852': 'Destek',
     '001853': 'Geri Bildirim',
     '001854': 'Web sitesini ziyaret etmek için tıklayın',
-    '001855': 'Copyright © 2018 Apowersoft Ltd. Tüm hakları saklıdır',
+    '001855': 'Copyright © 2019 Apowersoft Ltd. Tüm hakları saklıdır',
     '001856': 'Öncelik Hızda',
     '001857': 'Öncelik Kalitede',
     '001858': 'Ayarlar',

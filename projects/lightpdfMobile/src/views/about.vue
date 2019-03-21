@@ -7,7 +7,7 @@
             </div>
             <div class="app-name" ref="txtEl">{{appName}} {{version}}</div>
             <div class="app-verson" ref="versionEl" ></div>
-            <div class="app-update" ref="updateEl" @click="goCheckUpdate">{{updateStr}}</div>
+            <div class="app-update" v-if="isAuto" ref="updateEl" @click="goCheckUpdate">{{updateStr}}</div>
             <div class="app-copyright" ref="copyrightEl" >{{cpRight}}</div>
         </div>
     </div>
@@ -35,6 +35,7 @@ export default {
             cpRightTrKey: 'copy right@@001855',
             updateStr: '',
             updateTrKey: 'update@@001849',
+            isAuto: 0,
         };
     },
 

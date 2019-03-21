@@ -86,7 +86,7 @@ export default {
     data() {
         return {
             fileCount: 0,
-            maxSize: 1024 * 1024 * 30,
+            maxSize: 1024 * 1024 * 300,
             isBigShow: true,
             isListShow: false,
             isSureShow: false,
@@ -111,10 +111,11 @@ export default {
                 'pdf-to-ppt': '.pdf',
                 'pdf-to-excel': '.pdf',
                 'pdf-to-txt': '.pdf',
+                'pdf-to-text': '.pdf',
                 'word-to-pdf': '.doc,.docx',
                 'excel-to-pdf': '.xls,.xlsx',
-                'png-to-pdf': '.png',
-                'jpg-to-pdf': '.jpg',
+                'png-to-pdf': '.png,.jpg,.jpeg,.heic,.gif',
+                'jpg-to-pdf': '.png,.jpg,.jpeg,.heic,.gif',
                 'ppt-to-pdf': '.ppt,.pptx',
             },
             convertkey: [
@@ -140,6 +141,10 @@ export default {
                 },
                 {
                     key: 'pdf-to-txt',
+                    trkey: 'PDF to Text@@001823',
+                },
+                {
+                    key: 'pdf-to-text',
                     trkey: 'PDF to Text@@001823',
                 },
             ],
@@ -222,7 +227,7 @@ export default {
         },
         pdfErr() {
             // console.log('pdfErr');
-            this.msg('file type err');
+            this.msg(this.$tr('Invalid file type@@002166'));
         },
         pwdOk(data) {
             // console.log('pwdok');
@@ -254,6 +259,22 @@ export default {
         },
         checkSize(file) {
             // this.msg('checksize');
+            console.log('----09090', file);
+            let ext = file.name;
+            if (ext.lastIndexOf('.') !== -1) {
+                ext = ext.substring(ext.lastIndexOf('.'));
+            } else {
+                ext = '';
+            }
+            if (!ext) {
+                this.pdfErr();
+                return;
+            }
+            let acceptArr = this.accept.split(',');
+            if (acceptArr.indexOf(ext.toLowerCase()) === -1) {
+                this.pdfErr();
+                return;
+            }
             if (this.checkFileSize(file)) {
                 this.pwdCheckObj.push(file);
             } else {
@@ -280,6 +301,12 @@ export default {
             };
             this.fileCount += 1;
             item.id = this.fileCount;
+            let ext = '';
+            let dotIndex = file.name.indexOf('.');
+            if (dotIndex !== -1) {
+                ext = file.name.substring(dotIndex + 1, file.name.length);
+            }
+            item.ext = ext.toLowerCase();
             return item;
         },
         addToList: function(item) {

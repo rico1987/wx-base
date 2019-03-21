@@ -371,7 +371,7 @@ const aLang = {
     '001852': 'Pomoc techniczna',
     '001853': 'Opinie',
     '001854': 'Kliknij, aby odwiedzić stronę internetową',
-    '001855': 'Copyright © 2018 Apowersoft Ltd. Wszystkie Prawa Zastrzeżone',
+    '001855': 'Copyright © 2019 Apowersoft Ltd. Wszystkie Prawa Zastrzeżone',
     '001856': 'Priorytetyzuj Szybkość Konwersji',
     '001857': 'Priorytetyzuj Jakość Konwersji',
     '001858': 'Ustawienia',

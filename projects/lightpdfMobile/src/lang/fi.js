@@ -371,7 +371,7 @@ const aLang = {
     '001852': 'Tuki',
     '001853': 'Palaute',
     '001854': 'Klikkaa siirtyäksesi sivustolle',
-    '001855': 'Copyright © 2018 Apowersoft Ltd. Kaikki Oikeudet Pidätetään',
+    '001855': 'Copyright © 2019 Apowersoft Ltd. Kaikki Oikeudet Pidätetään',
     '001856': 'Nopeus etusijalla',
     '001857': 'Laatu etusijalla',
     '001858': 'Asetukset',

@@ -29,6 +29,9 @@ import MyFileItem from '../components/myfileItem.vue';
 import DelFileBar from '../components/delFileBar.vue';
 import DownloadPanel from '../components/downloadPanel.vue';
 import {getMyTasks, delTask, } from '../api/pdf';
+import {getNativeData, saveNativeData, } from '../utils/index';
+import convert from '../utils/convert';
+import ls from '../utils/littleStore';
 
 export default {
     name: 'myfiles',
@@ -53,9 +56,26 @@ export default {
     },
 
     created: function() {
-        this.getMyList(1);
+        this.getSession();
+        // this.getMyList(1);
     },
     methods: {
+        getSession() {
+            let saveData = getNativeData();
+            let pdfSession = saveData['pdf_api_token'] || ls.get('api_token') || '';
+            if (pdfSession !== '') {
+                saveNativeData(saveData);
+                ls.set('api_token', pdfSession);
+                this.getMyList(1);
+            } else {
+                convert.getSession().then((response) => {
+                    console.log(response);
+                    this.getMyList(1);
+                }).catch((error) => {
+                    console.log('error', error);
+                });
+            }
+        },
         onSearch() {
             // console.log(this.$refs.searchInput.value);
             let key = this.$refs.searchInput.value || '';

@@ -14,12 +14,12 @@ body{
 	margin-right: auto;
 	margin-bottom: 0.2rem;
 	@include filter(drop-shadow(0px 0px 10px rgba(#000,0.20)));
-	
+	-webkit-transform: translateZ(0);
 	.file-img{
 		width: 0.52rem;
 		height: 0.52rem;
 		margin-left: 0.32rem;
-		background: url(../../../assets/images/index/pdf.svg) center center/0.46rem auto no-repeat;
+		background: url(../../../assets/images/index/file.svg) center center/0.46rem auto no-repeat;
 		float: left;
 		margin-top: 0.14rem;
 	}
@@ -30,6 +30,7 @@ body{
 	("xlsx","pdf-to-excel.svg"),
 	("png","pdf-to-png.svg"),
 	("jpg","pdf-to-jpg.svg"),
+	("jpeg","pdf-to-jpg.svg"),
 	("ppt","pdf-to-ppt.svg"),
 	("pptx","pdf-to-ppt.svg"),
 	("txt","pdf-to-txt.svg"),

@@ -107,9 +107,27 @@ export function nativeLogin(data) {
  */
 export function nativeDownload(url, fileName) {
     console.log('nativeDownload', url, fileName);
+    let id = -1;
     if (url && fileName && window.account) {
-        window.account.onDownload(url, fileName);
+        id = window.account.onDownload(url, fileName) || -1;
     }
+    console.log('nativeDownload-id', id);
+    return id;
+}
+
+/**
+ * 原生下载文件
+ * @param {String} url   地址
+ * @param {String} fileName   重命名为新的文件名
+ */
+export function getDownloadProgress(id) {
+    console.log('getDownloadProgress', id);
+    let data = {};
+    if (id && window.account) {
+        data = window.account.getDownloadProgress(id) || {};
+    }
+    console.log('nativeDownload-id', data);
+    return data;
 }
 
 /**

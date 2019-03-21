@@ -23,6 +23,7 @@ export default {
             uniqKey: 0,
             downloadPool: [],
             index: 0,
+            id: -1,
         };
     },
     computed: {
@@ -34,10 +35,13 @@ export default {
         download() {
             console.log('---', process.isIos);
             if (process.isIos && window.account) {
-                nativeDownload(this.url, this.fileName);
+                this.id = nativeDownload(this.url, this.fileName);
             } else {
                 this.$refs.a.click();
             }
+        },
+        check() {
+
         },
     },
     watch: {

@@ -371,7 +371,7 @@ const aLang = {
     '001852': 'Podpora',
     '001853': 'Zpětná vazba',
     '001854': 'Klikněte pro návštěvu webových stránek',
-    '001855': 'Copyright © 2018 Apowersoft Ltd. Všechna práva vyhrazena',
+    '001855': 'Copyright © 2019 Apowersoft Ltd. Všechna práva vyhrazena',
     '001856': 'Priorita rychlosti',
     '001857': 'Priorita kvality',
     '001858': 'Nastavení',

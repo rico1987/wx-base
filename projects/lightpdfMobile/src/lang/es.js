@@ -373,7 +373,7 @@ const aLang = {
     '001852': 'Soporte',
     '001853': 'Feedback',
     '001854': 'Haz clic para visitar el sitio web',
-    '001855': 'Copyright © 2018 Apowersoft Ltd. Todos los derechos reservados',
+    '001855': 'Copyright © 2019 Apowersoft Ltd. Todos los derechos reservados',
     '001856': 'Prioridad de velocidad',
     '001857': 'Prioridad de calidad',
     '001858': 'Ajustes',
@@ -411,5 +411,7 @@ const aLang = {
     '002161': 'Iniciar sesión',
     '002162': 'Administrar archivo (s)',
     '002163': 'Seleccionar todo',
+    '002164': 'Archivos de red',
+    '002165': 'Archivos locales',
 };
 export default aLang;

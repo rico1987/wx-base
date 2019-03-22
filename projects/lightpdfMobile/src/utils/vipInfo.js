@@ -22,7 +22,7 @@ const vip = {
             const data = response.data;
             console.log(data);
             if (data.data.license_info && data.data.user_info && data.data.license_info.is_activated === '1') {
-                ls.set('client-vip', 1);
+                ls.set('client-vip', '1');
                 ls.set('client-vip-express-day', data.data.license_info.expire_date);
                 data.data.license_info.isVip = 1;
                 vip.licenseInfo = data.data.license_info;

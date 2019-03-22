@@ -35,7 +35,8 @@ export default {
         download() {
             console.log('---', process.isIos);
             if (process.isIos && window.account) {
-                this.id = nativeDownload(this.url, this.fileName);
+                nativeDownload;
+                // this.id = nativeDownload(this.url, this.fileName);
             } else {
                 this.$refs.a.click();
             }

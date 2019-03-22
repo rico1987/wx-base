@@ -7,6 +7,17 @@
 	top: 0;
 	background: #3f7aff;
 	z-index: 1;
+	&.isios{
+		height: 1.18rem;
+		padding-top: 0.2rem;
+		.back-bar{
+			height: 0.98rem;
+			margin-top: 0;
+			margin-bottom: 0;
+			bottom: 0;
+			margin-top: 0.2rem;
+		}
+	}
 	.header-title{
 		font-size: 0.32rem;
 		height: 100%;
@@ -23,7 +34,7 @@
         margin-left: 0.35rem;
         width: 0.25rem;
         height: 0.25rem;
-        background: url(../../../assets/images/header/arrow.svg) center center/auto 100% no-repeat;
+        background: url(../../../assets/images/header/arrow.svg) center center/0.25rem 100% no-repeat;
 
 	}
 }

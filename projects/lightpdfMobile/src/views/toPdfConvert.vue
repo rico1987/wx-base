@@ -235,7 +235,7 @@ export default {
         pdfErr(data) {
             console.log(data);
             console.log('pdfErr');
-            this.msg('file type err');
+            this.msg(this.$tr('Invalid file type@@002166'));
         },
         pwdOk(data) {
             console.log(data);

@@ -1,5 +1,5 @@
 <template>
-    <div class="pdf-header">
+    <div class="pdf-header" v-bind:class="{isios: isIos}">
         <div class="header-title"><slot></slot></div>
         <div class="back-bar" @click="back"></div>
     </div>
@@ -27,6 +27,7 @@ export default {
     data() {
         return {
             type: this.headertype,
+            isIos: process.isIos,
             pathMap: {
                 'pdf-to-word': '/home',
                 'pdf-to-excel': '/home',

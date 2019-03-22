@@ -209,3 +209,53 @@
         }
     }
 }
+
+.download-bar{
+    position: fixed;
+    background: #fff;
+    width: 100%;
+    height: 0.8rem;
+    bottom: 0.8rem;
+    line-height: 0.8rem;
+    text-align: left;
+    border-top: 1px solid #ededed;
+    border-bottom: 1px solid #ededed;
+    p{
+        display: inline-block;
+        overflow: hidden;
+        // font-size: 0.1rem;
+    }
+    .total{
+        min-width: 8vw;
+        text-align: center;
+    }
+    .file-name{
+        max-width: 70vw;
+        min-width: 50vw;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .progress{
+        width: 15vw;
+        // display: none;
+        // min-width: 50vw;
+    }
+    .open-btn{
+        display: inline-block;
+        max-width: 25vw;
+        min-width: 20vw;
+        // font-size: 0.15rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: #fff;
+        background: linear-gradient(to left,#1e5ff3,#6594ff);
+        height: 0.6rem;
+        line-height: 0.6rem;
+        padding-left: 0.05rem;
+        padding-right: 0.05rem;
+        border-radius: 0.05rem;
+        margin-bottom: 0.1rem;
+        text-align: center;
+    }
+}

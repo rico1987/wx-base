@@ -11,6 +11,12 @@ const convert = {
         fileItemList: [],
         index: 0,
     },
+    isAccountLogin(token) {
+        return token && !token.startsWith('-');
+    },
+    isLightPdfLogin(token) {
+        return token && !token.startsWith('-');
+    },
     getSession2: function() {
         getPdfSession().then((response) => {
             const data = response.data;

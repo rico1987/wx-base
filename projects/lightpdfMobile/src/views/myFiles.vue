@@ -17,7 +17,8 @@
                 @select-all="selectAll"
                 @manage-file="showSelectBar"
                 ></delfile-bar>
-                <download-panel ref="downLoadBar"></download-panel>
+                <download-panel ref="downLoadBar" @add-download="addToTask($event)"></download-panel>
+                <download-bar ref="downloadProgress"></download-bar>
             </div>
         </div>
     </div>
@@ -28,6 +29,7 @@ import PdfHeader from '../components/PdfHeader.vue';
 import MyFileItem from '../components/myfileItem.vue';
 import DelFileBar from '../components/delFileBar.vue';
 import DownloadPanel from '../components/downloadPanel.vue';
+import DownloadBar from '../components/DownloadBar.vue';
 import {getMyTasks, delTask, } from '../api/pdf';
 import {getNativeData, saveNativeData, } from '../utils/index';
 import convert from '../utils/convert';
@@ -40,6 +42,7 @@ export default {
         'myfile-item': MyFileItem,
         'delfile-bar': DelFileBar,
         'download-panel': DownloadPanel,
+        'download-bar': DownloadBar,
     },
     data() {
         return {
@@ -224,6 +227,8 @@ export default {
             this.scrollTopArr[1] === this.scrollTopArr[0]) {
                 flag = true;
             }
+            console.log('isScrollEnd');
+            console.log(this.scrollTopArr, flag);
             return flag;
         },
         isUp() {
@@ -234,6 +239,7 @@ export default {
             this.touchYArr[1] < this.touchYArr[0]) {
                 flag = true;
             }
+            console.log('isup', this.touchYArr);
             return flag;
         },
         isDown() {
@@ -244,6 +250,7 @@ export default {
             this.touchYArr[1] > this.touchYArr[0]) {
                 flag = true;
             }
+            console.log('isDown', this.touchYArr);
             return flag;
         },
         selectAll() {
@@ -312,7 +319,11 @@ export default {
             this.$refs.downLoadBar.isShow = 1;
             this.$refs.downLoadBar.freshList(item.source_files, item.target_file);
         },
-
+        addToTask(item) {
+            console.log(item);
+            console.log('-0-0-0-0-0');
+            this.$refs.downloadProgress.addTask(item.url, item.fileName);
+        },
     },
 };
 </script>

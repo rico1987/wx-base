@@ -127,10 +127,15 @@ export default {
             vip.getVip(this.dealLicenseInfo);
         },
         dealLicenseInfo(data) {
-            // console.log('dealLicenseInfo');
-            // console.log(data);
+            console.log('dealLicenseInfo');
+            console.log(data);
+            let arr = [];
             if (data) {
-                this.licenseInfo = data;
+                // this.licenseInfo = data;
+                arr = Object.keys(data);
+                for (let i = 0;i < arr.length; i += 1) {
+                    this.licenseInfo[arr[i]] = data[arr[i]];
+                }
                 if (data.expire_date) {
                     data.expire_date = this.shortTime(data.expire_date);
                 }
@@ -138,8 +143,14 @@ export default {
                     data.expire_date = this.$tr('Lifetime@@001670');
                 }
             } else {
-                this.licenseInfo = {};
+                // this.licenseInfo = {};
+                arr = Object.keys(this.licenseInfo);
+                for (let i = 0;i < this.licenseInfo.length; i += 1) {
+                    this.licenseInfo[arr[i]] = null;
+                }
             }
+            console.log('licenseInfo');
+            console.log(this.licenseInfo);
         },
         dealVipInfo(data) {
             if (!data) {
@@ -266,11 +277,13 @@ export default {
         },
         autoCheckVipState() {
             this.showResult = 1;
+            let _this = this;
             setTimeout(() => {
-                console.log(this.$refs.payResult);
+                console.log(_this.$refs);
+                console.log(_this.$refs.payResult);
                 console.log(33333);
-                this.$refs.payResult.show();
-                this.$refs.payResult.checkVip();
+                _this.$refs.payResult.show();
+                _this.$refs.payResult.checkVip();
             }, 300);
             // payResult
         },
@@ -290,19 +303,41 @@ export default {
             let saveData = data;
             let pdfSession = saveData['pdf_api_token'] || ls.get('api_token') || '';
             if (pdfSession !== '') {
+                saveData['pdf_api_token'] = pdfSession;
+                saveNativeData(saveData);
+                ls.set('api_token', pdfSession);
+            }
+            if (convert.isAccountLogin(saveData['identity_token']) && !convert.isLightPdfLogin(pdfSession)) {
+                this.getNewSession();
+            }
+            if (saveData['api_token'] && pdfSession !== '' && (saveData['api_token'].startsWith('-') !== pdfSession.startsWith('-'))) {
+                // 已登录
+                // convert.getSession().then((response) => {
+                //     console.log('sesson pdf back', response);
+                //     this.showStoreVipInfo();
+                //     this.getVipInfo();
+                // }).catch((error) => {
+                //     console.log('error', error);
+                // });
+                this.getNewSession();
+            }
+            if (pdfSession !== '' && saveData['api_token']) {
                 saveNativeData(saveData);
                 ls.set('api_token', pdfSession);
                 this.showStoreVipInfo();
                 this.getVipInfo();
             } else {
-                convert.getSession().then((response) => {
-                    console.log('sesson pdf back', response);
-                    this.showStoreVipInfo();
-                    this.getVipInfo();
-                }).catch((error) => {
-                    console.log('error', error);
-                });
+                this.getNewSession();
             }
+        },
+        getNewSession() {
+            convert.getSession().then((response) => {
+                console.log('sesson pdf back', response);
+                this.showStoreVipInfo();
+                this.getVipInfo();
+            }).catch((error) => {
+                console.log('error', error);
+            });
         },
     },
 };

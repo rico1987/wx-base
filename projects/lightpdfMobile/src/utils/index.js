@@ -122,10 +122,15 @@ export function nativeDownload(url, fileName) {
  */
 export function getDownloadProgress(id) {
     console.log('getDownloadProgress', id);
-    let data = {};
+    let data = 0;
     if (id && window.account) {
-        data = window.account.getDownloadProgress(id) || {};
+        data = window.account.getDownloadProgress(id) || 0;
     }
+    data = parseFloat(data);
+    if (Number.isNaN(data)) {
+        data = 0;
+    }
+    data = Math.ceil(data * 100);
     console.log('nativeDownload-id', data);
     return data;
 }

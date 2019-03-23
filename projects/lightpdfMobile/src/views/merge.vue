@@ -304,7 +304,7 @@ export default {
             item.id = this.fileCount;
             item.id = this.fileCount;
             let ext = '';
-            let dotIndex = file.name.indexOf('.');
+            let dotIndex = file.name.lastIndexOf('.');
             if (dotIndex !== -1) {
                 ext = file.name.substring(dotIndex + 1, file.name.length);
             }
@@ -367,6 +367,10 @@ export default {
             this.index += 1;
             // this.updateTotalProgressBar();
             let item = this.getCurrentConvertData();
+            if (this.fileList.length === 0) {
+                this.index = 0;
+                return;
+            }
             if (!item) {
                 // this.isConverting = false;
                 // this.index = 0;
@@ -380,13 +384,32 @@ export default {
         },
         stop() {
             this.isStop = 1;
-
+            this.resetAll();
+        },
+        resetAll() {
+            // aaa;
+            this.removeTaskInfoTimer();
+            this.isConverting = false;
+            this.fileList = [];
+            this.isListShow = true;
+            this.isSureShow = false;
+            this.isStopShow = false;
+            this.index = 0;
+            this.isStop = 0;
+            this.taskId = '';
         },
         uploadOssOk: function(res, file) {
             let data = res.data.data;
             let item = this.getCurrentConvertData();
-            item.fileId = data.id;
-            file;
+            if (!item || item.file !== file) {
+                console.log('nofile');
+                return;
+            }
+            if (data['app_data']) {
+                item.fileId = data['app_data']['id'];
+            } else {
+                item.fileId = data.id;
+            }
             // console.log(res, file, 3);
             // this.setProgress(4 + 10);
             // this.toCreateTask();
@@ -400,6 +423,7 @@ export default {
         },
         toCreateTask() {
             this.updateTotalProgressBar(10);
+
             let obj = {
                 service_type: 'merge-pdf',
                 autostart: true,
@@ -416,7 +440,10 @@ export default {
             }).catch(() => {
                 console.log('err');
                 // console.log(data);
-                _this.getCurrentConvertData().state = 3;
+                let item = _this.getCurrentConvertData();
+                if (item) {
+                    item.state = 3;
+                }
                 // console.log('createErr-next');
                 // _this.next();
             });
@@ -451,7 +478,7 @@ export default {
                 let _this = this;
                 // eslint-disable-next-line
                 getTaskInfo(id).then((response) => {
-                    _this.progressBack(response.data);
+                    _this.progressBack(response);
                 }).catch((response) => {
                     _this.progressErr(response.data);
                 });
@@ -470,10 +497,28 @@ export default {
             TimeManager.delTimer(this.infoTimerId);
             this.infoTimerId = -1;
         },
-        progressBack(res) {
+        getReponseTaskId(resp) {
+            // 获取url里面的taskId 用来对应 任务状态
+            let taskId = '';
+            let url = resp.request.responseURL;
+            if (url && url.length > 1) {
+                url = url.replace(/.*\//, '');
+                url = url.replace(/\?.*/, '');
+                taskId = url;
+            }
+            return taskId;
+        },
+        progressBack(resp) {
             // aaa
             // console.log(res);
-            // console.log('progress--back');
+            let res = resp.data;
+            let taskId = this.getReponseTaskId(resp);
+            if (this.taskId !== taskId) {
+                return;
+            }
+            console.log('progress--back');
+            console.log(res.data);
+            console.log(res.data.status);
             if (!res.data || res.status !== '1') {
                 // 错误
                 // debugger;

@@ -133,21 +133,23 @@ export default {
             if (data) {
                 // this.licenseInfo = data;
                 arr = Object.keys(data);
-                for (let i = 0;i < arr.length; i += 1) {
-                    this.licenseInfo[arr[i]] = data[arr[i]];
-                }
                 if (data.expire_date) {
                     data.expire_date = this.shortTime(data.expire_date);
                 }
                 if (data.passport_license_type === 'lifetime') {
                     data.expire_date = this.$tr('Lifetime@@001670');
                 }
+                for (let i = 0;i < arr.length; i += 1) {
+                    this.licenseInfo[arr[i]] = data[arr[i]];
+                }
+                // this.isLogin = 1;
             } else {
                 // this.licenseInfo = {};
                 arr = Object.keys(this.licenseInfo);
                 for (let i = 0;i < this.licenseInfo.length; i += 1) {
                     this.licenseInfo[arr[i]] = null;
                 }
+                // this.isLogin = 0;
             }
             console.log('licenseInfo');
             console.log(this.licenseInfo);
@@ -160,7 +162,7 @@ export default {
             // console.log(data.is_activated);
             if (data.is_activated === '1') {
                 data.isVip = 1;
-                ls.set('client-vip', 1);
+                ls.set('client-vip', '1');
                 ls.set('client-vip-express-day', data.expire_date);
                 vip.licenseInfo = data;
             } else {

@@ -145,7 +145,7 @@ export default {
         vipBack(data) {
             console.log('vipBack', data);
             if (data.data.license_info && data.data.license_info.is_activated === 1) {
-                ls.set('client-vip', 1);
+                ls.set('client-vip', '1');
                 ls.set('client-vip-express-day', data.data.license_info.expire_date);
                 let isVip = 1;
                 let exp = data.data.license_info.expire_date;

@@ -29,7 +29,7 @@
             </div>
             <div class="btn logout-btn" v-if="isLogin" @click="logout">{{$tr('Logout@@002034')}}</div>
             <main-bar v-if="!isIos" type="user-center"></main-bar>
-            <ios-pay-result ref="payResult"></ios-pay-result>
+            <ios-pay-result ref="payResult" @vip-info-update="dealLicenseInfo($event)"></ios-pay-result>
         </div>
     </div>
 </template>
@@ -59,6 +59,7 @@ export default {
             },
             vip: null,
             licenseInfo: {
+                isVip: 0,
             },
             avatar: '',
             nickname: '',
@@ -79,6 +80,7 @@ export default {
         this.getSessionAndVip();
         window.autoCheckVipState = this.autoCheckVipState;
         // this.autoCheckVipState();
+        window.iinfo = this;
     },
     methods: {
         freshUserData() {
@@ -142,6 +144,8 @@ export default {
                 for (let i = 0;i < arr.length; i += 1) {
                     this.licenseInfo[arr[i]] = data[arr[i]];
                 }
+                this.licenseInfo.isVip = data.isVip;
+                console.log('----isvip', this.licenseInfo.isVip);
                 // this.isLogin = 1;
             } else {
                 // this.licenseInfo = {};

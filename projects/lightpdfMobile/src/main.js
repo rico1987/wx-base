@@ -37,8 +37,11 @@ import LangTw from './lang/tw';
 import ToastPlugin from './plugins/toast';
 import price from './utils/iosPrice';
 
-const vConsole = new VConsole();
-console.log(vConsole.version);
+let isDebugger = 0;// 1 打开debugger 0 关闭
+if (isDebugger) {
+    const vConsole = new VConsole();
+    console.log(vConsole.version);
+}
 vip.init();
 vip.freshIdentityToken();
 Vue.use(ToastPlugin, { position: 'center', });

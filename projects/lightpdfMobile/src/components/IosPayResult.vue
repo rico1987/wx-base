@@ -118,7 +118,9 @@ export default {
             TimeManager.addTimer(timer);
         },
         checkLicense(data) {
+            // 111
             if (data && data.isVip) {
+                this.$emit('vip-info-update', data);
                 // let exp = data.expire_date;
                 // let code = `1-a-${exp}`;
                 // if (code !== this.vipState) {

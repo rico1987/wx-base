@@ -1,6 +1,6 @@
 import {getPdfConverterVipInfo, } from '../api/support';
 import ls from '../utils/littleStore';
-import {getNativeData, } from '../utils/index';
+import {getNativeData, saveNativeData, } from '../utils/index';
 
 const vip = {
     freshIdentityToken() {
@@ -20,14 +20,19 @@ const vip = {
         console.log('iiiii-2222---vip--infooooo');
         getPdfConverterVipInfo().then((response) => {
             const data = response.data;
+            let saveData = getNativeData();
             console.log(data);
             if (data.data.license_info && data.data.user_info && data.data.license_info.is_activated === '1') {
                 ls.set('client-vip', '1');
+                saveData['client-vip'] = '1';
+                saveNativeData(saveData);
                 ls.set('client-vip-express-day', data.data.license_info.expire_date);
                 data.data.license_info.isVip = 1;
                 vip.licenseInfo = data.data.license_info;
             } else {
                 ls.set('client-vip', 0);
+                saveData['client-vip'] = '0';
+                saveNativeData(saveData);
                 vip.licenseInfo = null;
             }
             if (callback) {

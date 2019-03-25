@@ -139,7 +139,8 @@ export default {
             this.type = type;
         }
         this.initTitle();
-        this.isVip = ls.get('client-vip') || 0;
+        let saveData = getNativeData();
+        this.isVip = saveData['client-vip'] || ls.get('client-vip') || 0;
         // console.log('isvip', this.isVip);
     },
     methods: {

@@ -164,14 +164,20 @@ export default {
             }
             // console.log(data);
             // console.log(data.is_activated);
+            let saveData = getNativeData();
+            
             if (data.is_activated === '1') {
                 data.isVip = 1;
                 ls.set('client-vip', '1');
+                saveData['client-vip'] = '1';
+                saveNativeData(saveData);
                 ls.set('client-vip-express-day', data.expire_date);
                 vip.licenseInfo = data;
             } else {
                 data.isVip = 0;
                 ls.set('client-vip', 0);
+                saveData['client-vip'] = '0';
+                saveNativeData(saveData);
                 vip.licenseInfo = null;
             }
             if (data.expire_date) {

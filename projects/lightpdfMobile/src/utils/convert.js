@@ -53,6 +53,7 @@ const convert = {
                 console.log(error);
                 let saveData = getNativeData();
                 saveData['pdf_api_token'] = '';
+                saveData['client-vip'] = '0';
                 saveNativeData(saveData);
                 ls.set('api_token', '');
                 ls.set('client-vip', 0);

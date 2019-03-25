@@ -149,6 +149,25 @@
                     width: 4.3rem;
                     float: left;
                     text-align: left;
+                    overflow: hidden;
+                    // text-overflow: ellipsis;
+                    // white-space: nowrap;
+                    p{
+                        display: inline-block;
+                    }
+                    .short-name{
+                        // max-width: 3.8rem;
+                        max-width: 80%;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+                    .ext{
+                        width: 20%;
+                        overflow: hidden;
+                        // text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
                 }
             }
         }
@@ -232,6 +251,7 @@
     .file-name{
         max-width: 70vw;
         min-width: 50vw;
+        overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
     }

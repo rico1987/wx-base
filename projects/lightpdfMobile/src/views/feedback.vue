@@ -58,12 +58,20 @@ export default {
                 this.msg(this.$tr('Email and feedback can not be empty.@@002047'));
                 return;
             }
+            if (!this.checkEmail(mail)) {
+                this.msg(this.$tr('Please input a valid email address!@@invalid_email'));
+                return;
+            }
             if (mail && content) {
                 nativeFeedBack(mail, content, subject);
                 if (isNetConnect()) {
                     this.back();
                 }
             }
+        },
+        checkEmail(mailStr) {
+            let reg = /^[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,6}$/;
+            return mailStr && reg.test(mailStr);
         },
         msg: function(txt) {
             this.$refs.msg.msg(txt);

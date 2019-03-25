@@ -85,7 +85,7 @@ export default {
     data() {
         return {
             fileCount: 0,
-            maxSize: 1024 * 1024 * 30,
+            maxSize: 1024 * 1024 * 300,
             isBigShow: true,
             isListShow: false,
             isSureShow: false,
@@ -299,6 +299,7 @@ export default {
                 targetUrl: '',
                 targetName: '',
                 ext: '',
+                isConverting: false,
             };
             this.fileCount += 1;
             item.id = this.fileCount;
@@ -350,9 +351,17 @@ export default {
             this.isSureShow = false;
             this.isStopShow = true;
             this.isConverting = true;
+            this.setAllItemConvertingState(true);
             this.$refs.progress.isStep = 0;
             let num = (this.index / this.fileList.length) * 10;
             this.updateTotalProgressBar(num);
+        },
+        setAllItemConvertingState(flag) {
+            let item;
+            for (let i = 0; i < this.fileList.length; i += 1) {
+                item = this.fileList[i];
+                item.isConverting = flag;
+            }
         },
         updateTotalProgressBar(num = 0) {
             // let totalNum = this.fileList.length;
@@ -390,6 +399,7 @@ export default {
             // aaa;
             this.removeTaskInfoTimer();
             this.isConverting = false;
+            this.setAllItemConvertingState(false);
             this.fileList = [];
             this.isListShow = true;
             this.isSureShow = false;
@@ -575,6 +585,7 @@ export default {
                 // this.setAllItemErr();
                 setTimeout(() => {
                     this.isConverting = false;
+                    this.setAllItemConvertingState(false);
                     this.index = 0;
                     this.isStopShow = false;
                     this.showResult();

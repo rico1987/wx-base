@@ -9,7 +9,7 @@
                     <div class="state-img" :class="imgState" v-show="fileData && (fileData.state == 2 || fileData.state == 3)"></div>
                 </div>
             </div>
-            <div class="del-btn" @click="onDel"></div>
+            <div class="del-btn" v-show="!fileData.isConverting" @click="onDel"></div>
         </div>
         <a class="down-btn" ref="downBtn" :href="fileData.targetUrl"></a>
     </div>

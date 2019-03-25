@@ -141,6 +141,8 @@ export default {
                 };
                 arr.push(obj);
             });
+            console.log('-0-0-0-0-');
+            console.log(arr);
             // console.log(this.fileList.length);
             this.fileList.length = 0;
             this.fileList = arr;

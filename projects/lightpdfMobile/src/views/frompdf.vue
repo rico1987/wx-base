@@ -298,6 +298,7 @@ export default {
                 targetUrl: '',
                 targetName: '',
                 ext: '',
+                isConverting: false,
             };
             this.fileCount += 1;
             item.id = this.fileCount;
@@ -352,7 +353,15 @@ export default {
             this.isSureShow = false;
             this.isStopShow = true;
             this.isConverting = true;
+            this.setAllItemConvertingState(true);
             this.updateTotalProgressBar();
+        },
+        setAllItemConvertingState(flag) {
+            let item;
+            for (let i = 0; i < this.fileList.length; i += 1) {
+                item = this.fileList[i];
+                item.isConverting = flag;
+            }
         },
         updateTotalProgressBar() {
             let totalNum = this.fileList.length;
@@ -380,6 +389,7 @@ export default {
             if (!item) {
                 // finished
                 this.isConverting = false;
+                this.setAllItemConvertingState(false);
                 this.index = 0;
                 this.isStopShow = false;
                 // if (this.checkAllState()) {

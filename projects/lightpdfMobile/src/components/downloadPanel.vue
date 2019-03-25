@@ -4,7 +4,10 @@
         <div class="download-box">
             <div class="file-list">
                 <div class="file-item" v-for="(item,index) in fileList" :key="index">
-                    <div class="file-name">{{item.fileName}}</div>
+                    <div class="file-name">
+                        <p class="short-name">{{item.shortName}}</p>
+                        <p class="ext">{{item.ext}}</p>
+                        </div>
                     <div class="check-box" :class="{select: item.selected}" @click="onSelect(item)">
                         <div class="select-gou" :class="{selcet: item.selected}"></div>
                     </div>
@@ -63,11 +66,13 @@ export default {
             arr.unshift(targetFile);
             arr.forEach((item) => {
                 let obj = {
+                    shortName: this.getShortName(item.filename),
                     fileName: item.filename,
                     url: item.url,
                     uniqkey: this.getUniqKey(),
                     selected: 0,
                     start: 0,
+                    ext: this.getExt(item.filename),
                 };
                 list.push(obj);
             });
@@ -75,6 +80,26 @@ export default {
             this.downloadPool = [];
             this.fileList = list;
         },
+
+        getExt(nameStr) {
+            let ext = '';
+            let dotIndex = nameStr.lastIndexOf('.');
+            if (dotIndex !== -1) {
+                ext = nameStr.substring(dotIndex, nameStr.length);
+            }
+            ext = ext.toLowerCase();
+            return ext;
+        },
+        getShortName(nameStr) {
+            let name = '';
+            let dotIndex = nameStr.lastIndexOf('.');
+            name = nameStr;
+            if (dotIndex !== -1) {
+                name = nameStr.substring(0, dotIndex);
+            }
+            return name;
+        },
+
         onSelect(item) {
             item.selected = Number(!item.selected);
             console.log('nnnnn');

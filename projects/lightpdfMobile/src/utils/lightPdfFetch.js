@@ -17,7 +17,13 @@ service.interceptors.request.use((config) => {
         config.headers['IsClientVip'] = 1;
 
     }
-    config.headers['Cli-OS'] = 'Android';
+    console.log('lightPdfFetch', process.isIos);
+    console.log(process.isIos);
+    let clios = 'Android';
+    if (process.isIos === '1') {
+        clios = 'IOS';
+    }
+    config.headers['Cli-OS'] = clios;
     config.headers['APP'] = 'ApowerPDF';
     config.headers['Brand'] = 'Apowersoft';
     return config;

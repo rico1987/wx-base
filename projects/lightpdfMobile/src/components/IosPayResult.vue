@@ -33,6 +33,7 @@
 
 <script>
 import ls from '../utils/littleStore';
+import stProxy from '../utils/storeProxy';
 import vip from '../utils/vipInfo';
 // import {getPdfConverterVipInfo, } from '../api/support';
 import TimeManager from '../utils/timeManager';
@@ -68,10 +69,13 @@ export default {
 
     methods: {
         initVipState() {
-            let isVip = ls.get('client-vip') || '';
-            let exp = ls.get('client-vip-express-day') || '';
+            this.vipState = this.getVipState();
+        },
+        getVipState() {
+            let isVip = stProxy.get('client-vip') || '';
+            let exp = stProxy.get('client-vip-express-day') || '';
             let code = `${isVip}-a-${exp}`;
-            this.vipState = code;
+            return code;
         },
         reSetState() {
             this.isUpdated = 0;
@@ -119,7 +123,12 @@ export default {
         },
         checkLicense(data) {
             // 111
+            console.log('checkLicense');
             if (data && data.isVip) {
+                if (this.getVipState() === this.vipState) {
+                    return;
+                }
+                console.log('vip-info-update', data);
                 this.$emit('vip-info-update', data);
                 // let exp = data.expire_date;
                 // let code = `1-a-${exp}`;
@@ -129,7 +138,7 @@ export default {
                 this.isUpdated = 1;
                 this.noChange = 0;
                 this.close();
-                this.$router.push('/info');
+                // this.$router.push('/info');
                 // }
             }
         },

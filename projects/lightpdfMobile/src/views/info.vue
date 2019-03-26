@@ -11,7 +11,7 @@
                         <div class="expire-day"
                         v-show="licenseInfo.isVip"
                         >
-                            {{$tr('001685',licenseInfo.expire_date)}}
+                            {{expireStr}}
                         </div>
                     </div>
                     <div class="user-info isguest" v-else-if="!isLogin">
@@ -40,6 +40,8 @@ import {nativeLogout, getNativeData, saveNativeData, jump, openUrl, openFolder, 
 import convert from '../utils/convert';
 // import {getPdfConverterVipInfo, } from '../api/support';
 import ls from '../utils/littleStore';
+// import ls from '../utils/storeProxy';
+import stProxy from '../utils/storeProxy';
 import vip from '../utils/vipInfo';
 import IosPayResult from '../components/IosPayResult.vue';
 import price from '../utils/iosPrice';
@@ -65,11 +67,13 @@ export default {
             nickname: '',
             isLogin: 0,
             showResult: 0,
+            expireStr: '',
         };
     },
 
     created: function() {
         console.log('price.state', price.state);
+        console.log(this.$route.query);
         this.freshUserData();
         // this.info = getNativeData();
         // this.info = window.uinfo;
@@ -145,6 +149,7 @@ export default {
                     this.licenseInfo[arr[i]] = data[arr[i]];
                 }
                 this.licenseInfo.isVip = data.isVip;
+                this.expireStr = this.$tr('001685', this.licenseInfo.expire_date);
                 console.log('----isvip', this.licenseInfo.isVip);
                 // this.isLogin = 1;
             } else {
@@ -153,6 +158,7 @@ export default {
                 for (let i = 0;i < this.licenseInfo.length; i += 1) {
                     this.licenseInfo[arr[i]] = null;
                 }
+                this.expireStr = '';
                 // this.isLogin = 0;
             }
             console.log('licenseInfo');
@@ -165,7 +171,6 @@ export default {
             // console.log(data);
             // console.log(data.is_activated);
             let saveData = getNativeData();
-            
             if (data.is_activated === '1') {
                 data.isVip = 1;
                 ls.set('client-vip', '1');
@@ -240,6 +245,9 @@ export default {
         logout() {
             ls.set('api_token', '');
             ls.set('identity_token', '');
+            stProxy.setDataByKey('licenseInfo', '');
+            stProxy.set('client-vip-express-day', '');
+            stProxy.set('pdf_api_token', '');
             nativeLogout();
             setTimeout(() => {
                 jump('lightpdf', 'lightpdf', '/home', {
@@ -295,6 +303,7 @@ export default {
                 console.log(_this.$refs.payResult);
                 console.log(33333);
                 _this.$refs.payResult.show();
+                _this.$refs.payResult.initVipState();
                 _this.$refs.payResult.checkVip();
             }, 300);
             // payResult
@@ -313,11 +322,12 @@ export default {
                 this.isLogin = 1;
             }
             let saveData = data;
-            let pdfSession = saveData['pdf_api_token'] || ls.get('api_token') || '';
+            let pdfSession = stProxy.get('pdf_api_token') || '';
             if (pdfSession !== '') {
-                saveData['pdf_api_token'] = pdfSession;
-                saveNativeData(saveData);
-                ls.set('api_token', pdfSession);
+                // saveData['pdf_api_token'] = pdfSession;
+                // saveNativeData(saveData);
+                // ls.set('pdf_api_token', pdfSession);
+                stProxy.setDataByKey('pdf_api_token', pdfSession);
             }
             if (convert.isAccountLogin(saveData['identity_token']) && !convert.isLightPdfLogin(pdfSession)) {
                 this.getNewSession();
@@ -334,13 +344,16 @@ export default {
                 this.getNewSession();
             }
             if (pdfSession !== '' && saveData['api_token']) {
-                saveNativeData(saveData);
-                ls.set('api_token', pdfSession);
+                // saveNativeData(saveData);
+                // ls.set('api_token', pdfSession);
+                stProxy.setDataByKey('pdf_api_token', pdfSession);
                 this.showStoreVipInfo();
                 this.getVipInfo();
             } else {
                 this.getNewSession();
             }
+            this.getVipInfo();
+
         },
         getNewSession() {
             convert.getSession().then((response) => {

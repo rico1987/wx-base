@@ -70,9 +70,8 @@ import {createTask, getTaskInfo, } from '../api/pdf';
 import TimeManager from '../utils/timeManager';
 import his from '../utils/pathHistory';
 import resultData from '../utils/convertResult';
-import {getNativeData, } from '../utils/index';
-import ls from '../utils/littleStore';
 import convert from '../utils/convert';
+import stProxy from '../utils/storeProxy';
 
 export default {
     name: 'toPdfConvert',
@@ -174,17 +173,30 @@ export default {
             this.accept = this.acceptMap[type] || '.pdf';
         }
         this.setTitleStr();
-        let saveData = getNativeData();
-        let pdfSession = saveData['pdf_api_token'] || ls.get('api_token') || '';
-        if (pdfSession === '') {
+        let pdfSession = stProxy.get('pdf_api_token') || '';
+        // stProxy
+        if (pdfSession !== '') {
+            // saveNativeData(saveData);
+            // ls.set('api_token', pdfSession);
+            stProxy.set('pdf_api_token', pdfSession);
+        } else {
             convert.getSession().then((response) => {
                 console.log('sesson pdf back', response);
-                // this.showStoreVipInfo();
-                // this.getVipInfo();
             }).catch((error) => {
                 console.log('error', error);
             });
         }
+        // let saveData = getNativeData();
+        // let pdfSession = saveData['pdf_api_token'] || ls.get('api_token') || '';
+        // if (pdfSession === '') {
+        //     convert.getSession().then((response) => {
+        //         console.log('sesson pdf back', response);
+        //         // this.showStoreVipInfo();
+        //         // this.getVipInfo();
+        //     }).catch((error) => {
+        //         console.log('error', error);
+        //     });
+        // }
     },
     methods: {
         setTitleStr() {

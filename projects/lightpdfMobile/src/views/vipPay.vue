@@ -2,7 +2,7 @@
     <div class="pay-container">
         <div class="inner-container vip">
             <pdf-header ref="header" @click-jump="onBack"></pdf-header>
-            <user-info :info="userInfo"></user-info>
+            <user-info ref="userInfo" :info="userInfo"></user-info>
             <div class="panel-two">
                 <div class="des-panel">
                     <div class="privilege-box">

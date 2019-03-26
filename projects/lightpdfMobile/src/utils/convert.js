@@ -1,4 +1,5 @@
 import ls from '../utils/littleStore';
+import stProxy from '../utils/storeProxy';
 import {getPdfSession, } from '../api/pdf';
 import {getNativeData, saveNativeData, } from '../utils/index';
 
@@ -44,19 +45,22 @@ const convert = {
         return new Promise((resolve, reject) => {
             getPdfSession().then((response) => {
                 const data = response.data;
-                let saveData = getNativeData();
-                saveData['pdf_api_token'] = data.data.user.api_token;
-                saveNativeData(saveData);
-                ls.set('api_token', data.data.user.api_token);
+                // let saveData = getNativeData();
+                // saveData['pdf_api_token'] = data.data.user.api_token;
+                // saveNativeData(saveData);
+                // ls.set('api_token', data.data.user.api_token);
+                stProxy.set('pdf_api_token', data.data.user.api_token);
                 resolve();
             }).catch((error) => {
                 console.log(error);
-                let saveData = getNativeData();
-                saveData['pdf_api_token'] = '';
-                saveData['client-vip'] = '0';
-                saveNativeData(saveData);
-                ls.set('api_token', '');
-                ls.set('client-vip', 0);
+                // let saveData = getNativeData();
+                // saveData['pdf_api_token'] = '';
+                // saveData['client-vip'] = '0';
+                // saveNativeData(saveData);
+                stProxy.set('pdf_api_token', '');
+                // ls.set('api_token', '');
+                // stProxy.set('pdf_api_token', '');
+                stProxy.set('client-vip', 0);
                 reject();
             });
         });

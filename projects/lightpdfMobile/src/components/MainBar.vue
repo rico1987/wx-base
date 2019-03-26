@@ -69,7 +69,17 @@ export default {
             //     this.toUserCenter();
             //     return;
             // }
-            this.$router.push(url);
+            if (process.isIos === '1') {
+                if (url === '/info') {
+                    url = {
+                        path: '/info',
+                        query: {
+                            vip: Math.ceil(1000 * Math.random()),
+                        },
+                    };
+                }
+                this.$router.push(url);
+            }
         },
         toUserCenter() {
             console.log('09090909090');

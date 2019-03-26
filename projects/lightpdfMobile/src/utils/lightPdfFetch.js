@@ -11,7 +11,7 @@ const service = axios.create({
 // 添加请求拦截器
 service.interceptors.request.use((config) => {
     let saveData = getNativeData();
-    let api_token = saveData['pdf_api_token'] || ls.get('api_token') || '';
+    let api_token = saveData['pdf_api_token'] || ls.get('pdf_api_token') || '';
     if (api_token) {
         config.headers['Authorization'] = `Bearer ${api_token}`;
         config.headers['IsClientVip'] = 1;

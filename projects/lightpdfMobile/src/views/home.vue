@@ -31,6 +31,7 @@ import pwdCheck from '../utils/pwdCheck';
 import his from '../utils/pathHistory';
 import {getNativeData, saveNativeData, } from '../utils/index';
 import {getPdfConverterVipInfo, } from '../api/support';
+import convert from '../utils/convert';
 
 export default {
     name: 'home',
@@ -96,25 +97,28 @@ export default {
             // console.log(data);
         },
         getSession: function() {
+            convert.getSession().then((response) => {
+                console.log('sesson pdf back', response);
+                window.freshVip();
+            }).catch((error) => {
+                console.log('error', error);
+            });
+        },
+        getSession1: function() {
             // console.log('identity_token');
             // console.log(ls.get('identity_token'));
             getPdfSession().then((response) => {
                 const data = response.data;
-                // console.log(data);
                 let saveData = getNativeData();
                 saveData['pdf_api_token'] = data.data.user.api_token;
                 saveNativeData(saveData);
                 ls.set('api_token', data.data.user.api_token);
-                // console.log('aaaa');
                 this.echoit(data.data.user);
-                // this.getVip();
                 window.freshVip();
-                // console.log(this);
             }).catch((error) => {
                 console.log(error);
                 if (error.error) {
                     // error token失效
-                    // console.log('clear identity_token1');
                     ls.set('identity_token', '');
                     this.getSession();
                     return;

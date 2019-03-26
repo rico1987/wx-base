@@ -7,7 +7,7 @@
         <div class="expire-day"
         v-show="licenseInfo.isVip"
         >
-            {{$tr('001685',licenseInfo.expire_date)}}
+            {{expireStr}}
         </div>
     </div>
 </template>
@@ -31,15 +31,25 @@ export default {
                 expire_date: '',
                 isVip: 0,
             },
+            expireStr: '',
         };
     },
     created() {
         if (vip.licenseInfo) {
             this.licenseInfo['expire_date'] = vip.licenseInfo['expire_date'];
             this.licenseInfo['isVip'] = vip.licenseInfo['isVip'];
+            this.expireStr = this.$tr('001685', this.licenseInfo.expire_date);
         }
     },
-
+    methods: {
+        initVip() {
+            if (vip.licenseInfo) {
+                this.licenseInfo['expire_date'] = vip.licenseInfo['expire_date'];
+                this.licenseInfo['isVip'] = vip.licenseInfo['isVip'];
+                this.expireStr = this.$tr('001685', this.licenseInfo.expire_date);
+            }
+        },
+    },
     computed: {
     },
 };

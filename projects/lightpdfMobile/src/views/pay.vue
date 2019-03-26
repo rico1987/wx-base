@@ -3,7 +3,7 @@
         <div class="inner-container" ref="aaa" @touchmove="onTouchMove">
             <pdf-header ref="header" @click-jump="onBack"></pdf-header>
             <div class="panel-one">
-                <user-info :info="userInfo"></user-info>
+                <user-info ref="userInfo" :info="userInfo"></user-info>
                 <div class="buy-panel">
                     <div class="plan-box">
 
@@ -88,7 +88,9 @@ import PdfHeader from '../components/PdfHeader.vue';
 import PayResult from '../components/payResult.vue';
 import UserInfo from '../components/userInfo.vue';
 import payUrl from '../utils/storeUrl';
+import vip from '../utils/vipInfo';
 import {openUrl, getNativeData, isoPay, getIosProductPrice, } from '../utils/index';
+import convert from '../utils/convert';
 
 export default {
     name: 'pay',
@@ -142,8 +144,20 @@ export default {
         if (data['userInfo']) {
             this.userInfo = data['userInfo'];
         }
+        if (!data['licenseInfo'] && !vip.licenseInfo) {
+            vip.getVip(this.userInfoUpdateVip);
+            convert.getSession().then((response) => {
+                console.log('sesson pdf back', response);
+            }).catch((error) => {
+                console.log('error', error);
+            });
+        }
     },
     methods: {
+        userInfoUpdateVip(e) {
+            e;
+            this.$refs.userInfo.initVip();
+        },
         initPlanArr() {
             let type = this.$i18n.locale;
             console.log(type);

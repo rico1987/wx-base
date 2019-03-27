@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="18px" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51 (57462) - http://www.bohemiancoding.com/sketch -->
+    <title>person</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="个人中心" transform="translate(-36.000000, -344.000000)">
+            <g id="person" transform="translate(37.000000, 345.000000)" stroke="#333333" stroke-linecap="round">
+                <path d="M12.724,5.0288 C12.724,7.8058 10.473,10.0568 7.695,10.0568 C4.918,10.0568 2.667,7.8058 2.667,5.0288 C2.667,2.2518 4.918,-0.0002 7.695,-0.0002 C10.473,-0.0002 12.724,2.2518 12.724,5.0288 Z" id="Stroke-1" stroke-width="2" stroke-linejoin="round"></path>
+                <path d="M-0.0001,16 C-0.0001,16 0.8379,10.514 5.4099,9.6" id="Stroke-3" stroke-width="2"></path>
+                <path d="M12.3998,11.1431 C12.3998,11.1431 14.6858,12.2861 15.0858,16.0001" id="Stroke-5" stroke-width="2"></path>
+                <path d="M6.6859,2.5713 C6.6859,2.5713 4.9719,3.1433 4.9719,5.4283" id="Stroke-7" stroke-linejoin="round"></path>
+            </g>
+        </g>
+    </g>
+</svg>

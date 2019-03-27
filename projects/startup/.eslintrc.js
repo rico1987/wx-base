@@ -50,6 +50,7 @@ module.exports = {
     "getter-return": 2,
     "yield-star-spacing": [2, { "before": true, "after": false }],
     "guard-for-in": 0,
+    "import/no-extraneous-dependencies": 0,
     "indent": [2, 4],
     "key-spacing": [2, { "beforeColon": false, "afterColon": true }],
     "linebreak-style": 0,

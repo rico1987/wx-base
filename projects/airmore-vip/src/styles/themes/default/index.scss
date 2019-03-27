@@ -1,0 +1,169 @@
+// mixins
+@import "../../mixins/bem.scss";
+@import "../../mixins/clearfix.scss";
+@import "../../mixins/float.scss";
+@import "../../mixins/ellipsis.scss";
+
+//variables
+@import "variables.scss";
+
+//common
+@import "common.scss";
+
+// components
+@import "mobileHeader.scss";
+
+// pages
+
+@include b(home) {
+    .clearfix{
+        clear: both;
+    }
+
+    @include e(content) {
+        background-color: #f3f3f3;
+        padding-top: 10px;
+    }
+
+    @include e(user-info) {
+        padding-left: 17px;
+        padding-top: 14px;
+        background-color: white;
+    }
+
+    @include e(avatar) {
+        width: 53px;
+        height: 53px;
+        float: left;
+        border-radius: 50%;
+        .default-avatar{
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: url('../../../icons/default-portrait.svg') center no-repeat;
+            background-size: contain;
+        }
+    }
+    
+    @include e(account) {
+        float: left;
+        padding-left: 22px;
+        .account-name{
+            font-size: 16px;
+            font-weight: bold;
+            margin: 9px auto 9px;
+            text-align: left;
+        }
+        .device-info{
+            margin: 0;
+            font-size: 13px;
+            text-align: left;
+        }
+    }
+
+    @include e(prices) {
+        background: white;
+        display: flex;
+        justify-content: space-between;
+        padding: 15px 4%;
+        .price {
+            width: 30%;
+            border: 1px solid #ebebeb;
+            border-radius: 5px;
+            .p1{
+                font-size: 15px;
+                font-weight: bold;
+                margin: 18px 0;
+            }
+            .p2{
+                font-size: 17px;
+                color: #e6bb25;
+                margin: 0 0 13px;
+                span{
+                    font-size: 10px;
+                }
+            }
+            .p3{
+                font-size: 10px;
+                margin: 0 0 12px;
+                color: black;
+            }
+            .p4{
+                width: 80px;
+                height: 26px;
+                line-height: 26px;
+                font-size: 13px;
+                border-radius: 13px;
+                background-color: #e6bb25;
+                color: black;
+                margin: 0 auto 10px;
+                cursor: pointer;
+            }
+            &.active{
+                border: 2px solid #e6ba24;
+                transform: scale(1.1);
+            }
+        }
+    }
+
+    @include e(buy-btn) {
+        background-color: white;
+        padding-top: 10px;
+        a{
+            display: block;
+            width: 90%;
+            height: 42px;
+            margin: 0 5%;
+            border-radius: 21px;
+            line-height: 42px;
+            color: black;
+            background: #f0ca70;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        p{
+            font-size: 14px;
+            padding: 14px 0;
+            margin: 0;
+        }
+    }
+
+    @include e(privilege) {
+        margin-top: 14px;
+        background-color: white;
+        padding: 0 4%;
+        h2{
+            font-size: 16px;
+            margin: 0;
+            padding: 20px 0 24px;
+        }
+        >div{
+            width: 30%;
+            float: left;
+            margin: 0 1.5%;
+            padding-top: 50px;
+            min-height: 40px;
+            background-position: top center;
+            background-repeat: no-repeat;
+            &.p1{
+                background-image: url('../../../icons/privilege/p1.png');
+            }
+            &.p2{
+                background-image: url('../../../icons/privilege/p2.png');
+            }
+            &.p3{
+                background-image: url('../../../icons/privilege/p3.png');
+            }
+            &.p4{
+                background-image: url('../../../icons/privilege/p4.png');
+            }
+            &.p5{
+                background-image: url('../../../icons/privilege/p5.png');
+            }
+            p{
+                font-size: 12px;
+                margin: 0 20% 24px;
+            }
+        }
+    }
+}

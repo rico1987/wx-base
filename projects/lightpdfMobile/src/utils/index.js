@@ -107,9 +107,9 @@ export function nativeLogin(data) {
  */
 export function nativeDownload(url, fileName) {
     console.log('nativeDownload', url, fileName);
-    let id = -1;
+    let id = '-1';
     if (url && fileName && window.account) {
-        id = window.account.onDownload(url, fileName) || -1;
+        id = window.account.onDownload(url, fileName) || '-1';
     }
     console.log('nativeDownload-id', id);
     return id;

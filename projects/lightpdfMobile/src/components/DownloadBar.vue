@@ -54,7 +54,7 @@ export default {
             let item = {};
             item.url = url;
             item.fileName = fileName;
-            item.id = -1;
+            item.id = '-1';
             item.progress = 0;
             return item;
         },
@@ -70,10 +70,10 @@ export default {
             this.totalNum = this.taskList.length;
             this.totalIndex = this.index + 1;
 
-            if (item.id > -1 && item.progress === 100) {
+            if (item.id !== '-1' && item.progress === 100) {
                 this.next();
             }
-            if (item.id === -1 && item.progress === 0) {
+            if (item.id === '-1' && item.progress === 0) {
                 item.id = nativeDownload(item.url, item.fileName);
                 this.check();
             }

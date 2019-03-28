@@ -39,7 +39,8 @@ const vip = {
                 // saveData['client-vip'] = '1';
                 // saveNativeData(saveData);
                 // ls.set('client-vip-express-day', data.data.license_info.expire_date);
-                data.data.license_info.expire_date = this.shortTime(data.data.license_info.expire_date);
+                console.log('vip', vip);
+                data.data.license_info.expire_date = vip.shortTime(data.data.license_info.expire_date);
                 stProxy.set('client-vip-express-day', data.data.license_info.expire_date);
                 data.data.license_info.isVip = 1;
                 vip.licenseInfo = data.data.license_info;
@@ -56,11 +57,15 @@ const vip = {
                 stProxy.setDataByKey('licenseInfo', null);
                 vip.licenseInfo = null;
             }
+            console.log('vip-info');
+            console.log(vip.licenseInfo);
             if (callback) {
                 console.log('vip-call back');
                 callback(vip.licenseInfo);
             }
         }).catch((error) => {
+            console.log('vip info back -error--');
+            console.log(error);
             error;
             ls.set('client-vip', 0);
             let saveData = getNativeData();

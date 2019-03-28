@@ -107,9 +107,9 @@ export default {
             }
         },
         logined() {
-            if (!process.isIos) {
-                return true;
-            }
+            // if (!process.isIos) {
+            //     return true;
+            // }
             let saveData = getNativeData();
             if (saveData['userInfo'] && saveData['identity_token']) {
                 return true;

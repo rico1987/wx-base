@@ -380,5 +380,6 @@ const aLang = {
     '001867': 'Excel’e başarıyla dönüştürüldü!',
     '002160': 'Mağaza',
     '002161': 'Oturum aç',
+    '002167': 'Paylaş',
 };
 export default aLang;

@@ -413,5 +413,6 @@ const aLang = {
     '002163': 'Alles auswählen',
     '002164': 'Netzwerkdateien',
     '002165': 'Lokale Dateien',
+    '002167': 'Teilen',
 };
 export default aLang;

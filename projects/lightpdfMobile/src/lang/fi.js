@@ -380,5 +380,6 @@ const aLang = {
     '001867': 'Muunnettu Excel-muotoon onnistuneesti!',
     '002160': 'Kauppa',
     '002161': 'Kirjaudu sisään',
+    '002167': 'Jaa',
 };
 export default aLang;

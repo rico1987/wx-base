@@ -74,22 +74,22 @@ export default {
                 nickname: '',
             },
             en: {
-                '2': '8181810004',
-                '3': '8181810005',
-                '4': '8181810006',
+                '2': '8181810013',
+                '3': '8181810014',
+                '4': '8181810015',
             },
             cn: {
-                '2': '8181810001',
-                '3': '8181810002',
-                '4': '8181810003',
+                '2': '8181810016',
+                '3': '8181810017',
+                '4': '8181810018',
             },
             iosPrice: {
-                '8181810006': '$59.95',
-                '8181810005': '$39.95',
-                '8181810004': '$29.95',
-                '8181810003': '￥99',
-                '8181810002': '￥79',
-                '8181810001': '￥59',
+                '8181810015': '$59.99',
+                '8181810014': '$39.99',
+                '8181810013': '$29.99',
+                '8181810018': '￥99',
+                '8181810017': '￥79',
+                '8181810016': '￥59',
             },
             currentPlan: null,
             normalPlan: null,
@@ -168,10 +168,11 @@ export default {
                 '3': 'year',
                 '4': 'life',
             };
-            let langType = 'cn';
-            if (type !== 'cn') {
-                langType = 'en';
-            }
+            console.log('----not ext---', process.storeType, process.storeType === 'en');
+            let langType = 'en';//cn en
+            // if (process.storeType === 'en') {
+            //     langType = 'en';
+            // }
             let idObj = this[langType];
             console.log(idObj);
             let iosIdArr = Object.values(idObj);

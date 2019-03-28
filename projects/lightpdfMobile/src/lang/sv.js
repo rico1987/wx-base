@@ -380,5 +380,6 @@ const aLang = {
     '001867': 'Konverterat till Excel utan problem!',
     '002160': 'Butik',
     '002161': 'Logga in',
+    '002167': 'Dela',
 };
 export default aLang;

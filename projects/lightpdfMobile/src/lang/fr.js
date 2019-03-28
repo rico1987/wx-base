@@ -413,5 +413,6 @@ const aLang = {
     '002163': 'Tout sélectionner',
     '002164': 'Fichiers réseau',
     '002165': 'Fichiers locaux',
+    '002167': 'Partager',
 };
 export default aLang;

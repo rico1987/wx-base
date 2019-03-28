@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --disable-host-check --host 0.0.0.0",
     "devios": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --env.isIos=1 --disable-host-check",
+    "deviosen": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --env.isIos=1 --env.storeType=en --disable-host-check",
     "start": "npm run dev",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "e2e": "node test/e2e/runner.js",
@@ -14,7 +15,8 @@
     "lint": "eslint --ext .js,.vue src test/unit test/e2e/specs",
     "fix": "eslint --fix --ext .js,.vue src test/unit test/e2e/specs",
     "build": "node build/build.js",
-    "buildios": "node build/build.js --env.isIos=1"
+    "buildios": "node build/build.js --env.isIos=1",
+    "buildiosen": "node build/build.js --env.isIos=1 --env.storeType=en"
   },
   "engines": {
     "node": ">= 6.0.0",

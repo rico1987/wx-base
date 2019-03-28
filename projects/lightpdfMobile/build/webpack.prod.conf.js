@@ -17,6 +17,8 @@ const env = process.env.NODE_ENV === 'testing'
 
 //获取参数 --env.isIos 是否是iso平台
 let isIos = utils.getParas()['isIos'] || 0;
+// 获取参数 --env.storeType iso appstore 国内版 海外版 cn en
+let storeType = utils.getParas()['storeType'] || '';
 
 const webpackConfig = merge(baseWebpackConfig, {
   module: {
@@ -36,7 +38,9 @@ const webpackConfig = merge(baseWebpackConfig, {
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
     new webpack.DefinePlugin({
       'process.env': env,
+      //在process注入变量isIos
       'process.isIos': JSON.stringify(isIos),
+      'process.storeType': JSON.stringify(storeType),
     }),
     new UglifyJsPlugin({
       uglifyOptions: {

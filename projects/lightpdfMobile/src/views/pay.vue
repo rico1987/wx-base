@@ -213,10 +213,10 @@ export default {
                 '4': 'life',
             };
             console.log('----not ext---', process.storeType, process.storeType === 'en');
-            let langType = 'en';//cn en
-            // if (process.storeType === 'en') {
-            //     langType = 'en';
-            // }
+            let langType = 'cn'; // cn en
+            if (process.storeType === 'en') {
+                langType = 'en';
+            }
             let idObj = this[langType];
             console.log('idobj', idObj);
             let iosIdArr = Object.values(idObj);

@@ -36,12 +36,21 @@
         height: 53px;
         float: left;
         border-radius: 50%;
+        position: relative;
         .default-avatar{
             width: 100%;
             height: 100%;
             border-radius: 50%;
             background: url('../../../icons/default-portrait.svg') center no-repeat;
             background-size: contain;
+        }
+        img{
+            width: 100%;
+            height: 100%;
+            border-radius: 50%; 
+        }
+        .crown{
+            position: absolute;
         }
     }
     
@@ -54,7 +63,7 @@
             margin: 9px auto 9px;
             text-align: left;
         }
-        .device-info{
+        .device-info, .expire{
             margin: 0;
             font-size: 13px;
             text-align: left;
@@ -65,22 +74,24 @@
         background: white;
         display: flex;
         justify-content: space-between;
-        padding: 15px 4%;
+        padding: 25px 4%;
         .price {
             width: 30%;
             border: 1px solid #ebebeb;
             border-radius: 5px;
+            position: relative;
             .p1{
-                font-size: 15px;
+                font-size: 14px;
                 font-weight: bold;
-                margin: 18px 0;
+                margin: 18px 0 14px;
             }
             .p2{
-                font-size: 17px;
+                font-size: 18px;
                 color: #e6bb25;
                 margin: 0 0 13px;
                 span{
                     font-size: 10px;
+                    padding-right: 3px;
                 }
             }
             .p3{
@@ -89,19 +100,38 @@
                 color: black;
             }
             .p4{
-                width: 80px;
+                padding: 0 14px;
                 height: 26px;
                 line-height: 26px;
-                font-size: 13px;
+                font-size: 14px;
                 border-radius: 13px;
                 background-color: #e6bb25;
                 color: black;
                 margin: 0 auto 10px;
                 cursor: pointer;
+                letter-spacing: -1px;
+                display: inline-block;
+            }
+            .recommended{
+                background-color: #ff6771;
+                position: absolute;
+                top: -9px;
+                right: -1px;
+                line-height: 18px;
+                height: 18px;
+                font-size: 10px;
+                color: white;
+                padding: 4px 9px;
+                margin: 0;
+                border-bottom-left-radius: 9px;
+                border-top-right-radius: 9px;
             }
             &.active{
                 border: 2px solid #e6ba24;
                 transform: scale(1.1);
+                .recommended{
+                    right: -2px;
+                }
             }
         }
     }
@@ -109,7 +139,7 @@
     @include e(buy-btn) {
         background-color: white;
         padding-top: 10px;
-        a{
+        span{
             display: block;
             width: 90%;
             height: 42px;

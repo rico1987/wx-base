@@ -90,6 +90,7 @@
     "webpack-merge": "^4.1.0"
   },
   "dependencies": {
+    "vconsole": "^3.3.0",
     "axios": "^0.18.0",
     "element-ui": "^2.4.11",
     "js-cookie": "^2.2.0",

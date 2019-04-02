@@ -30,10 +30,6 @@ import LangSv from './lang/sv.json';
 import LangTr from './lang/tr.json';
 import LangTw from './lang/tw.json';
 
-import ToastPlugin from './plugins/toast';
-
-Vue.use(ToastPlugin, { position: 'center', });
-
 Vue.config.productionTip = false;
 Vue.use(VueI18n);
 

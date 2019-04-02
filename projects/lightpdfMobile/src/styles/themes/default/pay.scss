@@ -6,6 +6,31 @@
     .inner-container.vip{
         padding-top: 0.98rem;
     }
+    .btn{
+        position: relative;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 5.88rem;
+        height: 0.8rem;
+        overflow: hidden;
+        border-radius: 0.2rem;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 0.2rem;
+        background: #fff;
+        font-size: 0.28rem;
+        text-align: center;
+        color: #3b75f8;
+        line-height: 0.8rem;
+        cursor: pointer;
+        -webkit-transform: translateZ(0);
+        @include filter(drop-shadow(0px 0px 10px rgba(#000,0.10)));
+        &.active{
+            color: #fff;
+            background: linear-gradient(to left,#1e5ff3,#6594ff);
+        }
+    }
     .panel-one{
         padding-top: 0.98rem;
         .buy-panel{
@@ -122,6 +147,9 @@
                 }
             }
         }
+        .btn{
+            width: 100%;
+        }
         .pay-btns{
             width: 5.88rem;
             margin: 0 auto;
@@ -157,6 +185,7 @@
                 }
             }
         }
+        
         .pay-des{
             width: 100%;
             text-align: center;

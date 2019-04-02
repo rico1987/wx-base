@@ -21,6 +21,7 @@
                         <div class="user-login-btn btn active" @click="toLogin">{{$tr('Login@@002161')}}</div>
                     </div>
                     <div class="btn active" @click="goPayCenter">{{$tr('Recharge centre@@002033')}}</div>
+                    <div class="btn" v-if="isRestoreShow" @click="restoreProducts">{{$tr('Restore Purchases@@002168')}}</div>
                     <div class="btn" @click="goMyfiles">{{$tr('Network files@@002164')}}</div>
                     <div class="btn" @click="goLocalFile">{{$tr('Local files@@002165')}}</div>
                     <div class="btn" @click="goMyCenter">{{$tr('Account@@002053')}}</div>
@@ -36,7 +37,7 @@
 
 <script>
 import MainBar from '../components/MainBar.vue';
-import {nativeLogout, getNativeData, saveNativeData, jump, openUrl, openFolder, } from '../utils/index';
+import {nativeLogout, getNativeData, saveNativeData, jump, openUrl, openFolder, iosRestoreProducts, } from '../utils/index';
 import convert from '../utils/convert';
 // import {getPdfConverterVipInfo, } from '../api/support';
 import ls from '../utils/littleStore';
@@ -68,6 +69,7 @@ export default {
             isLogin: 0,
             showResult: 0,
             expireStr: '',
+            isRestoreShow: 0,
         };
     },
 
@@ -289,11 +291,23 @@ export default {
             // }
         },
         getUrl() {
-            if (this.$i18n.locale === 'cn') {
-                return 'https://www.apowersoft.cn/community/';
-            } else {
-                return 'https://www.apowersoft.com/community/';
+            let obj = {
+                'cn': 'https://www.apowersoft.cn/community/',
+                'en': 'https://www.apowersoft.com/community/',
+                'tw': 'https://www.apowersoft.tw/community/',
+                'fr': 'https://www.apowersoft.fr/community/',
+                'de': 'https://www.apowersoft.de/community/',
+                'ja': 'https://www.apowersoft.jp/community/',
+                'jp': 'https://www.apowersoft.jp/community/',
+                'it': 'https://www.apowersoft.it/community/',
+                'es': 'https://www.apowersoft.es/community/',
+                'pt': 'https://www.apowersoft.com.br/community/',
+            };
+            if (obj[this.$i18n.locale]) {
+                return obj[this.$i18n.locale];
             }
+            return 'https://www.apowersoft.com/community/';
+
         },
         autoCheckVipState() {
             this.showResult = 1;
@@ -324,9 +338,6 @@ export default {
             let saveData = data;
             let pdfSession = stProxy.get('pdf_api_token') || '';
             if (pdfSession !== '') {
-                // saveData['pdf_api_token'] = pdfSession;
-                // saveNativeData(saveData);
-                // ls.set('pdf_api_token', pdfSession);
                 stProxy.setDataByKey('pdf_api_token', pdfSession);
             }
             if (convert.isAccountLogin(saveData['identity_token']) && !convert.isLightPdfLogin(pdfSession)) {
@@ -334,13 +345,6 @@ export default {
             }
             if (saveData['api_token'] && pdfSession !== '' && (saveData['api_token'].startsWith('-') !== pdfSession.startsWith('-'))) {
                 // 已登录
-                // convert.getSession().then((response) => {
-                //     console.log('sesson pdf back', response);
-                //     this.showStoreVipInfo();
-                //     this.getVipInfo();
-                // }).catch((error) => {
-                //     console.log('error', error);
-                // });
                 this.getNewSession();
             }
             if (pdfSession !== '' && saveData['api_token']) {
@@ -363,6 +367,11 @@ export default {
             }).catch((error) => {
                 console.log('error', error);
             });
+        },
+        restoreProducts() {
+            if (this.isLogin && this.isIos) {
+                iosRestoreProducts();
+            }
         },
     },
 };

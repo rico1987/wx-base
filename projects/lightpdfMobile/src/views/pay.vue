@@ -29,6 +29,7 @@
                 <div class="pay-btns">
                     <div class="add-to-cart" ref="attBtn" @click="payIt">{{$tr('Add to cart@@002040')}}</div>
                     <div v-if="0" class="pay-with-paypal">check out with</div>
+                    <div class="btn" v-if="isIos" @click="restoreProducts">{{$tr('Restore Purchases@@002168')}}</div>
                 </div>
                 <div v-if="0" class="pay-des">The safer,easier way to pay</div>
                 <div class="vip-des">{{$tr('VIP account will be sent to you by email immediately after your payment@@002151')}}</div>
@@ -89,7 +90,7 @@ import PayResult from '../components/payResult.vue';
 import UserInfo from '../components/userInfo.vue';
 import payUrl from '../utils/storeUrl';
 import vip from '../utils/vipInfo';
-import {openUrl, getNativeData, isoPay, getIosProductPrice, } from '../utils/index';
+import {openUrl, getNativeData, isoPay, getIosProductPrice, iosRestoreProducts, getAppInfo, } from '../utils/index';
 import convert from '../utils/convert';
 
 export default {
@@ -116,9 +117,9 @@ export default {
                 '4': '8181810018',
             },
             iosPrice: {
-                '8181810015': '$59.99',
-                '8181810014': '$39.99',
-                '8181810013': '$29.99',
+                '8181810015': '$',
+                '8181810014': '$',
+                '8181810013': '$',
                 '8181810018': '￥99',
                 '8181810017': '￥79',
                 '8181810016': '￥59',
@@ -128,6 +129,7 @@ export default {
             recommendPlan: null,
             planArr: [],
             bottomBtnState: '',
+            isIos: process.isIos,
 
         };
     },
@@ -328,9 +330,18 @@ export default {
                 isoPay(this.currentPlan['iosId']);
                 return;
             }
-            this.openPayUrl(this.currentPlan.link);
+            let channel = getAppInfo()['appChannel'] || '';
+            if (!channel) {
+                channel = '';
+            } else {
+                channel = `&${channel}`;
+            }
+            console.log(channel);
+            this.openPayUrl(`${this.currentPlan.link}${channel}`);
+            // this.openPayUrl(this.currentPlan.link + '');
         },
         openPayUrl(url) {
+            console.log('url', url);
             if (!url) {
                 return;
             }
@@ -386,6 +397,9 @@ export default {
                 this.bottomBtnState = '';
             }
             console.log(e);
+        },
+        restoreProducts() {
+            iosRestoreProducts();
         },
     },
 };

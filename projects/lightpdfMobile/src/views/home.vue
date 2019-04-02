@@ -25,13 +25,13 @@
 <script>
 import MainBar from '../components/MainBar.vue';
 import FeedBackEntry from '../components/feedBackEntry.vue';
-import {getPdfSession, } from '../api/pdf';
+// import {getPdfSession, } from '../api/pdf';
 // import ls from '../utils/littleStore';
 import stProxy from '../utils/storeProxy';
 import pwdCheck from '../utils/pwdCheck';
 import his from '../utils/pathHistory';
-import {getNativeData, saveNativeData, } from '../utils/index';
-import {getPdfConverterVipInfo, } from '../api/support';
+import {getNativeData, } from '../utils/index';
+// import {getPdfConverterVipInfo, } from '../api/support';
 import convert from '../utils/convert';
 import vip from '../utils/vipInfo';
 

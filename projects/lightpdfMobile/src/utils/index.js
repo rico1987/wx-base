@@ -277,3 +277,12 @@ export function getIosProductPrice(idArr) {
         window.account.getProductInfos(idStr);
     }
 }
+/**
+ * ios 恢复购买
+ */
+export function iosRestoreProducts() {
+    console.log('iosRestoreProducts');
+    if (window.account && window.account.iosRestoreProducts) {
+        window.account.iosRestoreProducts();
+    }
+}

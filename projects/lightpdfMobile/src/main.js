@@ -37,7 +37,7 @@ import LangTw from './lang/tw';
 import ToastPlugin from './plugins/toast';
 import price from './utils/iosPrice';
 
-let isDebugger = 1;// 1 打开debugger 0 关闭
+let isDebugger = 0;// 1 打开debugger 0 关闭
 if (isDebugger) {
     const vConsole = new VConsole();
     console.log(vConsole.version);

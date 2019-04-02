@@ -414,5 +414,6 @@ const aLang = {
     '002164': 'Netzwerkdateien',
     '002165': 'Lokale Dateien',
     '002167': 'Teilen',
+    '002168': 'Käufe wiederherstellen',
 };
 export default aLang;

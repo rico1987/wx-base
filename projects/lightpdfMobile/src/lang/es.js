@@ -414,5 +414,6 @@ const aLang = {
     '002164': 'Archivos de red',
     '002165': 'Archivos locales',
     '002167': 'Compartir',
+    '002168': 'Restaurar Compras',
 };
 export default aLang;

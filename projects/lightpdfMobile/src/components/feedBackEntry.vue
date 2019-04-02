@@ -66,7 +66,7 @@ export default {
             // console.log('----------');
             // console.log(maxWidth, maxHeight);
             // console.log(width, height);
-            left = maxWidth - (1.4 * width);
+            left = maxWidth - (2 * width);
             // left = `${left}px`;
             top = maxHeight - (4.5 * height);
             // top = `${top}px`;

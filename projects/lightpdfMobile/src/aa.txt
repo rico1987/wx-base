@@ -1,0 +1,100 @@
+    '002165': 'الملفات الداخلية',
+    '002165': 'Místní soubory',
+    '002165': 'Lokale filer',
+    '002165': 'Lokale Dateien',
+    '002165': 'Τοπικά αρχεία',
+    '002165': 'Local files',
+    '002165': 'Archivos locales',
+    '002165': 'Paikalliset tiedostot',
+    '002165': 'Fichiers locaux',
+    '002165': 'Helyi fájlok',
+    '002165': 'File locali',
+    '002165': 'ローカルファイル',
+    '002165': 'Lokale bestanden',
+    '002165': 'Lokale filer',
+    '002165': 'Pliki lokalne',
+    '002165': 'Arquivos Locais',
+    '002165': 'Lokala filer',
+    '002165': 'Yerel dosyalar',
+    '002165': '磁盤文檔',
+    '002165': '本地文件',
+ar.js 
+    '002156': 'نحن نعدك',
+cs.js 
+    '002156': 'Slibujeme',
+da.js 
+    '002156': 'Vores løfter',
+de.js 
+    '002156': 'Unsere Versprechen',
+el.js 
+    '002156': 'Οι Υποσχέσεις Μας',
+en.js 
+    '002156': 'Our Promises',
+es.js 
+    '002156': 'Nuestras promesas',
+fi.js 
+    '002156': 'Lupauksemme',
+fr.js 
+    '002156': 'Nos promesses',
+hu.js 
+    '002156': 'Ígéreteink',
+it.js 
+    '002156': 'Le nostre promesse',
+ja.js 
+    '002156': '保証',
+nl.js 
+    '002156': 'Onze Beloftes',
+no.js 
+    '002156': 'Hva vi lover',
+pl.js 
+    '002156': 'Nasza Gwarancja',
+pt.js 
+    '002156': 'Nossas promessas',
+sv.js 
+    '002156': 'Vara Loften',
+tr.js 
+    '002156': 'Söz verdiklerimiz',
+tw.js 
+    '002156': '我們的承諾',
+zh.js 
+    '002156': '我们的承诺',
+ar.js 
+    '002165': 'الملفات الداخلية',
+cs.js 
+    '002165': 'Místní soubory',
+da.js 
+    '002165': 'Lokale filer',
+de.js 
+    '002165': 'Lokale Dateien',
+el.js 
+    '002165': 'Τοπικά αρχεία',
+en.js 
+    '002165': 'Local files',
+es.js 
+    '002165': 'Archivos locales',
+fi.js 
+    '002165': 'Paikalliset tiedostot',
+fr.js 
+    '002165': 'Fichiers locaux',
+hu.js 
+    '002165': 'Helyi fájlok',
+it.js 
+    '002165': 'File locali',
+ja.js 
+    '002165': 'ローカルファイル',
+nl.js 
+    '002165': 'Lokale bestanden',
+no.js 
+    '002165': 'Lokale filer',
+pl.js 
+    '002165': 'Pliki lokalne',
+pt.js 
+    '002165': 'Arquivos Locais',
+sv.js 
+    '002165': 'Lokala filer',
+tr.js 
+    '002165': 'Yerel dosyalar',
+tw.js 
+    '002165': '磁盤文檔',
+zh.js 
+    '002165': '本地文件',

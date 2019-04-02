@@ -3,6 +3,7 @@
         <div class="inner-container vip">
             <pdf-header ref="header" @click-jump="onBack"></pdf-header>
             <user-info ref="userInfo" :info="userInfo"></user-info>
+            <div class="btn" v-if="isIos" @click="restoreProducts">{{$tr('Restore Purchases@@002168')}}</div>
             <div class="panel-two">
                 <div class="des-panel">
                     <div class="privilege-box">
@@ -58,7 +59,7 @@ import PdfHeader from '../components/PdfHeader.vue';
 import PayResult from '../components/payResult.vue';
 import UserInfo from '../components/userInfo.vue';
 import payUrl from '../utils/storeUrl';
-import {openUrl, getNativeData, isoPay, getIosProductPrice, } from '../utils/index';
+import {openUrl, getNativeData, isoPay, getIosProductPrice, iosRestoreProducts, getAppInfo, } from '../utils/index';
 
 export default {
     name: 'vipPay',
@@ -96,6 +97,7 @@ export default {
             recommendPlan: null,
             planArr: [],
             bottomBtnState: '',
+            isIos: process.isIos,
 
         };
     },
@@ -271,7 +273,9 @@ export default {
                 isoPay(this.currentPlan['iosId']);
                 return;
             }
-            this.openPayUrl(this.currentPlan.link);
+            let channel = this.getChannelStr();
+            this.openPayUrl(`${this.currentPlan.link}${channel}`);
+            // this.openPayUrl(this.currentPlan.link);
         },
         openPayUrl(url, item) {
             if (!url) {
@@ -301,15 +305,32 @@ export default {
         onBack() {
             console.log('onback');
         },
+        getChannelStr() {
+            let channel = getAppInfo()['appChannel'] || '';
+            if (!channel) {
+                channel = '';
+            } else {
+                channel = `&${channel}`;
+            }
+            return channel;
+        },
         openNormalPay() {
+            let channel = this.getChannelStr();
+            // this.openPayUrl(`${this.normalPlan.link}${channel}`);
             if (this.normalPlan) {
-                this.openPayUrl(this.normalPlan.link, this.normalPlan);
+                this.openPayUrl(`${this.normalPlan.link}${channel}`, this.normalPlan);
             }
         },
         openRecommondPay() {
+            let channel = this.getChannelStr();
+            console.log(channel);
+            // this.openPayUrl(`${this.recommendPlan.link}${channel}`);
             if (this.recommendPlan) {
-                this.openPayUrl(this.recommendPlan.link, this.recommendPlan);
+                this.openPayUrl(`${this.recommendPlan.link}${channel}`, this.recommendPlan);
             }
+        },
+        restoreProducts() {
+            iosRestoreProducts();
         },
     },
 };

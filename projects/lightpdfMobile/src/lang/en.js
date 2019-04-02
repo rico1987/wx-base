@@ -376,6 +376,7 @@ const aLang = {
     '002165': 'Local files',
     '002166': 'Invalid file type',
     '002167': 'Share',
+    '002168': 'Restore Purchases',
     'add_file': 'Add file',
     'add_your_review': 'Add your review',
     'already_reviewed': 'You\'v reviewed this product!',

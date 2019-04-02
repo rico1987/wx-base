@@ -414,5 +414,6 @@ const aLang = {
     '002164': 'Arquivos de Internet',
     '002165': 'Arquivos Locais',
     '002167': 'Compartilhar',
+    '002168': 'Restaurar Compras',
 };
 export default aLang;

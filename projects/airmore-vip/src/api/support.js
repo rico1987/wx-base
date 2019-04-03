@@ -38,3 +38,10 @@ export function submitTicket(postData) {
     return supportFetch.post('/account', qs.stringify(postData));
 }
 
+export function getVipInfo(language) {
+    return supportFetch.post('/account', qs.stringify({
+        action: 'get-user-license-info',
+        language,
+        product_name: 'iOS AirMore',
+    }));
+}

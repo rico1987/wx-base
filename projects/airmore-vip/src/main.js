@@ -2,12 +2,11 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
 import VueI18n from 'vue-i18n';
-import Cookies from 'js-cookie';
 import './styles/themes/default/index.scss';
 import App from './App.vue';
 import router from './router';
 import store from './store';
-import { getQueryValue, startWith, looseIndexOf, } from '../../../lib/utils/index';
+import { getQueryValue, looseIndexOf, } from '../../../lib/utils/index';
 import { getNativeData, saveNativeData, } from '../../../lib/utils/embedded';
 
 // import languages
@@ -70,8 +69,6 @@ let supportLangArr = ['zh', 'en', 'cs', 'da', 'de', 'el', 'es', 'fi', 'fr', 'hu'
 if (looseIndexOf(supportLangArr, lang) === -1) {
     lang = 'en';
 }
-
-let identity_token_query = getQueryValue('identity_token');
 
 // android
 // const i18n = new VueI18n({

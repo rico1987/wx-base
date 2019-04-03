@@ -18,7 +18,7 @@
                         <div class="avatar">
                             <img v-show="info && avatar" :src="avatar">
                         </div>
-                        <div class="user-login-btn btn active" @click="toLogin">{{$tr('Login@@002161')}}</div>
+                        <div class="user-login-btn btn" @click="toLogin">{{$tr('Login@@002161')}}</div>
                     </div>
                     <div class="btn active" @click="goPayCenter">{{$tr('Recharge centre@@002033')}}</div>
                     <div class="btn" v-if="isRestoreShow" @click="restoreProducts">{{$tr('Restore Purchases@@002168')}}</div>

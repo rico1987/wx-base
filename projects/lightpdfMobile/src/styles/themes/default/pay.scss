@@ -257,11 +257,17 @@
                             line-height: 1rem;
                             font-size: 0.28rem;
                             padding-left: 0.3rem;
+                            max-width: calc(100% - 1.4rem);
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
                         }
                     }
                 }
             }
             .secure-box{
+                padding-bottom: .8rem;
+                overflow: hidden;
                 .des-title{
                     height: 0.8rem;
                     line-height: 0.8rem;

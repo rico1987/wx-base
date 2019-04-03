@@ -114,7 +114,7 @@ export default {
                 'word-to-pdf': '.doc,.docx',
                 'excel-to-pdf': '.xls,.xlsx',
                 'png-to-pdf': '.png,.jpg,.jpeg,.heic,.gif',
-                'jpg-to-pdf': '.png,.jpg,.jpeg,.heic,.gif',
+                'jpg-to-pdf': '.jpg,.png,.jpeg,.heic,.gif',
                 'ppt-to-pdf': '.ppt,.pptx',
             },
             convertkey: [

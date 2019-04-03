@@ -3,6 +3,7 @@
         <div class="inner-container vip">
             <pdf-header ref="header" @click-jump="onBack"></pdf-header>
             <user-info ref="userInfo" :info="userInfo"></user-info>
+            <div class="btn" v-if="isIos" @click="restoreProducts">{{$tr('Restore Purchases@@002168')}}</div>
             <div class="panel-two">
                 <div class="des-panel">
                     <div class="privilege-box">
@@ -58,7 +59,7 @@ import PdfHeader from '../components/PdfHeader.vue';
 import PayResult from '../components/payResult.vue';
 import UserInfo from '../components/userInfo.vue';
 import payUrl from '../utils/storeUrl';
-import {openUrl, getNativeData, isoPay, getIosProductPrice, } from '../utils/index';
+import {openUrl, getNativeData, isoPay, getIosProductPrice, iosRestoreProducts, getAppInfo, } from '../utils/index';
 
 export default {
     name: 'vipPay',
@@ -74,28 +75,29 @@ export default {
                 nickname: '',
             },
             en: {
-                '2': '8181810004',
-                '3': '8181810005',
-                '4': '8181810006',
+                '2': '8181810013',
+                '3': '8181810014',
+                '4': '8181810015',
             },
             cn: {
-                '2': '8181810001',
-                '3': '8181810002',
-                '4': '8181810003',
+                '2': '8181810016',
+                '3': '8181810017',
+                '4': '8181810018',
             },
             iosPrice: {
-                '8181810006': '$59.95',
-                '8181810005': '$39.95',
-                '8181810004': '$29.95',
-                '8181810003': '￥99',
-                '8181810002': '￥79',
-                '8181810001': '￥59',
+                '8181810015': '$59.99',
+                '8181810014': '$39.99',
+                '8181810013': '$29.99',
+                '8181810018': '￥99',
+                '8181810017': '￥79',
+                '8181810016': '￥59',
             },
             currentPlan: null,
             normalPlan: null,
             recommendPlan: null,
             planArr: [],
             bottomBtnState: '',
+            isIos: process.isIos,
 
         };
     },
@@ -168,8 +170,9 @@ export default {
                 '3': 'year',
                 '4': 'life',
             };
-            let langType = 'cn';
-            if (type !== 'cn') {
+            console.log('----not ext---', process.storeType, process.storeType === 'en');
+            let langType = 'cn';// cn en
+            if (process.storeType === 'en') {
                 langType = 'en';
             }
             let idObj = this[langType];
@@ -270,7 +273,9 @@ export default {
                 isoPay(this.currentPlan['iosId']);
                 return;
             }
-            this.openPayUrl(this.currentPlan.link);
+            let channel = this.getChannelStr();
+            this.openPayUrl(`${this.currentPlan.link}${channel}`);
+            // this.openPayUrl(this.currentPlan.link);
         },
         openPayUrl(url, item) {
             if (!url) {
@@ -300,15 +305,32 @@ export default {
         onBack() {
             console.log('onback');
         },
+        getChannelStr() {
+            let channel = getAppInfo()['appChannel'] || '';
+            if (!channel) {
+                channel = '';
+            } else {
+                channel = `&${channel}`;
+            }
+            return channel;
+        },
         openNormalPay() {
+            let channel = this.getChannelStr();
+            // this.openPayUrl(`${this.normalPlan.link}${channel}`);
             if (this.normalPlan) {
-                this.openPayUrl(this.normalPlan.link, this.normalPlan);
+                this.openPayUrl(`${this.normalPlan.link}${channel}`, this.normalPlan);
             }
         },
         openRecommondPay() {
+            let channel = this.getChannelStr();
+            console.log(channel);
+            // this.openPayUrl(`${this.recommendPlan.link}${channel}`);
             if (this.recommendPlan) {
-                this.openPayUrl(this.recommendPlan.link, this.recommendPlan);
+                this.openPayUrl(`${this.recommendPlan.link}${channel}`, this.recommendPlan);
             }
+        },
+        restoreProducts() {
+            iosRestoreProducts();
         },
     },
 };

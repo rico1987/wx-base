@@ -107,18 +107,17 @@ export function nativeLogin(data) {
  */
 export function nativeDownload(url, fileName) {
     console.log('nativeDownload', url, fileName);
-    let id = -1;
+    let id = '-1';
     if (url && fileName && window.account) {
-        id = window.account.onDownload(url, fileName) || -1;
+        id = window.account.onDownload(url, fileName) || '-1';
     }
     console.log('nativeDownload-id', id);
     return id;
 }
 
 /**
- * 原生下载文件
- * @param {String} url   地址
- * @param {String} fileName   重命名为新的文件名
+ * 查询原生下载进度
+ * @param {String} id
  */
 export function getDownloadProgress(id) {
     console.log('getDownloadProgress', id);
@@ -276,5 +275,14 @@ export function getIosProductPrice(idArr) {
     var idStr = JSON.stringify(idArr);
     if (window.account && window.account.getProductInfos) {
         window.account.getProductInfos(idStr);
+    }
+}
+/**
+ * ios 恢复购买
+ */
+export function iosRestoreProducts() {
+    console.log('iosRestoreProducts');
+    if (window.account && window.account.iosRestoreProducts) {
+        window.account.iosRestoreProducts();
     }
 }

@@ -129,9 +129,9 @@ export default {
             let item;
             for (let i = 0; i < this.downloadPool.length; i += 1) {
                 item = this.downloadPool[i];
-                if (process.isIos) {
-                    this.$emit('add-download', item);
-                }
+                // if (process.isIos) {
+                this.$emit('add-download', item);
+                // }
                 item.start = 1;
             }
             this.isShow = 0;

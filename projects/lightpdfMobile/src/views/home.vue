@@ -25,13 +25,15 @@
 <script>
 import MainBar from '../components/MainBar.vue';
 import FeedBackEntry from '../components/feedBackEntry.vue';
-import {getPdfSession, } from '../api/pdf';
-import ls from '../utils/littleStore';
+// import {getPdfSession, } from '../api/pdf';
+// import ls from '../utils/littleStore';
+import stProxy from '../utils/storeProxy';
 import pwdCheck from '../utils/pwdCheck';
 import his from '../utils/pathHistory';
-import {getNativeData, saveNativeData, } from '../utils/index';
-import {getPdfConverterVipInfo, } from '../api/support';
+import {getNativeData, } from '../utils/index';
+// import {getPdfConverterVipInfo, } from '../api/support';
 import convert from '../utils/convert';
+import vip from '../utils/vipInfo';
 
 export default {
     name: 'home',
@@ -76,14 +78,14 @@ export default {
         let data = getNativeData();
         if (data && data.identity_token) {
         // if (1) {
-            ls.set('identity_token', data.identity_token);
+            stProxy.set('identity_token', data.identity_token);
             // ls.set('identity_token', '4816931,1548054256,a17570d2e8d3b0ae152714007493fd52');
             // ls.set('identity_token', '3106030,1548139771,aca1ea964fda6e6555381f541e253878');
             // ls.set('identity_token', '4816931,1548054256,a17570d2e8d3b0ae152714007493fd52');
             // ls.set('identity_token', '1968363,1548247249,acf478799959c26160bd5e5bc521fd55');
         } else {
             // console.log('clear identity_token2');
-            ls.set('identity_token', '');
+            stProxy.set('identity_token', '');
         }
         this.getSession();
         this.pwdCheckObj = pwdCheck.create();
@@ -104,48 +106,23 @@ export default {
                 console.log('error', error);
             });
         },
-        getSession1: function() {
-            // console.log('identity_token');
-            // console.log(ls.get('identity_token'));
-            getPdfSession().then((response) => {
-                const data = response.data;
-                let saveData = getNativeData();
-                saveData['pdf_api_token'] = data.data.user.api_token;
-                saveNativeData(saveData);
-                ls.set('api_token', data.data.user.api_token);
-                this.echoit(data.data.user);
-                window.freshVip();
-            }).catch((error) => {
-                console.log(error);
-                if (error.error) {
-                    // error token失效
-                    ls.set('identity_token', '');
-                    this.getSession();
-                    return;
-                }
-                let saveData = getNativeData();
-                saveData['pdf_api_token'] = '';
-                saveNativeData(saveData);
-                ls.set('api_token', '');
-                ls.set('client-vip', 0);
-            });
-        },
         echoit: function(params) {
             console.log(params);
         },
         getVip() {
-            getPdfConverterVipInfo().then((response) => {
-                const data = response.data;
-                if (data.data.license_info && data.data.user_info && data.data.license_info.is_activated === 1) {
-                    ls.set('client-vip', '1');
-                    ls.set('client-vip-express-day', data.data.license_info.expire_date);
-                } else {
-                    ls.set('client-vip', 0);
-                }
-            }).catch((error) => {
-                error;
-                ls.set('client-vip', 0);
-            });
+            vip.getVip();
+            // getPdfConverterVipInfo().then((response) => {
+            //     const data = response.data;
+            //     if (data.data.license_info && data.data.user_info && data.data.license_info.is_activated === 1) {
+            //         stProxy.set('client-vip', '1');
+            //         stProxy.set('client-vip-express-day', data.data.license_info.expire_date);
+            //     } else {
+            //         stProxy.set('client-vip', 0);
+            //     }
+            // }).catch((error) => {
+            //     error;
+            //     stProxy.set('client-vip', 0);
+            // });
 
         },
         pos: function(index) {

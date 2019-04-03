@@ -19,7 +19,7 @@
                     ref="passwordInput"
                     type="password"
                     v-model="password"
-                    placeholder='New password'
+                    :placeholder='$t("001294")'
                     max="20"
                     :rules="passwordRules"
                     @on-blur="passwordBlur"
@@ -28,7 +28,7 @@
                     ref="confirmPasswordInput"
                     type="password"
                     v-model="confirmPassword"
-                    placeholder='Confirm password'
+                    :placeholder='$t("001295")'
                     max="20"
                     :rules="confirmPasswordRules"
                     @on-blur="confirmPasswordBlur"

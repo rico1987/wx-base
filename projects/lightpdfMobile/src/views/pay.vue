@@ -29,6 +29,7 @@
                 <div class="pay-btns">
                     <div class="add-to-cart" ref="attBtn" @click="payIt">{{$tr('Add to cart@@002040')}}</div>
                     <div v-if="0" class="pay-with-paypal">check out with</div>
+                    <div class="btn" v-if="isIos" @click="restoreProducts">{{$tr('Restore Purchases@@002168')}}</div>
                 </div>
                 <div v-if="0" class="pay-des">The safer,easier way to pay</div>
                 <div class="vip-des">{{$tr('VIP account will be sent to you by email immediately after your payment@@002151')}}</div>
@@ -89,7 +90,7 @@ import PayResult from '../components/payResult.vue';
 import UserInfo from '../components/userInfo.vue';
 import payUrl from '../utils/storeUrl';
 import vip from '../utils/vipInfo';
-import {openUrl, getNativeData, isoPay, getIosProductPrice, } from '../utils/index';
+import {openUrl, getNativeData, isoPay, getIosProductPrice, iosRestoreProducts, getAppInfo, } from '../utils/index';
 import convert from '../utils/convert';
 
 export default {
@@ -106,28 +107,29 @@ export default {
                 nickname: '',
             },
             en: {
-                '2': '8181810004',
-                '3': '8181810005',
-                '4': '8181810006',
+                '2': '8181810013',
+                '3': '8181810014',
+                '4': '8181810015',
             },
             cn: {
-                '2': '8181810001',
-                '3': '8181810002',
-                '4': '8181810003',
+                '2': '8181810016',
+                '3': '8181810017',
+                '4': '8181810018',
             },
             iosPrice: {
-                '8181810006': '$59.95',
-                '8181810005': '$39.95',
-                '8181810004': '$29.95',
-                '8181810003': '￥99',
-                '8181810002': '￥79',
-                '8181810001': '￥59',
+                '8181810015': '$',
+                '8181810014': '$',
+                '8181810013': '$',
+                '8181810018': '￥99',
+                '8181810017': '￥79',
+                '8181810016': '￥59',
             },
             currentPlan: null,
             normalPlan: null,
             recommendPlan: null,
             planArr: [],
             bottomBtnState: '',
+            isIos: process.isIos,
 
         };
     },
@@ -212,12 +214,13 @@ export default {
                 '3': 'year',
                 '4': 'life',
             };
-            let langType = 'cn';
-            if (type !== 'cn') {
+            console.log('----not ext---', process.storeType, process.storeType === 'en');
+            let langType = 'cn'; // cn en
+            if (process.storeType === 'en') {
                 langType = 'en';
             }
             let idObj = this[langType];
-            console.log(idObj);
+            console.log('idobj', idObj);
             let iosIdArr = Object.values(idObj);
             console.log(iosIdArr);
             console.log('-0-0-0-00-0-');
@@ -327,9 +330,18 @@ export default {
                 isoPay(this.currentPlan['iosId']);
                 return;
             }
-            this.openPayUrl(this.currentPlan.link);
+            let channel = getAppInfo()['appChannel'] || '';
+            if (!channel) {
+                channel = '';
+            } else {
+                channel = `&${channel}`;
+            }
+            console.log(channel);
+            this.openPayUrl(`${this.currentPlan.link}${channel}`);
+            // this.openPayUrl(this.currentPlan.link + '');
         },
         openPayUrl(url) {
+            console.log('url', url);
             if (!url) {
                 return;
             }
@@ -385,6 +397,9 @@ export default {
                 this.bottomBtnState = '';
             }
             console.log(e);
+        },
+        restoreProducts() {
+            iosRestoreProducts();
         },
     },
 };

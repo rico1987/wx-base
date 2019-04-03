@@ -75,6 +75,7 @@ export default {
                 .then((res) => {
                     if (res.data.status === 1) {
                         this.orders = res.data.data.orders;
+                        this.setDefaultProductIcon();
                     } else {
                         this.$toast.show({
                             text: this.$t('001793'),
@@ -95,6 +96,17 @@ export default {
                     this.loading = false;
                 });
         },
+
+        setDefaultProductIcon() {
+            let item;
+            for (let i = 0; i < this.orders.length; i += 1) {
+                item = this.orders[i];
+                if (!item.product_icon) {
+                    item['product_icon'] = 'https://myaccount.aoscdn.com/cdn/img/orders/default-logo.svg?bcf4';
+                }
+            }
+        },
+
         getLicenseType(order) {
             if (order.expire_date === 'lifetime') {
                 return this.$t('001247');

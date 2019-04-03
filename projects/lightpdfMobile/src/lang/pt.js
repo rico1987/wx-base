@@ -413,5 +413,7 @@ const aLang = {
     '002163': 'Selecionar tudo',
     '002164': 'Arquivos de Internet',
     '002165': 'Arquivos Locais',
+    '002167': 'Compartilhar',
+    '002168': 'Restaurar Compras',
 };
 export default aLang;

@@ -51,6 +51,12 @@
         }
         .crown{
             position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 22px;
+            height: 22px;
+            background: url('../../../icons/vip.png') center no-repeat;
+            background-size: contain;
         }
     }
     

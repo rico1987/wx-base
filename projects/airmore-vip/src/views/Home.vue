@@ -11,7 +11,7 @@
                 <div class="mobile-home__avatar">
                     <img v-if="userInfo && userInfo.avatar" :src="userInfo.avatar" />
                     <div v-if="!userInfo || !userInfo.avatar" class="default-avatar"></div>
-                    <div class="crown" v-if="isVip"></div>
+                    <div class="crown" v-if="true || isVip"></div>
                 </div>
                 <div class="mobile-home__account">
                     <p class="account-name" v-if="userInfo">{{ userInfo.nickname || userInfo.email || userInfo.telephone }}</p>
@@ -69,6 +69,7 @@
 
 <script>
 import Cookies from 'js-cookie';
+// import VConsole from 'vconsole';
 import { getNativeData, getDeviceModel, getIosProductPrice, buyProduct, } from '@lib/utils/embedded';
 import { getVipInfo, } from '@/api/support';
 import MobileHeader from '@/components/MobileHeader.vue';
@@ -112,10 +113,13 @@ export default {
         getVipInfo(this.$i18n.locale)
             .then((res) => {
                 if (res && res.data && res.data.data && res.data.data.license_info) {
+                    // const vConsole = new VConsole();
+                    // console.log(res.data.data);
                     this.licenseInfo = res.data.data.license_info;
-                    this.isVip = this.licenseInfo.is_activated === 1;
+                    this.isVip = this.licenseInfo.is_activated === '1';
                     let remainingDays = this.licenseInfo.remain_days;
                     let licenseType;
+                    // console.log(this.isVip);
                     licenseType = this.licenseInfo.passport_license_type.replace('multi-', '');
                     if (remainingDays > 0 && remainingDays <= this.WILL_EXPIRED_DAYS[licenseType]) {
                         this.isNearlyExpired = true;
@@ -123,6 +127,7 @@ export default {
                     } else {
                         this.isNearlyExpired = false;
                     }
+                    // console.log(remainingDays);
                 }
             });
 
@@ -132,12 +137,10 @@ export default {
             this.model = JSON.parse(this.deviceInfo).model;
         }
 
-         // 获取价格信息
+        // 获取价格信息
         getIosProductPrice(['8181810021', '8181810020', '8181810019', ]);
-       
     },
     methods: {
-        
         setPrices: function(prices) {
             this.prices = JSON.parse(prices);
             // 获取货币单位

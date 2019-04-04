@@ -2,7 +2,7 @@
     <div class="myaccount-setting has-header">
         <MobileHeader
             defaultLeft
-            title="Setting"
+            :title="$t('001401')"
         >
         </MobileHeader>
         <div class="container">

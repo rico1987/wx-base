@@ -4,9 +4,11 @@
     height: 100vh;
     overflow: hidden;
 	background: #f7f6fb;
-	padding-top: 0.48rem;
 	.inner-container{
 		width: 100%;
+		// transform: translateZ(0);
+		padding-top: 0.48rem;
+		border-top: 0.1px solid transparent;
 	}
 	.info-top-bg{
 		position: absolute;
@@ -17,7 +19,7 @@
 		left:50%;
 		margin-left: -7.21rem;
 		background: linear-gradient(to bottom,#1e5ff3,#6594ff);
-
+		transform: translateZ(0);
 	}
 	.info-box{
 		width: 6.43rem;
@@ -94,6 +96,7 @@
 				// text-align: center;
 				// color: #3b75f8;
 				// line-height: 0.8rem;
+				border: 2px solid #3b75f8;
 			}
 		}
 	}

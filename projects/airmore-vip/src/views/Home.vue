@@ -95,7 +95,6 @@ export default {
                 'quarterly': 10,
                 'yearly': 15,
             },
-            isNearlyExpired: false,
             expire_date: null,
             model: null,
         };
@@ -113,21 +112,12 @@ export default {
         getVipInfo(this.$i18n.locale)
             .then((res) => {
                 if (res && res.data && res.data.data && res.data.data.license_info) {
-                    // const vConsole = new VConsole();
-                    // console.log(res.data.data);
                     this.licenseInfo = res.data.data.license_info;
                     this.isVip = this.licenseInfo.is_activated === '1';
                     let remainingDays = this.licenseInfo.remain_days;
                     let licenseType;
-                    // console.log(this.isVip);
                     licenseType = this.licenseInfo.passport_license_type.replace('multi-', '');
-                    if (remainingDays > 0 && remainingDays <= this.WILL_EXPIRED_DAYS[licenseType]) {
-                        this.isNearlyExpired = true;
-                        this.expire_date = this.licenseInfo.expire_date.split(' ')[0];
-                    } else {
-                        this.isNearlyExpired = false;
-                    }
-                    // console.log(remainingDays);
+                    this.expire_date = this.licenseInfo.expire_date.split(' ')[0];
                 }
             });
 

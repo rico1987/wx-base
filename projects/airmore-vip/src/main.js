@@ -33,7 +33,7 @@ import LangTw from './lang/tw.json';
 Vue.config.productionTip = false;
 Vue.use(VueI18n);
 
-let lang = getQueryValue('lang') || 'en';
+let lang = getQueryValue('lang') || 'zh';
 
 let backobj = getQueryValue('backobj');
 

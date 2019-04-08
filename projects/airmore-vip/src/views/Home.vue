@@ -3,7 +3,7 @@
         <MobileHeader
             defaultLeft
             isReturnToNative
-            title="开通VIP"
+            :title="$t('000001')"
         >
         </MobileHeader>
         <div class="mobile-home__content">
@@ -11,12 +11,12 @@
                 <div class="mobile-home__avatar">
                     <img v-if="userInfo && userInfo.avatar" :src="userInfo.avatar" />
                     <div v-if="!userInfo || !userInfo.avatar" class="default-avatar"></div>
-                    <div class="crown" v-if="true || isVip"></div>
+                    <div class="crown" v-bind:class="{ active: isVip }"></div>
                 </div>
                 <div class="mobile-home__account">
                     <p class="account-name" v-if="userInfo">{{ userInfo.nickname || userInfo.email || userInfo.telephone }}</p>
-                    <p class="device-info" v-if="model && !isNearlyExpired">{{ model }}</p>
-                    <p class="expire" v-if="isNearlyExpired">将于{{expire_date}}到期</p>
+                    <p class="device-info" v-if="model && !isVip">{{ model }}</p>
+                    <p class="expire" v-if="isVip">{{$t('000014', {'0': expire_date})}}</p>
                 </div>
                 <div class="clearfix"></div>
             </div>
@@ -24,43 +24,43 @@
                 <div class="price" v-bind:class="{ active: activeProductId === '8181810021' }"  @click="setActive('8181810021')">
                     <p class="p1">{{prices['8181810021']['title']}}</p>
                     <p class="p2"><span>{{currency}}</span>{{prices['8181810021']['price']}}</p>
-                    <p class="p3">{{currency}}{{parseInt(prices['8181810021']['price'] / 12)}}/月</p>
-                    <p class="p4">立省{{currency}}{{prices['8181810019']['price'] * 12 - prices['8181810021']['price']}}</p>
-                    <p class="recommended">推荐</p>
+                    <p class="p3">{{currency}}{{parseInt(prices['8181810021']['price'] / 12)}}/{{$t('000002')}}</p>
+                    <p class="p4">{{$t('000003')}}{{currency}}{{prices['8181810019']['price'] * 12 - prices['8181810021']['price']}}</p>
+                    <p class="recommended">{{$t('000004')}}</p>
                 </div>
                 <div class="price" v-bind:class="{ active: activeProductId === '8181810020' }" @click="setActive('8181810020')">
                     <p class="p1">{{prices['8181810020']['title']}}</p>
                     <p class="p2"><span>{{currency}}</span>{{prices['8181810020']['price']}}</p>
-                    <p class="p3">{{currency}}{{parseInt(prices['8181810020']['price'] / 3)}}/月</p>
-                    <p class="p4">立省{{currency}}{{prices['8181810019']['price'] * 3 - prices['8181810020']['price']}}</p>
+                    <p class="p3">{{currency}}{{parseInt(prices['8181810020']['price'] / 3)}}/{{$t('000002')}}</p>
+                    <p class="p4">{{$t('000003')}}{{currency}}{{prices['8181810019']['price'] * 3 - prices['8181810020']['price']}}</p>
                 </div>
                 <div class="price" v-bind:class="{ active: activeProductId === '8181810019' }" @click="setActive('8181810019')">
                     <p class="p1">{{prices['8181810019']['title']}}</p>
                     <p class="p2"><span>{{currency}}</span>{{prices['8181810019']['price']}}</p>
-                    <p class="p3">{{currency}}{{prices['8181810019']['price']}}/月</p>
-                    <p class="p4">无优惠</p>
+                    <p class="p3">{{currency}}{{prices['8181810019']['price']}}/{{$t('000002')}}</p>
+                    <p class="p4">{{$t('000005')}}</p>
                 </div>
             </div>
             <div class="mobile-home__buy-btn">
-                <span class="btn" @click="gotoBuy()">立即开通</span>
-                <p>VIP账户信息会在支付成功后生效</p>
+                <span class="btn" @click="gotoBuy()">{{$t('000006')}}</span>
+                <p>{{$t('000007')}}</p>
             </div>
             <div class="mobile-home__privilege">
-                <h2>开通VIP独享专属特权</h2>
+                <h2>{{$t('000008')}}</h2>
                 <div class="p1">
-                    <p>加10G大空间</p>
+                    <p>{{$t('000009')}}</p>
                 </div>
                 <div class="p2">
-                    <p>无限制上传下载</p>
+                    <p>{{$t('000010')}}</p>
                 </div>
                 <div class="p3">
-                    <p>畅享云剪切板</p>
+                    <p>{{$t('000011')}}</p>
                 </div>
                 <div class="p4">
-                    <p>享免费升级服务</p>
+                    <p>{{$t('000012')}}</p>
                 </div>
                 <div class="p5">
-                    <p>更多内容敬请期待</p>
+                    <p>{{$t('000013')}}</p>
                 </div>
             </div>
         </div>

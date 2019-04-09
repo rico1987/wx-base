@@ -3,5 +3,6 @@ export default {
     supportApiBaseUrl: 'https://support.aoscdn.com/api',
     fileApiBaseUrl: 'https://file.aoscdn.com/api',
     storageApiBaseUrl: 'https://storage.aoscdn.com/api',
+    cloudApiBaseUrl: 'https://airmorecloudapi.aoscdn.com/api',
     timeout: 5000,
 };

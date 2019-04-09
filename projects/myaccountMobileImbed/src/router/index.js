@@ -14,6 +14,7 @@ import WorkList from '@/views/WorkList.vue';
 import UnlimitedVip from '@/views/UnlimitedVip.vue';
 import SubmitTicket from '@/views/SubmitTicket.vue';
 import FindPassword from '@/views/FindPassword.vue';
+import InvitationCode from '@/views/InvitationCode.vue';
 
 Vue.use(Router);
 
@@ -92,6 +93,11 @@ export default new Router({
             path: '/find-password',
             name: 'findPassword',
             component: FindPassword,
+        },
+        {
+            path: '/invitation-code',
+            name: 'invitationCode',
+            component: InvitationCode,
         },
     ],
 });

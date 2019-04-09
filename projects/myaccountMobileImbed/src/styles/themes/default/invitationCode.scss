@@ -1,0 +1,104 @@
+.myaccount-invitation-code{
+    >div{
+        padding: 0 20px;
+        .tip{
+            font-size: 14px;
+            line-height: 24px;
+            min-height: 48px;
+        }
+        input{
+            height: 30px;
+            font-size: 18px;
+            line-height: 30px;
+            border-radius: 3px;
+            text-align: center;
+            margin: 15px auto;
+        }
+        .footer{
+            display: flex;
+            justify-content: space-between;
+            span{
+                text-decoration: underline;
+            }
+        }
+    }
+    .share-with-app{
+        .tip{
+            margin-top: 40px;
+        }
+        .apps{
+            padding: 0;
+            width: 60%;
+            margin: 0 20%;
+            display: flex;
+            justify-content: space-between;
+            li{
+                cursor: pointer;
+                display: inline-block;
+                vertical-align: top;
+                width: 40px;
+                height: 40px;
+                margin-right: 10px;
+                background-repeat: no-repeat;
+                background-size: 100% 100%;
+                opacity: 1;
+
+                &.sharer-douban{
+                    background-image: url('../../../icons/share/douban.svg');
+                }
+                &.sharer-facebook{
+                    background-image: url('../../../icons/share/facebook.svg');
+                }
+                &.sharer-google{
+                    background-image: url('../../../icons/share/google.svg');
+                }
+                &.sharer-twitter{
+                    background-image: url('../../../icons/share/twitter.svg');
+                }
+                &.sharer-weibo{
+                    background-image: url('../../../icons/share/weibo.svg');
+                }
+                &.sharer-weixin{
+                    background-image: url('../../../icons/share/weixin.svg');
+                }
+
+                
+            }
+        }
+        .footer{
+            justify-content: center;
+            margin-top: 40px;
+        }
+    }
+    .congrats{
+        .tip{
+            margin-top: 40px;
+        }
+        .cup{
+            width: 143px;
+            height: 132px;
+            margin: 28px auto;
+            background: url('../../../icons/cup.svg') center no-repeat;
+        }
+        .footer{
+            display: flex;
+            justify-content: center;
+            span{
+                text-decoration: underline;
+            }
+        }
+    }
+    .invited{
+        .tip{
+            margin-top: 40px;
+        }
+    }
+    .use-invitation-code{
+        .btn{
+            margin-top: 19px;
+        }
+        .footer{
+            justify-content: center;
+        }
+    }
+}

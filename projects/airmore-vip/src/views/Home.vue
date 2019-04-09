@@ -16,7 +16,8 @@
                 <div class="mobile-home__account">
                     <p class="account-name" v-if="userInfo">{{ userInfo.nickname || userInfo.email || userInfo.telephone }}</p>
                     <p class="device-info" v-if="model && !isVip">{{ model }}</p>
-                    <p class="expire" v-if="isVip">{{$t('000014', {'0': expire_date})}}</p>
+                    <p class="expire" v-if="isVip && !isLifeTime">{{$t('000014', {'0': expire_date})}}</p>
+                    <p class="expire" v-if="isVip && isLifeTime">{{$t('000001')}}</p>
                 </div>
                 <div class="clearfix"></div>
             </div>
@@ -69,7 +70,7 @@
 
 <script>
 import Cookies from 'js-cookie';
-// import VConsole from 'vconsole';
+import VConsole from 'vconsole';
 import { getNativeData, getDeviceModel, getIosProductPrice, buyProduct, } from '@lib/utils/embedded';
 import { getVipInfo, } from '@/api/support';
 import MobileHeader from '@/components/MobileHeader.vue';
@@ -84,6 +85,7 @@ export default {
             userInfo: null,
             isVip: false,
             deviceInfo: null,
+            isLifeTime: null,
             prices: null,
             licenseInfo: null,
             currency: null,
@@ -112,11 +114,10 @@ export default {
         getVipInfo(this.$i18n.locale)
             .then((res) => {
                 if (res && res.data && res.data.data && res.data.data.license_info) {
+                    const vConsole = new VConsole();
                     this.licenseInfo = res.data.data.license_info;
                     this.isVip = this.licenseInfo.is_activated === '1';
-                    let remainingDays = this.licenseInfo.remain_days;
-                    let licenseType;
-                    licenseType = this.licenseInfo.passport_license_type.replace('multi-', '');
+                    this.isLifeTime === this.getPassportLicenseType(this.licenseInfo) === 'lifetime';
                     this.expire_date = this.licenseInfo.expire_date.split(' ')[0];
                 }
             });
@@ -138,6 +139,10 @@ export default {
             for (let i = 0; i < Object.keys(this.prices).length; i = i + 1) {
                 this.prices[Object.keys(this.prices)[i]].price = this.prices[Object.keys(this.prices)[i]].price.replace(this.currency, '');
             }
+        },
+
+        getPassportLicenseType: function(info) {
+            return info.passport_license_type.replace('multi-', '');
         },
 
         setActive: function(id) {

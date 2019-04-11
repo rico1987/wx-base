@@ -23,20 +23,20 @@
             </div>
             <div class="mobile-home__prices" v-if="prices">
                 <div class="price" v-bind:class="{ active: activeProductId === '8181810021' }"  @click="setActive('8181810021')">
-                    <p class="p1">{{prices['8181810021']['title']}}</p>
+                    <p class="p1">{{$t('000016')}}</p>
                     <p class="p2"><span>{{currency}}</span>{{prices['8181810021']['price']}}</p>
                     <p class="p3">{{currency}}{{parseInt(prices['8181810021']['price'] / 12)}}/{{$t('000002')}}</p>
                     <p class="p4">{{$t('000003')}}{{currency}}{{prices['8181810019']['price'] * 12 - prices['8181810021']['price']}}</p>
                     <p class="recommended">{{$t('000004')}}</p>
                 </div>
                 <div class="price" v-bind:class="{ active: activeProductId === '8181810020' }" @click="setActive('8181810020')">
-                    <p class="p1">{{prices['8181810020']['title']}}</p>
+                    <p class="p1">{{$t('000017')}}</p>
                     <p class="p2"><span>{{currency}}</span>{{prices['8181810020']['price']}}</p>
                     <p class="p3">{{currency}}{{parseInt(prices['8181810020']['price'] / 3)}}/{{$t('000002')}}</p>
                     <p class="p4">{{$t('000003')}}{{currency}}{{prices['8181810019']['price'] * 3 - prices['8181810020']['price']}}</p>
                 </div>
                 <div class="price" v-bind:class="{ active: activeProductId === '8181810019' }" @click="setActive('8181810019')">
-                    <p class="p1">{{prices['8181810019']['title']}}</p>
+                    <p class="p1">{{$t('000018')}}</p>
                     <p class="p2"><span>{{currency}}</span>{{prices['8181810019']['price']}}</p>
                     <p class="p3">{{currency}}{{prices['8181810019']['price']}}/{{$t('000002')}}</p>
                     <p class="p4">{{$t('000005')}}</p>

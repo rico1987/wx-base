@@ -6,7 +6,7 @@ import './styles/themes/default/index.scss';
 import App from './App.vue';
 import router from './router';
 import store from './store';
-import { getQueryValue, looseIndexOf, } from '../../../lib/utils/index';
+import { getQueryValue, looseIndexOf, startWith, } from '../../../lib/utils/index';
 import { getNativeData, saveNativeData, } from '../../../lib/utils/embedded';
 
 // import languages
@@ -29,6 +29,8 @@ import LangPt from './lang/pt.json';
 import LangSv from './lang/sv.json';
 import LangTr from './lang/tr.json';
 import LangTw from './lang/tw.json';
+
+const PLATFORM = process.env.PLATFORM;
 
 Vue.config.productionTip = false;
 Vue.use(VueI18n);
@@ -55,72 +57,70 @@ if (backobj) {
 
 saveNativeData(saveData);
 
-// android
-// let supportLangArr = ['cn', 'tw', 'en', 'cs', 'da', 'de', 'el', 'es', 'fi', 'fr', 'hu', 'it', 'ja', 'nl', 'nb', 'pl', 'pt', 'sv', 'tr', ];
-// if (startWith(lang, 'zh')) {
-//     lang = lang.split('_')[1].toLowerCase();
-// } else {
-//     lang = lang.split('_')[0].toLowerCase();
-// }
+let supportLangArr,
+    i18n;
 
-// ios
-let supportLangArr = ['zh', 'en', 'cs', 'da', 'de', 'el', 'es', 'fi', 'fr', 'hu', 'it', 'ja', 'nl', 'nb', 'pl', 'pt', 'sv', 'tr', ];
-
-if (looseIndexOf(supportLangArr, lang) === -1) {
-    lang = 'en';
+if (PLATFORM === 'android') {
+    supportLangArr = ['cn', 'tw', 'en', 'cs', 'da', 'de', 'el', 'es', 'fi', 'fr', 'hu', 'it', 'ja', 'nl', 'nb', 'pl', 'pt', 'sv', 'tr', ];
+    if (startWith(lang, 'zh')) {
+        lang = lang.split('_')[1].toLowerCase();
+    } else {
+        lang = lang.split('_')[0].toLowerCase();
+    }
+    i18n = new VueI18n({
+        locale: lang,
+        messages: {
+            'cn': LangZh,
+            'tw': LangTw,
+            'en': LangEn,
+            'cs': LangCs,
+            'da': LangDa,
+            'de': LangDe,
+            'el': LangEl,
+            'es': LangEs,
+            'fi': LangFi,
+            'fr': LangFr,
+            'hu': LangHu,
+            'it': LangIt,
+            'ja': LangJa,
+            'nl': LangNl,
+            'nb': LangNo,
+            'pl': LangPl,
+            'pt': LangPt,
+            'sv': LangSv,
+            'tr': LangTr,
+        },
+    });
+} else if (PLATFORM === 'ios') {
+    supportLangArr = ['zh', 'en', 'cs', 'da', 'de', 'el', 'es', 'fi', 'fr', 'hu', 'it', 'ja', 'nl', 'nb', 'pl', 'pt', 'sv', 'tr', ];
+    if (looseIndexOf(supportLangArr, lang) === -1) {
+        lang = 'en';
+    }
+    i18n = new VueI18n({
+        locale: lang,
+        messages: {
+            'zh': LangZh,
+            'en': LangEn,
+            'cz': LangCs,
+            'dk': LangDa,
+            'de': LangDe,
+            'el': LangEl,
+            'es': LangEs,
+            'fi': LangFi,
+            'fr': LangFr,
+            'hu': LangHu,
+            'it': LangIt,
+            'jp': LangJa,
+            'nl': LangNl,
+            'no': LangNo,
+            'pl': LangPl,
+            'br': LangPt,
+            'se': LangSv,
+            'tr': LangTr,
+            'tw': LangTw,
+        },
+    });
 }
-
-// android
-// const i18n = new VueI18n({
-//     locale: lang,
-//     messages: {
-//         'cn': LangZh,
-//         'tw': LangTw,
-//         'en': LangEn,
-//         'cs': LangCs,
-//         'da': LangDa,
-//         'de': LangDe,
-//         'el': LangEl,
-//         'es': LangEs,
-//         'fi': LangFi,
-//         'fr': LangFr,
-//         'hu': LangHu,
-//         'it': LangIt,
-//         'ja': LangJa,
-//         'nl': LangNl,
-//         'nb': LangNo,
-//         'pl': LangPl,
-//         'pt': LangPt,
-//         'sv': LangSv,
-//         'tr': LangTr,
-//     },
-// });
-
-// ios
-const i18n = new VueI18n({
-    locale: lang,
-    messages: {
-        'zh': LangZh,
-        'en': LangEn,
-        'cz': LangCs,
-        'dk': LangDa,
-        'de': LangDe,
-        'el': LangEl,
-        'es': LangEs,
-        'fi': LangFi,
-        'fr': LangFr,
-        'hu': LangHu,
-        'it': LangIt,
-        'jp': LangJa,
-        'nl': LangNl,
-        'no': LangNo,
-        'pl': LangPl,
-        'br': LangPt,
-        'se': LangSv,
-        'tr': LangTr,
-        'tw': LangTw,
-    },
-});
 
 /* eslint-disable no-new */
 new Vue({

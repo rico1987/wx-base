@@ -9,9 +9,21 @@ const path = require('path')
 const chalk = require('chalk')
 const webpack = require('webpack')
 const config = require('../config')
-const webpackConfig = require('./webpack.prod.conf')
+const hasFlag = require('has-flag');
 
-const spinner = ora('building for production...')
+let webpackConfig;
+let platform;
+if (hasFlag('android')) {
+  platform = 'android';
+} else {
+  platform = 'ios';
+}
+
+webpackConfig = platform === 'ios'
+? require('./webpack.ios.prod.conf')
+: require('./webpack.android.prod.conf');
+
+const spinner = ora(`building for ${platform} production...`)
 spinner.start()
 
 rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {

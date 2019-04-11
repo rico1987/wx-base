@@ -70,7 +70,7 @@
 
 <script>
 import Cookies from 'js-cookie';
-import VConsole from 'vconsole';
+// import VConsole from 'vconsole';
 import { getNativeData, getDeviceModel, getIosProductPrice, buyProduct, } from '@lib/utils/embedded';
 import { getVipInfo, } from '@/api/support';
 import MobileHeader from '@/components/MobileHeader.vue';
@@ -114,7 +114,7 @@ export default {
         getVipInfo(this.$i18n.locale)
             .then((res) => {
                 if (res && res.data && res.data.data && res.data.data.license_info) {
-                    const vConsole = new VConsole();
+                    // const vConsole = new VConsole();
                     this.licenseInfo = res.data.data.license_info;
                     this.isVip = this.licenseInfo.is_activated === '1';
                     this.isLifeTime === this.getPassportLicenseType(this.licenseInfo) === 'lifetime';

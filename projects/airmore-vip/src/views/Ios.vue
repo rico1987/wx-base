@@ -43,7 +43,8 @@
                 </div>
             </div>
             <div class="mobile-home__buy-btn">
-                <span class="btn" @click="gotoBuy()">{{$t('000006')}}</span>
+                <span v-if="!isVip" class="btn" @click="gotoBuy()">{{$t('000006')}}</span>
+                <span v-if="isVip" class="btn" @click="gotoBuy()">{{$t('000019')}}</span>
                 <p>{{$t('000007')}}</p>
             </div>
             <div class="mobile-home__privilege">

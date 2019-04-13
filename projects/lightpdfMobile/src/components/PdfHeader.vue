@@ -42,6 +42,8 @@ export default {
                 'ppt-to-pdf': '/topdf',
                 'merge-pdf': '/mergepdf',
                 'my-files': '/info',
+                'pay': 'info',
+                'vippay': 'info',
             },
             jumpDisable: this.disablejump || 0,
             backObj: null,
@@ -69,6 +71,7 @@ export default {
             let path = this.getParentPath();
             let item = his.search(path);
             if (process.isIos === '1') {
+                console.log('backNative---');
                 backToIosNative();
                 return;
             }

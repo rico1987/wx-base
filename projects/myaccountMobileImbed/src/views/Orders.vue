@@ -14,17 +14,16 @@
                 <p class="myaccount-orders__order-activation-code">{{ $t('001190') }}: <span>{{order.license_code}}</span></p>
                 <p class="myaccount-orders__order-expire">{{ $t('001790') }}: <span>{{ getLicenseType(order) }}</span></p>
                 <div class="myaccount-orders__order-link">
-                    <a :href="getBuyLink(order)" class="renew" target="_blank" v-if="order.expire_date !== 'lifetime'">{{ $t('001185') }}</a>
-                    <a href="" v-if="isApp(order)">{{ $t('001791') }}</a>
+                    <span @click="openBuyLink(order)" class="renew" target="_blank" v-if="order.expire_date !== 'lifetime'">{{ $t('001185') }}</span>
                 </div>
                 <div class="myaccount-orders__links">
-                    <a :href="order.faq_url" target="_blank" class="faq">{{ $t('001186') }}</a>
-                    <a :href="order.forum_url" target="_blank" class="forum">{{ $t('001187') }}</a>
+                    <span @click="openLink(order.faq_url)" target="_blank" class="faq">{{ $t('001186') }}</span>
+                    <span @click="openLink(order.forum_url)" target="_blank" class="forum">{{ $t('001187') }}</span>
                 </div>
             </div>
         </div>
         <div class="myaccount-orders__no-data" v-if="!loading && (!orders || orders.length === 0)">
-            <p>{{ $t('001279') }}, <a :href="storeLink">{{ $t('001280') }}</a></p>
+            <p>{{ $t('001279') }}, <span @click="openLink(storeLink)">{{ $t('001280') }}</span></p>
         </div>
         <div class="loading" v-show="loading">
             <Icon type="spinner spin" />
@@ -33,7 +32,7 @@
 </template>
 
 <script>
-import { getNativeData, } from '@lib/utils/embedded';
+import { getNativeData, openUrl, } from '@lib/utils/embedded';
 import MobileHeader from '@/components/MobileHeader.vue';
 import Icon from '@/components/Icon.vue';
 
@@ -115,9 +114,14 @@ export default {
             }
         },
 
-        getBuyLink(order) {
+        openBuyLink(order) {
             let saveData = getNativeData();
-            return `${order.buy_url}?identity_token=${saveData['identity_token']}`;
+            let url = `${order.buy_url}?identity_token=${saveData['identity_token']}`;
+            openUrl(url);
+        },
+
+        openLink(url) {
+            openUrl(url);
         },
     },
 };

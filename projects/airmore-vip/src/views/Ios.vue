@@ -16,33 +16,35 @@
                 <div class="mobile-home__account">
                     <p class="account-name" v-if="userInfo">{{ userInfo.nickname || userInfo.email || userInfo.telephone }}</p>
                     <p class="device-info" v-if="model && !isVip">{{ model }}</p>
-                    <p class="expire" v-if="isVip">{{$t('000014', {'0': expire_date})}}</p>
+                    <p class="expire" v-if="isVip && !isLifeTime">{{$t('000014', {'0': expire_date})}}</p>
+                    <p class="expire" v-if="isVip && isLifeTime">{{$t('000001')}}</p>
                 </div>
                 <div class="clearfix"></div>
             </div>
             <div class="mobile-home__prices" v-if="prices">
                 <div class="price" v-bind:class="{ active: activeProductId === '8181810021' }"  @click="setActive('8181810021')">
-                    <p class="p1">{{prices['8181810021']['title']}}</p>
+                    <p class="p1">{{$t('000016')}}</p>
                     <p class="p2"><span>{{currency}}</span>{{prices['8181810021']['price']}}</p>
                     <p class="p3">{{currency}}{{parseInt(prices['8181810021']['price'] / 12)}}/{{$t('000002')}}</p>
                     <p class="p4">{{$t('000003')}}{{currency}}{{prices['8181810019']['price'] * 12 - prices['8181810021']['price']}}</p>
                     <p class="recommended">{{$t('000004')}}</p>
                 </div>
                 <div class="price" v-bind:class="{ active: activeProductId === '8181810020' }" @click="setActive('8181810020')">
-                    <p class="p1">{{prices['8181810020']['title']}}</p>
+                    <p class="p1">{{$t('000017')}}</p>
                     <p class="p2"><span>{{currency}}</span>{{prices['8181810020']['price']}}</p>
                     <p class="p3">{{currency}}{{parseInt(prices['8181810020']['price'] / 3)}}/{{$t('000002')}}</p>
                     <p class="p4">{{$t('000003')}}{{currency}}{{prices['8181810019']['price'] * 3 - prices['8181810020']['price']}}</p>
                 </div>
                 <div class="price" v-bind:class="{ active: activeProductId === '8181810019' }" @click="setActive('8181810019')">
-                    <p class="p1">{{prices['8181810019']['title']}}</p>
+                    <p class="p1">{{$t('000018')}}</p>
                     <p class="p2"><span>{{currency}}</span>{{prices['8181810019']['price']}}</p>
                     <p class="p3">{{currency}}{{prices['8181810019']['price']}}/{{$t('000002')}}</p>
                     <p class="p4">{{$t('000005')}}</p>
                 </div>
             </div>
             <div class="mobile-home__buy-btn">
-                <span class="btn" @click="gotoBuy()">{{$t('000006')}}</span>
+                <span v-if="!isVip" class="btn" @click="gotoBuy()">{{$t('000006')}}</span>
+                <span v-if="isVip" class="btn" @click="gotoBuy()">{{$t('000019')}}</span>
                 <p>{{$t('000007')}}</p>
             </div>
             <div class="mobile-home__privilege">
@@ -84,6 +86,7 @@ export default {
             userInfo: null,
             isVip: false,
             deviceInfo: null,
+            isLifeTime: null,
             prices: null,
             licenseInfo: null,
             currency: null,
@@ -112,11 +115,10 @@ export default {
         getVipInfo(this.$i18n.locale)
             .then((res) => {
                 if (res && res.data && res.data.data && res.data.data.license_info) {
+                    // const vConsole = new VConsole();
                     this.licenseInfo = res.data.data.license_info;
                     this.isVip = this.licenseInfo.is_activated === '1';
-                    let remainingDays = this.licenseInfo.remain_days;
-                    let licenseType;
-                    licenseType = this.licenseInfo.passport_license_type.replace('multi-', '');
+                    this.isLifeTime === this.getPassportLicenseType(this.licenseInfo) === 'lifetime';
                     this.expire_date = this.licenseInfo.expire_date.split(' ')[0];
                 }
             });
@@ -138,6 +140,10 @@ export default {
             for (let i = 0; i < Object.keys(this.prices).length; i = i + 1) {
                 this.prices[Object.keys(this.prices)[i]].price = this.prices[Object.keys(this.prices)[i]].price.replace(this.currency, '');
             }
+        },
+
+        getPassportLicenseType: function(info) {
+            return info.passport_license_type.replace('multi-', '');
         },
 
         setActive: function(id) {

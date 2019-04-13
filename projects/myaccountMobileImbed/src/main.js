@@ -61,10 +61,10 @@ if (backobj) {
 saveNativeData(saveData);
 
 // android
-let supportLangArr = ['cn', 'tw', 'en', 'cs', 'da', 'de', 'el', 'es', 'fi', 'fr', 'hu', 'it', 'ja', 'nl', 'nb', 'pl', 'pt', 'sv', 'tr', ];
+// let supportLangArr = ['cn', 'tw', 'en', 'cs', 'da', 'de', 'el', 'es', 'fi', 'fr', 'hu', 'it', 'ja', 'nl', 'nb', 'pl', 'pt', 'sv', 'tr', ];
 
 // ios
-// let supportLangArr = ['zh', 'en', 'cs', 'da', 'de', 'el', 'es', 'fi', 'fr', 'hu', 'it', 'ja', 'nl', 'nb', 'pl', 'pt', 'sv', 'tr', ];
+let supportLangArr = ['zh', 'en', 'cs', 'da', 'de', 'el', 'es', 'fi', 'fr', 'hu', 'it', 'ja', 'nl', 'nb', 'pl', 'pt', 'sv', 'tr', ];
 
 // android
 // if (startWith(lang, 'zh')) {
@@ -72,6 +72,7 @@ let supportLangArr = ['cn', 'tw', 'en', 'cs', 'da', 'de', 'el', 'es', 'fi', 'fr'
 // } else {
 //     lang = lang.split('_')[0].toLowerCase();
 // }
+
 if (startWith(lang, 'zh')) {
     if (lang === 'zh') {
         lang = 'cn';
@@ -81,6 +82,7 @@ if (startWith(lang, 'zh')) {
 } else {
     lang = lang.split('_')[0].toLowerCase();
 }
+
 if (looseIndexOf(supportLangArr, lang) === -1) {
     lang = 'en';
 }
@@ -147,39 +149,14 @@ router.beforeEach((to, from, next) => {
 });
 
 // android
-const i18n = new VueI18n({
-    locale: lang,
-    messages: {
-        'cn': LangZh,
-        'tw': LangTw,
-        'en': LangEn,
-        'cs': LangCs,
-        'da': LangDa,
-        'de': LangDe,
-        'el': LangEl,
-        'es': LangEs,
-        'fi': LangFi,
-        'fr': LangFr,
-        'hu': LangHu,
-        'it': LangIt,
-        'ja': LangJa,
-        'nl': LangNl,
-        'nb': LangNo,
-        'pl': LangPl,
-        'pt': LangPt,
-        'sv': LangSv,
-        'tr': LangTr,
-    },
-});
-
-// ios
 // const i18n = new VueI18n({
 //     locale: lang,
 //     messages: {
-//         'zh': LangZh,
+//         'cn': LangZh,
+//         'tw': LangTw,
 //         'en': LangEn,
-//         'cz': LangCs,
-//         'dk': LangDa,
+//         'cs': LangCs,
+//         'da': LangDa,
 //         'de': LangDe,
 //         'el': LangEl,
 //         'es': LangEs,
@@ -187,16 +164,41 @@ const i18n = new VueI18n({
 //         'fr': LangFr,
 //         'hu': LangHu,
 //         'it': LangIt,
-//         'jp': LangJa,
+//         'ja': LangJa,
 //         'nl': LangNl,
-//         'no': LangNo,
+//         'nb': LangNo,
 //         'pl': LangPl,
-//         'br': LangPt,
-//         'se': LangSv,
+//         'pt': LangPt,
+//         'sv': LangSv,
 //         'tr': LangTr,
-//         'tw': LangTw,
 //     },
 // });
+
+// ios
+const i18n = new VueI18n({
+    locale: lang,
+    messages: {
+        'zh': LangZh,
+        'en': LangEn,
+        'cz': LangCs,
+        'dk': LangDa,
+        'de': LangDe,
+        'el': LangEl,
+        'es': LangEs,
+        'fi': LangFi,
+        'fr': LangFr,
+        'hu': LangHu,
+        'it': LangIt,
+        'jp': LangJa,
+        'nl': LangNl,
+        'no': LangNo,
+        'pl': LangPl,
+        'br': LangPt,
+        'se': LangSv,
+        'tr': LangTr,
+        'tw': LangTw,
+    },
+});
 
 /* eslint-disable no-new */
 new Vue({

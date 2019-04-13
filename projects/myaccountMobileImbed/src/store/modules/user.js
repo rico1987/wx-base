@@ -1,3 +1,4 @@
+// import VConsole from 'vconsole';
 import { login, registerByEmail, registerByPhone, changePassword, passwordLessLogin, loginByToken, } from '@/api/account';
 import { getUnlimitedVipInfo, } from '@/api/support';
 import { getNativeData, saveNativeData, nativeLogin, nativeLogout, backToNative, jump, } from '@lib/utils/embedded';
@@ -98,6 +99,8 @@ const user = {
         EmailRegister({ commit, }, registerInfo) {
             return new Promise((resolve, reject) => {
                 registerByEmail(registerInfo).then((response) => {
+                    // const vConsole = new VConsole();
+                    // console.log(response.data);
                     const data = response.data;
                     if (data && data.status === '1') {
                         commit('SET_API_TOKEN', data.data.api_token);

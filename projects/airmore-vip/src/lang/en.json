@@ -7,10 +7,15 @@
 	"000006": "Buy Now",
 	"000007": "Your VIP account will be activated after payment",
 	"000008": "Upgrade to VIP to enjoy exclusive privileges",
-	"000009": "10G cloud storage space",
+	"000009": "20G cloud storage space",
 	"000010": "Upload and Download without limits",
 	"000011": "Use clipboard unlimitedly",
 	"000012": "Free upgrades",
 	"000013": "More features coming soon",
-	"000014": "Your VIP will expire on {0}"
+	"000014": "Your VIP will expire on {0}",
+	"000015": "Lifetime",
+	"000016": "AirMore Yearly VIP",
+	"000017": "AirMore Quarterly VIP",
+	"000018": "AirMore Monthly VIP",
+	"000019": "Renew Now"
 }

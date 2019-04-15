@@ -15,9 +15,13 @@
                 </div>
                 <div class="mobile-home__account">
                     <p class="account-name" v-if="userInfo">{{ userInfo.nickname || userInfo.email || userInfo.telephone }}</p>
+                    <p class="account-name"></p>
                     <p class="device-info" v-if="model && !isVip">{{ model }}</p>
                     <p class="expire" v-if="isVip && !isLifeTime">{{$t('000014', {'0': expire_date})}}</p>
                     <p class="expire" v-if="isVip && isLifeTime">{{$t('000001')}}</p>
+                    <p class="account-name">272355332@qq.com</p>
+                    <p class="device-info">Iphone8</p>
+                    <!-- <p class="expire">2018-4-4</p> -->
                 </div>
                 <div class="clearfix"></div>
             </div>
@@ -65,29 +69,34 @@
                     <p>{{$t('000013')}}</p>
                 </div>
             </div>
-            <div class="mobile-home__check-buy" v-show="showCheckBuy">
+            <div class="mobile-home__result" v-show="showCheckBuy">
                 <div class="mask"></div>
-                <div class="container">
+                <div class="wrapper">
                     <div class="panel">
                         <p class="title">{{$t('000020')}}</p>
-                        <div class="tip-box" v-if="isChecking">
+                        <div class="tip-box" v-show="!isChecking && !checkingFinished">
                             <p>{{$t('000021')}}</p>
+                            <p>{{$t('000022')}}</p>
                         </div>
-                        <div class="check-status-box" v-if="isChecking">
+                        <div class="check-status-box" v-show="isChecking">
                             <div class="bg-box">
                                 <p class="seconds">{{secountCount}}</p>
                             </div>
                             <p class="wait-txt">{{$t('000023')}}</p>
                         </div>
-                        <div class="no-update" ref="noUpdateTip" v-if="checkingFinished && !isVip">
+                        <div class="no-update" v-show="checkingFinished && !isVip" ref="noUpdateTip">
                             <p class="wait-txt">{{$t('000024')}}</p>
                         </div>
-                        <div class="btn-box" v-show="checkingFinished">
-                            <div class="type-btn" ref="payOkBtn" @click="finish">{{$t('000025')}}</div>
+                        <div class="btn-box" v-show="!isChecking">
+                            <div class="type-btn" ref="payOkBtn" @click="checkVip">{{$t('000025')}}</div>
+                            <div class="type-btn repay" ref="rePayBtn" @click="toRepay">{{$t('000026')}}</div>
+                        </div>
+                        <div class="btn-box" v-show="checkingFinished && !isVip">
+                            <div class="type-btn" ref="reCheckBtn" @click="checkVip">{{$t('000027')}}</div>
                             <div class="type-btn repay" ref="rePayBtn" @click="toRepay">{{$t('000026')}}</div>
                         </div>
                     </div>
-                    <div class="close-btn" @click="close">X</div>
+                    <div class="close-btn" @click="close"></div>
                 </div>
             </div>
         </div>
@@ -312,6 +321,23 @@ export default {
     },
     methods: {
 
+
+        checkVip: function() {
+            this.checkingFinished = false;
+            this.isChecking = true;
+            this.secountCount = 3;
+            this.interval = setInterval(() => {
+                this.queryVipInfo();
+                this.secountCount = this.secountCount - 1;
+                if (this.secountCount === 0) {
+                    window.clearInterval(this.interval);
+                    this.interval = null;
+                    this.isChecking = false;
+                    this.checkingFinished = true;
+                }
+            }, 1000);
+        },
+
         queryVipInfo: function() {
             // 获取vip信息
             getVipInfo()
@@ -343,19 +369,7 @@ export default {
             const link = this.prices[this.activeProductId]['link'];
             openUrl(link);
             this.showCheckBuy = true;
-            this.isChecking = true;
-            this.secountCount = 60;
             this.checkingFinished = false;
-            this.interval = setInterval(() => {
-                this.secountCount = this.secountCount - 1;
-                this.queryVipInfo();
-                if (this.secountCount === 0) {
-                    this.checkingFinished = true;
-                    this.isChecking = false;
-                    window.clearInterval(this.interval);
-                }
-            }, 1000);
-
         },
 
         finish: function() {

@@ -65,6 +65,31 @@
                     <p>{{$t('000013')}}</p>
                 </div>
             </div>
+            <div class="mobile-home__check-buy" v-show="showCheckBuy">
+                <div class="mask"></div>
+                <div class="container">
+                    <div class="panel">
+                        <p class="title">{{$t('000020')}}</p>
+                        <div class="tip-box" v-if="isChecking">
+                            <p>{{$t('000021')}}</p>
+                        </div>
+                        <div class="check-status-box" v-if="isChecking">
+                            <div class="bg-box">
+                                <p class="seconds">{{secountCount}}</p>
+                            </div>
+                            <p class="wait-txt">{{$t('000023')}}</p>
+                        </div>
+                        <div class="no-update" ref="noUpdateTip" v-if="checkingFinished && !isVip">
+                            <p class="wait-txt">{{$t('000024')}}</p>
+                        </div>
+                        <div class="btn-box" v-show="checkingFinished">
+                            <div class="type-btn" ref="payOkBtn" @click="finish">{{$t('000025')}}</div>
+                            <div class="type-btn repay" ref="rePayBtn" @click="toRepay">{{$t('000026')}}</div>
+                        </div>
+                    </div>
+                    <div class="close-btn" @click="close">X</div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -72,8 +97,8 @@
 <script>
 import Cookies from 'js-cookie';
 // import VConsole from 'vconsole';
-import { getNativeData, getDeviceModel, openUrl, } from '@lib/utils/embedded';
-import { getVipInfo, } from '@/api/support';
+import { getNativeData, getDeviceModel, openUrl, saveLog, } from '@lib/utils/embedded';
+import getVipInfo from '@/api/airmore';
 import MobileHeader from '@/components/MobileHeader.vue';
 
 export default {
@@ -256,38 +281,56 @@ export default {
                     },
                 ],
             },
+            showCheckBuy: false,
+            interval: null,
+            isChecking: false,
+            checkingFinished: false,
+            secountCount: null,
         };
     },
 
     created: function() {
         let saveData = getNativeData();
+
+        saveLog(`获取保存信息成功：${JSON.stringify(saveData)}`);
         this.userInfo = saveData['userInfo'];
-
-        Cookies.set('identity_token', saveData.identity_token);
-
-        // 获取vip信息
-        getVipInfo(this.$i18n.locale)
-            .then((res) => {
-                if (res && res.data && res.data.data && res.data.data.license_info) {
-                    // const vConsole = new VConsole();
-                    this.licenseInfo = res.data.data.license_info;
-                    this.isVip = this.licenseInfo.is_activated === '1';
-                    this.isLifeTime === this.getPassportLicenseType(this.licenseInfo) === 'lifetime';
-                    this.expire_date = this.licenseInfo.expire_date.split(' ')[0];
-                }
-            });
 
         // 获取设备信息
         this.deviceInfo = getDeviceModel();
+        saveLog(`获取设备信息成功：${JSON.stringify(this.deviceInfo)}`);
         if (this.deviceInfo) {
             this.model = JSON.parse(this.deviceInfo).model;
         }
 
         // 获取价格信息
         this.prices = this.products[this.$i18n.locale] ? this.products[this.$i18n.locale] : this.products['en'];
+        saveLog(`获取价格信息成功：${JSON.stringify(this.prices)}`);
+
+        Cookies.set('identity_token', saveData.identity_token);
+
+        this.queryVipInfo();
     },
     methods: {
 
+        queryVipInfo: function() {
+            // 获取vip信息
+            getVipInfo()
+                .then((res) => {
+                    if (res && res.data) {
+                        saveLog('获取vip信息成功');
+                        saveLog(JSON.stringify(res.data));
+                        this.isVip = res.data.is_vip;
+                        this.expire_date = res.data.vip_expired_at;
+                        if (this.isVip) {
+                            this.showCheckBuy = false;
+                            if (this.interval) {
+                                window.clearInterval(this.interval);
+                                this.interval = null;
+                            }
+                        }
+                    }
+                });
+        },
         getPassportLicenseType: function(info) {
             return info.passport_license_type.replace('multi-', '');
         },
@@ -299,6 +342,33 @@ export default {
         gotoBuy: function() {
             const link = this.prices[this.activeProductId]['link'];
             openUrl(link);
+            this.showCheckBuy = true;
+            this.isChecking = true;
+            this.secountCount = 60;
+            this.checkingFinished = false;
+            this.interval = setInterval(() => {
+                this.secountCount = this.secountCount - 1;
+                this.queryVipInfo();
+                if (this.secountCount === 0) {
+                    this.checkingFinished = true;
+                    this.isChecking = false;
+                    window.clearInterval(this.interval);
+                }
+            }, 1000);
+
+        },
+
+        finish: function() {
+            this.queryVipInfo();
+        },
+
+        toRepay: function() {
+            this.gotoBuy();
+        },
+
+        close: function() {
+            window.clearInterval(this.interval);
+            this.showCheckBuy = false;
         },
     },
 };

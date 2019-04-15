@@ -205,4 +205,57 @@
             }
         }
     }
+
+    @include e(check-buy) {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        .mask{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba($color: #000000, $alpha: 0.2)
+        }
+        .container{
+            border-radius: 5px;
+            position: absolute;
+            width: 80%;
+            height: 200px;
+            background: white;
+            top: 20%;
+            left: 10%;
+            .panel{
+                padding: 20px;
+                p{
+                    font-size: 14px;
+                }
+ 
+                .no-update{
+                    font-size: 12px;
+                }
+                .btn-box{
+                    width: 80%;
+                    position: absolute;
+                    left: 10%;
+                    bottom: 20px;
+                    display: flex;
+                    justify-content: space-between;
+                    .type-btn{
+                        background: $primary;
+                        padding: 5px 10px;
+                        border-radius: 3px;
+                        color: white;
+                        cursor: pointer;
+                    }
+                }
+            }
+            .close-btn{
+                position: absolute;
+                top: 5px;
+                right: 5px;
+            }
+        }
+    }
 }

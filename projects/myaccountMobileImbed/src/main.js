@@ -73,6 +73,16 @@ let supportLangArr = ['zh', 'en', 'cs', 'da', 'de', 'el', 'es', 'fi', 'fr', 'hu'
 //     lang = lang.split('_')[0].toLowerCase();
 // }
 
+if (startWith(lang, 'zh')) {
+    if (lang === 'zh') {
+        lang = 'cn';
+    } else {
+        lang = lang.split('_')[1].toLowerCase();
+    }
+} else {
+    lang = lang.split('_')[0].toLowerCase();
+}
+
 if (looseIndexOf(supportLangArr, lang) === -1) {
     lang = 'en';
 }

@@ -18,12 +18,12 @@
 	"000017": "AirMore Quarterly VIP",
 	"000018": "AirMore Monthly VIP",
 	"000019": "Renew Now",
-	"000020": "Please complete the payment in the newly-opened page",
-	"000021": "Please don’t close this window before the payment done",
-	"000022": "Once the order is made, click the button below as per your need",
-	"000023": "Searching...",
-	"000024": "Sorry, we have not found your payment information!",
-	"000025": "Finished",
-	"000026": "Repay",
-	"000027": "Requery"
+	"000020": "Ole hyvä ja vie maksu päätökseen avatulla sivulla",
+    "000021": "Ethän sulje tätä ikkunaa ennen kuin maksu on valmis",
+    "000022": "Kun tilaus on valmis, klikkaa alla olevaa painiketta tarpeidesi mukaan",
+    "000023": "Hakee...",
+    "000024": "Pahoittelemme, emme löytäneet maksutietojasi!",
+    "000025": "Valmis",
+    "000026": "Tiedustele uudelleen",
+    "000027": "Maksa uudelleen"
 }

@@ -89,11 +89,11 @@
                         </div>
                         <div class="btn-box" v-show="!isChecking">
                             <div class="type-btn" ref="payOkBtn" @click="checkVip">{{$t('000025')}}</div>
-                            <div class="type-btn repay" ref="rePayBtn" @click="toRepay">{{$t('000026')}}</div>
+                            <div class="type-btn repay" ref="rePayBtn" @click="toRepay">{{$t('000027')}}</div>
                         </div>
                         <div class="btn-box" v-show="checkingFinished && !isVip">
-                            <div class="type-btn" ref="reCheckBtn" @click="checkVip">{{$t('000027')}}</div>
-                            <div class="type-btn repay" ref="rePayBtn" @click="toRepay">{{$t('000026')}}</div>
+                            <div class="type-btn" ref="reCheckBtn" @click="checkVip">{{$t('000026')}}</div>
+                            <div class="type-btn repay" ref="rePayBtn" @click="toRepay">{{$t('000027')}}</div>
                         </div>
                     </div>
                     <div class="close-btn" @click="close"></div>
@@ -320,7 +320,6 @@ export default {
         this.queryVipInfo();
     },
     methods: {
-
 
         checkVip: function() {
             this.checkingFinished = false;

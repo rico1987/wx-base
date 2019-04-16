@@ -18,12 +18,12 @@
 	"000017": "AirMore Quarterly VIP",
 	"000018": "AirMore Monthly VIP",
 	"000019": "立即續費",
-	"000020": "Please complete the payment in the newly-opened page",
-	"000021": "Please don’t close this window before the payment done",
-	"000022": "Once the order is made, click the button below as per your need",
-	"000023": "Searching...",
-	"000024": "Sorry, we have not found your payment information!",
-	"000025": "Finished",
-	"000026": "Repay",
-	"000027": "Requery"
+	"000020": "請在新打開的頁面上完成付款",
+    "000021": "付款完成前請不要關閉窗口",
+    "000022": "付款完成後請根據您的情況點擊下面按鈕",
+    "000023": "正在查詢狀態…",
+    "000024": "對不起，暫未查詢到您的付款信息",
+    "000025": "已完成付款",
+    "000026": "重新查詢",
+    "000027": "重新付款"
 }

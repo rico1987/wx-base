@@ -18,12 +18,12 @@
 	"000017": "AirMore Quarterly VIP",
 	"000018": "AirMore Monthly VIP",
 	"000019": "Renew Now",
-	"000020": "Please complete the payment in the newly-opened page",
-	"000021": "Please don’t close this window before the payment done",
-	"000022": "Once the order is made, click the button below as per your need",
-	"000023": "Searching...",
-	"000024": "Sorry, we have not found your payment information!",
-	"000025": "Finished",
-	"000026": "Repay",
-	"000027": "Requery"
+	"000020": "Vervolledig de betaling a.u.b. op de nieuw geopende pagina",
+    "000021": "Sluit dit venster a.u.b. niet voordat de betaling uitgevoerd is",
+    "000022": "Eens de bestelling geplaatst is, klik op onderstaand knop naargelang je voorkeur",
+    "000023": "Zoeken...",
+    "000024": "Sorry, we konden je betalingsinformatie niet vinden!",
+    "000025": "Klaar",
+    "000026": "Nieuwe zoekopdracht",
+    "000027": "Opnieuw betalen"
 }

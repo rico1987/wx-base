@@ -18,12 +18,12 @@
 	"000017": "AirMore Quarterly VIP",
 	"000018": "AirMore Monthly VIP",
 	"000019": "Renew Now",
-	"000020": "Please complete the payment in the newly-opened page",
-	"000021": "Please don’t close this window before the payment done",
-	"000022": "Once the order is made, click the button below as per your need",
-	"000023": "Searching...",
-	"000024": "Sorry, we have not found your payment information!",
-	"000025": "Finished",
-	"000026": "Repay",
-	"000027": "Requery"
+	"000020": "Παρακαλώ ολοκληρώστε την πληρωμή σας στη σελίδα που μόλις άνοιξε",
+    "000021": "Παρακαλώ μην κλείσετε αυτό το παράθυρο πριν ολοκληρωθεί η πληρωμή",
+    "000022": "Μόλις πραγματοποιηθεί η παραγγελία, κάντε κλικ στο κουμπί ανάλογα με τις ανάγκες σας",
+    "000023": "Αναζήτηση...",
+    "000024": "Λυπούμαστε, δεν εντοπίσαμε πληροφορίες σχετικά με την πληρωμή σας!",
+    "000025": "Ολοκληρώθηκε",
+    "000026": "Επανεκτέλεση Ερωτήματος",
+    "000027": "Επανάληψη Πληρωμής"
 }

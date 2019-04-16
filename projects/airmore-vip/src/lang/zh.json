@@ -18,12 +18,12 @@
 	"000017": "爱莫季度VIP",
 	"000018": "爱莫月度VIP",
 	"000019": "立即续费",
-	"000020": "Please complete the payment in the newly-opened page",
-	"000021": "Please don’t close this window before the payment done",
-	"000022": "Once the order is made, click the button below as per your need",
-	"000023": "Searching...",
-	"000024": "Sorry, we have not found your payment information!",
-	"000025": "Finished",
-	"000026": "Repay",
-	"000027": "Requery"
+	"000020": "请在新打开的页面上完成付款",
+    "000021": "付款完成前请不要关闭窗口",
+    "000022": "付款完成后请根据您的情况点击下面按钮",
+    "000023": "正在查询状态...",
+    "000024": "对不起，暂未查询到您的付款信息",
+    "000025": "已完成付款",
+    "000026": "重新查询",
+    "000027": "重新付款"
 }

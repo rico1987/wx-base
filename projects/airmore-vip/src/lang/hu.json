@@ -18,12 +18,12 @@
 	"000017": "AirMore Quarterly VIP",
 	"000018": "AirMore Monthly VIP",
 	"000019": "Renew Now",
-	"000020": "Please complete the payment in the newly-opened page",
-	"000021": "Please don’t close this window before the payment done",
-	"000022": "Once the order is made, click the button below as per your need",
-	"000023": "Searching...",
-	"000024": "Sorry, we have not found your payment information!",
-	"000025": "Finished",
-	"000026": "Repay",
-	"000027": "Requery"
+	"000020": "Kérjük, véglegesítse a fizetést a megnyíló oldalon!",
+    "000021": "Kérjük, ne zárja be ezt az ablakot, mielőtt befejezné a fizetést!",
+    "000022": "Amint a megrendelés leadásra került, kattintson alább az igényeinek megfelelő gombra!",
+    "000023": "Keresés...",
+    "000024": "Sajnos nem találjuk fizetési adatait!",
+    "000025": "Befejeződött",
+    "000026": "Újraellenőrzés",
+    "000027": "Visszafizetés"
 }

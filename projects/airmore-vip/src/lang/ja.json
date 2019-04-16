@@ -18,12 +18,12 @@
 	"000017": "AirMore Quarterly VIP",
 	"000018": "AirMore Monthly VIP",
 	"000019": "今すぐ更新",
-	"000020": "Please complete the payment in the newly-opened page",
-	"000021": "Please don’t close this window before the payment done",
-	"000022": "Once the order is made, click the button below as per your need",
-	"000023": "Searching...",
-	"000024": "Sorry, we have not found your payment information!",
-	"000025": "Finished",
-	"000026": "Repay",
-	"000027": "Requery"
+	"000020": "新たに開いたページでお支払いを完了してください",
+    "000021": "お支払い完了前にこのウィンドウを閉じないでください",
+    "000022": "お支払い完了後、必要に応じて下のボタンをクリックしてください",
+    "000023": "検索中…",
+    "000024": "申し訳ございません。お支払い情報が見つかりませんでした。",
+    "000025": "お支払い完了です",
+    "000026": "再検索",
+    "000027": "再お支払い"
 }

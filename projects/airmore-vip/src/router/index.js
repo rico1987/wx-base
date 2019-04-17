@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from '@/views/Android.vue';
+import Home from '@/views/Ios.vue';
 
 Vue.use(Router);
 

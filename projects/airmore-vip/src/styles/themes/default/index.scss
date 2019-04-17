@@ -95,7 +95,7 @@
                 margin: .22rem 0 .2rem;
             }
             .p2{
-                font-size: .23rem;
+                font-size: .35rem;
                 color: #e6bb25;
                 margin: 0 0 .2rem;
                 span{
@@ -176,15 +176,17 @@
             font-size: .3rem;
             margin: 0;
             padding: .22rem 0 .20rem;
+            margin-bottom: .3rem;
         }
         >div{
             width: 30%;
             float: left;
             margin: 0 1.5%;
             padding-top: .8rem;
-            min-height: 100px;
+            min-height: 1.2rem;
             background-position: top center;
             background-repeat: no-repeat;
+            background-size: 30%;
             &.p1{
                 background-image: url('../../../icons/privilege/p1.png');
             }

@@ -15,13 +15,9 @@
                 </div>
                 <div class="mobile-home__account">
                     <p class="account-name" v-if="userInfo">{{ userInfo.nickname || userInfo.email || userInfo.telephone }}</p>
-                    <p class="account-name"></p>
                     <p class="device-info" v-if="model && !isVip">{{ model }}</p>
                     <p class="expire" v-if="isVip && !isLifeTime">{{$t('000014', {'0': expire_date})}}</p>
                     <p class="expire" v-if="isVip && isLifeTime">{{$t('000001')}}</p>
-                    <p class="account-name">272355332@qq.com</p>
-                    <p class="device-info">Iphone8</p>
-                    <!-- <p class="expire">2018-4-4</p> -->
                 </div>
                 <div class="clearfix"></div>
             </div>
@@ -341,11 +337,13 @@ export default {
             // 获取vip信息
             getVipInfo()
                 .then((res) => {
-                    if (res && res.data) {
+                    if (res && res.data && res.data.data) {
                         saveLog('获取vip信息成功');
                         saveLog(JSON.stringify(res.data));
-                        this.isVip = res.data.is_vip;
-                        this.expire_date = res.data.vip_expired_at;
+                        this.isVip = res.data.data.is_vip;
+                        let vip_expired_at = res.data.data.vip_expired_at;
+                        vip_expired_at = new Date(vip_expired_at * 1000).toLocaleDateString();
+                        this.expire_date = vip_expired_at;
                         if (this.isVip) {
                             this.showCheckBuy = false;
                             if (this.interval) {

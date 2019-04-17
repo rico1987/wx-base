@@ -37,6 +37,8 @@ Vue.use(VueI18n);
 
 let lang = getQueryValue('lang') || 'en';
 
+let apitoken = getQueryValue('apitoken');
+
 let backobj = getQueryValue('backobj');
 
 if (backobj) {
@@ -48,6 +50,10 @@ if (backobj) {
 }
 
 let saveData = getNativeData();
+
+if (apitoken) {
+    saveData['apitoken'] = apitoken;
+}
 
 if (backobj) {
     saveData['backobj'] = backobj;

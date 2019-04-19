@@ -49,20 +49,24 @@
             </div>
             <div class="mobile-home__privilege">
                 <h2>{{$t('000008')}}</h2>
-                <div class="p1">
-                    <p>{{$t('000009')}}</p>
+                <div>
+                    <div class="p1">
+                        <p>{{$t('000009')}}</p>
+                    </div>
+                    <div class="p2">
+                        <p>{{$t('000010')}}</p>
+                    </div>
+                    <div class="p3">
+                        <p>{{$t('000011')}}</p>
+                    </div>
                 </div>
-                <div class="p2">
-                    <p>{{$t('000010')}}</p>
-                </div>
-                <div class="p3">
-                    <p>{{$t('000011')}}</p>
-                </div>
-                <div class="p4">
-                    <p>{{$t('000012')}}</p>
-                </div>
-                <div class="p5">
-                    <p>{{$t('000013')}}</p>
+                <div>
+                     <div class="p4">
+                        <p>{{$t('000012')}}</p>
+                    </div>
+                    <div class="p5">
+                        <p>{{$t('000013')}}</p>
+                    </div>
                 </div>
             </div>
         </div>

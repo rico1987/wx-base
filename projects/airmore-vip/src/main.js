@@ -51,6 +51,8 @@ if (backobj) {
 
 let saveData = getNativeData();
 
+console.log(saveData);
+
 if (apitoken) {
     saveData['apitoken'] = apitoken;
 }

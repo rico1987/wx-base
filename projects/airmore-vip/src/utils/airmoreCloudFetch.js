@@ -11,10 +11,10 @@ const service = axios.create({
 service.interceptors.request.use((config) => {
     let saveData = getNativeData();
     let api_token = saveData['apitoken'];
+    console.log(saveData);
+
     if (api_token) {
-        if (api_token) {
-            config.headers['Authorization'] = `Bearer ${api_token}`;
-        }
+        config.headers['Authorization'] = `Bearer ${api_token}`;
     }
     return config;
 }, error => Promise.reject(error));

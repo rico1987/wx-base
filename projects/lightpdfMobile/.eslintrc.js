@@ -43,6 +43,7 @@ module.exports = {
     "dot-notation": 0,
     "eol-last": 2,
     "eqeqeq": [2, "allow-null"],
+    "import/no-extraneous-dependencies": 0,
     "for-direction": 2,
     "func-names": 0,
     "func-style": 0,

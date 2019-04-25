@@ -52,6 +52,7 @@ module.exports = {
     "guard-for-in": 0,
     "import/no-extraneous-dependencies": 0,
     "indent": [2, 4],
+    "import/no-extraneous-dependencies": 0,
     "key-spacing": [2, { "beforeColon": false, "afterColon": true }],
     "linebreak-style": 0,
     "lines-around-comment": 0,

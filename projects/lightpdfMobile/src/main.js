@@ -96,6 +96,14 @@ ls.set('ls-lang', lang);
     doc.addEventListener('DOMContentLoaded', recalc, false);
 })(document, window);
 
+var elements = [
+    'Hydrogen',
+    'Helium',
+    'Lithium',
+    'Beryllium', ];
+let cc = elements.map(element => element.length);
+console.log(cc);
+
 // 路由守护
 // router.beforeEach((to, from, next) => {
 //     if (Cookies.get('identity_token') && Cookies.get('api_token')) {

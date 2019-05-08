@@ -310,7 +310,7 @@ export default {
             if (!channel) {
                 channel = '';
             } else {
-                channel = `&${channel}`;
+                channel = `&SRC=${channel}`;
             }
             return channel;
         },

@@ -200,7 +200,7 @@ export default {
     },
     methods: {
         setTitleStr() {
-            this.convertkey;
+            // this.convertkey;
             let item;
             for (let i = 0; i < this.convertkey.length; i += 1) {
                 item = this.convertkey[i];

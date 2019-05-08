@@ -334,7 +334,7 @@ export default {
             if (!channel) {
                 channel = '';
             } else {
-                channel = `&${channel}`;
+                channel = `&SRC=${channel}`;
             }
             console.log(channel);
             this.openPayUrl(`${this.currentPlan.link}${channel}`);

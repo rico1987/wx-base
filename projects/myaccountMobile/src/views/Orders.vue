@@ -16,6 +16,7 @@
                 <div class="myaccount-orders__order-link">
                     <a :href="getBuyLink(order)" class="renew" target="_blank" v-if="order.expire_date !== 'lifetime'">{{ $t('001185') }}</a>
                     <a href="" v-if="isApp(order)">{{ $t('001791') }}</a>
+                    <span v-if="showInvoiceLink && order.invoice_apply === '0'" @click="gotoInvoice(order)">申请发票</span>
                 </div>
                 <div class="myaccount-orders__links">
                     <a :href="order.faq_url" target="_blank" class="faq">{{ $t('001186') }}</a>
@@ -33,9 +34,9 @@
 </template>
 
 <script>
-import Cookies from 'js-cookie';
 import MobileHeader from '@/components/MobileHeader.vue';
 import Icon from '@/components/Icon.vue';
+import Cookies from 'js-cookie';
 
 import { getOrders, } from '@/api/support';
 
@@ -52,6 +53,7 @@ export default {
             size: 10,
             loading: false,
             storeLink: null,
+            showInvoiceLink: false,
         };
     },
 
@@ -62,11 +64,21 @@ export default {
         } else {
             this.storeLink = 'https://www.apowersoft.com/store';
         }
+        this.showInvoiceLink = this.$i18n.locale === 'zh';
     },
 
     methods: {
 
         isApp() {
+        },
+
+        gotoInvoice(order) {
+            this.$router.push({
+                path: '/submit-invoice',
+                query: {
+                    orderId: order['id'],
+                },
+            });
         },
 
         getAccountOrders() {

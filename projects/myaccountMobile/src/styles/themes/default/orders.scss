@@ -67,6 +67,15 @@
                         color: #FF6666;
                     }
                 }
+                span{
+                    display: inline-block;
+                    padding: 9px 17px 8px 23px;
+                    font-size: 13px;
+                    border-radius: 4px;
+                    border: 1px solid #ddd;
+                    text-decoration: none;
+                    margin-left: 20px;
+                }
             }
             .myaccount-orders__links{
                 color: #333333;

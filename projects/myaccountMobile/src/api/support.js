@@ -38,3 +38,23 @@ export function submitTicket(postData) {
     return supportFetch.post('/account', qs.stringify(postData));
 }
 
+export function getInvoices(page, per_page, language) {
+    return supportFetch.post('/account', qs.stringify({
+        action: 'get-invoice-list',
+        language,
+        page,
+        per_page,
+    }));
+}
+
+export function getInvoiceInfo(order_id, language) {
+    return supportFetch.post('/account', qs.stringify({
+        action: 'get-invoice-info',
+        order_id,
+        language,
+    }));
+}
+
+export function submitInvoiceData(postData) {
+    return supportFetch.post('/account', qs.stringify(postData));
+}

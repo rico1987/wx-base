@@ -14,6 +14,8 @@ import WorkList from '@/views/WorkList.vue';
 import UnlimitedVip from '@/views/UnlimitedVip.vue';
 import SubmitTicket from '@/views/SubmitTicket.vue';
 import FindPassword from '@/views/FindPassword.vue';
+import Invoice from '@/views/Invoice.vue';
+import SubmitInvoice from '@/views/SubmitInvoice.vue';
 
 Vue.use(Router);
 
@@ -92,6 +94,16 @@ export default new Router({
             path: '/find-password',
             name: 'findPassword',
             component: FindPassword,
+        },
+        {
+            path: '/invoice',
+            name: 'invoice',
+            component: Invoice,
+        },
+        {
+            path: '/submit-invoice',
+            name: 'submitInvoice',
+            component: SubmitInvoice,
         },
     ],
 });

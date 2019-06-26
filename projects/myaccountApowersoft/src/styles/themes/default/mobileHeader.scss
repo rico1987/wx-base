@@ -1,0 +1,43 @@
+@import "../../mixins/bem.scss";
+@import "variables.scss";
+
+@include b(header) {
+    background: #f5f5f5;
+    display: flex;
+    justify-content: flex-start;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+    border-bottom: 1px solid #ddd;
+
+    @include e(left) {
+        flex: 0.1;
+        align-items: center;
+
+        @include when(default) {
+            display: flex;
+            justify-content: center;
+            background: url('../../../icons/topBlackArrow.svg') center no-repeat;
+        }
+    }
+
+    @include e(center) {
+        flex: 0.8;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        h1{
+            font-size: 17px;
+            font-weight: normal;
+            text-align: center;
+            color: #333333;
+            margin: 0;
+        }
+    }
+
+    @include e(right) {
+        flex: 0.1;
+    }
+}

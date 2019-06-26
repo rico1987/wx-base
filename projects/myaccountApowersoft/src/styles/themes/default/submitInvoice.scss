@@ -1,0 +1,65 @@
+.myaccount-submit-ticket{
+    font-size: 14px;
+    margin-top: 20px;
+    .container{
+        .invoice-info{
+            text-align: left;
+            padding-left: 20px;
+            >p{
+                span{
+                    display: inline-block;
+                    width: 30%;
+                    text-align: right;
+                }
+            }
+        }
+        .form-group{
+            padding:  10px;
+            margin: 25px 0 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+            .input-container{
+                display: flex;
+                justify-content: flex-start;
+             }   
+            label:first-child{
+                width: 40%;
+                text-align: right;
+                float: left;
+            }
+            label {
+                span.required{
+                    color: red;
+                }
+            }
+            .tip{
+                font-size: 12px;
+                text-align: left;
+                padding-left: 20px;
+            }
+            input[type=text]{
+                border: none;
+                outline: none;
+                border-bottom: 1px solid #ddd;
+            }
+            input:disabled{
+                background-color: white;
+            }
+            button, a {
+                height: 28px;
+                font-size: 13px;
+                line-height: 28px;
+                padding: 0 20px;
+                color: rgba(71,134,255,1);
+                border: 1px solid rgba(71,134,255,1);
+                background: white;
+                border-radius: 6px;
+                width: auto;
+                display: inline-block;
+                margin-bottom: 0;
+                outline: none;
+                text-decoration: none;
+            }
+        }
+    }
+}

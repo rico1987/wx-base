@@ -1,0 +1,19 @@
+// mixins
+@import "../../mixins/bem.scss";
+@import "../../mixins/clearfix.scss";
+@import "../../mixins/float.scss";
+@import "../../mixins/ellipsis.scss";
+
+//variables
+@import "variables.scss";
+
+//common
+@import "common.scss";
+
+// components
+@import "windowHeader.scss";
+@import "switcher.scss";
+
+
+// pages
+@import "qrCode.scss";

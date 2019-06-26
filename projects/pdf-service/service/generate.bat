@@ -1,1 +1,0 @@
-PDF2BinSrv.exe cpdfmanual.pdf dest

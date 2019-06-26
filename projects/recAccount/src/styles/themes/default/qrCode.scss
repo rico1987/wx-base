@@ -1,0 +1,9 @@
+@import "../../mixins/bem.scss";
+@import "variables.scss";
+
+@include b(qr-code) {
+
+    @include e(switcher){
+        margin-top: 31px;
+    }
+}

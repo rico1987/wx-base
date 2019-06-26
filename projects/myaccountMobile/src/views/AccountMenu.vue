@@ -56,7 +56,6 @@ export default {
         this.getUserInfo();
         this.getLincenseInfo();
         this.lang = this.$i18n.locale;
-        console.log(this.lang);
     },
     methods: {
         getUserInfo() {

@@ -8,7 +8,8 @@
             <div class="app-name" ref="txtEl">{{appName}} {{version}}</div>
             <div class="app-verson" ref="versionEl" ></div>
             <div class="app-update" v-if="isAuto" ref="updateEl" @click="goCheckUpdate">{{updateStr}}</div>
-            <div class="app-copyright" ref="copyrightEl" >{{cpRight}}</div>
+            <div class="app-copyright" ref="copyrightEl" v-html="cpRight">
+            </div>
         </div>
     </div>
 </template>
@@ -53,6 +54,9 @@ export default {
             }
             if (info['version']) {
                 this.version = info['version'];
+            }
+            if (info['appChannel'] === 'huawei') {
+                this.cpRight = 'Copyright © 2019 深圳市网旭科技有限公司 版权所有<br>客服联系方式：0755-36552267（9:00-22:00）';
             }
         },
         goCheckUpdate() {

@@ -1,0 +1,37 @@
+@import "../../mixins/bem.scss";
+@import "variables.scss";
+
+@include b(third-party-login) {
+    width: 100%;
+
+    @include e(container) {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 60%;
+        margin: 0 20%;
+    }
+
+    $logins:
+		('google'  ),
+		('facebook'),
+		('twitter' ),
+		('weixin'  ),
+		('qq'      ),
+		('weibo'   ),
+        ('dingtalk');
+    
+    @each $login in $logins{
+        @include e($login) {
+            width: 40px;
+            height: 40px;
+            background: url('../../../icons/logins/#{$login}.svg') center no-repeat;
+            background-size: contain;
+            cursor: pointer;
+            &:hover{
+                background: url('../../../icons/logins/#{$login}-hover.svg') center no-repeat;
+                background-size: contain;
+            }
+        }
+    }
+}

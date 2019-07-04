@@ -1,0 +1,127 @@
+.myaccount-orders{
+    .myaccount-orders__order-list{
+        .myaccount-orders__order{
+            font-size: 13px;
+            padding-bottom: 18px;
+            >p{
+                padding: 0 16px;
+            }
+            .myaccount-orders__order-number{
+                margin: 0;
+                text-align: left;
+                height: 55px;
+                background-color: #f5f5f5;
+                border-top: 1px solid #ddd;
+                position: relative;
+                span{
+                    position: absolute;
+                    bottom: 8px;
+                }
+            }
+            .myaccount-orders__order-time{
+                text-align: left;
+            }
+            .myaccount-orders__order-icon{
+                width: 80px;
+                height: 80px;
+            }
+            .myaccount-orders__order-edition{
+                font-size: 15px;
+                text-align: left;
+                color: #333333;
+                margin: 28px 0 16px;
+                padding: 0 31px;
+            }
+            .myaccount-orders__order-activation-code{
+                font-size: 13px;
+                margin: 0 0 16px;
+                color: #666666;
+                text-align: left;
+                padding: 0 31px;
+                span{
+                    color: #333333;
+                }
+            }
+            .myaccount-orders__order-expire{
+                font-size: 13px;
+                margin: 0 0 16px;
+                color: #666666;
+                text-align: left;
+                padding: 0 31px;
+                span{
+                    color: #333333;
+                }
+            }
+            .myaccount-orders__order-link{
+                display: flex;
+                justify-items: flex-start;
+                padding: 0 31px;
+                a{
+                    display: inline-block;
+                    padding: 9px 17px 8px 23px;
+                    font-size: 13px;
+                    border-radius: 4px;
+                    border: 1px solid #FF6666;
+                    text-decoration: none;
+                    &.renew{
+                        color: #FF6666;
+                    }
+                }
+                span{
+                    display: inline-block;
+                    padding: 9px 17px 8px 23px;
+                    font-size: 13px;
+                    border-radius: 4px;
+                    border: 1px solid #ddd;
+                    text-decoration: none;
+                    margin-left: 20px;
+                }
+            }
+            .myaccount-orders__links{
+                color: #333333;
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+                padding: 0 31px;
+                margin-top: 20px;
+                >a{
+                    display: inline-block;
+                    height: 20px;;
+                    text-decoration: none;
+                    color: #333333;
+                }
+                .faq{
+                    padding-left: 25px;
+                    margin-left: 32px;
+                    background: url('../../../icons/faq.svg') left center no-repeat;
+                    &:hover{
+                        color: #478afb;
+                        background-image: url('../../../icons/faq-hover.svg');
+                    }
+                }
+                .forum{
+                    padding-left: 25px;
+                    margin-left: 32px;
+                    background: url('../../../icons/forum.svg') left center no-repeat;
+                    &:hover{
+                        color: #478afb;
+                        background-image: url('../../../icons/forum-hover.svg');
+                    }
+                }
+            }
+        }
+    }
+    .myaccount-orders__no-data{
+        margin-top: 64px;
+        padding-top: 116px;
+        background: url(../../../icons/no-order.svg) top center no-repeat;
+        p{
+            font-size: 15px;
+            color: #666666;
+            a{
+                color: #4786FF;
+                text-decoration: none;
+            }
+        }
+    }
+}

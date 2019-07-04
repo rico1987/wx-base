@@ -19,6 +19,9 @@
                 <li class="mobile-list-items__item item-2" @click="goto('orders')">{{ $t("001264") }}
                     <span></span>
                 </li>
+                <li class="mobile-list-items__item item-3" @click="goto('invoice')" v-if="lang === 'zh'">我的发票
+                    <span></span>
+                </li>
                 <li class="mobile-list-items__item item-3" @click="goto('work-list')">{{ $t("001265") }}
                     <span></span>
                 </li>
@@ -45,12 +48,14 @@ export default {
             userInfo: null,
             licenseInfo: null,
             isVip: false,
+            lang: null,
         };
     },
 
     created: function() {
         this.getUserInfo();
         this.getLincenseInfo();
+        this.lang = this.$i18n.locale;
     },
     methods: {
         getUserInfo() {

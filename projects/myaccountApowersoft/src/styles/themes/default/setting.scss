@@ -1,0 +1,42 @@
+.myaccount-setting{
+    .container{
+        .row{
+            border-bottom: 1px solid #ddd;
+            .left{
+                font-size: 15px;
+                color: #333333;
+                display: flex;
+                align-items: center;
+                &.email{
+                    padding-left: 30px;
+                    background: url('../../../icons/email.svg') left center no-repeat;
+                }
+                &.telephone{
+                    padding-left: 30px;
+                    background: url('../../../icons/phone.svg') left center no-repeat;
+                }
+            }
+            .right{
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                span{
+                    padding: 7px 20px;
+                    color: white;
+                    background: #4786FF;
+                    border-radius: 6px;
+                    cursor: pointer;
+                    min-width: 83px;
+                }
+                .outline{
+                    color: #4786FF;
+                    background: white;
+                    border: 1px solid #4786FF;
+                }
+            }
+        }
+        .btn{
+            margin-top: 32px;
+        }
+    }
+}

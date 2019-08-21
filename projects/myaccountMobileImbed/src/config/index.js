@@ -4,5 +4,6 @@ export default {
     fileApiBaseUrl: 'https://file.aoscdn.com/api',
     storageApiBaseUrl: 'https://storage.aoscdn.com/api',
     cloudApiBaseUrl: 'https://airmorecloudapi.aoscdn.com/api',
+    lightmvApiBaseUrl: 'https://api.lightmv.com/api',
     timeout: 5000,
 };

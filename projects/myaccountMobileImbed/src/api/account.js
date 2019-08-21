@@ -5,7 +5,7 @@ import cloudFetch from '../utils/cloudFetch';
 import * as is from '../../../../lib/utils/is';
 import { objToQuery, } from '../../../../lib/utils';
 
-const REGISTERAPP = 'iOS Airmore';
+const REGISTERAPP = 'iOS Lightmv';
 
 export function login(account, password, language) {
     const data = {

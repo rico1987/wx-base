@@ -1,19 +1,31 @@
 .myaccount-account-menu{
+    background: url('../../../assets/images/lightmvPersonBg.png') top center no-repeat;
+    background-size: contain;
     .header{
-        background: url('../../../assets/images/personBg.png') top center no-repeat;
+        
         height: 232px;
         background-size: cover;
         background-position: 0 -26px;
         padding-top: 32px;
+        position: relative;
+        .back{
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background: url('../../../icons/left-arrow.png') left center no-repeat;
+            top: 18px;
+            left: 15px;
+            background-size: contain;
+        }
         .avatar-container{
-            width: 64px;
-            height: 64px;
+            width: 100px;
+            height: 100px;
             position: relative;
             margin: 0 auto;
             img{
-                width: 64px;
-                height: 64px;
-                border-radius: 32px;
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
                 border: 3px solid rgba(255, 255, 255, 0.5);
             }
             .default-avatar{
@@ -37,6 +49,19 @@
         .nickname{
             color: white;
             font-size: 17px;
+            color: #333333;
+        }
+        .vip{
+            color: #6B5600;
+            font-size: 14px;
+            line-height:20px;
+            display: flex;
+            justify-content:center;
+            span{
+                padding-left: 27px;
+                background: url('../../../assets/lightmv-icons/vipIcon.png') left center no-repeat;
+                background-size: contain;
+            }
         }
         .privileges{
             color: #F0C267;
@@ -62,19 +87,22 @@
                 background: url('../../../icons/listGrayArrow.svg') center no-repeat;
             }
             &.item-1{
-                background: url('../../../icons/person.svg') 21px center no-repeat;
+                background: url('../../../assets/lightmv-icons/userInfo.png') 18px center no-repeat;
             }
             &.item-2{
-                background: url('../../../icons/order.svg') 21px center no-repeat;
+                background: url('../../../assets/lightmv-icons/userCart.png') 18px center no-repeat;
             }
             &.item-3{
-                background: url('../../../icons/workList.svg') 21px center no-repeat;
+                background: url('../../../assets/lightmv-icons/myOrder.png') 18px center no-repeat;
             }
             &.item-4{
-                background: url('../../../icons/password.svg') 21px center no-repeat;
+                background: url('../../../assets/lightmv-icons/changeCode.png') 18px center no-repeat;
             }
             &.item-5{
-                background: url('../../../icons/setting.svg') 21px center no-repeat;
+                background: url('../../../assets/lightmv-icons/userInfo.png') 18px center no-repeat;
+            }
+            &.item-6{
+                background: url('../../../assets/lightmv-icons/accountDetails.png') 18px center no-repeat;
             }
         }
     }

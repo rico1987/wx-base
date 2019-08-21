@@ -347,5 +347,15 @@
 	"001850": "You can access files on your phone after you connect it to PC successfully.",
 	"001851": "Please input your account and password",
 	"001852": "Incorrect account or password",
-	"001853": "The email address/phone number doesn't have an associated user account. You can Register Now"
+	"001853": "The email address/phone number doesn't have an associated user account. You can Register Now",
+	"001854": "Account detail",
+	"001855": "Recharge record",
+	"001856": "Consumption record",
+	"001857": "Purchase {count} Lollies",
+	"001858": "Purchase {count} time(s) for production priority",
+	"001859": "Purchase {count} video(s) to archive",
+	"001860": "Purchase {count} simultaneous production tasks",
+	"001861": "Vip Account",
+	"001862": "Download Video",
+	"001863": "Lollies"
 }

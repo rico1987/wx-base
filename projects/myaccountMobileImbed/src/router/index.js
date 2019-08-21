@@ -15,6 +15,7 @@ import UnlimitedVip from '@/views/UnlimitedVip.vue';
 import SubmitTicket from '@/views/SubmitTicket.vue';
 import FindPassword from '@/views/FindPassword.vue';
 import InvitationCode from '@/views/InvitationCode.vue';
+import ConsumptionList from '@/views/ConsumptionList.vue';
 
 Vue.use(Router);
 
@@ -98,6 +99,11 @@ export default new Router({
             path: '/invitation-code',
             name: 'invitationCode',
             component: InvitationCode,
+        },
+        {
+            path: '/consumption-list',
+            name: 'consumptionList',
+            component: ConsumptionList,
         },
     ],
 });

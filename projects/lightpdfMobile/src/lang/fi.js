@@ -2,7 +2,7 @@ const aLang = {
     '000821': 'Valitse tiedosto',
     '000822': 'Aloita alusta',
     '000823': 'Lähetä',
-    '000824': 'Kokeile työpöytäversiota',
+    '000824': 'Lataa sovellus',
     '000825': 'Lataa tiedosto',
     '000826': 'Pudota PDF-tiedosto tähän',
     '000828': 'Virheellinen tiedostopääte.',
@@ -298,7 +298,7 @@ const aLang = {
     '001662': 'Ilmainen jäsenyys',
     '001663': 'Liity VIP-jäseneksi',
     '001664': 'Aloita',
-    '001665': 'Tiedostoa ei ole lisätty, sillä se ylittää tiedoston suurimman sallitun koon 10M. Jos haluat käsitellä yli 10M kokoista tiedostoa, voit liittyä LightPDF VIP-jäseneksi nauttiaksesi palvelusta rajoituksitta',
+    '001665': 'Tiedostoa ei ole lisätty, sillä se ylittää tiedoston suurimman sallitun koon 5M. Jos haluat käsitellä yli 5M kokoista tiedostoa, voit liittyä LightPDF VIP-jäseneksi nauttiaksesi palvelusta rajoituksitta',
     '001666': 'Ylitä sallittu tiedostokoko',
     '001667': 'Kuukausi',
     '001668': 'Neljännesvuosi',
@@ -412,6 +412,8 @@ const aLang = {
     '002163': 'Valitse kaikki',
     '002164': 'Verkon tiedostot',
     '002165': 'Paikalliset tiedostot',
+    '002166': 'Virheellinen tiedostotyyppi',
     '002167': 'Jaa',
+    '002168': 'Palauta ostokset',
 };
 export default aLang;

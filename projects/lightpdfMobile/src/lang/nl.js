@@ -2,7 +2,7 @@ const aLang = {
     '000821': 'Bestand Kiezen',
     '000822': 'Start Opnieuw',
     '000823': 'Inzenden',
-    '000824': 'Bureaublad Proberen',
+    '000824': 'Download App',
     '000825': 'Download het bestand',
     '000826': 'Plaats PDF hier',
     '000828': 'Ongeldige bestandsextensie.',
@@ -298,7 +298,7 @@ const aLang = {
     '001662': 'Gratis Lidmaatschap',
     '001663': 'Word VIP Lid',
     '001664': 'Start',
-    '001665': 'Het bestand werd niet toegevoegd, omdat het de maximale bestandsgrootte van 10M overschrijdt. Als je het bestand groter dan 10M wilt beheren, kan je toetreden tot LightPDF VIP voor onbeperkte service',
+    '001665': 'Het bestand werd niet toegevoegd, omdat het de maximale bestandsgrootte van 5M overschrijdt. Als je het bestand groter dan 5M wilt beheren, kan je toetreden tot LightPDF VIP voor onbeperkte service',
     '001666': 'Overschrijdt de Maximale Bestandsgrootte',
     '001667': 'Maand',
     '001668': 'Kwartaal',
@@ -412,6 +412,8 @@ const aLang = {
     '002163': 'Selecteer alle',
     '002164': 'Netwerkbestanden',
     '002165': 'Lokale bestanden',
+    '002166': 'Ongeldig bestandstype',
     '002167': 'Delen',
+    '002168': 'Herstel Aankopen',
 };
 export default aLang;

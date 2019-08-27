@@ -299,7 +299,7 @@ const aLang = {
     '001662': 'Associação Grátis',
     '001663': 'Junte-se à associação VIP',
     '001664': 'Iniciar',
-    '001665': 'O arquivo não foi adicionado, pois excede o tamanho máximo de arquivo de 10M. Se você deseja gerenciar o arquivo de mais de 10M, você pode participar da associação VIP do LightPDF para um serviço ilimitado.',
+    '001665': 'O arquivo não foi adicionado, pois excede o tamanho máximo de arquivo de 5M. Se você deseja gerenciar o arquivo de mais de 5M, você pode participar da associação VIP do LightPDF para um serviço ilimitado.',
     '001666': 'Exceder o tamanho máximo do arquivo',
     '001667': 'Mês',
     '001668': 'Trimestre',

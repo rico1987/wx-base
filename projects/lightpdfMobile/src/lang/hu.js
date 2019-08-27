@@ -2,7 +2,7 @@ const aLang = {
     '000821': 'Fájl választása',
     '000822': 'Újrakezdés',
     '000823': 'Küldés',
-    '000824': 'Asztali változat',
+    '000824': 'App Letöltése',
     '000825': 'Fájl letöltése',
     '000826': 'Húzza ide a PDF-fájlt',
     '000828': 'A fájl kiterjesztése érvénytelen.',
@@ -298,7 +298,7 @@ const aLang = {
     '001662': 'Ingyenes tagság',
     '001663': 'Legyen VIP tag!',
     '001664': 'Kezdés',
-    '001665': 'A fájl nem került hozzáadásra, mert meghaladja a 10MB maximális fájlméretet. Ha 10MB-nál nagyobb fájllal szeretne dolgozni, legyen a LightPDF VIP tagja és élvezze korlátozásoktól mentesen a szolgáltatást!',
+    '001665': 'A fájl nem került hozzáadásra, mert meghaladja a 5MB maximális fájlméretet. Ha 5MB-nál nagyobb fájllal szeretne dolgozni, legyen a LightPDF VIP tagja és élvezze korlátozásoktól mentesen a szolgáltatást!',
     '001666': 'Lépje túl a maximális fájlméretet!',
     '001667': 'Havi',
     '001668': 'Negyedéves',
@@ -412,6 +412,8 @@ const aLang = {
     '002163': 'Összes kijelölése',
     '002164': 'Hálózati fájlok',
     '002165': 'Helyi fájlok',
+    '002166': 'Hibás fájltípus',
     '002167': 'Megosztás',
+    '002168': 'Vásárlások Visszaállítása',
 };
 export default aLang;

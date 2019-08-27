@@ -2,7 +2,7 @@ const aLang = {
     '000821': 'Wybierz plik',
     '000822': 'Zacznij od nowa',
     '000823': 'Wyślij',
-    '000824': 'Wypróbuj wersję desktop',
+    '000824': 'Pobierz aplikację',
     '000825': 'Pobierz plik',
     '000826': 'Przeciągnij plik PDF tutaj',
     '000828': 'Nieprawidłowe rozszerzenie pliku.',
@@ -298,7 +298,7 @@ const aLang = {
     '001662': 'Bezpłatne członkostwo',
     '001663': 'Dołącz do klubu VIP',
     '001664': 'Rozpocznij',
-    '001665': 'Plik nie został dodany, ponieważ przekracza maksymalny rozmiar pliku 10MB. Zostań członkiem LightPDF VIP, aby móc korzystać z nieograniczonej liczby usług',
+    '001665': 'Plik nie został dodany, ponieważ przekracza maksymalny rozmiar pliku 5MB. Zostań członkiem LightPDF VIP, aby móc korzystać z nieograniczonej liczby usług',
     '001666': 'Przekroczono maksymalny rozmiar pliku',
     '001667': 'Miesiąc',
     '001668': 'Kwartał',
@@ -412,6 +412,8 @@ const aLang = {
     '002163': 'Zaznacz wszystko',
     '002164': 'Pliki sieciowe',
     '002165': 'Pliki lokalne',
+    '002166': 'Nieprawidłowy typ pliku',
     '002167': 'Udostępnij',
+    '002168': 'Odnów zakup',
 };
 export default aLang;

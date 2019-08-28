@@ -74,7 +74,9 @@ export default {
                 .then((res) => {
                     if (res.data.status === 1) {
                         this.orders = res.data.data.orders;
-                        this.setDefaultProductIcon();
+                        if (this.orders && this.orders.length > 0) {
+                            this.setDefaultProductIcon();
+                        }
                     } else {
                         this.$toast.show({
                             text: this.$t('001793'),

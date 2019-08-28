@@ -1,0 +1,195 @@
+@import "../../mixins/bem.scss";
+@import "variables.scss";
+
+@include b(input) {
+    width: 100%;
+    position: relative;
+    padding-bottom: 25px;
+
+    @include e(label) {
+
+    }
+
+    @include e(cell) {
+        width: auto;
+        height: 100%;
+        position: relative;
+    }
+
+    @include e(input) {
+        width: 100%;
+        height: 100%;
+        border: none;
+        outline: none;
+        font-size: 14px;
+        border-bottom: 1px solid #E5E5E5;
+        padding: 0;
+        -webkit-appearance: none;
+        -webkit-tap-highlight-color: rgba(0,0,0,0);
+        caret-color: $primary;
+        &::-webkit-input-placeholder {
+            color: #CCCCCC;
+            font-size: 14px;
+            position: relative;
+            top: 0px;
+        }
+        &:-moz-placeholder {
+            color: #CCCCCC;
+            font-size: 14px;
+            position: relative;
+            top: 0px;
+        }
+        &::-moz-placeholder {
+            color: #CCCCCC;
+            font-size: 14px;
+            position: relative;
+            top: 0px;
+        }
+        &:disabled{
+            background: white;
+        }
+
+        @include when(tel) {
+            padding-left: 10px;
+        }
+    }
+
+    @include e(tel-input-wrapper) {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    @include e(input) {
+        flex: 0.5;
+    }
+
+    @include e(tel-area-code-selector) {
+        flex: 0.5;
+        font-size: 14px;
+        border: none;
+        border-bottom: 1px solid #E5E5E5;
+        height: 100%;
+        align-items: center;
+        display: flex;
+        position: relative;
+        background: url('../../../icons/chevron-down.svg') right center no-repeat;
+        select{
+            border: none;
+            outline: none;
+            background-color: white;
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    @include e(selected-area-code) {
+
+    }
+
+    @include e(area-code-list) {
+        position: absolute;
+        background-color: white;
+        width: 150px;
+        border: 1px solid #eee;
+        z-index: 9999;
+        top: 42px;
+        left: 0;
+        box-shadow: 0 0 5px #ccc;
+        border-radius: 2px;
+    }
+
+    @include e(area-code-search) {
+        width: 100%;
+        padding: 5px;
+        box-sizing: border-box;
+        position: relative;
+        color: #999;
+        input{
+            border: 1px solid #ddd;
+            border-radius: 2px;
+            font-size: 14px;
+            width: 100%;
+        }
+    }
+
+    @include e(area-code-search-icon) {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        font-size: 14px;
+        margin-top: -7px;
+        right: 5px;
+    }
+
+    @include e(area-code-list-items) {
+        max-height: 300px;
+        overflow: auto;
+        list-style: none;
+        padding-left: 0;
+        margin: 5px 0;
+        li{
+            font-size: 12px;
+            margin: 0;
+            line-height: 16px;
+            color: #aaa;
+            text-align: left;
+            padding-left: 15px;
+            padding: 5px 10px;
+            &.active{
+                color: $primary;
+                background: rgba(71,138,251,.1);
+            }
+        }
+    }
+
+
+    @include e(right) {
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    @include e(clear) {
+        position: relative;
+        top: -12.5px;
+        width: 14px;
+        height: 14px;
+        background: url(../../../icons/clear.svg) center no-repeat;
+        cursor: pointer;
+    }
+
+    @include e(password-switch) {
+        position: relative;
+        top: -12.5px;
+        width: 18px;
+        height: 18px;
+        background: url(../../../icons/password-hide.svg) center no-repeat;
+        cursor: pointer;
+        @include when(show) {
+            background: url(../../../icons/password-show.svg) center no-repeat;
+        }
+    }
+
+    @include e(error) {
+        position: absolute;
+        left: 0;
+        bottom: -16px;
+        color: #f85656;
+        font-size: 12px;
+        line-height: 16px
+    }
+
+    @include e(right-content){
+        display: flex;
+        align-items: center;
+        position: relative;
+        top: -12.5px;
+        color: #CCCCCC;
+    }
+}

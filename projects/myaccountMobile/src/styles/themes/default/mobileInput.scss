@@ -156,9 +156,10 @@
     @include e(clear) {
         position: relative;
         top: -12.5px;
-        width: 14px;
-        height: 14px;
+        width: 24px;
+        height: 24px;
         background: url(../../../icons/clear.svg) center no-repeat;
+        background-size: contain;
         cursor: pointer;
     }
 

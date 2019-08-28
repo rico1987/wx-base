@@ -1,0 +1,33 @@
+@import "../../mixins/bem.scss";
+@import "variables.scss";
+
+@include b(switch) {
+    height: 20px;
+    width: 50px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @include e(slider) {
+        background-color: $primary;
+        width: 45px;
+        height: 16px;
+        border-radius: 8px;
+    }
+    @include e(ball) {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        border-radius: 10px;
+        border: 1px solid $primary;
+        background-color: white;
+        transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+        cursor: pointer;
+        right: 0;
+
+        @include when(on) {
+            left: 0;
+        }
+    }
+}

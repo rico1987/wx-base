@@ -40,11 +40,19 @@ Vue.use(ToastPlugin, { position: 'center', });
 Vue.config.productionTip = false;
 Vue.use(VueI18n);
 
-let lang = getQueryValue('lang') || 'en';
+let lang = getQueryValue('lang') || 'zh';
 let code = getQueryValue('code');
 let state = getQueryValue('state');
 let identity_token = getQueryValue('identity_token');
 let weixinAutoLogin = getQueryValue('weixin_auto_login');
+
+Vue.prototype.isLightmv = window.location.hostname.includes('localhost');
+
+console.log(Vue.prototype.isLightmv);
+
+if (Vue.prototype.isLightmv) {
+    document.body.classList = 'is-lightmv';
+}
 
 if (weixinAutoLogin && isMicroMessenger) {
     if (!code || !state) {

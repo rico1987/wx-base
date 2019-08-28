@@ -4,7 +4,6 @@
             <div class="avatar-container">
                 <img v-if="userInfo && userInfo.avatar" :src="userInfo.avatar" />
                 <div v-if="!userInfo || !userInfo.avatar" class="default-avatar"></div>
-                <div class="crown" v-if="isVip"></div>
             </div>
             <p class="nickname">{{userInfo && userInfo.nickname}}</p>
             <p v-if="!isVip" class="vip"><span>{{ $t("001861") }}</span></p>
@@ -16,9 +15,6 @@
                     <span></span>
                 </li>
                 <li class="mobile-list-items__item item-2" @click="goto('orders')">{{ $t("001264") }}
-                    <span></span>
-                </li>
-                 <li class="mobile-list-items__item item-6" @click="goto('consumption-list')">{{ $t("001854") }}
                     <span></span>
                 </li>
                 <li class="mobile-list-items__item item-3" @click="goto('work-list')">{{ $t("001265") }}
@@ -36,9 +32,8 @@
 </template>
 
 <script>
-import { getNativeData, saveNativeData, backToNative, } from '@lib/utils/embedded';
+import { getNativeData, backToNative, } from '@lib/utils/embedded';
 import MobileHeader from '@/components/MobileHeader.vue';
-import { login, } from '@/api/lightmv';
 
 export default {
     name: 'accountMenu',
@@ -56,26 +51,8 @@ export default {
     created: function() {
         this.getUserInfo();
         this.getLincenseInfo();
-        this.lightmvAutoLogin();
     },
     methods: {
-        lightmvAutoLogin() {
-            const saveData = getNativeData();
-            const lightmvApiToken = saveData['lightmv_api_token'];
-            if (!lightmvApiToken) {
-                const identity_token = saveData['identity_token'];
-                login(identity_token)
-                    .then((res) => {
-                        if (res.data.status === '1') {
-                            const lightmvUserInfo = res.data.data.user;
-                            saveData['lightmv_api_token'] = lightmvUserInfo['api_token'];
-                            saveNativeData(saveData);
-                            this.isVip = lightmvUserInfo['is_vip'];
-                        }
-                    });
-            }
-        },
-
         back() {
             backToNative();
         },
@@ -98,10 +75,6 @@ export default {
                 this.isVip = this.licenseInfo.is_activated === '1';
             } catch (error) {
             }
-        },
-
-        getLightmvVipInfo() {
-
         },
     },
 };

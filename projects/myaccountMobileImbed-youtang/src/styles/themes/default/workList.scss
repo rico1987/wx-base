@@ -1,0 +1,76 @@
+.myaccount-worklist{
+    .myaccount-worklist__header{
+        height: 55px;
+        background-color: #f5f5f5;
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        padding: 8px 16px;
+        .switch{
+            line-height: 20px;
+            font-size: 13px;
+            color: #666;
+            padding-right: 15px;
+            background: url(../../../icons/chevron-down.svg) right center no-repeat;
+            cursor: pointer;
+            position: relative;
+            ul.filter{
+                position: absolute;
+                list-style: none;
+                background: white;
+                border-radius: 5px;
+                box-shadow: 0 0 30px rgba(0,0,0,.35);
+                padding: 5px 15px;
+                width: 120px;
+                text-align: left;
+                li{
+                    line-height: 30px;
+                }
+            }
+        }
+        .submit{
+            line-height: 20px;
+            font-size: 13px;
+            color: $primary;
+            padding-left: 20px;
+            background: url(../../../icons/submit-ticket.svg) left center no-repeat;
+            cursor: pointer;
+        }
+    }
+    .myacccount-work-list__worklist-list{
+        .myaccount-work-list__worklist{
+            padding: 18px 19px 0 18px;;
+            table{
+                width: 100%;
+                border-bottom: 1px solid #ddd;
+                padding-bottom: 32px;
+                tr{
+                    display: flex;
+                    justify-content: flex-start;
+                    td{
+                        line-height: 30px;
+                        font-size: 15px;
+                        color: #333;
+                        text-align: left;
+                        flex: 0.7;
+                        &.header{
+                            flex: 0.3;
+                            font-size: 13px;
+                            color: #666;
+                            text-align: right;
+                            padding-right: 10px;
+                        }
+                        &.replied{
+                            color: #65BB47;
+                        }
+                    }
+                }
+            }
+            &:last-child{
+                table{
+                    border-bottom: none;
+                }
+            }
+        }
+    }
+}

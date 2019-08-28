@@ -12,7 +12,7 @@
     cursor: pointer;
     &.btn-primary{
         color: white;
-        background-image: linear-gradient(to right,#4889ff,#ff9ad1);;
+        background-color: $primary;
     }
     &.btn-white{
         color: $primary;

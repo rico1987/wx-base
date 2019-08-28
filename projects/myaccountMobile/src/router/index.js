@@ -16,6 +16,8 @@ import SubmitTicket from '@/views/SubmitTicket.vue';
 import FindPassword from '@/views/FindPassword.vue';
 import Invoice from '@/views/Invoice.vue';
 import SubmitInvoice from '@/views/SubmitInvoice.vue';
+import ConsumptionList from '@/views/ConsumptionList.vue';
+import BuyToken from '@/views/BuyToken.vue';
 
 Vue.use(Router);
 
@@ -104,6 +106,16 @@ export default new Router({
             path: '/submit-invoice',
             name: 'submitInvoice',
             component: SubmitInvoice,
+        },
+        {
+            path: '/consumption-list',
+            name: 'consumptionList',
+            component: ConsumptionList,
+        },
+        {
+            path: '/buy-token',
+            name: 'buyToken',
+            component: BuyToken,
         },
     ],
 });

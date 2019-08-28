@@ -1,0 +1,68 @@
+@import "../../mixins/bem.scss";
+@import "variables.scss";
+
+@include b(header) {
+    background: white;
+    color: #222;
+    display: flex;
+    justify-content: flex-start;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+    padding-top: 0;
+    border-bottom: 2px solid #EEEEEE;
+    // iphone x,xs
+    @media only screen 
+    and (device-width: 375px) 
+    and (device-height: 812px) and
+    (-webkit-device-pixel-ratio: 3) {
+        padding-top: 30px;
+    }
+    // iphone xr
+    @media only screen
+    and (device-width : 414px)
+    and (device-height : 896px)
+    and (-webkit-device-pixel-ratio : 2) {
+        padding-top: 30px;
+    }
+
+    // iphone xs max
+    @media only screen
+    and (device-width : 414px)
+    and (device-height : 896px)
+    and (-webkit-device-pixel-ratio : 3) {
+        padding-top: 30px;
+    }
+
+    @include e(left) {
+        flex: 0.1;
+        align-items: center;
+
+        @include when(default) {
+            display: flex;
+            justify-content: center;
+            background: url('../../../icons/left-arrow.png') center no-repeat;
+            background-size: 11px 16px;
+        }
+    }
+
+    @include e(center) {
+        flex: 0.8;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        h1{
+            font-size: 17px;
+            font-weight: normal;
+            text-align: center;
+            color: #222222;
+            margin: 0;
+        }
+    }
+
+    @include e(right) {
+        flex: 0.1;
+    }
+}

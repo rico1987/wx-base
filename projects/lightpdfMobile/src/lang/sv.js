@@ -2,7 +2,7 @@ const aLang = {
     '000821': 'Välj fil',
     '000822': 'Börja om',
     '000823': 'Skicka in',
-    '000824': 'Försök på dator',
+    '000824': 'Ladda Ned App',
     '000825': 'Ladda ner filen',
     '000826': 'Släpp PDF här',
     '000828': 'Ogiltig fil.',
@@ -298,7 +298,7 @@ const aLang = {
     '001662': 'Gratis Medlemskap',
     '001663': 'Gå med VIP Medlemskap',
     '001664': 'Start',
-    '001665': 'Filen har inte lagts till eftersom den överstiger den maximala filstorleken på 10M. Om du vill hantera filen över 10M kan du gå med i LightPDF VIP medlemskapet för obegränsad tjänst',
+    '001665': 'Filen har inte lagts till eftersom den överstiger den maximala filstorleken på 5M. Om du vill hantera filen över 5M kan du gå med i LightPDF VIP medlemskapet för obegränsad tjänst',
     '001666': 'Gå över den Maximala Filstorleken',
     '001667': 'Månad',
     '001668': 'Kvartal',
@@ -412,6 +412,8 @@ const aLang = {
     '002163': 'Valj alla',
     '002164': 'Natverksfiler',
     '002165': 'Lokala filer',
+    '002166': 'Ogiltig filtyp',
     '002167': 'Dela',
+    '002168': 'Återställ Köp',
 };
 export default aLang;

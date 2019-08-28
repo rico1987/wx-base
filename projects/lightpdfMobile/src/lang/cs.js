@@ -2,7 +2,7 @@ const aLang = {
     '000821': 'Vybrat Soubor',
     '000822': 'Začněte znovu',
     '000823': 'Odeslat',
-    '000824': 'Vyzkoušejte desktopovou verzi',
+    '000824': 'Stáhnout aplikaci',
     '000825': 'Stáhnout soubor',
     '000826': 'Pustit PDF zde',
     '000828': 'Neplatná přípona souboru.',
@@ -298,7 +298,7 @@ const aLang = {
     '001662': 'Bezplatné členství',
     '001663': 'Připojte se k VIP členství',
     '001664': 'Začít',
-    '001665': 'Soubor nebyl přidán, protože překračuje maximální velikost souboru 10M. Chcete-li spravovat soubor přes 10M, můžete se připojit k členství LightPDF VIP pro neomezenou službu',
+    '001665': 'Soubor nebyl přidán, protože překračuje maximální velikost souboru 5M. Chcete-li spravovat soubor přes 5M, můžete se připojit k členství LightPDF VIP pro neomezenou službu',
     '001666': 'Překročen maximální počet souborů',
     '001667': 'Měsíc',
     '001668': 'Čtvrtletí',
@@ -412,6 +412,8 @@ const aLang = {
     '002163': 'Vybrat vše',
     '002164': 'Síťové soubory',
     '002165': 'Místní soubory',
+    '002166': 'Neplatný typ souboru',
     '002167': 'Sdílet',
+    '002168': 'Obnovit nákupy',
 };
 export default aLang;

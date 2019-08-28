@@ -2,7 +2,7 @@ const aLang = {
     '000821': 'Dosya Seçin',
     '000822': 'Start Over',
     '000823': 'Gönder',
-    '000824': 'Masaüstü Sürümü Deneyin',
+    '000824': 'Uygulamayı İndir',
     '000825': 'Dosyayı İndir',
     '000826': 'PDF dosyasını buraya sürükleyin',
     '000828': 'Geçersiz dosya uzantısı.',
@@ -298,7 +298,7 @@ const aLang = {
     '001662': 'Ücretsiz Üyelik',
     '001663': 'VIP Üyeliğe Katılın',
     '001664': 'Başla',
-    '001665': 'Dosya, 10M maksimum boyut sınırlamasını aştığı için eklenemedi.10M\'den büyük dosyaları yönetmek isterseniz kısıtlamasız hizmet sunan LightPDF VIP üyeliğine geçebilirsiniz.',
+    '001665': 'Dosya, 5M maksimum boyut sınırlamasını aştığı için eklenemedi.5M\'den büyük dosyaları yönetmek isterseniz kısıtlamasız hizmet sunan LightPDF VIP üyeliğine geçebilirsiniz.',
     '001666': 'Maksimum Dosya Boyutu Aşıldı',
     '001667': 'Aylık',
     '001668': 'Çeyrek Dönem',
@@ -412,6 +412,8 @@ const aLang = {
     '002163': 'Tümünü seç',
     '002164': 'Network dosyaları',
     '002165': 'Yerel dosyalar',
+    '002166': 'Geçersiz dosya türü',
     '002167': 'Paylaş',
+    '002168': 'Satın Alımları Yeniden Yükle',
 };
 export default aLang;
